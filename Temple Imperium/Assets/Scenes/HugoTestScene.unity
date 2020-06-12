@@ -5039,9 +5039,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveTo: {x: 0, y: 0, z: 0}
   onLadder: 0
-  playerJump: 2
+  playerJump: 1.75
   mouseSensitivity: 250
-  playerSpeed: 7
+  playerSpeed: 6
   playerMass: 1
   isCrouching: 0
   gravConst: 9.81
