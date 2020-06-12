@@ -136,6 +136,7 @@ MonoBehaviour:
   transitionTime: 2.5
   enemySpeed: 3.5
   enemyHealth: 25
+  currentTarget: {fileID: 0}
   currentState: 0
   patrolPoints:
   - {fileID: 0}

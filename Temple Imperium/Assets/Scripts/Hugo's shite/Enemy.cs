@@ -29,6 +29,9 @@ public class Enemy : MonoBehaviour
     protected NavMeshAgent agent;
     protected GameObject player;
 
+    [SerializeField]
+    GameObject currentTarget;
+
     protected enum State
     {
         Idle,
@@ -109,7 +112,7 @@ public class Enemy : MonoBehaviour
         viewConeAngle = Vector3.Angle(playerVector.normalized * playerDist, transform.forward);
 
         RaycastHit hit;
-
+       
         if (playerDist < viewDistance && viewConeAngle < enemyViewAngle / 2 && Physics.Raycast(transform.position, playerVector.normalized, out hit, playerDist) && hit.transform.gameObject.CompareTag("Player"))
         {
             Debug.DrawRay(transform.position, playerVector.normalized * playerDist, Color.red, 0.25f, false);
@@ -119,12 +122,14 @@ public class Enemy : MonoBehaviour
             canSeePlayer = true;
 
             currentState = State.Engage;
+            currentTarget = hit.transform.gameObject;
 
         }
         else
         {
             canSeePlayer = false;
         }
+
     }
 
     public virtual void Engage()
@@ -160,10 +165,13 @@ public class Enemy : MonoBehaviour
         
     }
 
-    //Added by Joe:
+    //Added by Joe: //thank u Joe
     public void Damage(int hitPoints)
     {
         enemyHealth -= hitPoints;
+
+        Debug.Log("ENEMY " + gameObject.name + " HAS " + enemyHealth.ToString());
+
         if (enemyHealth <= 0)
         {
             Die();

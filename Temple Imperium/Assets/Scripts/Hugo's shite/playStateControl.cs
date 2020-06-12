@@ -12,9 +12,12 @@ public class playStateControl : MonoBehaviour
     public GameObject[] remainingEnemies;
     public Text timeRemaining;
 
+    public spawnerScript spawner;
+
     private void Start()
     {
-        gameObject.GetComponent<spawnerScript>().startWave(4f, 3, 2);
+        spawner = gameObject.GetComponent<spawnerScript>();
+        spawner.startWave(4f, 3, 2);
 
     }
 
@@ -48,7 +51,11 @@ public class playStateControl : MonoBehaviour
                 }
                 else
                 {
-                    checkRemainingEnemies();
+                    if(spawner.spawning == false)
+                    {
+                        checkRemainingEnemies();
+                    }
+                    
                     timeRemaining.text = ("Time remaining: " + (waveLength - waveTimer).ToString("F2"));
                 }
 
@@ -69,6 +76,7 @@ public class playStateControl : MonoBehaviour
     public void checkRemainingEnemies()
     {
         remainingEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+
         if(remainingEnemies.Length == 0)
         {
             current = waveState.waveComplete;
