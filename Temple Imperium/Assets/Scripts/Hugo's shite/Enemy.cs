@@ -59,6 +59,7 @@ public class Enemy : MonoBehaviour
 
     
     protected float enemyViewAngle = 120f;
+
     protected float playerDist;
     [SerializeField]
     protected float lookingCount = 0;
@@ -66,7 +67,7 @@ public class Enemy : MonoBehaviour
     public Enemy (float viewDist, float viewAngle, float transitionWait, float speed)
     {
         viewDistance = viewDist;
-        viewConeAngle = viewAngle;
+        enemyViewAngle = viewAngle;
         transitionTime = transitionWait;
         enemySpeed = speed;
     }
@@ -109,6 +110,7 @@ public class Enemy : MonoBehaviour
         Debug.DrawRay(transform.position, (transform.forward * viewDistance), Color.green);
 
         playerVector = player.transform.position - gameObject.transform.position;
+
         viewConeAngle = Vector3.Angle(playerVector.normalized * playerDist, transform.forward);
 
         RaycastHit hit;
