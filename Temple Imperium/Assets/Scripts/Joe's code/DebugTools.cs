@@ -56,6 +56,9 @@ public class DebugTools : MonoBehaviour
 
     public void ButtonSwitchCamera(bool player)
     {
+        if (cameraPlayer == null || cameraOverview == null)
+            return;
+
         cameraPlayer.enabled = player;
         cameraPlayer.gameObject.GetComponent<AudioListener>().enabled = player;
 

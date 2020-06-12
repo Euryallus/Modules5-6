@@ -15,13 +15,13 @@ MonoBehaviour:
   m_weaponName: Secondary Weapon
   m_gameObject: {fileID: 1828699209427079622, guid: e50f2b67a6dd90d4f8687e71b1cc82ac,
     type: 3}
-  m_visualOffset: {x: 0.48, y: -0.17, z: 0.34}
+  m_visualOffset: {x: 0.48, y: -0.17, z: 0.6}
   m_yRotation: -4
   m_minAttackDamage: 3
   m_maxAttackDamage: 4
   m_attackInterval: 0.2
   m_attackSound: Wilhelm
-  m_aimDownSightOffset: {x: 0, y: -0.17, z: 0.34}
+  m_aimDownSightOffset: {x: 0, y: -0.17, z: 0.6}
   m_fireParticles: {fileID: 748127710705125160, guid: 04046b32a0c3c98429c670cd7e52c353,
     type: 3}
   m_range: 15

@@ -55,7 +55,7 @@ public class GunWeapon : Weapon
             if (hitInfo.collider.gameObject.CompareTag("Enemy"))
             {
                 int damageAmount = Random.Range(m_template.GetMinAttackDamage(), m_template.GetMaxAttackDamage() + 1);
-                hitInfo.transform.GetComponent<BasicEnemy>().Damage(damageAmount);
+                hitInfo.transform.GetComponent<Enemy>().Damage(damageAmount);
                 UIManager.instance.ShowEnemyHitPopup(damageAmount, hitInfo.point);
             }
         }

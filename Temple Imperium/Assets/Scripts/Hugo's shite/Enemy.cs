@@ -21,6 +21,9 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     protected float enemySpeed;
 
+    [SerializeField]
+    protected float enemyHealth;
+
 
     //enemy base variables
     protected NavMeshAgent agent;
@@ -155,6 +158,21 @@ public class Enemy : MonoBehaviour
     public virtual void Investigate()
     {
         
+    }
+
+    //Added by Joe:
+    public void Damage(int hitPoints)
+    {
+        enemyHealth -= hitPoints;
+        if (enemyHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 
 }

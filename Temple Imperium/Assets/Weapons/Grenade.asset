@@ -15,7 +15,7 @@ MonoBehaviour:
   m_weaponName: Mr Grenade
   m_gameObject: {fileID: 428395080803917149, guid: 8fd1e359f1ca92943b31ba673bdb6669,
     type: 3}
-  m_visualOffset: {x: 0.48, y: -0.25, z: 0.44}
+  m_visualOffset: {x: 0.4, y: -0.25, z: 0.7}
   m_yRotation: -4
   m_minAttackDamage: 10
   m_maxAttackDamage: 15

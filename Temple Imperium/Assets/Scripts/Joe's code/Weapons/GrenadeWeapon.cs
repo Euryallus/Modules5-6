@@ -101,13 +101,15 @@ public class ThrownGrenade
         float explosionRadius = m_grenadeParent.m_grenadeTemplate.GetImpactRadius();
         float fragmentRadius = m_grenadeParent.m_grenadeTemplate.GetFragRadius();
 
+        Debug.Log(explosionRadius + " - " + fragmentRadius);
         Collider[] collidersInExplosionRad = Physics.OverlapSphere(impactPos, explosionRadius);
         Collider[] collidersInFragRad = Physics.OverlapSphere(impactPos, fragmentRadius);
 
         for (int i = 0; i < collidersInFragRad.Length; i++)
         {
             Rigidbody rigidbody = collidersInFragRad[i].GetComponent<Rigidbody>();
-            if(rigidbody != null)
+
+            if (rigidbody != null)
             {
                 //Colliders in explosion range
                 if (collidersInExplosionRad.Contains(collidersInFragRad[i]))
@@ -115,7 +117,7 @@ public class ThrownGrenade
                     if (rigidbody.gameObject.CompareTag("Enemy"))
                     {
                         int damageAmount = Random.Range(m_grenadeParent.m_template.GetMinAttackDamage(), m_grenadeParent.m_template.GetMaxAttackDamage() + 1);
-                        rigidbody.gameObject.GetComponent<BasicEnemy>().Damage(damageAmount);
+                        rigidbody.gameObject.GetComponent<Enemy>().Damage(damageAmount);
                         UIManager.instance.ShowEnemyHitPopup(damageAmount, rigidbody.gameObject.transform.position);
                     }
                     rigidbody.AddExplosionForce(600f, impactPos, explosionRadius);
@@ -126,16 +128,16 @@ public class ThrownGrenade
                     if (rigidbody.gameObject.CompareTag("Enemy"))
                     {
                         int damageAmount = m_grenadeParent.m_grenadeTemplate.GetFragDamage();
-                        rigidbody.gameObject.GetComponent<BasicEnemy>().Damage(damageAmount);
+                        rigidbody.gameObject.GetComponent<Enemy>().Damage(damageAmount);
                         UIManager.instance.ShowEnemyHitPopup(damageAmount, rigidbody.gameObject.transform.position);
                     }
                 }
             }
         }
 
-        Object.Destroy(m_goThrow);
+        SoundEffectPlayer.instance.PlaySoundEffect(m_grenadeParent.m_template.GetAttackSound(), true, m_goThrow.transform.position, 1f, 0.95f, 1.05f);
 
-        SoundEffectPlayer.instance.PlaySoundEffect(m_grenadeParent.m_template.GetAttackSound(), true, m_headPosition, 1f, 0.95f, 1.05f);
+        Object.Destroy(m_goThrow);
 
         m_grenadeParent.RemoveThrownGrenade(this);
     }
