@@ -101,7 +101,6 @@ public class ThrownGrenade
         float explosionRadius = m_grenadeParent.m_grenadeTemplate.GetImpactRadius();
         float fragmentRadius = m_grenadeParent.m_grenadeTemplate.GetFragRadius();
 
-        Debug.Log(explosionRadius + " - " + fragmentRadius);
         Collider[] collidersInExplosionRad = Physics.OverlapSphere(impactPos, explosionRadius);
         Collider[] collidersInFragRad = Physics.OverlapSphere(impactPos, fragmentRadius);
 

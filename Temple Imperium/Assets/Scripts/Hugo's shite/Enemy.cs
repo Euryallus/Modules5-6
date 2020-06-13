@@ -159,6 +159,7 @@ public class Enemy : MonoBehaviour
             }
         }
 
+        Debug.LogWarning(currentPatrolPoint + " - " + patrolPoints[currentPatrolPoint].position);
         agent.SetDestination(patrolPoints[currentPatrolPoint].position);
     }
 
@@ -171,8 +172,6 @@ public class Enemy : MonoBehaviour
     public void Damage(int hitPoints)
     {
         enemyHealth -= hitPoints;
-
-        Debug.Log("ENEMY " + gameObject.name + " HAS " + enemyHealth.ToString());
 
         if (enemyHealth <= 0)
         {
