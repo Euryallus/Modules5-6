@@ -10,6 +10,7 @@ TagManager:
   - PickUp
   - display
   - Ladder
+  - postProcessing
   layers:
   - Default
   - TransparentFX
