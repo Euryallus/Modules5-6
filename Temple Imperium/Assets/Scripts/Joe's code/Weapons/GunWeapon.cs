@@ -45,7 +45,7 @@ public class GunWeapon : Weapon
     }
 
     //Attack is called when the player shoots
-    public override void Attack(GameObject gunGameObject, GameObject prefabFireLight, Transform transformHead, bool buttonDown)
+    public override void Attack(WeaponAimInfo weaponAimInfo, GameObject gunGameObject, GameObject prefabFireLight, Transform transformHead, bool buttonDown)
     {
         if (!m_gunTemplate.GetContinuousFire() && !buttonDown)
         {
@@ -63,15 +63,15 @@ public class GunWeapon : Weapon
         }
         Object.Instantiate(prefabFireLight, parentMuzzle);
 
-        if (Physics.Raycast(transformHead.position, transformHead.forward, out RaycastHit hitInfo, m_gunTemplate.GetRange(), ~LayerMask.GetMask("Player")))
+        if (weaponAimInfo.m_raycastHit)
         {
-            Debug.Log("Gun fired, hit " + hitInfo.transform.name);
+            Debug.Log("Gun fired, hit " + weaponAimInfo.m_hitInfo.transform.name);
 
-            if (hitInfo.collider.gameObject.CompareTag("Enemy"))
+            if (weaponAimInfo.m_hitInfo.collider.gameObject.CompareTag("Enemy"))
             {
                 int damageAmount = Random.Range(m_template.GetMinAttackDamage(), m_template.GetMaxAttackDamage() + 1);
-                hitInfo.transform.GetComponent<Enemy>().Damage(damageAmount);
-                UIManager.instance.ShowEnemyHitPopup(damageAmount, hitInfo.point);
+                weaponAimInfo.m_hitInfo.transform.GetComponent<Enemy>().Damage(damageAmount);
+                UIManager.instance.ShowEnemyHitPopup(damageAmount, weaponAimInfo.m_hitInfo.point);
             }
         }
         else
@@ -79,7 +79,23 @@ public class GunWeapon : Weapon
             Debug.Log("Gun fired, hit nothing");
         }
 
-        if(m_loadedAmmo >= 0)
+        //if (Physics.Raycast(transformHead.position, transformHead.forward, out RaycastHit hitInfo, m_gunTemplate.GetRange(), ~LayerMask.GetMask("Player")))
+        //{
+        //    Debug.Log("Gun fired, hit " + hitInfo.transform.name);
+
+        //    if (hitInfo.collider.gameObject.CompareTag("Enemy"))
+        //    {
+        //        int damageAmount = Random.Range(m_template.GetMinAttackDamage(), m_template.GetMaxAttackDamage() + 1);
+        //        hitInfo.transform.GetComponent<Enemy>().Damage(damageAmount);
+        //        UIManager.instance.ShowEnemyHitPopup(damageAmount, hitInfo.point);
+        //    }
+        //}
+        //else
+        //{
+        //    Debug.Log("Gun fired, hit nothing");
+        //}
+
+        if (m_loadedAmmo >= 0)
         {
             m_loadedAmmo--;
         }

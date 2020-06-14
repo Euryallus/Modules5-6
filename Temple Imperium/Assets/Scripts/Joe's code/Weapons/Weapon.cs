@@ -15,7 +15,7 @@ public abstract class Weapon
         m_template = template;
     }
 
-    public abstract void Attack(GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown);
+    public abstract void Attack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown);
 
     public virtual bool ReadyToFire()
     {

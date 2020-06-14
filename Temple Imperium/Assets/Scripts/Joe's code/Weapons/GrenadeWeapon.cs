@@ -16,7 +16,7 @@ public class GrenadeWeapon : Weapon
     }
 
     //Attack is called when the grenade is thrown
-    public override void Attack(GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
+    public override void Attack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
     {
         m_attackIntervalTimer = m_template.GetAttackInterval();
 

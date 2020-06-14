@@ -10,15 +10,19 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     [Header("Prototype Weapon Properties")]
 
     [SerializeField]
-    [Tooltip("...")]
+    [Tooltip("The prefab beam GameObject to be spawned when this weapon is used")]
     private GameObject m_beamGameObject;
 
     [SerializeField]
-    [Tooltip("...")]
+    [Tooltip("Objects within this range can be hit")]
     private float m_range;
 
     [SerializeField]
-    [Tooltip("...")]
+    [Tooltip("How frequently damage is dealt when firing at an object (seconds)")]
+    private float m_damageInterval;
+
+    [SerializeField]
+    [Tooltip("Name of sound effect to be played when this weapon stops firing")]
     private string m_disableSound;
 
     #endregion
@@ -35,6 +39,10 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     public float GetRange()
     {
         return m_range;
+    }
+    public float GetDamageInterval()
+    {
+        return m_damageInterval;
     }
     public string GetDisableSound()
     {

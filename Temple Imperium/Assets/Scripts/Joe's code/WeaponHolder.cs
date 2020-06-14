@@ -16,6 +16,7 @@ public class WeaponHolder : MonoBehaviour
     public int ammo { get; set; } = 100;
     private Weapon[] availableWeapons;
     private GameObject goWeapon;
+    private WeaponAimInfo weaponAimInfo;
 
     private void Start()
     {
@@ -55,6 +56,8 @@ public class WeaponHolder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        weaponAimInfo = GetWeaponAimInfo();
+
         //Call Update on all weapons
         for (int i = 0; i < availableWeapons.Length; i++)
         {
@@ -86,7 +89,7 @@ public class WeaponHolder : MonoBehaviour
         {
             Vector3 targetWeaponPos = activeWeapon.m_template.GetVisualOffset();
 
-            Vector3 focusPoint = GetWeaponAimInfo().m_aimPoint;
+            Vector3 focusPoint = weaponAimInfo.m_aimPoint;
 
             Vector3 weaponLookDirection = focusPoint - goWeapon.transform.Find("AimPoint").position;
             Quaternion targetWeaponRotation = Quaternion.LookRotation(weaponLookDirection.normalized, goWeapon.transform.parent.up);
@@ -204,7 +207,7 @@ public class WeaponHolder : MonoBehaviour
     {
         if (activeWeapon.ReadyToFire())
         {
-            activeWeapon.Attack(goWeapon, prefabFireLight, transformHead, buttonDown);
+            activeWeapon.Attack(weaponAimInfo, goWeapon, prefabFireLight, transformHead, buttonDown);
         }
     }
     public void TryEndingWeaponUsage()
@@ -253,19 +256,18 @@ public class WeaponHolder : MonoBehaviour
 
         if (playerControlsWeapons)
         {
-            WeaponAimInfo aimInfo = GetWeaponAimInfo();
-            Vector3 focusPoint = aimInfo.m_aimPoint;
+            Vector3 focusPoint = weaponAimInfo.m_aimPoint;
 
-            if (aimInfo.m_raycastHit)
+            if (weaponAimInfo.m_raycastHit)
             {
                 Gizmos.color = Color.red;
-                Gizmos.DrawRay(transformHead.position, transformHead.forward * aimInfo.m_hitInfo.distance);
-                Gizmos.DrawSphere(aimInfo.m_hitInfo.point, 0.1f);
+                Gizmos.DrawRay(transformHead.position, transformHead.forward * weaponAimInfo.m_hitInfo.distance);
+                Gizmos.DrawSphere(weaponAimInfo.m_hitInfo.point, 0.1f);
             }
             else
             {
                 Gizmos.color = Color.yellow;
-                Gizmos.DrawRay(transformHead.position, transformHead.forward * aimInfo.m_maxDistance);
+                Gizmos.DrawRay(transformHead.position, transformHead.forward * weaponAimInfo.m_maxDistance);
             }
 
             Gizmos.color = Color.white;
