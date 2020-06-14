@@ -64,7 +64,7 @@ public class GunWeapon : Weapon
         }
         Object.Instantiate(prefabFireLight, parentMuzzle);
 
-        if (Physics.Raycast(transformHead.position, transformHead.forward, out RaycastHit hitInfo, m_gunTemplate.GetRange()))
+        if (Physics.Raycast(transformHead.position, transformHead.forward, out RaycastHit hitInfo, m_gunTemplate.GetRange(), ~LayerMask.GetMask("Player")))
         {
             Debug.Log("Gun fired, hit " + hitInfo.transform.name);
 

@@ -82,17 +82,22 @@ public class WeaponHolder : MonoBehaviour
 
     private void UpdateWeaponPosition()
     {
-        if ((activeWeapon is GunWeapon activeGun) && goWeapon != null)
+        if (goWeapon != null)
         {
-            Vector3 targetGunPos = activeGun.m_gunTemplate.GetVisualOffset();
-            Vector3 targetGunRotation = new Vector3(0f, activeGun.m_template.GetYRotation(), 0f);
-            if (Input.GetButton("Fire2"))
+            Vector3 targetWeaponPos = activeWeapon.m_template.GetVisualOffset();
+
+            Vector3 focusPoint = GetFocusPoint(out _, out _, out _);
+            Vector3 weaponLookDirection = focusPoint - goWeapon.transform.position;
+            Quaternion targetWeaponRotation = Quaternion.LookRotation(weaponLookDirection.normalized, goWeapon.transform.parent.up);
+            
+            if ((activeWeapon is GunWeapon activeGun) && Input.GetButton("Fire2"))
             {
-                targetGunPos = activeGun.m_gunTemplate.GetAimDownSightOffset();
-                targetGunRotation = Vector3.zero;
+                targetWeaponPos = activeGun.m_gunTemplate.GetAimDownSightOffset();
+                targetWeaponRotation = goWeapon.transform.parent.rotation;
             }
-            goWeapon.transform.localPosition = Vector3.Lerp(goWeapon.transform.localPosition, targetGunPos, Time.deltaTime * 20f);
-            goWeapon.transform.localRotation = Quaternion.Lerp(goWeapon.transform.localRotation, Quaternion.Euler(targetGunRotation), Time.deltaTime * 20f);
+
+            goWeapon.transform.localPosition = Vector3.Lerp(goWeapon.transform.localPosition, targetWeaponPos, Time.deltaTime * 20f);
+            goWeapon.transform.rotation = Quaternion.Lerp(goWeapon.transform.rotation, targetWeaponRotation, Time.deltaTime * 20f);
         }
     }
 
@@ -216,41 +221,61 @@ public class WeaponHolder : MonoBehaviour
         ammo += amount;
     }
 
+    private Vector3 GetFocusPoint(out bool raycastHit, out float maxDistance, out RaycastHit hitInfo)
+    {
+        maxDistance = 10f;
+        if (activeWeapon is GunWeapon activeGun)
+        {
+            maxDistance = activeGun.m_gunTemplate.GetRange();
+        }
+        else if (activeWeapon is MeleeWeapon activeMelee)
+        {
+            maxDistance = activeMelee.m_meleeTemplate.GetRange();
+        }
+        else if (activeWeapon is PrototypeWeapon activeProto)
+        {
+            maxDistance = activeProto.m_prototypeTemplate.GetRange();
+        }
+
+        if (Physics.Raycast(transformHead.position, transformHead.forward, out RaycastHit hit, maxDistance, ~LayerMask.GetMask("Player")))
+        {
+            Debug.Log(hit.collider.name);
+            raycastHit = true;
+            hitInfo = hit;
+            return hitInfo.point;
+        }
+        else
+        {
+            raycastHit = false;
+            hitInfo = new RaycastHit();
+            return transformHead.position + (transformHead.forward * maxDistance);
+        }
+    }
+
     private void OnDrawGizmos()
     {
         //Debug visualisation for weapon aiming
 
         if (playerControlsWeapons)
         {
-            float range = 1f;
-            if (activeWeapon is GunWeapon activeGun)
-            {
-                range = activeGun.m_gunTemplate.GetRange();
-            }
-            else if (activeWeapon is MeleeWeapon activeMelee)
-            {
-                range = activeMelee.m_meleeTemplate.GetRange();
-            }
+            Vector3 focusPoint = GetFocusPoint(out bool raycastHit, out float distance, out RaycastHit hitInfo);
 
-            Vector3 endPoint;
-            if (Physics.Raycast(transformHead.position, transformHead.forward, out RaycastHit hitInfo, range))
+            if (raycastHit)
             {
                 Gizmos.color = Color.red;
                 Gizmos.DrawRay(transformHead.position, transformHead.forward * hitInfo.distance);
                 Gizmos.DrawSphere(hitInfo.point, 0.1f);
-                endPoint = hitInfo.point;
             }
             else
             {
                 Gizmos.color = Color.yellow;
-                Gizmos.DrawRay(transformHead.position, transformHead.forward * range);
-                endPoint = transformHead.position + (transformHead.forward * range);
+                Gizmos.DrawRay(transformHead.position, transformHead.forward * distance);
             }
 
             Gizmos.color = Color.white;
-            Gizmos.DrawLine(transformHead.position, new Vector3(endPoint.x, transformHead.position.y, endPoint.z));
+            Gizmos.DrawLine(transformHead.position, new Vector3(focusPoint.x, transformHead.position.y, focusPoint.z));
             Gizmos.color = new Color(1f, 1f, 1f, 0.5f);
-            Gizmos.DrawLine(endPoint, new Vector3(endPoint.x, transformHead.position.y, endPoint.z));
+            Gizmos.DrawLine(focusPoint, new Vector3(focusPoint.x, transformHead.position.y, focusPoint.z));
         }
     }
 }

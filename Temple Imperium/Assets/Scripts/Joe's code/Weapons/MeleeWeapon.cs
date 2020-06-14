@@ -21,7 +21,7 @@ public class MeleeWeapon : Weapon
     {
         m_attackIntervalTimer = m_template.GetAttackInterval();
 
-        if (Physics.Raycast(transformHead.position, transformHead.forward, out RaycastHit hitInfo, m_meleeTemplate.GetRange()))
+        if (Physics.Raycast(transformHead.position, transformHead.forward, out RaycastHit hitInfo, m_meleeTemplate.GetRange(), ~LayerMask.GetMask("Player")))
         {
             Debug.Log("Attacking with melee weapon, hit " + hitInfo.transform.name);
 

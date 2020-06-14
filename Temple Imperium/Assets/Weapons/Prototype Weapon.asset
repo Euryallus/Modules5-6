@@ -23,5 +23,5 @@ MonoBehaviour:
   m_attackSound: Mario Powerup
   m_beamGameObject: {fileID: 7511509880288359812, guid: 23afc69613bb49241ba00545ce092524,
     type: 3}
-  m_range: 2
+  m_range: 10
   m_disableSound: Mario Hurt

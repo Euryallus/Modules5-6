@@ -30,6 +30,11 @@ public class PrototypeWeapon : Weapon
             {
                 m_damageMultiplier = MAX_DAMAGE_MULTIPLIER;
             }
+            if(m_goBeam != null)
+            {
+                float beamWidth = ((m_damageMultiplier - 1) * 0.9f) + 0.1f;
+                m_goBeam.transform.Find("Beam").localScale = new Vector3(beamWidth, m_prototypeTemplate.GetRange(), beamWidth);
+            }
         }
     }
 
@@ -65,12 +70,11 @@ public class PrototypeWeapon : Weapon
         m_beamOn = true;
         m_damageMultiplier = 1f;
 
-        //Create the beam and resize/position it based on range
+        //Create the beam and position it based on range
         m_goBeam = Object.Instantiate(m_prototypeTemplate.GetBeamGameObject(), weaponGameObject.transform.Find("Weapon").Find("Muzzle"));
         m_goBeam.transform.localPosition = Vector3.zero;
         m_goBeam.transform.localRotation = Quaternion.Euler( Vector3.zero );
         GameObject goBeamChild = m_goBeam.transform.Find("Beam").gameObject;
-        goBeamChild.transform.localScale = new Vector3(0.1f, m_prototypeTemplate.GetRange(), 0.1f);
         goBeamChild.transform.localPosition = new Vector3(0f, 0f, m_prototypeTemplate.GetRange());
 
         SoundEffectPlayer.instance.PlaySoundEffect(m_template.GetAttackSound(), true, transformHead.position, 1f, 0.95f, 1.05f);
