@@ -23,6 +23,10 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     protected float enemyHealth;
+    [SerializeField]
+    protected float regenPerSecond = 0.5f;
+    private float enemyMaxHealth;
+    private GameObject healthBar;
 
 
     //enemy base variables
@@ -79,6 +83,11 @@ public class Enemy : MonoBehaviour
         lastKnownPos = gameObject.transform.position;
         player = GameObject.FindGameObjectWithTag("Player");
         currentState = State.Patrol;
+
+        enemyMaxHealth = enemyHealth;
+        healthBar = transform.GetChild(0).gameObject;
+
+        StartCoroutine(regenHealth());
     }
 
     private void Update()
@@ -103,6 +112,10 @@ public class Enemy : MonoBehaviour
                 Engage();
                 break;
         }
+
+        float healthBarX = enemyHealth / enemyMaxHealth;
+        healthBar.transform.localScale = new Vector3(healthBarX, 1, 1);
+
     }
     public virtual void checkForPlayer()
     {
@@ -159,7 +172,6 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        Debug.LogWarning(currentPatrolPoint + " - " + patrolPoints[currentPatrolPoint].position);
         agent.SetDestination(patrolPoints[currentPatrolPoint].position);
     }
 
@@ -173,6 +185,8 @@ public class Enemy : MonoBehaviour
     {
         enemyHealth -= hitPoints;
 
+       // Debug.Log("ENEMY " + gameObject.name + " HAS " + enemyHealth.ToString());
+
         if (enemyHealth <= 0)
         {
             Die();
@@ -182,6 +196,17 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         Destroy(gameObject);
+    }
+
+    protected IEnumerator regenHealth()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+            enemyHealth += regenPerSecond;
+
+            Debug.LogError("REGEN");
+        }
     }
 
 }
