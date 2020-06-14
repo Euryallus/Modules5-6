@@ -74,7 +74,7 @@ public class playerHealth : MonoBehaviour
             damage = damage * (1-damageReductionPercent);
         }
 
-        healthBar.color = Color.Lerp(fullHealthColour, ZeroHealthColour, damage / health);
+        healthBar.color = Color.Lerp(healthBar.color, ZeroHealthColour, damage / health);
 
         health -= damage;
 
