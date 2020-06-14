@@ -86,7 +86,8 @@ public class WeaponHolder : MonoBehaviour
         {
             Vector3 targetWeaponPos = activeWeapon.m_template.GetVisualOffset();
 
-            Vector3 focusPoint = GetFocusPoint(out _, out _, out _);
+            Vector3 focusPoint = GetWeaponAimInfo().m_aimPoint;
+
             Vector3 weaponLookDirection = focusPoint - goWeapon.transform.Find("AimPoint").position;
             Quaternion targetWeaponRotation = Quaternion.LookRotation(weaponLookDirection.normalized, goWeapon.transform.parent.up);
             
@@ -175,7 +176,6 @@ public class WeaponHolder : MonoBehaviour
                 activeWeapon = weapon;
                 goWeapon = Instantiate(activeWeapon.m_template.GetGameObject(), transformHead);
                 goWeapon.transform.localPosition += activeWeapon.m_template.GetVisualOffset();
-                goWeapon.transform.localRotation = Quaternion.Euler(0f, activeWeapon.m_template.GetYRotation(), 0f);
                 SetHeldWeaponHidden(weapon.m_hideHeldWeapon);
             }
         }
@@ -221,9 +221,9 @@ public class WeaponHolder : MonoBehaviour
         ammo += amount;
     }
 
-    private Vector3 GetFocusPoint(out bool raycastHit, out float maxDistance, out RaycastHit hitInfo)
+    private WeaponAimInfo GetWeaponAimInfo()
     {
-        maxDistance = 10f;
+        float maxDistance = 10f;
         if (activeWeapon is GunWeapon activeGun)
         {
             maxDistance = activeGun.m_gunTemplate.GetRange();
@@ -239,15 +239,11 @@ public class WeaponHolder : MonoBehaviour
 
         if (Physics.Raycast(transformHead.position, transformHead.forward, out RaycastHit hit, maxDistance, ~LayerMask.GetMask("Player")))
         {
-            raycastHit = true;
-            hitInfo = hit;
-            return hitInfo.point;
+            return new WeaponAimInfo(hit.point, true, hit, maxDistance);
         }
         else
         {
-            raycastHit = false;
-            hitInfo = new RaycastHit();
-            return transformHead.position + (transformHead.forward * maxDistance);
+            return new WeaponAimInfo((transformHead.position + (transformHead.forward * maxDistance)), false, new RaycastHit(), maxDistance);
         }
     }
 
@@ -257,18 +253,19 @@ public class WeaponHolder : MonoBehaviour
 
         if (playerControlsWeapons)
         {
-            Vector3 focusPoint = GetFocusPoint(out bool raycastHit, out float distance, out RaycastHit hitInfo);
+            WeaponAimInfo aimInfo = GetWeaponAimInfo();
+            Vector3 focusPoint = aimInfo.m_aimPoint;
 
-            if (raycastHit)
+            if (aimInfo.m_raycastHit)
             {
                 Gizmos.color = Color.red;
-                Gizmos.DrawRay(transformHead.position, transformHead.forward * hitInfo.distance);
-                Gizmos.DrawSphere(hitInfo.point, 0.1f);
+                Gizmos.DrawRay(transformHead.position, transformHead.forward * aimInfo.m_hitInfo.distance);
+                Gizmos.DrawSphere(aimInfo.m_hitInfo.point, 0.1f);
             }
             else
             {
                 Gizmos.color = Color.yellow;
-                Gizmos.DrawRay(transformHead.position, transformHead.forward * distance);
+                Gizmos.DrawRay(transformHead.position, transformHead.forward * aimInfo.m_maxDistance);
             }
 
             Gizmos.color = Color.white;
@@ -276,5 +273,20 @@ public class WeaponHolder : MonoBehaviour
             Gizmos.color = new Color(1f, 1f, 1f, 0.5f);
             Gizmos.DrawLine(focusPoint, new Vector3(focusPoint.x, transformHead.position.y, focusPoint.z));
         }
+    }
+}
+
+public struct WeaponAimInfo
+{
+    public Vector3 m_aimPoint { get; private set; }
+    public bool m_raycastHit { get; private set; }
+    public RaycastHit m_hitInfo { get; private set; }
+    public float m_maxDistance { get; private set; }
+    public WeaponAimInfo(Vector3 aimPoint, bool raycastHit, RaycastHit hitInfo, float maxDistance)
+    {
+        m_aimPoint = aimPoint;
+        m_raycastHit = raycastHit;
+        m_hitInfo = hitInfo;
+        m_maxDistance = maxDistance;
     }
 }

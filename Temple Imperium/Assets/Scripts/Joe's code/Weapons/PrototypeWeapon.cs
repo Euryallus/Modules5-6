@@ -8,6 +8,7 @@ public class PrototypeWeapon : Weapon
 
     private bool m_beamOn;
     private float m_damageMultiplier = 1f;
+    private GameObject m_goWeapon;
     private GameObject m_goBeam;
 
     private const float MAX_DAMAGE_MULTIPLIER = 2f;
@@ -54,6 +55,9 @@ public class PrototypeWeapon : Weapon
 
     public override void Attack(GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
     {
+        m_attackIntervalTimer = m_template.GetAttackInterval();
+        m_goWeapon = weaponGameObject;
+
         //TODO: Remove tempStarStoneState and do a proper check for active star stone
         switch (tempStarStoneState)
         {
@@ -61,12 +65,12 @@ public class PrototypeWeapon : Weapon
                 DefaultAttack(weaponGameObject, prefabAttackLight, transformHead, buttonDown);
                 break;
         }
+
+        weaponGameObject.transform.Find("Weapon").GetComponent<Animator>().SetBool("Shooting", true);
     }
 
     private void DefaultAttack(GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
     {
-        m_attackIntervalTimer = m_template.GetAttackInterval();
-
         m_beamOn = true;
         m_damageMultiplier = 1f;
 
@@ -89,6 +93,10 @@ public class PrototypeWeapon : Weapon
             Object.Destroy(m_goBeam);
         }
 
+        if(m_goWeapon != null)
+        {
+            m_goWeapon.transform.Find("Weapon").GetComponent<Animator>().SetBool("Shooting", false);
+        }
         SoundEffectPlayer.instance.PlaySoundEffect(m_prototypeTemplate.GetDisableSound(), true, transformHead.position, 1f, 0.95f, 1.05f);
     }
 }

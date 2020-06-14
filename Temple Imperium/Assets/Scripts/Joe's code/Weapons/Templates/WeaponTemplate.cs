@@ -22,10 +22,6 @@ public class WeaponTemplate : ScriptableObject
     private Vector3 m_visualOffset;
 
     [SerializeField]
-    [Tooltip("The rotation of the weapon GameObject about the y axis")]
-    private float m_yRotation;
-
-    [SerializeField]
     [Tooltip("Minimum damage given to the enemy/player being attacked when they are hit")]
     private int m_minAttackDamage;
 
@@ -59,10 +55,6 @@ public class WeaponTemplate : ScriptableObject
     public Vector3 GetVisualOffset()
     {
         return m_visualOffset;
-    }
-    public float GetYRotation()
-    {
-        return m_yRotation;
     }
     public int GetMinAttackDamage()
     {
