@@ -87,7 +87,7 @@ public class WeaponHolder : MonoBehaviour
             Vector3 targetWeaponPos = activeWeapon.m_template.GetVisualOffset();
 
             Vector3 focusPoint = GetFocusPoint(out _, out _, out _);
-            Vector3 weaponLookDirection = focusPoint - goWeapon.transform.position;
+            Vector3 weaponLookDirection = focusPoint - goWeapon.transform.Find("AimPoint").position;
             Quaternion targetWeaponRotation = Quaternion.LookRotation(weaponLookDirection.normalized, goWeapon.transform.parent.up);
             
             if ((activeWeapon is GunWeapon activeGun) && Input.GetButton("Fire2"))
@@ -239,7 +239,6 @@ public class WeaponHolder : MonoBehaviour
 
         if (Physics.Raycast(transformHead.position, transformHead.forward, out RaycastHit hit, maxDistance, ~LayerMask.GetMask("Player")))
         {
-            Debug.Log(hit.collider.name);
             raycastHit = true;
             hitInfo = hit;
             return hitInfo.point;

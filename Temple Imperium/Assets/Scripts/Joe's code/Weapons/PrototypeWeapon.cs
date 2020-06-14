@@ -32,7 +32,7 @@ public class PrototypeWeapon : Weapon
             }
             if(m_goBeam != null)
             {
-                float beamWidth = ((m_damageMultiplier - 1) * 0.9f) + 0.1f;
+                float beamWidth = ((m_damageMultiplier - 1) * 0.4f);
                 m_goBeam.transform.Find("Beam").localScale = new Vector3(beamWidth, m_prototypeTemplate.GetRange(), beamWidth);
             }
         }
@@ -71,7 +71,7 @@ public class PrototypeWeapon : Weapon
         m_damageMultiplier = 1f;
 
         //Create the beam and position it based on range
-        m_goBeam = Object.Instantiate(m_prototypeTemplate.GetBeamGameObject(), weaponGameObject.transform.Find("Weapon").Find("Muzzle"));
+        m_goBeam = Object.Instantiate(m_prototypeTemplate.GetBeamGameObject(), weaponGameObject.transform.Find("AimPoint"));
         m_goBeam.transform.localPosition = Vector3.zero;
         m_goBeam.transform.localRotation = Quaternion.Euler( Vector3.zero );
         GameObject goBeamChild = m_goBeam.transform.Find("Beam").gameObject;

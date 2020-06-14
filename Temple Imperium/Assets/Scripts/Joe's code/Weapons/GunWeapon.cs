@@ -55,9 +55,8 @@ public class GunWeapon : Weapon
 
         m_attackIntervalTimer = m_template.GetAttackInterval();
 
-        Transform gunChildObject = gunGameObject.transform.Find("Gun");
         GameObject fireParticles = m_gunTemplate.GetFireParticles();
-        Transform parentMuzzle = gunChildObject.Find("Muzzle");
+        Transform parentMuzzle = gunGameObject.transform.Find("AimPoint");
         if (fireParticles != null)
         {
             Object.Instantiate(fireParticles, parentMuzzle);
@@ -89,7 +88,7 @@ public class GunWeapon : Weapon
             Debug.LogError("Shooting gun with no ammo (" + m_template.GetWeaponName() + ")");
         }
 
-        gunChildObject.GetComponent<Animator>().SetTrigger("Shoot");
+        gunGameObject.transform.Find("Gun").GetComponent<Animator>().SetTrigger("Shoot");
         SoundEffectPlayer.instance.PlaySoundEffect(m_template.GetAttackSound(), true, transformHead.position, 1f, 0.95f, 1.05f);
     }
 

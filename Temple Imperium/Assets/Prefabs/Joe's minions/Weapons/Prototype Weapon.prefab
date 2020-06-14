@@ -475,7 +475,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5157214918889438463}
   m_Layer: 0
-  m_Name: Muzzle
+  m_Name: AimPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -488,12 +488,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8020514278471980781}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.48}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.336}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 5577733339934940878}
-  m_RootOrder: 0
+  m_Father: {fileID: 8763783655434211029}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8308089644583479537
 GameObject:
@@ -716,7 +716,7 @@ Transform:
   - {fileID: 131643255976878180}
   - {fileID: 2981139795689434443}
   m_Father: {fileID: 5577733339934940878}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8886271250347736053
 GameObject:
@@ -749,7 +749,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.14, y: 0.14, z: 0.7}
   m_Children:
-  - {fileID: 5157214918889438463}
   - {fileID: 8152290659538052626}
   m_Father: {fileID: 8763783655434211029}
   m_RootOrder: 0
@@ -861,6 +860,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5577733339934940878}
+  - {fileID: 5157214918889438463}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
