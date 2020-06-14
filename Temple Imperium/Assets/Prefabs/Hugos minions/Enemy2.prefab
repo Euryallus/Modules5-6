@@ -447,7 +447,7 @@ MonoBehaviour:
   bulletBlueprint: {fileID: 5455800343749663860, guid: 686ed8badb4dcd7408efa577f7089a05,
     type: 3}
   bullet: {fileID: 0}
-  bulletSpeed: 5
+  bulletSpeed: 20
 --- !u!54 &7099004620036381338
 Rigidbody:
   m_ObjectHideFlags: 0
