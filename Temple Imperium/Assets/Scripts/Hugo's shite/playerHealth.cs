@@ -19,6 +19,12 @@ public class playerHealth : MonoBehaviour
         [SerializeField]
         private float health = 30;
         private float maxHealth;
+        [SerializeField]
+        private Color fullHealthColour;
+        [SerializeField]
+        private Color ZeroHealthColour;
+
+    
 
     public Image healthBar;
 
@@ -62,13 +68,13 @@ public class playerHealth : MonoBehaviour
 
     public void takeDamage(float damageTaken)
     {
-        
-
         float damage = damageTaken;
         if (shieldActive)
         {
             damage = damage * (1-damageReductionPercent);
         }
+
+        healthBar.color = Color.Lerp(fullHealthColour, ZeroHealthColour, damage / health);
 
         health -= damage;
 
