@@ -16,7 +16,6 @@ MonoBehaviour:
   m_gameObject: {fileID: 1828699209427079622, guid: e50f2b67a6dd90d4f8687e71b1cc82ac,
     type: 3}
   m_visualOffset: {x: 0.48, y: -0.17, z: 0.6}
-  m_yRotation: -4
   m_minAttackDamage: 3
   m_maxAttackDamage: 4
   m_attackInterval: 0.2
@@ -26,5 +25,5 @@ MonoBehaviour:
     type: 3}
   m_range: 15
   m_continuousFire: 0
-  m_magazineSize: 12
-  m_reloadTime: 0.9
+  m_magazineSize: 10
+  m_reloadTime: 1.8

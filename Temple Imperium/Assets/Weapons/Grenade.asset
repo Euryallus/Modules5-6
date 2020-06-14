@@ -16,17 +16,16 @@ MonoBehaviour:
   m_gameObject: {fileID: 428395080803917149, guid: 8fd1e359f1ca92943b31ba673bdb6669,
     type: 3}
   m_visualOffset: {x: 0.4, y: -0.25, z: 0.7}
-  m_yRotation: -4
   m_minAttackDamage: 10
   m_maxAttackDamage: 15
   m_attackInterval: 1.5
   m_attackSound: Seal Explosion
   m_throwGameObject: {fileID: 3447803797671081632, guid: 0730f1b736115c046b0d5eff07f15706,
     type: 3}
-  m_delay: 3
-  m_impactRadius: 3
-  m_fragRadius: 5
-  m_fragDamage: 4
+  m_delay: 1
+  m_impactRadius: 5
+  m_fragRadius: 7
+  m_fragDamage: 10
   m_throwSound: Seal
   m_explosionParticles: {fileID: 1033105548700199340, guid: bdfd7eaf0a077f94d8d97b529fd5362a,
     type: 3}

@@ -16,15 +16,14 @@ MonoBehaviour:
   m_gameObject: {fileID: 6931865346254655704, guid: 24e2043d46621c048b71637f39c3f6f1,
     type: 3}
   m_visualOffset: {x: 0.48, y: -0.25, z: 0.6}
-  m_yRotation: -4
-  m_minAttackDamage: 4
-  m_maxAttackDamage: 5
+  m_minAttackDamage: 3
+  m_maxAttackDamage: 4
   m_attackInterval: 0.1
   m_attackSound: Wilhelm
   m_aimDownSightOffset: {x: 0, y: -0.25, z: 0.6}
   m_fireParticles: {fileID: 748127710705125160, guid: 04046b32a0c3c98429c670cd7e52c353,
     type: 3}
-  m_range: 25
+  m_range: 20
   m_continuousFire: 1
-  m_magazineSize: 30
-  m_reloadTime: 1.6
+  m_magazineSize: 41
+  m_reloadTime: 3
