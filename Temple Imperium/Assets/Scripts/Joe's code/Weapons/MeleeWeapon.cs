@@ -16,7 +16,8 @@ public class MeleeWeapon : Weapon
         base.HeldUpdate();
     }
 
-    public void Attack(GameObject meleeGameObject, Transform transformHead)
+    //Attack is called when the weapon is used
+    public override void Attack(GameObject meleeGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
     {
         m_attackIntervalTimer = m_template.GetAttackInterval();
 

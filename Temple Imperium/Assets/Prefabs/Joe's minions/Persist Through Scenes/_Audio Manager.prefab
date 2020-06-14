@@ -50,5 +50,11 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 7bd3357820cd2ff4ba8b112f3173aaa8, type: 3}
   - name: Seal Explosion
     audioClip: {fileID: 8300000, guid: af03cc6272c34c0488052c1f7378ac51, type: 3}
+  - name: Mario Powerup
+    audioClip: {fileID: 8300000, guid: 5e674bd17329e73468cc80ad5855f27a, type: 3}
+  - name: Mario Hurt
+    audioClip: {fileID: 8300000, guid: 437718526b8e6f04689028af105af817, type: 3}
+  - name: Mario Burn
+    audioClip: {fileID: 8300000, guid: 160d7c39bda02834e8c5d5cbb71e83ec, type: 3}
   prefabSoundSource: {fileID: 2738532834754265132, guid: c053cf90b98ebd8438265eff97f52cff,
     type: 3}

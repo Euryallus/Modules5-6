@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon
+public abstract class Weapon
 {
     public WeaponHolder m_weaponHolder { get; private set; }
     public WeaponTemplate m_template { get; private set; }
@@ -13,6 +13,17 @@ public class Weapon
     {
         m_weaponHolder = weaponHolder;
         m_template = template;
+    }
+
+    public abstract void Attack(GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown);
+
+    public virtual bool ReadyToFire()
+    {
+        if(m_attackIntervalTimer <= 0)
+        {
+            return true;
+        }
+        return false;
     }
 
     protected void SetHideHeldWeapon(bool hideHeldWeapon)

@@ -41,10 +41,13 @@ public class WeaponHolder : MonoBehaviour
             {
                 availableWeapons[i] = new GrenadeWeapon(this, grenadeTemplate);
             }
+            else if (availableWeaponTemplates[i] is PrototypeWeaponTemplate prototypeTemplate)
+            {
+                availableWeapons[i] = new PrototypeWeapon(this, prototypeTemplate);
+            }
             else
             {
-                //TODO: Add support for other weapon types
-                availableWeapons[i] = new Weapon(this, availableWeaponTemplates[i]);
+                Debug.LogError("Unrecognised weapon type at setup: " + availableWeaponTemplates[i].GetWeaponName());
             }
         }
     }
@@ -187,29 +190,23 @@ public class WeaponHolder : MonoBehaviour
             bool buttonDown = Input.GetButtonDown("Fire1");
             TryUsingWeapon(buttonDown);
         }
+        else if (Input.GetButtonUp("Fire1"))
+        {
+            TryEndingWeaponUsage();
+        }
     }
     public void TryUsingWeapon(bool buttonDown)
     {
-        //Can't fire weapon if the attackIntervalTimer has not counted down, ensures a pause between each weapon use
-        if (activeWeapon.m_attackIntervalTimer <= 0)
+        if (activeWeapon.ReadyToFire())
         {
-            //Player is holding a gun with ammo that is not reloading
-            if ( (activeWeapon is GunWeapon activeGun) && (activeGun.m_loadedAmmo > 0) && (!activeGun.m_reloading) )
-            {
-                //Only shoot if continuous fire is enabled, OR continuous fire is disabled but the fire button was pressed down on this frame
-                if (((!activeGun.m_gunTemplate.GetContinuousFire()) && buttonDown) || (activeGun.m_gunTemplate.GetContinuousFire()))
-                {
-                    activeGun.Shoot(goWeapon, prefabFireLight, transformHead);
-                }
-            }
-            else if( (activeWeapon is MeleeWeapon activeMelee) && buttonDown )
-            {
-                activeMelee.Attack(goWeapon, transformHead);
-            }
-            else if ((activeWeapon is GrenadeWeapon activeGrenade) && buttonDown)
-            {
-                activeGrenade.Throw(transformHead);
-            }
+            activeWeapon.Attack(goWeapon, prefabFireLight, transformHead, buttonDown);
+        }
+    }
+    public void TryEndingWeaponUsage()
+    {
+        if(activeWeapon is PrototypeWeapon activeProto)
+        {
+            activeProto.DisableBeam(transformHead);
         }
     }
     #endregion
@@ -217,18 +214,6 @@ public class WeaponHolder : MonoBehaviour
     public void PickupAmmo(int amount)
     {
         ammo += amount;
-    }
-
-    private void OnValidate()
-    {
-        //If a value is changed in the inspector, try switching weapons in case a new one was dropped in
-        if (Application.isPlaying)
-        {
-            if(availableWeapons != null)
-            {
-                SwitchActiveWeapon(0, true);
-            }
-        }
     }
 
     private void OnDrawGizmos()

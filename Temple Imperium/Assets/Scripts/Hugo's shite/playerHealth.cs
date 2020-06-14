@@ -51,7 +51,10 @@ public class playerHealth : MonoBehaviour
             healthBarX = 0;
         }
 
-        healthBar.transform.localScale = new Vector3(healthBarX, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
+        if(healthBar != null)
+        {
+            healthBar.transform.localScale = new Vector3(healthBarX, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
+        }
     }
 
     public IEnumerator sheildDown()

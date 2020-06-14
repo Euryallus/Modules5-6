@@ -35,8 +35,24 @@ public class GunWeapon : Weapon
         }
     }
 
-    public void Shoot(GameObject gunGameObject, GameObject prefabFireLight, Transform transformHead)
+    public override bool ReadyToFire()
     {
+        if ( (base.ReadyToFire()) && (m_loadedAmmo > 0) && (!m_reloading) )
+        {
+            return true;
+        }
+        return false;
+    }
+
+    //Attack is called when the player shoots
+    public override void Attack(GameObject gunGameObject, GameObject prefabFireLight, Transform transformHead, bool buttonDown)
+    {
+        if (!m_gunTemplate.GetContinuousFire() && !buttonDown)
+        {
+            //If continuous fire is disabled and the mouse button was not pressed on this frame, do not fire
+            return;
+        }
+
         m_attackIntervalTimer = m_template.GetAttackInterval();
 
         Transform gunChildObject = gunGameObject.transform.Find("Gun");
