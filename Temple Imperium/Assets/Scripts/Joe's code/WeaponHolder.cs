@@ -92,8 +92,20 @@ public class WeaponHolder : MonoBehaviour
             Vector3 focusPoint = weaponAimInfo.m_aimPoint;
 
             Vector3 weaponLookDirection = focusPoint - goWeapon.transform.Find("AimPoint").position;
-            Quaternion targetWeaponRotation = Quaternion.LookRotation(weaponLookDirection.normalized, goWeapon.transform.parent.up);
-            
+            //Debug.Log( weaponAimInfo.m_hitInfo.distance );
+            Quaternion targetWeaponRotation;
+            //Rotate weapon to aim weapon at target
+            //  - unless distance to target is very low, to avoid weapons trying to aim backwards
+            if(weaponAimInfo.m_hitInfo.distance > 1.2f)
+            {
+                targetWeaponRotation = Quaternion.LookRotation(weaponLookDirection.normalized, goWeapon.transform.parent.up);
+            }
+            else
+            {
+                targetWeaponRotation = goWeapon.transform.parent.rotation;
+            }
+
+
             if ((activeWeapon is GunWeapon activeGun) && Input.GetButton("Fire2"))
             {
                 targetWeaponPos = activeGun.m_gunTemplate.GetAimDownSightOffset();

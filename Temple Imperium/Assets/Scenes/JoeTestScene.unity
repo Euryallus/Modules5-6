@@ -756,7 +756,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-160470
+  m_Name: pb_Mesh-11288
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1097,7 +1097,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-160398
+  m_Name: pb_Mesh-11216
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1711,7 +1711,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-160428
+  m_Name: pb_Mesh-11246
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4233,10 +4233,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 0}
-  hitObject: {fileID: 0}
-  pickUpItem: {fileID: 0}
-  display: {fileID: 0}
-  noteMenu: {fileID: 0}
 --- !u!4 &7362584271067085647
 Transform:
   m_ObjectHideFlags: 0
@@ -4352,19 +4348,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98e7ec45f4522774a80d25fa1f8dc914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTo: {x: 0, y: 0, z: 0}
-  onLadder: 0
   playerJump: 1.75
   mouseSensitivity: 250
   playerSpeed: 6
   playerMass: 1
-  isCrouching: 0
-  gravConst: 9.81
-  hasJumped: 0
-  playerCamera: {fileID: 7362584271561354506}
-  controller: {fileID: 0}
-  canClimb: 0
-  noteMenu: {fileID: 0}
+  sprintMag: 1.75
+  crouchSpeedReduction: 2
 --- !u!1 &7362584271067085653
 GameObject:
   m_ObjectHideFlags: 0
