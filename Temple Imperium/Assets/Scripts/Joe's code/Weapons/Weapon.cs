@@ -17,7 +17,8 @@ public abstract class Weapon
 
     public abstract void Attack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown);
 
-    public virtual void SwitchToWeapon() { }
+    public virtual void SwitchingToThisWeapon() { }
+    public virtual void SwitchingToOtherWeapon() { }
 
     public virtual bool ReadyToFire()
     {

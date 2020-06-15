@@ -92,7 +92,7 @@ public class GunWeapon : Weapon
         }
 
         gunGameObject.transform.Find("Gun").GetComponent<Animator>().SetTrigger("Shoot");
-        SoundEffectPlayer.instance.PlayStandardSoundEffect(m_template.GetAttackSound(), transformHead.position, 1f, 0.95f, 1.05f);
+        SoundEffectPlayer.instance.PlaySoundEffect3D(m_template.GetAttackSound(), transformHead.position, 1f, 0.95f, 1.05f);
     }
 
     private void StartReload()

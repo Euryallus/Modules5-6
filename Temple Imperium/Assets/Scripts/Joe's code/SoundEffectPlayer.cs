@@ -53,13 +53,8 @@ public class SoundEffectPlayer : MonoBehaviour
         }
     }
 
-    /// <summary> Plays a sound effect with the given name and parameters. </summary>
-    /// <param name="name">The name given to the target sound in the inspector.</param>
-    /// <param name="use3dSpace">Should this sound be treated as a 3D sound? Should be true for atmospheric sounds, false for UI.</param>
-    /// <param name="sourcePosition">If using 3D space, the sound will originate from this position. For 2D sounds, this can be set to any value.</param>
-    /// <param name="volume">The volume of the sound to be played.</param>
-    /// <param name="minPitch">The lowest pitch that can be used when playing the sound. A random value between minPitch and maxPitch will be chosen.</param>
-    /// <param name="maxPitch">The highest pitch that can be used when playing the sound. A random value between minPitch and maxPitch will be chosen.</param>
+    #region Playing/Stopping Sounds
+
     public void PlayGenericSoundEffect(string name, bool use3dSpace, Vector3 sourcePosition, float volume = 1f, float minPitch = 1f, float maxPitch = 1f, bool looping = false, string loopId = "")
     {
         if (!ready)
@@ -77,6 +72,8 @@ public class SoundEffectPlayer : MonoBehaviour
         maxPitch = Mathf.Clamp(maxPitch, minPitch, Mathf.Infinity);
 
         GameObject goSource = Instantiate(prefabSoundSource, sourcePosition, Quaternion.identity, transform);
+        goSource.name = "Sound_" + name;
+
         AudioSource audioSource = goSource.GetComponent<AudioSource>();
         audioSource.clip = soundEffectsDict[name];
         audioSource.pitch = UnityEngine.Random.Range(minPitch, maxPitch);
@@ -85,20 +82,56 @@ public class SoundEffectPlayer : MonoBehaviour
         {
             audioSource.spatialBlend = 1f;
         }
+        if (looping)
+        {
+            goSource.name = "LoopSound_" + loopId;
+            audioSource.loop = true;
+        }
         audioSource.Play();
     }
-    public void PlayStandardSoundEffect(string name, Vector3 sourcePosition, float volume = 1f, float minPitch = 1f, float maxPitch = 1f)
+    /// <summary> Plays a sound effect in 3D space with the given name and parameters. </summary>
+    /// <param name="name">The name given to the target sound in the inspector.</param>
+    /// <param name="sourcePosition">The position in the scene that the sound will originate from.</param>
+    /// <param name="volume">The volume of the sound to be played.</param>
+    /// <param name="minPitch">The lowest pitch that can be used when playing the sound. A random value between minPitch and maxPitch will be chosen.</param>
+    /// <param name="maxPitch">The highest pitch that can be used when playing the sound. A random value between minPitch and maxPitch will be chosen.</param>
+    public void PlaySoundEffect3D(string name, Vector3 sourcePosition, float volume = 1f, float minPitch = 1f, float maxPitch = 1f)
     {
         PlayGenericSoundEffect(name, true, sourcePosition, volume, minPitch, maxPitch);
     }
-    public void PlayUISoundEffect(string name, float volume = 1f, float minPitch = 1f, float maxPitch = 1f)
+    /// <summary> Plays a sound effect using a 2D source with the given name and parameters. </summary>
+    /// <param name="name">The name given to the target sound in the inspector.</param>
+    /// <param name="volume">The volume of the sound to be played.</param>
+    /// <param name="minPitch">The lowest pitch that can be used when playing the sound. A random value between minPitch and maxPitch will be chosen.</param>
+    /// <param name="maxPitch">The highest pitch that can be used when playing the sound. A random value between minPitch and maxPitch will be chosen.</param>
+    public void PlaySoundEffect2D(string name, float volume = 1f, float minPitch = 1f, float maxPitch = 1f)
     {
         PlayGenericSoundEffect(name, false, Vector3.zero, volume, minPitch, maxPitch);
     }
-    public void PlayLoopingSoundEffect(string name, Vector3 sourcePosition, string loopId, float volume = 1f, float minPitch = 1f, float maxPitch = 1f)
+    /// <summary> Plays a sound effect that will loop until StopLoopingSoundEffect is called with the given loopId. </summary>
+    /// <param name="name">The name given to the target sound in the inspector.</param>
+    /// <param name="use3dSpace">Changes whether this sound will use a 2D or 3D audio source.</param>
+    /// <param name="sourcePosition">The position in the scene that the sound will originate from. Can be set to any value for 2D sounds.</param>
+    /// <param name="loopId">A unique id given to this sound that can be used to stop it from playing.</param>
+    /// <param name="volume">The volume of the sound to be played.</param>
+    /// <param name="minPitch">The lowest pitch that can be used when playing the sound. A random value between minPitch and maxPitch will be chosen.</param>
+    /// <param name="maxPitch">The highest pitch that can be used when playing the sound. A random value between minPitch and maxPitch will be chosen.</param>
+    public void PlayLoopingSoundEffect(string name, bool use3dSpace, Vector3 sourcePosition, string loopId, float volume = 1f, float minPitch = 1f, float maxPitch = 1f)
     {
-        PlayGenericSoundEffect(name, true, sourcePosition, volume, minPitch, maxPitch, true, loopId);
+        PlayGenericSoundEffect(name, use3dSpace, sourcePosition, volume, minPitch, maxPitch, true, loopId);
     }
+    /// <summary> Stops a looping sound with loopId from playing. </summary>
+    /// <param name="loopId">A unique id that was given to the target sound when PlayLoopingSoundEffect was called.</param>
+    public void StopLoopingSoundEffect(string loopId)
+    {
+        GameObject goLoopSource = GameObject.Find("LoopSound_" + loopId);
+        if(goLoopSource != null)
+        {
+            Destroy(goLoopSource);
+        }
+    }
+
+    #endregion
 
     private IEnumerator SoundSourceCleanupCoroutine()
     {
