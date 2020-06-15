@@ -25,5 +25,6 @@ MonoBehaviour:
     type: 3}
   m_range: 20
   m_continuousFire: 1
+  m_totalStartAmmo: 350
   m_magazineSize: 41
   m_reloadTime: 3

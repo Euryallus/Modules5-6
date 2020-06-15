@@ -10,6 +10,10 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     [Header("Prototype Weapon Properties")]
 
     [SerializeField]
+    [Tooltip("The offset of the weapon GameObject from its parent when aiming down sights")]
+    private Vector3 m_aimDownSightOffset;
+
+    [SerializeField]
     [Tooltip("The prefab beam GameObject to be spawned when this weapon is used")]
     private GameObject m_beamGameObject;
 
@@ -32,6 +36,10 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     //Getters
     //=======
 
+    public Vector3 GetAimDownSightOffset()
+    {
+        return m_aimDownSightOffset;
+    }
     public GameObject GetBeamGameObject()
     {
         return m_beamGameObject;

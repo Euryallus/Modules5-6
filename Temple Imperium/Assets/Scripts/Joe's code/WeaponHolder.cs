@@ -97,6 +97,12 @@ public class WeaponHolder : MonoBehaviour
                 targetWeaponRotation = goWeapon.transform.parent.rotation;
                 rotationChanged = true;
             }
+            else if ((activeWeapon is PrototypeWeapon activeProto) && Input.GetButton("Fire2"))
+            {
+                targetWeaponPos = activeProto.m_prototypeTemplate.GetAimDownSightOffset();
+                targetWeaponRotation = goWeapon.transform.parent.rotation;
+                rotationChanged = true;
+            }
             else
             {
                 targetWeaponPos = activeWeapon.m_template.GetVisualOffset();
@@ -251,7 +257,6 @@ public class WeaponHolder : MonoBehaviour
         }
         else if (activeWeapon is PrototypeWeapon activeProto)
         {
-            Debug.Log(activeProto.m_prototypeTemplate.GetRange());
             maxDistance = activeProto.m_prototypeTemplate.GetRange();
         }
 
