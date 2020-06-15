@@ -17,7 +17,7 @@ public class playStateControl : MonoBehaviour
     private void Start()
     {
         spawner = gameObject.GetComponent<spawnerScript>();
-        spawner.startWave(4f, 3, 2);
+        //spawner.startWave(4f, 3, 2);
 
     }
 

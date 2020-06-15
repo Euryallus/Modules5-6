@@ -19,10 +19,10 @@ public class Enemy : MonoBehaviour
     protected float transitionTime;
 
     [SerializeField]
-    protected float enemySpeed;
+    public float enemySpeed;
 
     [SerializeField]
-    protected float enemyHealth;
+    public float enemyHealth;
     [SerializeField]
     protected float regenPerSecond = 0.5f;
     private float enemyMaxHealth;

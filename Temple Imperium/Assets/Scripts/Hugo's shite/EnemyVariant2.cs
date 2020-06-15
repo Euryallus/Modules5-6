@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyVariant2 : Enemy
 {
     private float bulletSpawnCount = 0;
-    private float bulletSpawnRate = 2f;
+    public float bulletSpawnRate = 2f;
 
     public GameObject bulletBlueprint;
     public GameObject bullet;
