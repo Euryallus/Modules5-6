@@ -20,4 +20,5 @@ MonoBehaviour:
   m_maxAttackDamage: 35
   m_attackInterval: 3
   m_attackSound: Seal
+  m_attackSoundVolume: 1
   m_range: 5
