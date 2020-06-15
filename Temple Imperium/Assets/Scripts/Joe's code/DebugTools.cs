@@ -10,8 +10,8 @@ public class DebugTools : MonoBehaviour
     public Camera cameraPlayer;
     public Image imgCrosshair;
     public TextMeshProUGUI textWeaponName;
-    public TextMeshProUGUI textTotalAmmo;
-    public TextMeshProUGUI textLoadedAmmo;
+    public TextMeshProUGUI textInfo1;
+    public TextMeshProUGUI textInfo2;
 
     // Start is called before the first frame update
     void Start()
@@ -32,15 +32,22 @@ public class DebugTools : MonoBehaviour
                 {
                     textWeaponName.text += " (Reloading)";
                 }
-                textTotalAmmo.gameObject.SetActive(true);
-                textLoadedAmmo.gameObject.SetActive(true);
-                textTotalAmmo.text = "Ammo: " + weaponHolder.ammo;
-                textLoadedAmmo.text = "Loaded ammo: " + gun.m_loadedAmmo + "/" + gun.m_gunTemplate.GetMagazineSize();
+                textInfo1.gameObject.SetActive(true);
+                textInfo2.gameObject.SetActive(true);
+                textInfo1.text = "Ammo: " + gun.m_totalAmmo;
+                textInfo2.text = "Loaded ammo: " + gun.m_loadedAmmo + "/" + gun.m_gunTemplate.GetMagazineSize();
+            }
+            else if(weaponHolder.activeWeapon is GrenadeWeapon grenade)
+            {
+                textInfo1.gameObject.SetActive(true);
+                textInfo2.gameObject.SetActive(true);
+                textInfo1.text = "Grenades remaining: " + grenade.m_grenadeCount;
+                textInfo2.text = "(Press G to add a grenade)";
             }
             else
             {
-                textTotalAmmo.gameObject.SetActive(false);
-                textLoadedAmmo.gameObject.SetActive(false);
+                textInfo1.gameObject.SetActive(false);
+                textInfo2.gameObject.SetActive(false);
             }
         }
 

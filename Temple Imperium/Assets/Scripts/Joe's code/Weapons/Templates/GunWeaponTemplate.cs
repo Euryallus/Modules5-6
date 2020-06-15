@@ -26,6 +26,10 @@ public class GunWeaponTemplate : WeaponTemplate
     private bool m_continuousFire;
 
     [SerializeField]
+    [Tooltip("Total ammo for this gun on level start")]
+    private int m_totalStartAmmo;
+
+    [SerializeField]
     [Tooltip("Number of available bullets after reloading")]
     private int m_magazineSize;
 
@@ -55,6 +59,10 @@ public class GunWeaponTemplate : WeaponTemplate
     public bool GetContinuousFire()
     {
         return m_continuousFire;
+    }
+    public int GetTotalStartAmmo()
+    {
+        return m_totalStartAmmo;
     }
     public int GetMagazineSize()
     {

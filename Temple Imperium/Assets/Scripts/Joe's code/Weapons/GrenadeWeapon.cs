@@ -6,6 +6,7 @@ using UnityEngine;
 public class GrenadeWeapon : Weapon
 {
     public GrenadeWeaponTemplate m_grenadeTemplate { get; private set; }
+    public int m_grenadeCount { get; private set; }
 
     private GameObject m_goThrow;
     private List<ThrownGrenade> m_thrownGrenades = new List<ThrownGrenade>();
@@ -13,11 +14,23 @@ public class GrenadeWeapon : Weapon
     public GrenadeWeapon(WeaponHolder weaponHolder, GrenadeWeaponTemplate template) : base(weaponHolder, template)
     {
         m_grenadeTemplate = template;
+        m_grenadeCount = template.GetStartCount();
+    }
+
+    public override bool ReadyToFire()
+    {
+        if(base.ReadyToFire() && m_grenadeCount > 0)
+        {
+            return true;
+        }
+        return false;
     }
 
     //Attack is called when the grenade is thrown
     public override void Attack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
     {
+        m_grenadeCount--;
+
         m_attackIntervalTimer = m_template.GetAttackInterval();
 
         SetHideHeldWeapon(true);
@@ -26,7 +39,7 @@ public class GrenadeWeapon : Weapon
         m_goThrow = Object.Instantiate(m_grenadeTemplate.GetThrowGameObject(), transformHead);
         m_goThrow.transform.localPosition += new Vector3(0f, 0f, m_template.GetVisualOffset().z);
         m_goThrow.transform.SetParent(null);
-        m_goThrow.GetComponent<Rigidbody>().velocity = transformHead.forward * 12f; //TODO: Make this an inspector field
+        m_goThrow.GetComponent<Rigidbody>().velocity = transformHead.forward * m_grenadeTemplate.GetThrowVelocity();
 
         m_thrownGrenades.Add(new ThrownGrenade(this, m_goThrow, m_grenadeTemplate.GetDelay(), transformHead.position));
 
@@ -47,9 +60,15 @@ public class GrenadeWeapon : Weapon
     {
         base.HeldUpdate();
 
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            m_grenadeCount++;
+        }
+
+
         if(m_attackIntervalTimer <= 0)
         {
-            if (m_hideHeldWeapon)
+            if (m_hideHeldWeapon && m_grenadeCount > 0)
             {
                 SetHideHeldWeapon(false);
             }

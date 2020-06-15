@@ -13,7 +13,7 @@ public class WeaponHolder : MonoBehaviour
     public Transform transformHead;
     public GameObject prefabFireLight;
 
-    public int ammo { get; set; } = 100;
+    //public int ammo { get; set; } = 100;
     private Weapon[] availableWeapons;
     private GameObject goWeapon;
     private WeaponAimInfo weaponAimInfo;
@@ -73,11 +73,6 @@ public class WeaponHolder : MonoBehaviour
 
         if (playerControlsWeapons)
         {
-            //DELETE ME :: DEBUG AMMO INCREASE
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                ammo += 10;
-            }
             CheckForWeaponSwitchInput();
             CheckForAttackInput();
             UpdateWeaponPosition();
@@ -94,6 +89,12 @@ public class WeaponHolder : MonoBehaviour
             if ((activeWeapon is GunWeapon activeGun) && Input.GetButton("Fire2"))
             {
                 targetWeaponPos = activeGun.m_gunTemplate.GetAimDownSightOffset();
+                targetWeaponRotation = goWeapon.transform.parent.rotation;
+                rotationChanged = true;
+            }
+            else if ((activeWeapon is PrototypeWeapon activeProto) && Input.GetButton("Fire2"))
+            {
+                targetWeaponPos = activeProto.m_prototypeTemplate.GetAimDownSightOffset();
                 targetWeaponRotation = goWeapon.transform.parent.rotation;
                 rotationChanged = true;
             }
@@ -233,9 +234,16 @@ public class WeaponHolder : MonoBehaviour
     }
     #endregion
 
-    public void PickupAmmo(int amount)
+    public void PickupAmmo(int amount, GunWeaponTemplate gunType)
     {
-        ammo += amount;
+        for (int i = 0; i < availableWeapons.Length; i++)
+        {
+            if(availableWeapons[i].m_template == gunType)
+            {
+                ((GunWeapon)availableWeapons[i]).AddAmmo(amount);
+                return;
+            }
+        }
     }
 
     private WeaponAimInfo GetWeaponAimInfo()
@@ -251,7 +259,6 @@ public class WeaponHolder : MonoBehaviour
         }
         else if (activeWeapon is PrototypeWeapon activeProto)
         {
-            Debug.Log(activeProto.m_prototypeTemplate.GetRange());
             maxDistance = activeProto.m_prototypeTemplate.GetRange();
         }
 
