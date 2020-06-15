@@ -44,15 +44,6 @@ public class PrototypeWeapon : Weapon
         base.Update();
     }
 
-    //public override bool ReadyToFire()
-    //{
-    //    if(base.ReadyToFire() && !m_beamOn)
-    //    {
-    //        return true;
-    //    }
-    //    return false;
-    //}
-
     public override void Attack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
     {
         m_attackIntervalTimer = m_template.GetAttackInterval();
@@ -127,7 +118,7 @@ public class PrototypeWeapon : Weapon
         SoundEffectPlayer.instance.PlaySoundEffect(m_prototypeTemplate.GetDisableSound(), true, transformHead.position, 1f, 0.95f, 1.05f);
     }
 
-    private float RemapNumber(float value, float lower, float upper, float newLower, float newUpper)
+    private static float RemapNumber(float value, float lower, float upper, float newLower, float newUpper)
     {
         return (value - lower) / (upper - lower) * (newUpper - newLower) + newLower;
     }
