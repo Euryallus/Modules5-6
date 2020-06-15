@@ -34,7 +34,7 @@ public class PrototypeWeapon : Weapon
             if(m_goBeam != null)
             {
                 float beamWidth = (m_damageCharge * 0.4f);
-                m_goBeam.transform.Find("Beam").localScale = new Vector3(beamWidth, m_prototypeTemplate.GetRange(), beamWidth);
+                m_goBeam.transform.Find("Beam").localScale = new Vector3(beamWidth, (m_prototypeTemplate.GetRange() / 2f) - 0.5f, beamWidth);
             }
         }
     }
@@ -73,7 +73,7 @@ public class PrototypeWeapon : Weapon
             m_goBeam.transform.localPosition = Vector3.zero;
             m_goBeam.transform.localRotation = Quaternion.Euler(Vector3.zero);
             GameObject goBeamChild = m_goBeam.transform.Find("Beam").gameObject;
-            goBeamChild.transform.localPosition = new Vector3(0f, 0f, m_prototypeTemplate.GetRange());
+            goBeamChild.transform.localPosition = new Vector3(0f, 0f, (m_prototypeTemplate.GetRange() / 2f) - 0.5f);
 
             SoundEffectPlayer.instance.PlaySoundEffect(m_template.GetAttackSound(), true, transformHead.position, 1f, 0.95f, 1.05f);
         }
