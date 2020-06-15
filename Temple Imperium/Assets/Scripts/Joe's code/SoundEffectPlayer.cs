@@ -60,7 +60,7 @@ public class SoundEffectPlayer : MonoBehaviour
     /// <param name="volume">The volume of the sound to be played.</param>
     /// <param name="minPitch">The lowest pitch that can be used when playing the sound. A random value between minPitch and maxPitch will be chosen.</param>
     /// <param name="maxPitch">The highest pitch that can be used when playing the sound. A random value between minPitch and maxPitch will be chosen.</param>
-    public void PlaySoundEffect(string name, bool use3dSpace, Vector3 sourcePosition, float volume = 1f, float minPitch = 1f, float maxPitch = 1f)
+    public void PlayGenericSoundEffect(string name, bool use3dSpace, Vector3 sourcePosition, float volume = 1f, float minPitch = 1f, float maxPitch = 1f, bool looping = false, string loopId = "")
     {
         if (!ready)
         {
@@ -87,7 +87,18 @@ public class SoundEffectPlayer : MonoBehaviour
         }
         audioSource.Play();
     }
-
+    public void PlayStandardSoundEffect(string name, Vector3 sourcePosition, float volume = 1f, float minPitch = 1f, float maxPitch = 1f)
+    {
+        PlayGenericSoundEffect(name, true, sourcePosition, volume, minPitch, maxPitch);
+    }
+    public void PlayUISoundEffect(string name, float volume = 1f, float minPitch = 1f, float maxPitch = 1f)
+    {
+        PlayGenericSoundEffect(name, false, Vector3.zero, volume, minPitch, maxPitch);
+    }
+    public void PlayLoopingSoundEffect(string name, Vector3 sourcePosition, string loopId, float volume = 1f, float minPitch = 1f, float maxPitch = 1f)
+    {
+        PlayGenericSoundEffect(name, true, sourcePosition, volume, minPitch, maxPitch, true, loopId);
+    }
 
     private IEnumerator SoundSourceCleanupCoroutine()
     {

@@ -81,7 +81,7 @@ public class PrototypeWeapon : Weapon
             GameObject goBeamChild = m_goBeam.transform.Find("Beam").gameObject;
             goBeamChild.transform.localPosition = new Vector3(0f, 0f, (m_prototypeTemplate.GetRange() / 2f) - 0.5f);
 
-            SoundEffectPlayer.instance.PlaySoundEffect(m_template.GetAttackSound(), true, transformHead.position, 1f, 0.95f, 1.05f);
+            SoundEffectPlayer.instance.PlayStandardSoundEffect(m_template.GetAttackSound(), transformHead.position, 1f, 0.95f, 1.05f);
         }
 
         if(m_damageTimer <= 0)
@@ -121,7 +121,7 @@ public class PrototypeWeapon : Weapon
         {
             m_goWeapon.transform.Find("Weapon").GetComponent<Animator>().SetBool("Shooting", false);
         }
-        SoundEffectPlayer.instance.PlaySoundEffect(m_prototypeTemplate.GetDisableSound(), true, transformHead.position, 1f, 0.95f, 1.05f);
+        SoundEffectPlayer.instance.PlayStandardSoundEffect(m_prototypeTemplate.GetDisableSound(), transformHead.position, 1f, 0.95f, 1.05f);
     }
 
     private static float RemapNumber(float value, float lower, float upper, float newLower, float newUpper)
