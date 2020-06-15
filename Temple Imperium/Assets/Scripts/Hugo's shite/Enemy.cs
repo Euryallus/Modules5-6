@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     protected float regenPerSecond = 0.5f;
     private float enemyMaxHealth;
+    [SerializeField]
     private GameObject healthBar;
 
     private float secondsPassed = 0;
@@ -115,9 +116,6 @@ public class Enemy : MonoBehaviour
                 break;
         }
 
-        float healthBarX = enemyHealth / enemyMaxHealth;
-        healthBar.transform.localScale = new Vector3(healthBarX, 1, 1);
-
         //gameObject.GetComponent<Rigidbody>().angularVelocity = new Vector3(0,0,0);
 
     }
@@ -189,7 +187,10 @@ public class Enemy : MonoBehaviour
     {
         enemyHealth -= hitPoints;
 
-       // Debug.Log("ENEMY " + gameObject.name + " HAS " + enemyHealth.ToString());
+        float healthBarX = enemyHealth / enemyMaxHealth;
+        healthBar.transform.localScale = new Vector3(healthBarX, 1, 1);
+
+        // Debug.Log("ENEMY " + gameObject.name + " HAS " + enemyHealth.ToString());
 
         if (enemyHealth <= 0)
         {
@@ -232,8 +233,6 @@ public class Enemy : MonoBehaviour
                 transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Stop();
             }
 
-            float healthBarX = enemyHealth / enemyMaxHealth;
-            healthBar.transform.localScale = new Vector3(healthBarX, 1, 1);
         }
 
     }

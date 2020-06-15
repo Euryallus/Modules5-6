@@ -5181,6 +5181,9 @@ MonoBehaviour:
   - {fileID: 0}
   canSeePlayer: 0
   lookingCount: 0
+  meleeDistance: 2
+  meleeHitDamage: 5
+  hitInterval: 1
 --- !u!195 &9209157375183940789
 NavMeshAgent:
   m_ObjectHideFlags: 0

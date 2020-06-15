@@ -580,7 +580,7 @@ PrefabInstance:
     - target: {fileID: 9209157375183940784, guid: 8cd0d89eb70157a4882c16db93c0c1a1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.902079
+      value: -8.62
       objectReference: {fileID: 0}
     - target: {fileID: 9209157375183940784, guid: 8cd0d89eb70157a4882c16db93c0c1a1,
         type: 3}
@@ -590,7 +590,7 @@ PrefabInstance:
     - target: {fileID: 9209157375183940784, guid: 8cd0d89eb70157a4882c16db93c0c1a1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.9224386
+      value: 3.07
       objectReference: {fileID: 0}
     - target: {fileID: 9209157375183940784, guid: 8cd0d89eb70157a4882c16db93c0c1a1,
         type: 3}
@@ -630,16 +630,6 @@ PrefabInstance:
     - target: {fileID: 9209157375183940784, guid: 8cd0d89eb70157a4882c16db93c0c1a1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9209157375183940789, guid: 8cd0d89eb70157a4882c16db93c0c1a1,
-        type: 3}
-      propertyPath: m_StoppingDistance
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9209157375183940789, guid: 8cd0d89eb70157a4882c16db93c0c1a1,
-        type: 3}
-      propertyPath: m_AutoBraking
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9209157375183940794, guid: 8cd0d89eb70157a4882c16db93c0c1a1,
@@ -9007,7 +8997,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-153502
+  m_Name: pb_Mesh-1218
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
