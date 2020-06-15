@@ -37,6 +37,13 @@ public class DebugTools : MonoBehaviour
                 textInfo1.text = "Ammo: " + weaponHolder.ammo;
                 textInfo2.text = "Loaded ammo: " + gun.m_loadedAmmo + "/" + gun.m_gunTemplate.GetMagazineSize();
             }
+            else if(weaponHolder.activeWeapon is GrenadeWeapon grenade)
+            {
+                textInfo1.gameObject.SetActive(true);
+                textInfo2.gameObject.SetActive(true);
+                textInfo1.text = "Grenades remaining: " + grenade.m_grenadeCount;
+                textInfo2.text = "(Press G to add a grenade)";
+            }
             else
             {
                 textInfo1.gameObject.SetActive(false);

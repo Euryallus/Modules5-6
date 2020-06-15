@@ -6,10 +6,10 @@ using UnityEngine;
 public class GrenadeWeapon : Weapon
 {
     public GrenadeWeaponTemplate m_grenadeTemplate { get; private set; }
+    public int m_grenadeCount { get; private set; }
 
     private GameObject m_goThrow;
     private List<ThrownGrenade> m_thrownGrenades = new List<ThrownGrenade>();
-    private int m_grenadeCount;
 
     public GrenadeWeapon(WeaponHolder weaponHolder, GrenadeWeaponTemplate template) : base(weaponHolder, template)
     {
@@ -60,9 +60,15 @@ public class GrenadeWeapon : Weapon
     {
         base.HeldUpdate();
 
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            m_grenadeCount++;
+        }
+
+
         if(m_attackIntervalTimer <= 0)
         {
-            if (m_hideHeldWeapon)
+            if (m_hideHeldWeapon && m_grenadeCount > 0)
             {
                 SetHideHeldWeapon(false);
             }
