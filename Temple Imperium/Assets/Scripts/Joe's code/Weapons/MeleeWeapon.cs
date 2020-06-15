@@ -38,6 +38,6 @@ public class MeleeWeapon : Weapon
         }
 
         meleeGameObject.transform.Find("Weapon").GetComponent<Animator>().SetTrigger("Attack");
-        SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.GetAttackSound(), 1f, 0.95f, 1.05f);
+        SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.GetAttackSound(), m_template.GetAttackSoundVolume(), 0.95f, 1.05f);
     }
 }

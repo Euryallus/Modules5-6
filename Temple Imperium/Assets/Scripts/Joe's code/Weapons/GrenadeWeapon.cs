@@ -154,7 +154,7 @@ public class ThrownGrenade
             }
         }
 
-        SoundEffectPlayer.instance.PlaySoundEffect3D(m_grenadeParent.m_template.GetAttackSound(), m_goThrow.transform.position, 1f, 0.95f, 1.05f);
+        SoundEffectPlayer.instance.PlaySoundEffect3D(m_grenadeParent.m_template.GetAttackSound(), m_goThrow.transform.position, m_grenadeParent.m_template.GetAttackSoundVolume(), 0.95f, 1.05f);
 
         Object.Destroy(m_goThrow);
 

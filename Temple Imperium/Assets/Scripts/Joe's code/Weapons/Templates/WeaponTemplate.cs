@@ -37,6 +37,10 @@ public class WeaponTemplate : ScriptableObject
     [Tooltip("Name of sound effect to be played when this weapon is used")]
     private string m_attackSound;
 
+    [SerializeField]
+    [Tooltip("Volume of sound effect to be played when this weapon is used")]
+    private float m_attackSoundVolume;
+
     #endregion
 
     #region Getters
@@ -71,6 +75,10 @@ public class WeaponTemplate : ScriptableObject
     public string GetAttackSound()
     {
         return m_attackSound;
+    }
+    public float GetAttackSoundVolume()
+    {
+        return m_attackSoundVolume;
     }
 
     #endregion
