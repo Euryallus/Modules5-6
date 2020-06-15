@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
     private float enemyMaxHealth;
     private GameObject healthBar;
 
-    private int secondsPassed = 0;
+    private float secondsPassed = 0;
 
 
     //enemy base variables
@@ -202,10 +202,10 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void setOnFire(int fireEffectTime, int fireDamageTaken)
+    public void setOnFire(int fireEffectTime, int fireDamageTaken, float timeBetweenDamage)
     {
         secondsPassed = 0;
-        StartCoroutine(putOutFire(fireEffectTime, fireDamageTaken));
+        StartCoroutine(putOutFire(fireEffectTime, fireDamageTaken, timeBetweenDamage));
         
         transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Play();
     }
@@ -219,20 +219,17 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    protected IEnumerator putOutFire(int fireEffectTime, int fireDamageTaken)
+    protected IEnumerator putOutFire(int fireEffectTime, int fireDamageTaken, float timeBetweemDamage)
     {
         while(secondsPassed < fireEffectTime)
         {
-            Debug.Log("OW");
-            Debug.Log(enemyHealth);
             Damage(fireDamageTaken);
-            secondsPassed += 1;
-            yield return new WaitForSeconds(1);
+            secondsPassed += timeBetweemDamage;
+            yield return new WaitForSeconds(timeBetweemDamage);
 
-            if(secondsPassed == fireEffectTime)
+            if(secondsPassed >= fireEffectTime)
             {
                 transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Stop();
-
             }
 
             float healthBarX = enemyHealth / enemyMaxHealth;

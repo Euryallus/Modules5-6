@@ -48,7 +48,7 @@ public class pickUpControlScript : MonoBehaviour
                 {
                     if (hitObject.CompareTag("Enemy"))
                     {
-                        hitObject.GetComponent<Enemy>().setOnFire(5, 3);
+                        hitObject.GetComponent<Enemy>().setOnFire(5, 1, 0.5f);
                     }
                 }
 

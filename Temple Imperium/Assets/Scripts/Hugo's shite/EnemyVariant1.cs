@@ -18,7 +18,14 @@ public class EnemyVariant1 : Enemy
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime);
         }
 
-        agent.SetDestination(lastKnownPos);
+        if(playerDist >= 1.2f)
+        {
+            agent.SetDestination(lastKnownPos);
+        }
+        else
+        {
+            agent.SetDestination(transform.position);
+        }
 
         base.Engage();
     }

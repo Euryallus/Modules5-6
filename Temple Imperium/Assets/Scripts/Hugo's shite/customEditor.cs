@@ -42,7 +42,6 @@ public class customEditor : EditorWindow
         }
 
         GUILayout.Space(10);
-
     }
 
 }
