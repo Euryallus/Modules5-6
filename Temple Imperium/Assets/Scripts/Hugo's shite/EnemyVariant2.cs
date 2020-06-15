@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class EnemyVariant2 : Enemy
 {
-    [SerializeField]
     private float bulletSpawnCount = 0;
     private float bulletSpawnRate = 2f;
 
@@ -15,7 +14,7 @@ public class EnemyVariant2 : Enemy
 
     public EnemyVariant2() : base(20f, 150f, 2.5f, 3.5f)
     {
-        Debug.Log("Variant2 success");
+        
     }
 
     public override void Engage()

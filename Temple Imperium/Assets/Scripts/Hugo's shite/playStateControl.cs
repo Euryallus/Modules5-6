@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class playStateControl : MonoBehaviour
 {
 
-    public float waveTimer;
-    public float waveLength;
+    float waveTimer;
+    float waveLength;
 
-    public GameObject[] remainingEnemies;
+    GameObject[] remainingEnemies;
     public Text timeRemaining;
 
     public spawnerScript spawner;

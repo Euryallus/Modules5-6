@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class noteMenuManager : MonoBehaviour
 {
     public GameObject[] notes;
-    public int pointer = 0;
+    int pointer = 0;
 
     private void Start()
     {

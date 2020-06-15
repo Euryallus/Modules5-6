@@ -6,12 +6,12 @@ public class pickUpControlScript : MonoBehaviour
 {
     public GameObject camera;
 
-    public RaycastHit hit;
-    public GameObject hitObject;
-    public item pickUpItem;
+    RaycastHit hit;
+    GameObject hitObject;
+    item pickUpItem;
 
-    public GameObject display;
-    public GameObject noteMenu;
+    GameObject display;
+    GameObject noteMenu;
 
     void Start()
     {

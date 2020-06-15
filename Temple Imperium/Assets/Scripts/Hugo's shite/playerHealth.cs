@@ -24,8 +24,6 @@ public class playerHealth : MonoBehaviour
         [SerializeField]
         private Color ZeroHealthColour;
 
-    
-
     public Image healthBar;
 
     private void Start()

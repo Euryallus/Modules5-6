@@ -13,12 +13,10 @@ public class playerMovement : MonoBehaviour
 
     float inputX;
     float inputY;
-    [SerializeField]
     Vector3 moveTo;
 
     float defaultSpeed;
 
-    [SerializeField]
     bool onLadder = false;
 
     [Header("Basic control options")]
@@ -30,22 +28,19 @@ public class playerMovement : MonoBehaviour
         float playerSpeed = 10f;
         [SerializeField]
         float playerMass = 1;
+        [SerializeField]
+        float sprintMag = 1.75f;
+        [SerializeField]
+        float crouchSpeedReduction = 2;
 
-    [Header("Debug view")]
-        [SerializeField]
-        private bool isCrouching = false;
-        [SerializeField]
-        private float gravConst = 9.81f;
-        [SerializeField]
-        private bool hasJumped = false;
-        [SerializeField]
-        GameObject playerCamera;
-        [SerializeField]
-        CharacterController controller;
-        [SerializeField]
-        bool canClimb = false;
+    private bool isCrouching = false;
+    private float gravConst = 9.81f;
+    private bool hasJumped = false;
+    GameObject playerCamera;
+    CharacterController controller;
+    bool canClimb = false;
 
-    public GameObject noteMenu;
+    private GameObject noteMenu;
     void Start()
     {
         playerCamera = gameObject.transform.GetChild(0).gameObject;
@@ -108,12 +103,12 @@ public class playerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            playerSpeed *= 1.75f;
+            playerSpeed *= sprintMag;
         }
 
         if(Input.GetKeyUp(KeyCode.LeftShift))
         {
-            playerSpeed /= 1.75f ;
+            playerSpeed /= sprintMag ;
         }
 
         
@@ -165,7 +160,7 @@ public class playerMovement : MonoBehaviour
     public void crouch()
     {
         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y / 2, transform.localScale.z);
-        playerSpeed /= 2;
+        playerSpeed /= crouchSpeedReduction;
     }
 
     public void standUp()
