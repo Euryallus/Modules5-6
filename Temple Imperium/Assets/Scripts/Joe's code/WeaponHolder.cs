@@ -7,6 +7,8 @@ using UnityEngine;
 public class WeaponHolder : MonoBehaviour
 {
     //Set in inspector:
+    [Header("Generic Weapon Holder Properties")]
+
     [SerializeField]
     private bool playerControlsWeapons;  //Can the player control weapon firing/switching? Should be true for the player, false for enemies
     [SerializeField]
@@ -15,6 +17,9 @@ public class WeaponHolder : MonoBehaviour
     private Transform transformHead;
     [SerializeField]
     private GameObject prefabFireLight;
+
+    [Header("Player Specific Properties")]
+
     [SerializeField]
     private Camera playerCamera;
     [SerializeField]
