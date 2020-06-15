@@ -89,6 +89,7 @@ public class SoundEffectPlayer : MonoBehaviour
         }
         audioSource.Play();
     }
+
     /// <summary> Plays a sound effect in 3D space with the given name and parameters. </summary>
     /// <param name="name">The name given to the target sound in the inspector.</param>
     /// <param name="sourcePosition">The position in the scene that the sound will originate from.</param>
@@ -99,6 +100,7 @@ public class SoundEffectPlayer : MonoBehaviour
     {
         PlayGenericSoundEffect(name, true, sourcePosition, volume, minPitch, maxPitch);
     }
+
     /// <summary> Plays a sound effect using a 2D source with the given name and parameters. </summary>
     /// <param name="name">The name given to the target sound in the inspector.</param>
     /// <param name="volume">The volume of the sound to be played.</param>
@@ -108,6 +110,7 @@ public class SoundEffectPlayer : MonoBehaviour
     {
         PlayGenericSoundEffect(name, false, Vector3.zero, volume, minPitch, maxPitch);
     }
+
     /// <summary> Plays a sound effect that will loop until StopLoopingSoundEffect is called with the given loopId. </summary>
     /// <param name="name">The name given to the target sound in the inspector.</param>
     /// <param name="use3dSpace">Changes whether this sound will use a 2D or 3D audio source.</param>
@@ -120,6 +123,7 @@ public class SoundEffectPlayer : MonoBehaviour
     {
         PlayGenericSoundEffect(name, use3dSpace, sourcePosition, volume, minPitch, maxPitch, true, loopId);
     }
+
     /// <summary> Stops a looping sound with loopId from playing. </summary>
     /// <param name="loopId">A unique id that was given to the target sound when PlayLoopingSoundEffect was called.</param>
     public void StopLoopingSoundEffect(string loopId)

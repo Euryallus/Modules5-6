@@ -86,7 +86,7 @@ public class PrototypeWeapon : Weapon
             GameObject goBeamChild = m_goBeam.transform.Find("Beam").gameObject;
             goBeamChild.transform.localPosition = new Vector3(0f, 0f, (m_prototypeTemplate.GetRange() / 2f) - 0.5f);
 
-            SoundEffectPlayer.instance.PlaySoundEffect3D(m_template.GetAttackSound(), transformHead.position, 1f, 0.95f, 1.05f);
+            SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.GetAttackSound(), 1f, 0.95f, 1.05f);
             SoundEffectPlayer.instance.PlayLoopingSoundEffect("Laser Loop", false, Vector3.zero, "protoBeam");
         }
 
@@ -127,7 +127,7 @@ public class PrototypeWeapon : Weapon
         {
             m_goWeapon.transform.Find("Weapon").GetComponent<Animator>().SetBool("Shooting", false);
         }
-        SoundEffectPlayer.instance.PlaySoundEffect3D(m_prototypeTemplate.GetDisableSound(), transformHead.position, 1f, 0.95f, 1.05f);
+        SoundEffectPlayer.instance.PlaySoundEffect2D(m_prototypeTemplate.GetDisableSound(), 1f, 0.95f, 1.05f);
         SoundEffectPlayer.instance.StopLoopingSoundEffect("protoBeam");
     }
 
