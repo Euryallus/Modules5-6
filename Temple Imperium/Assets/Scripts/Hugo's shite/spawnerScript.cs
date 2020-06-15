@@ -36,57 +36,41 @@ public class spawnerScript : MonoBehaviour
 
     int numberSpawned = 0 ;
 
+    int variant1Spawn;
+    int variant2Spawn;
+    int variant3Spawn;
+
+    int var1Count = 0;
+    int var2Count = 0;
+    int var3Count = 0;
+
 
     private void Start()
     {
         stateControl = gameObject.GetComponent<playStateControl>();
     }
 
-    public void FixedUpdate()
+    public void startWave(float time,  int variant1, int variant2, int variant3)
     {
-        spawnCount += Time.deltaTime;
-
-        if(spawning && spawnCount > timeBetween)
-        {
-            spawnEnemy();
-            spawnCount = 0;
-        }
-    }
-
-    public void startWave(float time, int numberOfEnemies, int enemyTypes)
-    {
-        //enemyTypes = 1 - only small enemies
-        //enemyTypes = 2 - small + medium
-        //enemyTypes = 3 - all 3 variants
+        variant1Spawn = variant1;
+        variant2Spawn = variant2;
+        variant3Spawn = variant3;
 
         spawning = true;
 
         timeBetween = time;
-        enemyNumbers = numberOfEnemies;
-        enemyVairants = enemyTypes;
 
-        numberSpawned = 0;
+        enemyNumbers = variant1 + variant2 + variant3;
+
+        StartCoroutine(waveSpawn());
     }
 
-    public void spawnEnemy()
+    public void spawnEnemy(GameObject enemyToSpawn)
     {
+        spawnedEnemy = Instantiate(enemyToSpawn);
+    
         List<Transform> pointsPassed = new List<Transform>();
 
-        randomEnemy = Random.Range(0, enemyVairants);
-       
-        switch (randomEnemy) {
-            case 0:
-                spawnedEnemy = Instantiate(variant1);
-                break;
-            case 1:
-                spawnedEnemy = Instantiate(variant2);
-                break;
-            case 2:
-                spawnedEnemy = Instantiate(variant3);
-                break;
-       
-        }
-       
         for (int j = 0; j < numberOfPointsPassedToEnemies; j++)
         {
            randomPatrolPoint = Random.Range(0, patrolPoints.Count);
@@ -95,18 +79,43 @@ public class spawnerScript : MonoBehaviour
        
         spawnedEnemy.GetComponent<Enemy>().patrolPoints = pointsPassed;
        
-        spawnedEnemy.transform.position = gameObject.transform.position;
-        if (numberSpawned == 0)
+        spawnedEnemy.transform.position = (Random.insideUnitSphere * 5 + gameObject.transform.position);
+
+    }
+
+    public IEnumerator waveSpawn()
+    {
+        stateControl.initiateWave(1.5f);
+
+        while(numberSpawned < enemyNumbers)
         {
-            stateControl.initiateWave(1.5f);
+            if(var1Count < variant1Spawn)
+            {
+                spawnEnemy(variant1);
+                var1Count += 1;
+                numberSpawned++;
+            }
+
+            else if(var2Count < variant2Spawn)
+            {
+                spawnEnemy(variant2);
+                var1Count += 2;
+                numberSpawned++;
+
+            }
+
+            else if (var3Count < variant3Spawn)
+            {
+                spawnEnemy(variant3);
+                var3Count += 1;
+                numberSpawned++;
+
+            }
+
+            yield return new WaitForSeconds(timeBetween);
+
         }
 
-        numberSpawned += 1;
-
-        if(numberSpawned == enemyNumbers)
-        {
-            spawning = false;
-        }
-
+        spawning = false;
     }
 }

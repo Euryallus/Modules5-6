@@ -162,9 +162,14 @@ public class Enemy : MonoBehaviour
 
             if(lookingCount > transitionTime)
             {
-                currentState = State.Investigate;
-                investigatePoints = new List<Vector3>();
-                lookingCount = 0;
+                agent.SetDestination(lastKnownPos);
+                if(Vector3.Distance(transform.position, lastKnownPos) < 1f)
+                {
+                    currentState = State.Investigate;
+                    investigatePoints = new List<Vector3>();
+                    lookingCount = 0;
+                }
+                
             }
         }
     }
@@ -215,9 +220,6 @@ public class Enemy : MonoBehaviour
                 return;
             }
         }
-
-        agent.SetDestination(investigatePoints[investigatePointer]);
-
     }
 
     public void setOnFire(int fireEffectTime, int fireDamageTaken, float timeBetweenDamage)
