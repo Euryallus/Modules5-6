@@ -41,6 +41,18 @@ public class pickUpControlScript : MonoBehaviour
                     display.GetComponent<pickUpDropDown>().displayItemPickUp(pickUpItem.icon, pickUpItem.itemName, pickUpItem.summary);
                     Destroy(hitObject);
                 }
+                //###############################################
+                //DEBUG FIRE EFFECTS
+
+                else
+                {
+                    if (hitObject.CompareTag("Enemy"))
+                    {
+                        hitObject.GetComponent<Enemy>().setOnFire(5, 3);
+                    }
+                }
+
+                //###############################################
             }
         }
 

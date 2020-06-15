@@ -28,6 +28,8 @@ public class Enemy : MonoBehaviour
     private float enemyMaxHealth;
     private GameObject healthBar;
 
+    private int secondsPassed = 0;
+
 
     //enemy base variables
     protected NavMeshAgent agent;
@@ -200,6 +202,14 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void setOnFire(int fireEffectTime, int fireDamageTaken)
+    {
+        secondsPassed = 0;
+        StartCoroutine(putOutFire(fireEffectTime, fireDamageTaken));
+        
+        transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Play();
+    }
+
     protected IEnumerator regenHealth()
     {
         while (true)
@@ -207,6 +217,28 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(1);
             enemyHealth += regenPerSecond;
         }
+    }
+
+    protected IEnumerator putOutFire(int fireEffectTime, int fireDamageTaken)
+    {
+        while(secondsPassed < fireEffectTime)
+        {
+            Debug.Log("OW");
+            Debug.Log(enemyHealth);
+            Damage(fireDamageTaken);
+            secondsPassed += 1;
+            yield return new WaitForSeconds(1);
+
+            if(secondsPassed == fireEffectTime)
+            {
+                transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Stop();
+
+            }
+
+            float healthBarX = enemyHealth / enemyMaxHealth;
+            healthBar.transform.localScale = new Vector3(healthBarX, 1, 1);
+        }
+
     }
 
 }
