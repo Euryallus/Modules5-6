@@ -16,13 +16,13 @@ MonoBehaviour:
   m_gameObject: {fileID: 9204433137389923706, guid: 9de648685d640d942b0681e709c04f7d,
     type: 3}
   m_visualOffset: {x: 0.48, y: -0.25, z: 0.6}
-  m_minAttackDamage: 3
-  m_maxAttackDamage: 5
+  m_minAttackDamage: 15
+  m_maxAttackDamage: 20
   m_attackInterval: 0
   m_attackSound: Mario Powerup
   m_aimDownSightOffset: {x: 0, y: -0.13, z: 0.6}
   m_beamGameObject: {fileID: 7511509880288359812, guid: 23afc69613bb49241ba00545ce092524,
     type: 3}
-  m_range: 10
+  m_range: 20
   m_damageInterval: 0.3
   m_disableSound: Mario Hurt

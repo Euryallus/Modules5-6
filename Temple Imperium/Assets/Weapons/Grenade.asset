@@ -22,8 +22,8 @@ MonoBehaviour:
   m_attackSound: Seal Explosion
   m_throwGameObject: {fileID: 3447803797671081632, guid: 0730f1b736115c046b0d5eff07f15706,
     type: 3}
-  m_delay: 1
-  m_throwVelocity: 12
+  m_delay: 0.5
+  m_throwVelocity: 20
   m_startCount: 3
   m_impactRadius: 5
   m_fragRadius: 7

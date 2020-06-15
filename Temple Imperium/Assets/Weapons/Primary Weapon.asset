@@ -23,7 +23,7 @@ MonoBehaviour:
   m_aimDownSightOffset: {x: 0, y: -0.25, z: 0.6}
   m_fireParticles: {fileID: 748127710705125160, guid: 04046b32a0c3c98429c670cd7e52c353,
     type: 3}
-  m_range: 20
+  m_range: 30
   m_continuousFire: 1
   m_totalStartAmmo: 350
   m_magazineSize: 41
