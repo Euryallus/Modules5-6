@@ -36,6 +36,8 @@ public class Enemy : MonoBehaviour
     protected NavMeshAgent agent;
     protected GameObject player;
 
+    int investigationPointNo = 3;
+
     [SerializeField]
     GameObject currentTarget;
 
@@ -55,6 +57,9 @@ public class Enemy : MonoBehaviour
 
     protected int currentPatrolPoint = 0;
 
+    //INVESTIGATE behaviour
+    List<Vector3> investigatePoints = new List<Vector3>();
+    int investigatePointer = 0;
 
     //CheckForPlayer variables
 
@@ -158,6 +163,7 @@ public class Enemy : MonoBehaviour
             if(lookingCount > transitionTime)
             {
                 currentState = State.Investigate;
+                investigatePoints = new List<Vector3>();
                 lookingCount = 0;
             }
         }
@@ -179,36 +185,47 @@ public class Enemy : MonoBehaviour
 
     public virtual void Investigate()
     {
-        
-    }
-
-    //Added by Joe: //thank u Joe
-    public void Damage(int hitPoints)
-    {
-        enemyHealth -= hitPoints;
-
-        float healthBarX = enemyHealth / enemyMaxHealth;
-        healthBar.transform.localScale = new Vector3(healthBarX, 1, 1);
-
-        // Debug.Log("ENEMY " + gameObject.name + " HAS " + enemyHealth.ToString());
-
-        if (enemyHealth <= 0)
+        if(investigatePoints.Count == 0)
         {
-            Die();
-        }
-    }
+            investigatePointer = 0;
 
-    private void Die()
-    {
-        Destroy(gameObject);
+            for (int i = 0; i < investigationPointNo; i++)
+            {
+
+                Vector3 investigatePoint = transform.position + Random.insideUnitSphere * 10; 
+
+                while(agent.CalculatePath(investigatePoint, agent.path) != true || investigatePoint.y > 3)
+                {
+                    investigatePoint = transform.position + Random.insideUnitSphere * 10;
+                }
+
+                investigatePoints.Add(investigatePoint);
+                Debug.Log(investigatePoint);
+
+            }
+        }
+
+        if(Vector3.Distance(transform.position, investigatePoints[investigatePointer]) <= 1f)
+        {
+            investigatePointer += 1;
+
+            if(investigatePointer == investigatePoints.Count)
+            {
+                currentState = State.Patrol;
+                return;
+            }
+        }
+
+        agent.SetDestination(investigatePoints[investigatePointer]);
+
     }
 
     public void setOnFire(int fireEffectTime, int fireDamageTaken, float timeBetweenDamage)
     {
-        secondsPassed = 0;
-        StartCoroutine(putOutFire(fireEffectTime, fireDamageTaken, timeBetweenDamage));
-        
-        transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Play();
+           secondsPassed = 0;
+           StartCoroutine(putOutFire(fireEffectTime, fireDamageTaken, timeBetweenDamage));
+       
+           transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Play();
     }
 
     protected IEnumerator regenHealth()
@@ -232,10 +249,31 @@ public class Enemy : MonoBehaviour
             {
                 transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Stop();
             }
-
         }
-
     }
+
+    //Added by Joe: //thank u Joe
+    public void Damage(int hitPoints)
+    {
+        enemyHealth -= hitPoints;
+
+        float healthBarX = enemyHealth / enemyMaxHealth;
+        healthBar.transform.localScale = new Vector3(healthBarX, 1, 1);
+
+        // Debug.Log("ENEMY " + gameObject.name + " HAS " + enemyHealth.ToString());
+
+        if (enemyHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
+    }
+
+   
 
 }
 
