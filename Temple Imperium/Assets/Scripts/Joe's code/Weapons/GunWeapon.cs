@@ -79,22 +79,6 @@ public class GunWeapon : Weapon
             Debug.Log("Gun fired, hit nothing");
         }
 
-        //if (Physics.Raycast(transformHead.position, transformHead.forward, out RaycastHit hitInfo, m_gunTemplate.GetRange(), ~LayerMask.GetMask("Player")))
-        //{
-        //    Debug.Log("Gun fired, hit " + hitInfo.transform.name);
-
-        //    if (hitInfo.collider.gameObject.CompareTag("Enemy"))
-        //    {
-        //        int damageAmount = Random.Range(m_template.GetMinAttackDamage(), m_template.GetMaxAttackDamage() + 1);
-        //        hitInfo.transform.GetComponent<Enemy>().Damage(damageAmount);
-        //        UIManager.instance.ShowEnemyHitPopup(damageAmount, hitInfo.point);
-        //    }
-        //}
-        //else
-        //{
-        //    Debug.Log("Gun fired, hit nothing");
-        //}
-
         if (m_loadedAmmo >= 0)
         {
             m_loadedAmmo--;
