@@ -7,20 +7,33 @@ using UnityEngine;
 public class WeaponHolder : MonoBehaviour
 {
     //Set in inspector:
-    public bool playerControlsWeapons;  //Can the player control weapon firing/switching? Should be true for the player, false for enemies
-    public WeaponTemplate[] availableWeaponTemplates;
-    public Weapon activeWeapon;
-    public Transform transformHead;
-    public GameObject prefabFireLight;
+    [SerializeField]
+    private bool playerControlsWeapons;  //Can the player control weapon firing/switching? Should be true for the player, false for enemies
+    [SerializeField]
+    private WeaponTemplate[] availableWeaponTemplates;
+    [SerializeField]
+    private Transform transformHead;
+    [SerializeField]
+    private GameObject prefabFireLight;
+    [SerializeField]
+    private Camera playerCamera;
+    [SerializeField]
+    private float defaultCameraFOV = 90f;
+    [SerializeField]
+    private float adsCameraFOV = 60f;
 
     //public int ammo { get; set; } = 100;
+    public Weapon activeWeapon { get; private set; }
     private Weapon[] availableWeapons;
     private GameObject goWeapon;
     private WeaponAimInfo weaponAimInfo;
     private Quaternion targetWeaponRotation;
+    private float targetCameraFOV;
 
     private void Start()
     {
+        targetCameraFOV = defaultCameraFOV;
+
         SetupAvailableWeapons();
 
         SwitchActiveWeapon(0, true);
@@ -76,7 +89,22 @@ public class WeaponHolder : MonoBehaviour
             CheckForWeaponSwitchInput();
             CheckForAttackInput();
             UpdateWeaponPosition();
+            UpdateCamera();
         }
+    }
+
+    private void UpdateCamera()
+    {
+        //Aiming down sights
+        if( (activeWeapon is GunWeapon || activeWeapon is PrototypeWeapon) && Input.GetButton("Fire2"))
+        {
+            targetCameraFOV = adsCameraFOV;
+        }
+        else
+        {
+            targetCameraFOV = defaultCameraFOV;
+        }
+        playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, targetCameraFOV, Time.deltaTime * 20f);
     }
 
     private void UpdateWeaponPosition()

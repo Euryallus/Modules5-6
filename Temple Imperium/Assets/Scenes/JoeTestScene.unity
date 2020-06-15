@@ -897,6 +897,9 @@ MonoBehaviour:
   transformHead: {fileID: 1035472865}
   prefabFireLight: {fileID: 5915441349947503207, guid: 859a468e0eabd5544826ab78aeb548e4,
     type: 3}
+  playerCamera: {fileID: 0}
+  defaultCameraFOV: 90
+  adsCameraFOV: 60
 --- !u!4 &782901212
 Transform:
   m_ObjectHideFlags: 0
@@ -3006,6 +3009,9 @@ MonoBehaviour:
   transformHead: {fileID: 1202978569}
   prefabFireLight: {fileID: 5915441349947503207, guid: 859a468e0eabd5544826ab78aeb548e4,
     type: 3}
+  playerCamera: {fileID: 0}
+  defaultCameraFOV: 90
+  adsCameraFOV: 60
 --- !u!4 &2046359288
 Transform:
   m_ObjectHideFlags: 0
@@ -3148,6 +3154,9 @@ MonoBehaviour:
   transformHead: {fileID: 1419079607}
   prefabFireLight: {fileID: 5915441349947503207, guid: 859a468e0eabd5544826ab78aeb548e4,
     type: 3}
+  playerCamera: {fileID: 0}
+  defaultCameraFOV: 90
+  adsCameraFOV: 60
 --- !u!4 &2098352921
 Transform:
   m_ObjectHideFlags: 0
@@ -19727,6 +19736,9 @@ MonoBehaviour:
   transformHead: {fileID: 7362584270694556537}
   prefabFireLight: {fileID: 5915441349947503207, guid: 859a468e0eabd5544826ab78aeb548e4,
     type: 3}
+  playerCamera: {fileID: 7362584271561354503}
+  defaultCameraFOV: 90
+  adsCameraFOV: 60
 --- !u!143 &7362584271067085651
 CharacterController:
   m_ObjectHideFlags: 0
