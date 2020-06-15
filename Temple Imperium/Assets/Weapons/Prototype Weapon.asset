@@ -16,7 +16,7 @@ MonoBehaviour:
   m_gameObject: {fileID: 9204433137389923706, guid: 9de648685d640d942b0681e709c04f7d,
     type: 3}
   m_visualOffset: {x: 0.48, y: -0.25, z: 0.6}
-  m_minAttackDamage: 1
+  m_minAttackDamage: 3
   m_maxAttackDamage: 5
   m_attackInterval: 0
   m_attackSound: Mario Powerup
