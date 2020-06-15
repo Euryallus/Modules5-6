@@ -116,6 +116,8 @@ public class Enemy : MonoBehaviour
         float healthBarX = enemyHealth / enemyMaxHealth;
         healthBar.transform.localScale = new Vector3(healthBarX, 1, 1);
 
+        //gameObject.GetComponent<Rigidbody>().angularVelocity = new Vector3(0,0,0);
+
     }
     public virtual void checkForPlayer()
     {
