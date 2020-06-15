@@ -251,6 +251,7 @@ public class WeaponHolder : MonoBehaviour
         }
         else if (activeWeapon is PrototypeWeapon activeProto)
         {
+            Debug.Log(activeProto.m_prototypeTemplate.GetRange());
             maxDistance = activeProto.m_prototypeTemplate.GetRange();
         }
 
