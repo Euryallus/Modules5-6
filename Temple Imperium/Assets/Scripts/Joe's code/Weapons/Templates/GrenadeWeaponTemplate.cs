@@ -18,6 +18,14 @@ public class GrenadeWeaponTemplate : WeaponTemplate
     private float m_delay;
 
     [SerializeField]
+    [Tooltip("The velocity used when a grenade is thrown")]
+    private float m_throwVelocity;
+
+    [SerializeField]
+    [Tooltip("Number of grenades available to the entity when the level starts")]
+    private int m_startCount;
+
+    [SerializeField]
     [Tooltip("The size of the area in which this grenade will cause damage upon exploding")]
     private float m_impactRadius;
 
@@ -51,6 +59,14 @@ public class GrenadeWeaponTemplate : WeaponTemplate
     public float GetDelay()
     {
         return m_delay;
+    }
+    public float GetThrowVelocity()
+    {
+        return m_throwVelocity;
+    }
+    public int GetStartCount()
+    {
+        return m_startCount;
     }
     public float GetImpactRadius()
     {

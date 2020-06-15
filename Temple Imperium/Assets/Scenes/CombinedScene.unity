@@ -6085,8 +6085,8 @@ MonoBehaviour:
   cameraPlayer: {fileID: 0}
   imgCrosshair: {fileID: 0}
   textWeaponName: {fileID: 1592598565}
-  textTotalAmmo: {fileID: 1358822110}
-  textLoadedAmmo: {fileID: 521143935}
+  textInfo1: {fileID: 1358822110}
+  textInfo2: {fileID: 521143935}
 --- !u!4 &851420985
 Transform:
   m_ObjectHideFlags: 0
