@@ -127,7 +127,7 @@ public class PrototypeWeapon : Weapon
         {
             m_goWeapon.transform.Find("Weapon").GetComponent<Animator>().SetBool("Shooting", false);
         }
-        SoundEffectPlayer.instance.PlaySoundEffect2D(m_prototypeTemplate.GetDisableSound(), 1f, 0.95f, 1.05f);
+        SoundEffectPlayer.instance.PlaySoundEffect2D(m_prototypeTemplate.GetDisableSound(), 1f);
         SoundEffectPlayer.instance.StopLoopingSoundEffect("protoBeam");
     }
 
