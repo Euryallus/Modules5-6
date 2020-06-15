@@ -228,6 +228,7 @@ public class WeaponHolder : MonoBehaviour
                 goWeapon = Instantiate(activeWeapon.m_template.GetGameObject(), transformHead);
                 goWeapon.transform.localPosition += activeWeapon.m_template.GetVisualOffset();
                 SetHeldWeaponHidden(weapon.m_hideHeldWeapon);
+                weapon.SwitchToWeapon();
             }
         }
     }
@@ -246,7 +247,7 @@ public class WeaponHolder : MonoBehaviour
             bool buttonDown = Input.GetButtonDown("Fire1");
             TryUsingWeapon(buttonDown);
         }
-        else if (Input.GetButtonUp("Fire1"))
+        if (Input.GetButtonUp("Fire1"))
         {
             TryEndingWeaponUsage();
         }
@@ -262,7 +263,7 @@ public class WeaponHolder : MonoBehaviour
     {
         if(activeWeapon is PrototypeWeapon activeProto)
         {
-            activeProto.DisableBeam(transformHead);
+            activeProto.StopAttack(transformHead);
         }
     }
     #endregion

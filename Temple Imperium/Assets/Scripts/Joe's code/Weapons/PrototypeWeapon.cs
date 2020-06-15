@@ -5,9 +5,9 @@ using UnityEngine;
 public class PrototypeWeapon : Weapon
 {
     public PrototypeWeaponTemplate m_prototypeTemplate { get; private set; }
+    public float m_damageCharge { get; private set; }
+    public bool m_charging { get; private set; }
 
-    private bool m_beamOn;
-    private float m_damageCharge;
     private float m_damageTimer;
     private GameObject m_goWeapon;
     private GameObject m_goBeam;
@@ -19,11 +19,17 @@ public class PrototypeWeapon : Weapon
         m_prototypeTemplate = template;
     }
 
+    public override void SwitchToWeapon()
+    {
+        Debug.LogWarning("SWITCH TO PROTO");
+        m_charging = false;
+    }
+
     public override void HeldUpdate()
     {
         base.HeldUpdate();
 
-        if (m_beamOn)
+        if (m_charging)
         {
             m_damageCharge += Time.deltaTime;
             m_damageTimer -= Time.deltaTime;
@@ -62,9 +68,9 @@ public class PrototypeWeapon : Weapon
 
     private void DefaultAttack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
     {
-        if (!m_beamOn)
+        if (!m_charging)
         {
-            m_beamOn = true;
+            m_charging = true;
             m_damageCharge = 0f;
             m_damageTimer = 0f;
 
@@ -102,9 +108,9 @@ public class PrototypeWeapon : Weapon
         }
     }
 
-    public void DisableBeam(Transform transformHead)
+    public void StopAttack(Transform transformHead)
     {
-        m_beamOn = false;
+        m_charging = false;
 
         if(m_goBeam != null)
         {

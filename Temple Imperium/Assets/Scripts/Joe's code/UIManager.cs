@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
 
     private GameObject goCanvas;
     private Slider sliderAttackInterval;
+    private Slider sliderWeaponCharge;
     private WeaponHolder weaponHolderPlayer;
 
     private void Awake()
@@ -36,12 +37,22 @@ public class UIManager : MonoBehaviour
     {
         goCanvas = GameObject.Find("Canvas");
         sliderAttackInterval = goCanvas.transform.Find("Attack Interval Slider").GetComponent<Slider>();
+        sliderWeaponCharge = goCanvas.transform.Find("Weapon Charge Slider").GetComponent<Slider>();
         weaponHolderPlayer = GameObject.Find("Player").GetComponent<WeaponHolder>();
     }
 
     private void Update()
     {
         Weapon activePlayerWeapon = weaponHolderPlayer.activeWeapon;
+        if(activePlayerWeapon != null)
+        {
+            UpdateAttackIntervalSlider(activePlayerWeapon);
+            UpdateWeaponChargeSlider(activePlayerWeapon);
+        }
+    }
+
+    private void UpdateAttackIntervalSlider(Weapon activePlayerWeapon)
+    {
         if (activePlayerWeapon.m_attackIntervalTimer > 0f && activePlayerWeapon.m_template.GetAttackInterval() > 0.1f)
         {
             sliderAttackInterval.gameObject.SetActive(true);
@@ -51,6 +62,26 @@ public class UIManager : MonoBehaviour
         else
         {
             sliderAttackInterval.gameObject.SetActive(false);
+        }
+    }
+
+    private void UpdateWeaponChargeSlider(Weapon activePlayerWeapon)
+    {
+        if (activePlayerWeapon is PrototypeWeapon activePlayerProto)
+        {
+            if (activePlayerProto.m_charging)
+            {
+                sliderWeaponCharge.gameObject.SetActive(true);
+                sliderWeaponCharge.value = activePlayerProto.m_damageCharge / 1f;
+            }
+            else
+            {
+                sliderWeaponCharge.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            sliderWeaponCharge.gameObject.SetActive(false);
         }
     }
 
