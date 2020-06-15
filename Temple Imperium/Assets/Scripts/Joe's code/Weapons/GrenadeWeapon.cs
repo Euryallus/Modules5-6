@@ -43,7 +43,7 @@ public class GrenadeWeapon : Weapon
 
         m_thrownGrenades.Add(new ThrownGrenade(this, m_goThrow, m_grenadeTemplate.GetDelay(), transformHead.position));
 
-        SoundEffectPlayer.instance.PlaySoundEffect(m_grenadeTemplate.GetThrowSound(), true, transformHead.position, 1f, 0.95f, 1.05f);
+        SoundEffectPlayer.instance.PlayStandardSoundEffect(m_grenadeTemplate.GetThrowSound(), transformHead.position, 1f, 0.95f, 1.05f);
     }
 
     public override void Update()
@@ -154,7 +154,7 @@ public class ThrownGrenade
             }
         }
 
-        SoundEffectPlayer.instance.PlaySoundEffect(m_grenadeParent.m_template.GetAttackSound(), true, m_goThrow.transform.position, 1f, 0.95f, 1.05f);
+        SoundEffectPlayer.instance.PlayStandardSoundEffect(m_grenadeParent.m_template.GetAttackSound(), m_goThrow.transform.position, 1f, 0.95f, 1.05f);
 
         Object.Destroy(m_goThrow);
 
