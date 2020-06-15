@@ -77,8 +77,6 @@ public class playerMovement : MonoBehaviour
         inputX = Input.GetAxis("Horizontal");
         inputY = Input.GetAxis("Vertical");
 
-        
-
         if (controller.isGrounded)
         {
             hasJumped = false;
@@ -111,13 +109,10 @@ public class playerMovement : MonoBehaviour
             playerSpeed /= sprintMag ;
         }
 
-        
-
         if (onLadder != true)
         {
             moveTo = transform.right * inputX + transform.forward * inputY;
             moveTo.y = yVelocity;
-
         }
         else
         {
@@ -137,7 +132,6 @@ public class playerMovement : MonoBehaviour
             {
                 standUp();
             }
-            
         }
 
         if(canClimb && Input.GetKeyDown(KeyCode.E))
@@ -153,8 +147,6 @@ public class playerMovement : MonoBehaviour
         {
             noteMenu.GetComponent<CanvasGroup>().alpha = 0;
         }
-
-
     }
 
     public void crouch()
