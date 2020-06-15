@@ -17,6 +17,7 @@ public class WeaponHolder : MonoBehaviour
     private Weapon[] availableWeapons;
     private GameObject goWeapon;
     private WeaponAimInfo weaponAimInfo;
+    private Quaternion targetWeaponRotation;
 
     private void Start()
     {
@@ -87,33 +88,34 @@ public class WeaponHolder : MonoBehaviour
     {
         if (goWeapon != null)
         {
-            Vector3 targetWeaponPos = activeWeapon.m_template.GetVisualOffset();
-
-            Vector3 focusPoint = weaponAimInfo.m_aimPoint;
-
-            Vector3 weaponLookDirection = focusPoint - goWeapon.transform.Find("AimPoint").position;
-            //Debug.Log( weaponAimInfo.m_hitInfo.distance );
-            Quaternion targetWeaponRotation;
-            //Rotate weapon to aim weapon at target
-            //  - unless distance to target is very low, to avoid weapons trying to aim backwards
-            if(weaponAimInfo.m_hitInfo.distance > 1.2f)
-            {
-                targetWeaponRotation = Quaternion.LookRotation(weaponLookDirection.normalized, goWeapon.transform.parent.up);
-            }
-            else
-            {
-                targetWeaponRotation = goWeapon.transform.parent.rotation;
-            }
-
+            bool rotationChanged = false;
+            Vector3 targetWeaponPos;
 
             if ((activeWeapon is GunWeapon activeGun) && Input.GetButton("Fire2"))
             {
                 targetWeaponPos = activeGun.m_gunTemplate.GetAimDownSightOffset();
                 targetWeaponRotation = goWeapon.transform.parent.rotation;
+                rotationChanged = true;
+            }
+            else
+            {
+                targetWeaponPos = activeWeapon.m_template.GetVisualOffset();
+
+                //Rotate weapon to aim weapon at target
+                //  - unless distance to target is very low, to avoid weapons trying to aim backwards
+                if (weaponAimInfo.m_hitInfo.distance > 1.2f)
+                {
+                    Vector3 weaponLookDirection = weaponAimInfo.m_aimPoint - goWeapon.transform.Find("AimPoint").position;
+                    targetWeaponRotation = Quaternion.LookRotation(weaponLookDirection.normalized, goWeapon.transform.parent.up);
+                    rotationChanged = true;
+                }
             }
 
             goWeapon.transform.localPosition = Vector3.Lerp(goWeapon.transform.localPosition, targetWeaponPos, Time.deltaTime * 20f);
-            goWeapon.transform.rotation = Quaternion.Lerp(goWeapon.transform.rotation, targetWeaponRotation, Time.deltaTime * 20f);
+            if (rotationChanged)
+            {
+                goWeapon.transform.rotation = Quaternion.Lerp(goWeapon.transform.rotation, targetWeaponRotation, Time.deltaTime * 20f);
+            }
         }
     }
 
