@@ -7194,6 +7194,9 @@ MonoBehaviour:
   transformHead: {fileID: 813419430}
   prefabFireLight: {fileID: 5915441349947503207, guid: 859a468e0eabd5544826ab78aeb548e4,
     type: 3}
+  playerCamera: {fileID: 1687258584}
+  defaultCameraFOV: 90
+  adsCameraFOV: 60
 --- !u!23 &1242534798
 MeshRenderer:
   m_ObjectHideFlags: 0
