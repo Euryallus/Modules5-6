@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class GunWeapon : Weapon
 {
+    public int m_totalAmmo { get; private set; }
     public int m_loadedAmmo { get; private set; }
     public bool m_reloading { get; private set; }
     public GunWeaponTemplate m_gunTemplate { get; private set; }
+
 
     private float m_reloadTimer;
 
@@ -14,6 +16,7 @@ public class GunWeapon : Weapon
     {
         m_loadedAmmo = template.GetMagazineSize();
         m_gunTemplate = template;
+        m_totalAmmo = template.GetTotalStartAmmo();
     }
 
     public override void HeldUpdate()
@@ -94,7 +97,7 @@ public class GunWeapon : Weapon
 
     private void StartReload()
     {
-        if(m_weaponHolder.ammo > 0)
+        if(m_totalAmmo > 0)
         {
             Debug.Log(m_template.GetWeaponName() + ": Starting reload");
             m_reloadTimer = m_gunTemplate.GetReloadTime();
@@ -109,11 +112,16 @@ public class GunWeapon : Weapon
         m_reloading = false;
         //Set loaded ammo to the gun's magazine size, or the remaining amount of ammo if there is not enough for a full reload
         int reloadAmount = ((GunWeaponTemplate)m_template).GetMagazineSize();
-        if(reloadAmount > m_weaponHolder.ammo)
+        if(reloadAmount > m_totalAmmo)
         {
-            reloadAmount = m_weaponHolder.ammo;
+            reloadAmount = m_totalAmmo;
         }
         m_loadedAmmo = reloadAmount;
-        m_weaponHolder.ammo -= reloadAmount;
+        m_totalAmmo -= reloadAmount;
+    }
+
+    public void AddAmmo(int amount)
+    {
+        m_totalAmmo += amount;
     }
 }

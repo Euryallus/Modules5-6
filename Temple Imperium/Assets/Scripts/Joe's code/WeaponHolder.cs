@@ -13,7 +13,7 @@ public class WeaponHolder : MonoBehaviour
     public Transform transformHead;
     public GameObject prefabFireLight;
 
-    public int ammo { get; set; } = 100;
+    //public int ammo { get; set; } = 100;
     private Weapon[] availableWeapons;
     private GameObject goWeapon;
     private WeaponAimInfo weaponAimInfo;
@@ -73,11 +73,6 @@ public class WeaponHolder : MonoBehaviour
 
         if (playerControlsWeapons)
         {
-            //DELETE ME :: DEBUG AMMO INCREASE
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                ammo += 10;
-            }
             CheckForWeaponSwitchInput();
             CheckForAttackInput();
             UpdateWeaponPosition();
@@ -239,9 +234,16 @@ public class WeaponHolder : MonoBehaviour
     }
     #endregion
 
-    public void PickupAmmo(int amount)
+    public void PickupAmmo(int amount, GunWeaponTemplate gunType)
     {
-        ammo += amount;
+        for (int i = 0; i < availableWeapons.Length; i++)
+        {
+            if(availableWeapons[i].m_template == gunType)
+            {
+                ((GunWeapon)availableWeapons[i]).AddAmmo(amount);
+                return;
+            }
+        }
     }
 
     private WeaponAimInfo GetWeaponAimInfo()

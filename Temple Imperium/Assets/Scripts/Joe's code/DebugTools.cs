@@ -34,7 +34,7 @@ public class DebugTools : MonoBehaviour
                 }
                 textInfo1.gameObject.SetActive(true);
                 textInfo2.gameObject.SetActive(true);
-                textInfo1.text = "Ammo: " + weaponHolder.ammo;
+                textInfo1.text = "Ammo: " + gun.m_totalAmmo;
                 textInfo2.text = "Loaded ammo: " + gun.m_loadedAmmo + "/" + gun.m_gunTemplate.GetMagazineSize();
             }
             else if(weaponHolder.activeWeapon is GrenadeWeapon grenade)
