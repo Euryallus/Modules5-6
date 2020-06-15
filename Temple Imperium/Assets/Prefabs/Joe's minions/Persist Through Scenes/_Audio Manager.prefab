@@ -56,5 +56,7 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 437718526b8e6f04689028af105af817, type: 3}
   - name: Mario Burn
     audioClip: {fileID: 8300000, guid: 160d7c39bda02834e8c5d5cbb71e83ec, type: 3}
+  - name: Believe
+    audioClip: {fileID: 8300000, guid: b132364b9d1e1e643bc3eb0f1755fe0c, type: 3}
   prefabSoundSource: {fileID: 2738532834754265132, guid: c053cf90b98ebd8438265eff97f52cff,
     type: 3}
