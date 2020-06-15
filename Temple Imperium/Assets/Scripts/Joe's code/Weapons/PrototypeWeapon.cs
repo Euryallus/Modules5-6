@@ -19,10 +19,15 @@ public class PrototypeWeapon : Weapon
         m_prototypeTemplate = template;
     }
 
-    public override void SwitchToWeapon()
+    public override void SwitchingToThisWeapon()
     {
-        Debug.LogWarning("SWITCH TO PROTO");
         m_charging = false;
+    }
+
+    public override void SwitchingToOtherWeapon()
+    {
+        m_charging = false;
+        SoundEffectPlayer.instance.StopLoopingSoundEffect("protoBeam");
     }
 
     public override void HeldUpdate()
@@ -81,7 +86,8 @@ public class PrototypeWeapon : Weapon
             GameObject goBeamChild = m_goBeam.transform.Find("Beam").gameObject;
             goBeamChild.transform.localPosition = new Vector3(0f, 0f, (m_prototypeTemplate.GetRange() / 2f) - 0.5f);
 
-            SoundEffectPlayer.instance.PlaySoundEffect(m_template.GetAttackSound(), true, transformHead.position, 1f, 0.95f, 1.05f);
+            SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.GetAttackSound(), m_template.GetAttackSoundVolume(), 0.95f, 1.05f);
+            SoundEffectPlayer.instance.PlayLoopingSoundEffect("Laser Loop", false, Vector3.zero, "protoBeam");
         }
 
         if(m_damageTimer <= 0)
@@ -121,7 +127,8 @@ public class PrototypeWeapon : Weapon
         {
             m_goWeapon.transform.Find("Weapon").GetComponent<Animator>().SetBool("Shooting", false);
         }
-        SoundEffectPlayer.instance.PlaySoundEffect(m_prototypeTemplate.GetDisableSound(), true, transformHead.position, 1f, 0.95f, 1.05f);
+        SoundEffectPlayer.instance.PlaySoundEffect2D(m_prototypeTemplate.GetDisableSound(), 1f);
+        SoundEffectPlayer.instance.StopLoopingSoundEffect("protoBeam");
     }
 
     private static float RemapNumber(float value, float lower, float upper, float newLower, float newUpper)

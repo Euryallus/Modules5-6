@@ -25,4 +25,4 @@ MonoBehaviour:
     type: 3}
   m_range: 20
   m_damageInterval: 0.3
-  m_disableSound: Mario Hurt
+  m_disableSound: Laser Disable

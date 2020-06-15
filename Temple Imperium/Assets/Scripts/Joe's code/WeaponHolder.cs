@@ -224,11 +224,15 @@ public class WeaponHolder : MonoBehaviour
             }
             if (weapon != null)
             {
+                if(activeWeapon != null)
+                {
+                    activeWeapon.SwitchingToOtherWeapon();
+                }
                 activeWeapon = weapon;
                 goWeapon = Instantiate(activeWeapon.m_template.GetGameObject(), transformHead);
                 goWeapon.transform.localPosition += activeWeapon.m_template.GetVisualOffset();
                 SetHeldWeaponHidden(weapon.m_hideHeldWeapon);
-                weapon.SwitchToWeapon();
+                weapon.SwitchingToThisWeapon();
             }
         }
     }
