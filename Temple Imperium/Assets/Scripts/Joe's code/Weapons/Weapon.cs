@@ -17,6 +17,8 @@ public abstract class Weapon
 
     public abstract void Attack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown);
 
+    public virtual void SwitchToWeapon() { }
+
     public virtual bool ReadyToFire()
     {
         if(m_attackIntervalTimer <= 0)
