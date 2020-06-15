@@ -11970,6 +11970,16 @@ PrefabInstance:
       propertyPath: timeRemaining
       value: 
       objectReference: {fileID: 70427917}
+    - target: {fileID: 5876323892351991730, guid: 47139931c8aa91a4a88f84a13c818521,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5876323892351991730, guid: 47139931c8aa91a4a88f84a13c818521,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b49c58c089bcb93449d4b6e136f687c5, type: 2}
     - target: {fileID: 9205059041086866693, guid: 47139931c8aa91a4a88f84a13c818521,
         type: 3}
       propertyPath: m_Name
