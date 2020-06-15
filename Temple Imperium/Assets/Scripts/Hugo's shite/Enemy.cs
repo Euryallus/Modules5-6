@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     protected float viewDistance;
 
-    [SerializeField]
+
     protected float viewConeAngle;
 
     [SerializeField]
@@ -69,7 +69,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     protected bool canSeePlayer = false;
 
-    
+    [SerializeField]
     protected float enemyViewAngle = 120f;
 
     protected float playerDist;
@@ -145,13 +145,11 @@ public class Enemy : MonoBehaviour
 
             currentState = State.Engage;
             currentTarget = hit.transform.gameObject;
-
         }
         else
         {
             canSeePlayer = false;
         }
-
     }
 
     public virtual void Engage()
@@ -169,7 +167,6 @@ public class Enemy : MonoBehaviour
                     investigatePoints = new List<Vector3>();
                     lookingCount = 0;
                 }
-                
             }
         }
     }
@@ -184,7 +181,6 @@ public class Enemy : MonoBehaviour
                 currentPatrolPoint = 0;
             }
         }
-
         agent.SetDestination(patrolPoints[currentPatrolPoint].position);
     }
 
@@ -196,7 +192,6 @@ public class Enemy : MonoBehaviour
 
             for (int i = 0; i < investigationPointNo; i++)
             {
-
                 Vector3 investigatePoint = transform.position + Random.insideUnitSphere * 10; 
 
                 while(agent.CalculatePath(investigatePoint, agent.path) != true || investigatePoint.y > 3)
@@ -206,7 +201,6 @@ public class Enemy : MonoBehaviour
 
                 investigatePoints.Add(investigatePoint);
                 Debug.Log(investigatePoint);
-
             }
         }
 
@@ -262,8 +256,6 @@ public class Enemy : MonoBehaviour
         float healthBarX = enemyHealth / enemyMaxHealth;
         healthBar.transform.localScale = new Vector3(healthBarX, 1, 1);
 
-        // Debug.Log("ENEMY " + gameObject.name + " HAS " + enemyHealth.ToString());
-
         if (enemyHealth <= 0)
         {
             Die();
@@ -275,9 +267,6 @@ public class Enemy : MonoBehaviour
         SoundEffectPlayer.instance.PlaySoundEffect("Believe", true, transform.position, 1f, 0.95f, 1.05f);
         Destroy(gameObject);
     }
-
-   
-
 }
 
 
