@@ -50,8 +50,14 @@ public class spawnerScript : MonoBehaviour
         stateControl = gameObject.GetComponent<playStateControl>();
     }
 
-    public void startWave(float time,  int variant1, int variant2, int variant3)
+    public void startWave(float time,  int variant1, int variant2, int variant3, float waveLength)
     {
+        
+
+        var1Count = 0;
+        var2Count = 0;
+        var3Count = 0;
+
         variant1Spawn = variant1;
         variant2Spawn = variant2;
         variant3Spawn = variant3;
@@ -61,7 +67,7 @@ public class spawnerScript : MonoBehaviour
         timeBetween = time;
 
         enemyNumbers = variant1 + variant2 + variant3;
-
+        gameObject.GetComponent<playStateControl>().initiateWave(waveLength);
         StartCoroutine(waveSpawn());
     }
 
@@ -85,7 +91,7 @@ public class spawnerScript : MonoBehaviour
 
     public IEnumerator waveSpawn()
     {
-        stateControl.initiateWave(1.5f);
+        
 
         while(numberSpawned < enemyNumbers)
         {

@@ -11,6 +11,8 @@ public class customEditor : EditorWindow
     int variant2;
     int variant3;
 
+    float waveLength;
+
     GameObject spawner;
 
     [MenuItem("Window/Custom")]
@@ -29,11 +31,13 @@ public class customEditor : EditorWindow
         variant2 = EditorGUILayout.IntField("Number of variant 2 enemies", variant2);
         variant3 = EditorGUILayout.IntField("Number of variant 3 enemies", variant3);
 
+        waveLength = EditorGUILayout.FloatField("Wave length in secoonds", waveLength);
+
         if(GUILayout.Button("Spawn Wave"))
         {
             spawner = GameObject.FindGameObjectWithTag("Spawner");
 
-            spawner.GetComponent<spawnerScript>().startWave(timeBetweenEnemies, variant1, variant2, variant3);
+            spawner.GetComponent<spawnerScript>().startWave(timeBetweenEnemies, variant1, variant2, variant3, waveLength);
         }
 
         GUILayout.Space(10);

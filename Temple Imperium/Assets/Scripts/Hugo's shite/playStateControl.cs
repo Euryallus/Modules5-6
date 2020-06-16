@@ -16,9 +16,8 @@ public class playStateControl : MonoBehaviour
 
     private void Start()
     {
-        spawner = gameObject.GetComponent<spawnerScript>();
-        //spawner.startWave(4f, 3, 2);
 
+        spawner = gameObject.GetComponent<spawnerScript>();
     }
 
     protected enum waveState
@@ -28,11 +27,13 @@ public class playStateControl : MonoBehaviour
 
     protected waveState current;
 
-   public void initiateWave(float waveTimeInMinutes)
-    {
+   public void initiateWave(float waveTimeInSeconds)
+   {
+        waveLength = waveTimeInSeconds;
+        waveTimer = 0;
         current = waveState.waveActive;
-        waveLength = waveTimeInMinutes * 60;
-    }
+        
+   }       
 
     private void FixedUpdate()
     {
@@ -43,6 +44,7 @@ public class playStateControl : MonoBehaviour
                 break;
 
             case waveState.waveActive:
+
                 waveTimer += Time.deltaTime;
 
                 if(waveTimer > waveLength)
@@ -56,7 +58,7 @@ public class playStateControl : MonoBehaviour
                         checkRemainingEnemies();
                     }
                     
-                    timeRemaining.text = ("Time remaining: " + (waveLength - waveTimer).ToString("F2"));
+                    timeRemaining.text = ("Time remaining: " + (waveLength - waveTimer).ToString("F1"));
                 }
 
                 
