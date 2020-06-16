@@ -315,6 +315,32 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    float originalEnemySpeed;
+    bool slowingEnemy;
+    Coroutine slowEnemyCoroutine;
+    public void SlowEnemyForTime(float speed, float time)
+    {
+        if (slowingEnemy)
+        {
+            enemySpeed = originalEnemySpeed;
+            slowingEnemy = false;
+            StopCoroutine(slowEnemyCoroutine);
+        }
+
+        slowEnemyCoroutine = StartCoroutine(SlowEnemyForTimeCoroutine(speed, time));
+    }
+
+    private IEnumerator SlowEnemyForTimeCoroutine(float speed, float time)
+    {
+        originalEnemySpeed = enemySpeed;
+        slowingEnemy = true;
+        enemySpeed = speed;
+
+        yield return new WaitForSeconds(time);
+
+        enemySpeed = originalEnemySpeed;
+    }
+
     private void Die()
     {
         SoundEffectPlayer.instance.PlaySoundEffect3D("Believe", transform.position, 1f, 0.95f, 1.05f);
