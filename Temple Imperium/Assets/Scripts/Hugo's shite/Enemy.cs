@@ -318,7 +318,7 @@ public class Enemy : MonoBehaviour
     float originalEnemySpeed;
     bool slowingEnemy;
     Coroutine slowEnemyCoroutine;
-    public void SlowEnemyForTime(float speed, float time)
+    public void SlowEnemyForTime(float speedMultiplier, float time)
     {
         if (slowingEnemy)
         {
@@ -329,14 +329,14 @@ public class Enemy : MonoBehaviour
             StopCoroutine(slowEnemyCoroutine);
         }
 
-        slowEnemyCoroutine = StartCoroutine(SlowEnemyForTimeCoroutine(speed, time));
+        slowEnemyCoroutine = StartCoroutine(SlowEnemyForTimeCoroutine(speedMultiplier, time));
     }
 
-    private IEnumerator SlowEnemyForTimeCoroutine(float speed, float time)
+    private IEnumerator SlowEnemyForTimeCoroutine(float speedMultiplier, float time)
     {
         originalEnemySpeed = enemySpeed;
         slowingEnemy = true;
-        enemySpeed = speed;
+        enemySpeed = originalEnemySpeed * speedMultiplier;
         agent.speed = enemySpeed;
 
         yield return new WaitForSeconds(time);

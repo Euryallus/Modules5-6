@@ -144,6 +144,8 @@ public class PrototypeWeapon : Weapon
                     hitEnemy.Damage(scaledDamage);
                     hitEnemy.setOnFire(m_prototypeTemplate.GetFireEffectTime(), m_prototypeTemplate.GetFireDamage(), m_prototypeTemplate.GetTimeBetweenFireDamage());
                     UIManager.instance.ShowEnemyHitPopup(scaledDamage, weaponAimInfo.m_hitInfo.point);
+
+                    hitEnemy.SlowEnemyForTime(0.1f, 5f);
                 }
             }
             else
