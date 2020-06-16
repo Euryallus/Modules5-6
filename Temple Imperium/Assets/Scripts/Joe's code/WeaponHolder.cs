@@ -4,6 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public enum TempStarStoneState
+{
+    None,
+    Power_Purple,
+    Heat_Orange,
+    Ice_Blue,
+    Heal_Pink
+}
+
 public class WeaponHolder : MonoBehaviour
 {
     //Set in inspector:
@@ -28,6 +37,7 @@ public class WeaponHolder : MonoBehaviour
     private float adsCameraFOV = 60f;
 
     //public int ammo { get; set; } = 100;
+    public TempStarStoneState tempStarStoneState = TempStarStoneState.None;
     public Weapon activeWeapon { get; private set; }
     private Weapon[] availableWeapons;
     private GameObject goWeapon;

@@ -19,8 +19,6 @@ MonoBehaviour:
   m_minAttackDamage: 7
   m_maxAttackDamage: 9
   m_attackInterval: 0.2
-  m_attackSound: GunShot
-  m_attackSoundVolume: 0.2
   m_aimDownSightOffset: {x: 0, y: -0.17, z: 0.6}
   m_fireParticles: {fileID: 748127710705125160, guid: 04046b32a0c3c98429c670cd7e52c353,
     type: 3}

@@ -44,6 +44,11 @@ public class SoundEffectPlayer : MonoBehaviour
         StartCoroutine(SoundSourceCleanupCoroutine());
     }
 
+    public SoundEffect[] GetSoundEffects()
+    {
+        return soundEffects;
+    }
+
     public void SetupSoundEffectsDict()
     {
         soundEffectsDict = new Dictionary<string, AudioClip>();

@@ -19,8 +19,6 @@ MonoBehaviour:
   m_minAttackDamage: 30
   m_maxAttackDamage: 35
   m_attackInterval: 1.5
-  m_attackSound: Seal Explosion
-  m_attackSoundVolume: 1
   m_throwGameObject: {fileID: 3447803797671081632, guid: 0730f1b736115c046b0d5eff07f15706,
     type: 3}
   m_delay: 0.3
@@ -29,6 +27,5 @@ MonoBehaviour:
   m_impactRadius: 5
   m_fragRadius: 7
   m_fragDamage: 10
-  m_throwSound: Seal
   m_explosionParticles: {fileID: 1033105548700199340, guid: bdfd7eaf0a077f94d8d97b529fd5362a,
     type: 3}

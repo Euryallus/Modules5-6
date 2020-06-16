@@ -33,13 +33,13 @@ public class WeaponTemplate : ScriptableObject
     [Tooltip("Minimum time between each usage of this weapon (seconds)")]
     private float m_attackInterval;
 
-    [SerializeField]
-    [Tooltip("Name of sound effect to be played when this weapon is used")]
-    private string m_attackSound;
+    //Set in custom editor:
 
-    [SerializeField]
-    [Tooltip("Volume of sound effect to be played when this weapon is used")]
-    private float m_attackSoundVolume;
+    //Name of sound effect to be played when this weapon is used
+    public string m_attackSound { get; set; }
+
+    //Volume of sound effect to be played when this weapon is used
+    public float m_attackSoundVolume { get; set; }
 
     #endregion
 

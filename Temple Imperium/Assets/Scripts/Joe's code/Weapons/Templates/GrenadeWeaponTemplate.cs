@@ -38,12 +38,16 @@ public class GrenadeWeaponTemplate : WeaponTemplate
     private int m_fragDamage;
 
     [SerializeField]
-    [Tooltip("Name of sound effect to be played when this grenade is thrown")]
-    private string m_throwSound;
-
-    [SerializeField]
     [Tooltip("Prefab for particles to be spawned when this grenade explodes")]
     private GameObject m_explosionParticles;
+
+    //Set in custom editor:
+
+    //Name of sound effect to be played when this grenade is thrown
+    public string m_throwSound { get; set; }
+
+    //Volume of sound effect to be played when this grenade is thrown
+    public float m_throwSoundVolume { get; set; }
 
     #endregion
 
@@ -83,6 +87,10 @@ public class GrenadeWeaponTemplate : WeaponTemplate
     public string GetThrowSound()
     {
         return m_throwSound;
+    }
+    public float GetThrowSoundVolume()
+    {
+        return m_throwSoundVolume;
     }
     public GameObject GetExplosionParticles()
     {
