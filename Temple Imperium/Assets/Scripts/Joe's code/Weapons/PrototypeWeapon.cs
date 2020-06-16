@@ -45,7 +45,7 @@ public class PrototypeWeapon : Weapon
         if (m_goBeam != null)
         {
             float beamWidth;
-            if (m_weaponHolder.tempStarStoneState == TempStarStoneState.Power_Purple)
+            if (m_weaponHolder.generatorStates.returnState() == generatorStates.starStoneActive.Purple)
             {
                 beamWidth = 0.4f;
             }
@@ -68,21 +68,21 @@ public class PrototypeWeapon : Weapon
         m_goWeapon = weaponGameObject;
 
         //TODO: Remove tempStarStoneState and do a proper check for active star stone
-        switch (m_weaponHolder.tempStarStoneState)
+        switch (m_weaponHolder.generatorStates.returnState())
         {
-            case TempStarStoneState.None:
+            case generatorStates.starStoneActive.None:
                 DefaultAttack(weaponAimInfo, weaponGameObject, prefabAttackLight, transformHead, buttonDown);
                 break;
-            case TempStarStoneState.Heat_Orange:
+            case generatorStates.starStoneActive.Orange:
                 HeatAttack(weaponAimInfo, weaponGameObject, prefabAttackLight, transformHead, buttonDown);
                 break;
-            case TempStarStoneState.Power_Purple:
+            case generatorStates.starStoneActive.Purple:
                 PowerAttack(weaponAimInfo, weaponGameObject, prefabAttackLight, transformHead, buttonDown);
                 break;
-            case TempStarStoneState.Ice_Blue:
+            case generatorStates.starStoneActive.Blue:
                 IceAttack(weaponAimInfo, weaponGameObject, prefabAttackLight, transformHead, buttonDown);
                 break;
-            case TempStarStoneState.Heal_Pink:
+            case generatorStates.starStoneActive.Pink:
                 HealAttack(weaponAimInfo, weaponGameObject, prefabAttackLight, transformHead, buttonDown);
                 break;
         }
@@ -98,22 +98,24 @@ public class PrototypeWeapon : Weapon
         //Set material based on active StarStone
         MeshRenderer beamMeshRen = m_goBeam.transform.Find("Beam").GetComponent<MeshRenderer>();
         ParticleSystem.MainModule beamParticles = m_goBeam.transform.Find("Beam Particles").GetComponent<ParticleSystem>().main;
-        if (m_weaponHolder.tempStarStoneState == TempStarStoneState.Power_Purple)
+        generatorStates.starStoneActive starStoneState = m_weaponHolder.generatorStates.returnState();
+
+        if (starStoneState == generatorStates.starStoneActive.Purple)
         {
             beamMeshRen.material = GameUtilities.instance.materialPower;
             beamParticles.startColor = GameUtilities.instance.colourPurplePower;
         }
-        else if (m_weaponHolder.tempStarStoneState == TempStarStoneState.Heat_Orange)
+        else if (starStoneState == generatorStates.starStoneActive.Orange)
         {
             beamMeshRen.material = GameUtilities.instance.materialHeat;
             beamParticles.startColor = GameUtilities.instance.colourOrangeHeat;
         }
-        else if (m_weaponHolder.tempStarStoneState == TempStarStoneState.Ice_Blue)
+        else if (starStoneState == generatorStates.starStoneActive.Blue)
         {
             beamMeshRen.material = GameUtilities.instance.materialIce;
             beamParticles.startColor = GameUtilities.instance.colourBlueIce;
         }
-        else if (m_weaponHolder.tempStarStoneState == TempStarStoneState.Heal_Pink)
+        else if (starStoneState == generatorStates.starStoneActive.Pink)
         {
             beamMeshRen.material = GameUtilities.instance.materialHeal;
             beamParticles.startColor = GameUtilities.instance.colourPinkHeal;
