@@ -19,6 +19,6 @@ MonoBehaviour:
   m_minAttackDamage: 30
   m_maxAttackDamage: 35
   m_attackInterval: 3
-  m_attackSound: Seal
-  m_attackSoundVolume: 1
+  m_attackSound: SwordSwipe
+  m_attackSoundVolume: 0.6
   m_range: 5
