@@ -40,11 +40,20 @@ public class PrototypeWeapon : Weapon
             {
                 m_damageCharge = 1f;
             }
-            if(m_goBeam != null)
+        }
+
+        if (m_goBeam != null)
+        {
+            float beamWidth;
+            if (m_weaponHolder.tempStarStoneState == TempStarStoneState.Power_Purple)
             {
-                float beamWidth = (m_damageCharge * 0.4f);
-                m_goBeam.transform.Find("Beam").localScale = new Vector3(beamWidth, (m_prototypeTemplate.GetRange() / 2f) - 0.5f, beamWidth);
+                beamWidth = 0.4f;
             }
+            else
+            {
+                beamWidth = (m_damageCharge * 0.4f);
+            }
+            m_goBeam.transform.Find("Beam").localScale = new Vector3(beamWidth, (m_prototypeTemplate.GetRange() / 2f) - 0.5f, beamWidth);
         }
     }
 
@@ -66,6 +75,15 @@ public class PrototypeWeapon : Weapon
                 break;
             case TempStarStoneState.Heat_Orange:
                 HeatAttack(weaponAimInfo, weaponGameObject, prefabAttackLight, transformHead, buttonDown);
+                break;
+            case TempStarStoneState.Power_Purple:
+                PowerAttack(weaponAimInfo, weaponGameObject, prefabAttackLight, transformHead, buttonDown);
+                break;
+            case TempStarStoneState.Ice_Blue:
+                IceAttack(weaponAimInfo, weaponGameObject, prefabAttackLight, transformHead, buttonDown);
+                break;
+            case TempStarStoneState.Heal_Pink:
+                HealAttack(weaponAimInfo, weaponGameObject, prefabAttackLight, transformHead, buttonDown);
                 break;
         }
 
@@ -183,6 +201,59 @@ public class PrototypeWeapon : Weapon
                 Debug.Log("[HEAT] Proto weapon firing, hitting nothing");
             }
         }
+    }
+
+    private void PowerAttack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
+    {
+        if (!m_charging)
+        {
+            m_charging = true;
+            m_damageCharge = 0f;
+
+            SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.GetAttackSound(), m_template.GetAttackSoundVolume(), 0.95f, 1.05f);
+            SoundEffectPlayer.instance.PlayLoopingSoundEffect(m_prototypeTemplate.GetFiringSound(), false, Vector3.zero, "protoBeam", m_prototypeTemplate.GetFiringSoundVolume());
+        }
+
+        //Fully charged and ready to shoot
+        if(m_damageCharge == 1f)
+        {
+            CreateBeamGameObject(weaponGameObject);
+
+            if (weaponAimInfo.m_raycastHit)
+            {
+                Debug.Log("[POWER] Proto weapon firing, hitting " + weaponAimInfo.m_hitInfo.transform.name);
+
+                if (weaponAimInfo.m_hitInfo.collider.gameObject.CompareTag("Enemy"))
+                {
+                    int damageAmount = Random.Range(m_prototypeTemplate.GetMinPowerDamage(), m_prototypeTemplate.GetMaxPowerDamage() + 1); ;
+
+                    Enemy hitEnemy = weaponAimInfo.m_hitInfo.transform.GetComponent<Enemy>();
+                    hitEnemy.Damage(damageAmount);
+                    UIManager.instance.ShowEnemyHitPopup(damageAmount, weaponAimInfo.m_hitInfo.point);
+                }
+            }
+            else
+            {
+                Debug.Log("[POWER] Proto weapon firing, hitting nothing");
+            }
+
+            SoundEffectPlayer.instance.PlaySoundEffect2D(m_prototypeTemplate.m_powerSound, m_prototypeTemplate.m_powerSoundVolume);
+            SoundEffectPlayer.instance.StopLoopingSoundEffect("protoBeam");
+            m_charging = false;
+            m_attackIntervalTimer = m_template.GetAttackInterval();
+
+            m_weaponHolder.DestroyWeaponGameObjectAfterTime(m_goBeam, 0.2f);
+        }
+    }
+
+    private void IceAttack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
+    {
+
+    }
+
+    private void HealAttack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
+    {
+
     }
 
     public void StopAttack(Transform transformHead)

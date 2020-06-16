@@ -19958,7 +19958,7 @@ MonoBehaviour:
   playerCamera: {fileID: 7362584271561354503}
   defaultCameraFOV: 90
   adsCameraFOV: 60
-  tempStarStoneState: 2
+  tempStarStoneState: 1
 --- !u!143 &7362584271067085651
 CharacterController:
   m_ObjectHideFlags: 0

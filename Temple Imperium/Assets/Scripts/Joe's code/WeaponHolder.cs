@@ -320,6 +320,20 @@ public class WeaponHolder : MonoBehaviour
         }
     }
 
+    public void DestroyWeaponGameObjectAfterTime(GameObject goWeapon, float time)
+    {
+        StartCoroutine(DestroyWeaponGameObjectAfterTimeCoroutine(goWeapon, time));
+    }
+
+    private IEnumerator DestroyWeaponGameObjectAfterTimeCoroutine(GameObject goWeapon, float time)
+    {
+        yield return new WaitForSeconds(time);
+        if (goWeapon != null)
+        {
+            Destroy(goWeapon);
+        }
+    }
+
     private void OnDrawGizmos()
     {
         //Debug visualisation for weapon aiming
