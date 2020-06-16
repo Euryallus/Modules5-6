@@ -37,15 +37,13 @@ public class customEditor : EditorWindow
         {
             spawner = GameObject.FindGameObjectsWithTag("Spawner");
 
-            
-
-
             for (int i = 0; i < spawner.Length; i++)
             {
                 spawner[i].GetComponent<spawnerScript>().startWave(timeBetweenEnemies, variant1, variant2, variant3);
             }
 
             GameObject.FindGameObjectWithTag("spawnerManager").GetComponent<playStateControl>().initiateWave(waveLength);
+
             Debug.Log(GameObject.FindGameObjectWithTag("spawnerManager").name);
         }
     }

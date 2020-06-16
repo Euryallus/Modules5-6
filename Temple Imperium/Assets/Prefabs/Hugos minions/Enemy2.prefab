@@ -325,7 +325,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5206509638742407878}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.5, y: 1.37, z: 1.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4571509846844451284}
@@ -429,19 +429,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewDistance: 20
-  viewConeAngle: 150
   transitionTime: 2.5
   enemySpeed: 3.5
   enemyHealth: 25
   regenPerSecond: 0.5
+  healthBar: {fileID: 0}
   currentTarget: {fileID: 0}
+  fireDamage: 2
+  fireLength: 4
+  slowPercent: 0.6
+  slowTime: 2
+  purpleDamagePercent: 1.5
+  healthRegenLength: 3
+  healthRegenAmountPerCall: 2
+  timeBetweenHealthRegen: 0.5
   currentState: 0
   patrolPoints:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   canSeePlayer: 0
+  enemyViewAngle: 150
   lookingCount: 0
+  damageReductionPurpleStarStone: 0.5
   bulletSpawnRate: 2
   bulletBlueprint: {fileID: 5455800343749663860, guid: 686ed8badb4dcd7408efa577f7089a05,
     type: 3}

@@ -41,8 +41,11 @@ public class spawnerScript : MonoBehaviour
     int variant3Spawn;
 
     int var1Count = 0;
-    int var2Count = 0;
+    public int var2Count = 0;
     int var3Count = 0;
+
+    [SerializeField]
+    float spawnRadius;
 
 
     private void Start()
@@ -85,28 +88,26 @@ public class spawnerScript : MonoBehaviour
        
         spawnedEnemy.GetComponent<Enemy>().patrolPoints = pointsPassed;
        
-        spawnedEnemy.transform.position = (Random.insideUnitSphere * 5 + gameObject.transform.position);
+        spawnedEnemy.transform.position = (Random.insideUnitSphere * spawnRadius + gameObject.transform.position);
 
     }
 
     public IEnumerator waveSpawn()
     {
-        
-
         while(numberSpawned < enemyNumbers)
         {
             if(var1Count < variant1Spawn)
             {
                 spawnEnemy(variant1);
                 var1Count += 1;
-                numberSpawned++;
+                numberSpawned+= 1;
             }
 
             else if(var2Count < variant2Spawn)
             {
                 spawnEnemy(variant2);
                 var2Count += 1;
-                numberSpawned++;
+                numberSpawned += 1;
 
             }
 
@@ -114,7 +115,7 @@ public class spawnerScript : MonoBehaviour
             {
                 spawnEnemy(variant3);
                 var3Count += 1;
-                numberSpawned++;
+                numberSpawned =+ 1;
 
             }
 
