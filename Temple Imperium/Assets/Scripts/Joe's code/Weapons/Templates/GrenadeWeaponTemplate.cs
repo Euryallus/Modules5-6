@@ -42,6 +42,10 @@ public class GrenadeWeaponTemplate : WeaponTemplate
     private string m_throwSound;
 
     [SerializeField]
+    [Tooltip("Volume of sound effect to be played when this grenade is thrown")]
+    private float m_throwSoundVolume;
+
+    [SerializeField]
     [Tooltip("Prefab for particles to be spawned when this grenade explodes")]
     private GameObject m_explosionParticles;
 
@@ -83,6 +87,10 @@ public class GrenadeWeaponTemplate : WeaponTemplate
     public string GetThrowSound()
     {
         return m_throwSound;
+    }
+    public float GetThrowSoundVolume()
+    {
+        return m_throwSoundVolume;
     }
     public GameObject GetExplosionParticles()
     {

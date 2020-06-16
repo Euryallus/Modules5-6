@@ -26,8 +26,20 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     private float m_damageInterval;
 
     [SerializeField]
+    [Tooltip("Name of sound effect to be looped while this weapon is firing")]
+    private string m_firingSound;
+
+    [SerializeField]
+    [Tooltip("Volume of sound effect to be looped while this weapon is firing")]
+    private float m_firingSoundVolume;
+
+    [SerializeField]
     [Tooltip("Name of sound effect to be played when this weapon stops firing")]
     private string m_disableSound;
+
+    [SerializeField]
+    [Tooltip("Volume of sound effect to be played when this weapon stops firing")]
+    private float m_disableSoundVolume;
 
     #endregion
 
@@ -52,9 +64,21 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     {
         return m_damageInterval;
     }
+    public string GetFiringSound()
+    {
+        return m_firingSound;
+    }
+    public float GetFiringSoundVolume()
+    {
+        return m_firingSoundVolume;
+    }
     public string GetDisableSound()
     {
         return m_disableSound;
+    }
+    public float GetDisableSoundVolume()
+    {
+        return m_disableSoundVolume;
     }
 
     #endregion

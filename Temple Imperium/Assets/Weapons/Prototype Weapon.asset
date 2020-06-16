@@ -26,4 +26,7 @@ MonoBehaviour:
     type: 3}
   m_range: 20
   m_damageInterval: 0.3
+  m_firingSound: Laser Loop
+  m_firingSoundVolume: 1
   m_disableSound: Laser Disable
+  m_disableSoundVolume: 1
