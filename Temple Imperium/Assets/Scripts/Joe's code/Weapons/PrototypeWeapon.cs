@@ -217,7 +217,38 @@ public class PrototypeWeapon : Weapon
 
     private void HealAttack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
     {
+        if (m_damageTimer <= 0)
+        {
+            m_damageTimer = m_prototypeTemplate.GetDamageInterval();
 
+            if (weaponAimInfo.m_raycastHit)
+            {
+                Debug.Log("[HEAL] Proto weapon firing, hitting " + weaponAimInfo.m_hitInfo.transform.name);
+
+                if (weaponAimInfo.m_hitInfo.collider.gameObject.CompareTag("Enemy"))
+                {
+                    float damagePerc = m_damageCharge / 1f;
+                    int scaledDamage = Mathf.RoundToInt(RemapNumber(damagePerc, 0f, 1f, m_template.GetMinAttackDamage(), m_template.GetMaxAttackDamage()));
+
+                    int scaledHealthRestore = Mathf.RoundToInt(RemapNumber(damagePerc, 0f, 1f, 0f, m_prototypeTemplate.GetHealthRestoreAmount()));
+
+                    //If a player is holding this weapon, restore some health
+                    if (m_weaponHolder.gameObject.CompareTag("Player"))
+                    {
+                        m_weaponHolder.gameObject.GetComponent<playerHealth>().RestoreHealth(scaledHealthRestore);
+                    }
+
+                    Enemy hitEnemy = weaponAimInfo.m_hitInfo.transform.GetComponent<Enemy>();
+                    hitEnemy.Damage(scaledDamage);
+                    hitEnemy.SlowEnemyForTime(m_prototypeTemplate.GetSpeedMultiplier(), m_prototypeTemplate.GetSlowdownTime());
+                    UIManager.instance.ShowEnemyHitPopup(scaledDamage, weaponAimInfo.m_hitInfo.point);
+                }
+            }
+            else
+            {
+                Debug.Log("[HEAL] Proto weapon firing, hitting nothing");
+            }
+        }
     }
 
     private void StartCharging(GameObject weaponGameObject)

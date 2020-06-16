@@ -59,6 +59,13 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     [Tooltip("Amount of time (seconds) to apply the speedMultiplier after an entity is hit")]
     private float m_slowdownTime;
 
+    [Header("-- Heal Effect")]
+
+    [SerializeField]
+    [Tooltip("Amount of health to restore to the entity holding the weapon when they deal damage")]
+    private int m_healthRestoreAmount;
+
+
     //Name of sound effect to be looped while this weapon is firing
     public string m_firingSound { get; set; }
 
@@ -143,6 +150,10 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     public float GetSlowdownTime()
     {
         return m_slowdownTime;
+    }
+    public int GetHealthRestoreAmount()
+    {
+        return m_healthRestoreAmount;
     }
 
     #endregion

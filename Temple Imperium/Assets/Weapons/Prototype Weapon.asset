@@ -31,3 +31,4 @@ MonoBehaviour:
   m_maxPowerDamage: 30
   m_speedMultiplier: 0.5
   m_slowdownTime: 5
+  m_healthRestoreAmount: 1
