@@ -125,6 +125,13 @@ public class playerHealth : MonoBehaviour
         }
     }
 
+    //Added by Joe:
+    public void RestoreHealth(int amount)
+    {
+        health += amount;
+        health = Mathf.Clamp(health, 0f, maxHealth);
+    }
+
     
 
 }

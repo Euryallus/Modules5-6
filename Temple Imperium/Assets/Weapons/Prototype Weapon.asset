@@ -29,3 +29,5 @@ MonoBehaviour:
   m_timeBetweenFireDamage: 0.5
   m_minPowerDamage: 25
   m_maxPowerDamage: 30
+  m_speedMultiplier: 0.5
+  m_slowdownTime: 5
