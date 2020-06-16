@@ -58,7 +58,7 @@ public class playStateControl : MonoBehaviour
                         checkRemainingEnemies();
                     }
                     
-                    timeRemaining.text = ("Time remaining: " + (waveLength - waveTimer).ToString("F1"));
+                    timeRemaining.text = ("Time remaining: " + (waveLength - waveTimer).ToString("F0"));
                 }
 
                 
