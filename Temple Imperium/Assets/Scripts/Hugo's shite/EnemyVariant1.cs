@@ -17,9 +17,8 @@ public class EnemyVariant1 : Enemy
     
 
     public EnemyVariant1() : base(15f, 170f, 5f, 5f)
-   {
-        Debug.Log("Variant1 success");
-   }
+    {
+    }
 
     public override void Engage()
     {

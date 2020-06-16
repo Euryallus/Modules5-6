@@ -99,7 +99,7 @@ public class spawnerScript : MonoBehaviour
             else if(var2Count < variant2Spawn)
             {
                 spawnEnemy(variant2);
-                var1Count += 2;
+                var2Count += 1;
                 numberSpawned++;
 
             }

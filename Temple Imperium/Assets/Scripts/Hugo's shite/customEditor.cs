@@ -29,8 +29,6 @@ public class customEditor : EditorWindow
         variant2 = EditorGUILayout.IntField("Number of variant 2 enemies", variant2);
         variant3 = EditorGUILayout.IntField("Number of variant 3 enemies", variant3);
 
-        GUILayout.Label("^ 1 = Only small enemies \n2 = Small and Medium enemies \n3 = All enemy types (not implemented yet)", EditorStyles.helpBox);
-
         if(GUILayout.Button("Spawn Wave"))
         {
             spawner = GameObject.FindGameObjectWithTag("Spawner");
