@@ -13,7 +13,7 @@ public class customEditor : EditorWindow
 
     float waveLength;
 
-    GameObject spawner;
+    GameObject[] spawner;
 
     [MenuItem("Window/Custom")]
     public static void ShowWindow()
@@ -35,12 +35,18 @@ public class customEditor : EditorWindow
 
         if(GUILayout.Button("Spawn Wave"))
         {
-            spawner = GameObject.FindGameObjectWithTag("Spawner");
+            spawner = GameObject.FindGameObjectsWithTag("Spawner");
 
-            spawner.GetComponent<spawnerScript>().startWave(timeBetweenEnemies, variant1, variant2, variant3, waveLength);
+            
+
+
+            for (int i = 0; i < spawner.Length; i++)
+            {
+                spawner[i].GetComponent<spawnerScript>().startWave(timeBetweenEnemies, variant1, variant2, variant3);
+            }
+
+            GameObject.FindGameObjectWithTag("spawnerManager").GetComponent<playStateControl>().initiateWave(waveLength);
+            Debug.Log(GameObject.FindGameObjectWithTag("spawnerManager").name);
         }
-
-        GUILayout.Space(10);
     }
-
 }

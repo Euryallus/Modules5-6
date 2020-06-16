@@ -14,12 +14,6 @@ public class playStateControl : MonoBehaviour
 
     public spawnerScript spawner;
 
-    private void Start()
-    {
-
-        spawner = gameObject.GetComponent<spawnerScript>();
-    }
-
     protected enum waveState
     {
         beforeWaveStart, waveActive, waveFail, waveComplete

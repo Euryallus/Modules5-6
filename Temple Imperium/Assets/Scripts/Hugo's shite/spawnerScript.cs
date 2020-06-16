@@ -50,7 +50,7 @@ public class spawnerScript : MonoBehaviour
         stateControl = gameObject.GetComponent<playStateControl>();
     }
 
-    public void startWave(float time,  int variant1, int variant2, int variant3, float waveLength)
+    public void startWave(float time,  int variant1, int variant2, int variant3)
     {
         
 
@@ -67,7 +67,7 @@ public class spawnerScript : MonoBehaviour
         timeBetween = time;
 
         enemyNumbers = variant1 + variant2 + variant3;
-        gameObject.GetComponent<playStateControl>().initiateWave(waveLength);
+
         StartCoroutine(waveSpawn());
     }
 
