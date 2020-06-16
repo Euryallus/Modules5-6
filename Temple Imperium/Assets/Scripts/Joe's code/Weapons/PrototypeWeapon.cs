@@ -72,6 +72,41 @@ public class PrototypeWeapon : Weapon
         weaponGameObject.transform.Find("Weapon").GetComponent<Animator>().SetBool("Shooting", true);
     }
 
+    private void CreateBeamGameObject(GameObject weaponGameObject)
+    {
+        //Create the beam and position it based on range
+        m_goBeam = Object.Instantiate(m_prototypeTemplate.GetBeamGameObject(), weaponGameObject.transform.Find("AimPoint"));
+
+        //Set material based on active StarStone
+        MeshRenderer beamMeshRen = m_goBeam.transform.Find("Beam").GetComponent<MeshRenderer>();
+        ParticleSystem.MainModule beamParticles = m_goBeam.transform.Find("Beam Particles").GetComponent<ParticleSystem>().main;
+        if (m_weaponHolder.tempStarStoneState == TempStarStoneState.Power_Purple)
+        {
+            beamMeshRen.material = GameUtilities.instance.materialPower;
+            beamParticles.startColor = GameUtilities.instance.colourPurplePower;
+        }
+        else if (m_weaponHolder.tempStarStoneState == TempStarStoneState.Heat_Orange)
+        {
+            beamMeshRen.material = GameUtilities.instance.materialHeat;
+            beamParticles.startColor = GameUtilities.instance.colourOrangeHeat;
+        }
+        else if (m_weaponHolder.tempStarStoneState == TempStarStoneState.Ice_Blue)
+        {
+            beamMeshRen.material = GameUtilities.instance.materialIce;
+            beamParticles.startColor = GameUtilities.instance.colourBlueIce;
+        }
+        else if (m_weaponHolder.tempStarStoneState == TempStarStoneState.Heal_Pink)
+        {
+            beamMeshRen.material = GameUtilities.instance.materialHeal;
+            beamParticles.startColor = GameUtilities.instance.colourPinkHeal;
+        }
+
+        m_goBeam.transform.localPosition = Vector3.zero;
+        m_goBeam.transform.localRotation = Quaternion.Euler(Vector3.zero);
+        GameObject goBeamChild = m_goBeam.transform.Find("Beam").gameObject;
+        goBeamChild.transform.localPosition = new Vector3(0f, 0f, (m_prototypeTemplate.GetRange() / 2f) - 0.5f);
+    }
+
     private void DefaultAttack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
     {
         if (!m_charging)
@@ -80,12 +115,7 @@ public class PrototypeWeapon : Weapon
             m_damageCharge = 0f;
             m_damageTimer = 0f;
 
-            //Create the beam and position it based on range
-            m_goBeam = Object.Instantiate(m_prototypeTemplate.GetBeamGameObject(), weaponGameObject.transform.Find("AimPoint"));
-            m_goBeam.transform.localPosition = Vector3.zero;
-            m_goBeam.transform.localRotation = Quaternion.Euler(Vector3.zero);
-            GameObject goBeamChild = m_goBeam.transform.Find("Beam").gameObject;
-            goBeamChild.transform.localPosition = new Vector3(0f, 0f, (m_prototypeTemplate.GetRange() / 2f) - 0.5f);
+            CreateBeamGameObject(weaponGameObject);
 
             SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.GetAttackSound(), m_template.GetAttackSoundVolume(), 0.95f, 1.05f);
             SoundEffectPlayer.instance.PlayLoopingSoundEffect(m_prototypeTemplate.GetFiringSound(), false, Vector3.zero, "protoBeam", m_prototypeTemplate.GetFiringSoundVolume());
@@ -123,12 +153,7 @@ public class PrototypeWeapon : Weapon
             m_damageCharge = 0f;
             m_damageTimer = 0f;
 
-            //Create the beam and position it based on range
-            m_goBeam = Object.Instantiate(m_prototypeTemplate.GetBeamGameObject(), weaponGameObject.transform.Find("AimPoint"));
-            m_goBeam.transform.localPosition = Vector3.zero;
-            m_goBeam.transform.localRotation = Quaternion.Euler(Vector3.zero);
-            GameObject goBeamChild = m_goBeam.transform.Find("Beam").gameObject;
-            goBeamChild.transform.localPosition = new Vector3(0f, 0f, (m_prototypeTemplate.GetRange() / 2f) - 0.5f);
+            CreateBeamGameObject(weaponGameObject);
 
             SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.GetAttackSound(), m_template.GetAttackSoundVolume(), 0.95f, 1.05f);
             SoundEffectPlayer.instance.PlayLoopingSoundEffect(m_prototypeTemplate.GetFiringSound(), false, Vector3.zero, "protoBeam", m_prototypeTemplate.GetFiringSoundVolume());
