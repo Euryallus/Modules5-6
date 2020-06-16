@@ -25,21 +25,17 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     [Tooltip("How frequently damage is dealt when firing at an object (seconds)")]
     private float m_damageInterval;
 
-    [SerializeField]
-    [Tooltip("Name of sound effect to be looped while this weapon is firing")]
-    private string m_firingSound;
+    //Name of sound effect to be looped while this weapon is firing
+    public string m_firingSound { get; set; }
 
-    [SerializeField]
-    [Tooltip("Volume of sound effect to be looped while this weapon is firing")]
-    private float m_firingSoundVolume;
+    //Volume of sound effect to be looped while this weapon is firing
+    public float m_firingSoundVolume { get; set; }
 
-    [SerializeField]
-    [Tooltip("Name of sound effect to be played when this weapon stops firing")]
-    private string m_disableSound;
+    //Name of sound effect to be played when this weapon stops firing
+    public string m_disableSound { get; set; }
 
-    [SerializeField]
-    [Tooltip("Volume of sound effect to be played when this weapon stops firing")]
-    private float m_disableSoundVolume;
+    //Volume of sound effect to be played when this weapon stops firing
+    public float m_disableSoundVolume { get; set; }
 
     #endregion
 
