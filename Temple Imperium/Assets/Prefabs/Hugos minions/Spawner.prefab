@@ -134,7 +134,8 @@ MonoBehaviour:
     type: 3}
   variant2: {fileID: 5206509638742407878, guid: ae7723b10d10ecc4c9b9f9661ea11b28,
     type: 3}
-  variant3: {fileID: 0}
+  variant3: {fileID: 2245337605376213464, guid: 0224c6623aab66745bf15a2136e19557,
+    type: 3}
   randomPatrolPoint: 0
   numberOfPointsPassedToEnemies: 3
   spawning: 0
