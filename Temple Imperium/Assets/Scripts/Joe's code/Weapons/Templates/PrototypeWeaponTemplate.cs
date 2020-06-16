@@ -39,6 +39,16 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     [Tooltip("Amount of time between the target taking fire damage (seconds)")]
     private float m_timeBetweenFireDamage;
 
+    [Header("-- Power Effect")]
+
+    [SerializeField]
+    [Tooltip("Minimum damage done to the target when hit after charging the weapon")]
+    private int m_minPowerDamage;
+
+    [SerializeField]
+    [Tooltip("Maximum damage done to the target when hit after charging the weapon")]
+    private int m_maxPowerDamage;
+
     //Name of sound effect to be looped while this weapon is firing
     public string m_firingSound { get; set; }
 
@@ -50,6 +60,12 @@ public class PrototypeWeaponTemplate : WeaponTemplate
 
     //Volume of sound effect to be played when this weapon stops firing
     public float m_disableSoundVolume { get; set; }
+
+    //Name of sound effect to be played when this weapon fires with power StartStone
+    public string m_powerSound { get; set; }
+
+    //Volume of sound effect to be played when this weapon fires with power StartStone
+    public float m_powerSoundVolume { get; set; }
 
     #endregion
 
@@ -101,6 +117,14 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     public float GetTimeBetweenFireDamage()
     {
         return m_timeBetweenFireDamage;
+    }
+    public int GetMinPowerDamage()
+    {
+        return m_minPowerDamage;
+    }
+    public int GetMaxPowerDamage()
+    {
+        return m_maxPowerDamage;
     }
 
     #endregion
