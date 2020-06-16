@@ -323,6 +323,8 @@ public class Enemy : MonoBehaviour
         if (slowingEnemy)
         {
             enemySpeed = originalEnemySpeed;
+            agent.speed = enemySpeed;
+
             slowingEnemy = false;
             StopCoroutine(slowEnemyCoroutine);
         }
@@ -335,10 +337,12 @@ public class Enemy : MonoBehaviour
         originalEnemySpeed = enemySpeed;
         slowingEnemy = true;
         enemySpeed = speed;
+        agent.speed = enemySpeed;
 
         yield return new WaitForSeconds(time);
 
         enemySpeed = originalEnemySpeed;
+        agent.speed = enemySpeed;
     }
 
     private void Die()
