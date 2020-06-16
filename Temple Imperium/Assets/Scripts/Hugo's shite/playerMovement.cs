@@ -41,6 +41,9 @@ public class playerMovement : MonoBehaviour
     bool canClimb = false;
 
     private GameObject noteMenu;
+
+    //star stone effects
+    bool isSlowed = false;
     void Start()
     {
         playerCamera = gameObject.transform.GetChild(0).gameObject;
@@ -180,5 +183,27 @@ public class playerMovement : MonoBehaviour
             canClimb = false;
             onLadder = false;
         }
+    }
+
+    public void slowEffect(float percentageSlow, float time)
+    {
+        if(isSlowed == false)
+        {
+            gameObject.GetComponent<playerHealth>().stateDisplay.text = "slowed!";
+            isSlowed = true;
+            playerSpeed = playerSpeed *  (1 - percentageSlow);
+
+            StartCoroutine(returnToNormalSpeed(time));
+        }
+        
+    }
+
+    private IEnumerator returnToNormalSpeed(float time)
+    {
+        yield return new WaitForSeconds(time);
+        playerSpeed = defaultSpeed;
+        isSlowed = false;
+        gameObject.GetComponent<playerHealth>().stateDisplay.text = "";
+
     }
 }

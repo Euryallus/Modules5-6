@@ -41,7 +41,9 @@ public class EnemyVariant3 : Enemy
     {
         while (canSeePlayer)
         {
+           
             missile = Instantiate(missileBlueprint);
+            missile.GetComponent<missileTemp>().setParent(gameObject);
             missile.transform.position = transform.position + transform.forward * 1.5f;
 
             yield return new WaitForSeconds(fireRate);

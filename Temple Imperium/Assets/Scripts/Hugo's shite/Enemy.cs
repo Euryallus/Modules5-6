@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Enemy : MonoBehaviour
@@ -41,6 +42,31 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     GameObject currentTarget;
 
+    [Header("Star Stone effects")]
+    [SerializeField]
+    protected int fireDamage = 2;
+    [SerializeField]
+    protected float fireLength = 4;
+
+    [SerializeField]
+    protected float slowPercent = 0.6f;
+    [SerializeField]
+    protected float slowTime = 2;
+
+    [SerializeField]
+    protected float purpleDamagePercent = 1.5f;
+
+    protected float healTimeElapsed = 0;
+
+    [SerializeField]
+    protected float healthRegenLength = 3f;
+    [SerializeField]
+    protected float healthRegenAmountPerCall = 2f;
+    [SerializeField]
+    protected float timeBetweenHealthRegen = 0.5f;
+
+    
+
     protected enum State
     {
         Idle,
@@ -76,6 +102,12 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     protected float lookingCount = 0;
 
+    //STAR STONE CHANGES VARIABLES
+    protected generatorStates generator;
+    protected bool hasAttacked = false;
+
+    public float damageReductionPurpleStarStone = 0.5f;
+
     public Enemy (float viewDist, float viewAngle, float transitionWait, float speed)
     {
         viewDistance = viewDist;
@@ -95,7 +127,7 @@ public class Enemy : MonoBehaviour
         enemyMaxHealth = enemyHealth;
         healthBar = transform.GetChild(0).gameObject;
 
-        StartCoroutine(regenHealth());
+        generator = GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<generatorStates>();
     }
 
     private void Update()
@@ -224,12 +256,22 @@ public class Enemy : MonoBehaviour
            transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Play();
     }
 
-    protected IEnumerator regenHealth()
+    public void externalRegenCall()
     {
-        while (true)
+        healTimeElapsed = 0;
+        StartCoroutine(regenHealth(healthRegenLength, timeBetweenHealthRegen, healthRegenAmountPerCall));
+
+    }
+
+    protected IEnumerator regenHealth(float timeActive, float timeBetweenHeal, float healthPerCall)
+    {
+        while (healTimeElapsed < timeActive && enemyHealth < enemyMaxHealth)
         {
-            yield return new WaitForSeconds(1);
-            enemyHealth += regenPerSecond;
+            enemyHealth += healthPerCall;
+            healTimeElapsed += timeBetweenHeal;
+            float healthBarX = enemyHealth / enemyMaxHealth;
+            healthBar.transform.localScale = new Vector3(healthBarX, 1, 1);
+            yield return new WaitForSeconds(timeBetweenHeal);
         }
     }
 
@@ -244,14 +286,25 @@ public class Enemy : MonoBehaviour
             if(secondsPassed >= fireEffectTime)
             {
                 transform.GetChild(1).gameObject.GetComponent<ParticleSystem>().Stop();
+
             }
         }
     }
 
+
+
+
+
     //Added by Joe: //thank u Joe
     public void Damage(int hitPoints)
     {
-        enemyHealth -= hitPoints;
+        float damageDone = hitPoints;
+
+        if(generator.returnState() == generatorStates.starStoneActive.Purple)
+        {
+            damageDone /= 1 + damageReductionPurpleStarStone;
+        }
+        enemyHealth -= damageDone;
 
         float healthBarX = enemyHealth / enemyMaxHealth;
         healthBar.transform.localScale = new Vector3(healthBarX, 1, 1);

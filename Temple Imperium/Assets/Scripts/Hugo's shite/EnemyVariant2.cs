@@ -32,6 +32,7 @@ public class EnemyVariant2 : Enemy
             {
                 bulletSpawnCount = 0;
                 bullet = Instantiate(bulletBlueprint);
+                bullet.GetComponent<bulletTemp>().setParent(gameObject);
                 bullet.GetComponent<Rigidbody>().velocity = (playerVector.normalized * bulletSpeed);
                 bullet.transform.position = gameObject.transform.position + (playerVector.normalized);
             }

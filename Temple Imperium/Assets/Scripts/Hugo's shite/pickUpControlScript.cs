@@ -12,12 +12,15 @@ public class pickUpControlScript : MonoBehaviour
 
     GameObject display;
     GameObject noteMenu;
+    generatorStates generator;
 
     void Start()
     {
         camera = GameObject.FindGameObjectWithTag("MainCamera");
         display = GameObject.FindGameObjectWithTag("display");
         noteMenu = GameObject.FindGameObjectWithTag("noteDisplayManager");
+
+        generator = GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<generatorStates>();
     }
 
     // Update is called once per frame
@@ -53,6 +56,24 @@ public class pickUpControlScript : MonoBehaviour
                 }
 
                 //###############################################
+
+                //STAR STONE DEBUG
+                switch (hitObject.tag)
+                {
+                    case "Blue":
+                        generator.activateBlue();
+                        break;
+                    case "Purple":
+                        generator.activatePurple();
+                        break;
+                    case "Orange":
+                        generator.activateOrange();
+                        break;
+                    case "Pink":
+                        generator.activatePink();
+                        break;
+
+                }
             }
         }
 

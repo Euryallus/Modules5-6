@@ -12,6 +12,11 @@ TagManager:
   - Ladder
   - postProcessing
   - Spawner
+  - GeneratorManager
+  - Blue
+  - Orange
+  - Pink
+  - Purple
   layers:
   - Default
   - TransparentFX

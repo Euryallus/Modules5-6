@@ -26,6 +26,15 @@ public class playerHealth : MonoBehaviour
 
     public Image healthBar;
 
+
+    //START STONE EFFECTS
+    float secondsPassed = 0;
+    public ParticleSystem fireEffect;
+    bool onFire = false;
+    [SerializeField]
+    public Text stateDisplay;
+
+
     private void Start()
     {
         maxHealth = health;
@@ -84,4 +93,38 @@ public class playerHealth : MonoBehaviour
             Debug.LogWarning("Player dead");
         }
     }
+
+    public void setOnFire(float fireEffectTime, int fireDamageTaken, float timeBetweenDamage)
+    {
+        if(onFire == false)
+        {
+            stateDisplay.text = "On fire!";
+            onFire = true;
+            secondsPassed = 0;
+            StartCoroutine(putOutFire(fireEffectTime, fireDamageTaken, timeBetweenDamage));
+
+            fireEffect.Play();
+        }
+        
+    }
+    protected IEnumerator putOutFire(float fireEffectTime, int fireDamageTaken, float timeBetweemDamage)
+    {
+        while (secondsPassed < fireEffectTime)
+        {
+            takeDamage(fireDamageTaken);
+            secondsPassed += timeBetweemDamage;
+            yield return new WaitForSeconds(timeBetweemDamage);
+
+            if (secondsPassed >= fireEffectTime)
+            {
+                fireEffect.Stop();
+                onFire = false;
+                stateDisplay.text = "";
+
+            }
+        }
+    }
+
+    
+
 }
