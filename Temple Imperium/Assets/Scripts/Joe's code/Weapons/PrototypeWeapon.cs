@@ -67,8 +67,17 @@ public class PrototypeWeapon : Weapon
         m_attackIntervalTimer = m_template.GetAttackInterval();
         m_goWeapon = weaponGameObject;
 
+        generatorStates.starStoneActive generatorState = m_weaponHolder.generatorStates.returnState();
+
+        if (!m_charging)
+        {
+            StartCharging(weaponGameObject);
+            if (generatorState != generatorStates.starStoneActive.Purple)
+                CreateBeamGameObject(weaponGameObject);
+        }
+
         //TODO: Remove tempStarStoneState and do a proper check for active star stone
-        switch (m_weaponHolder.generatorStates.returnState())
+        switch (generatorState)
         {
             case generatorStates.starStoneActive.None:
                 DefaultAttack(weaponAimInfo, weaponGameObject, prefabAttackLight, transformHead, buttonDown);
@@ -90,58 +99,9 @@ public class PrototypeWeapon : Weapon
         weaponGameObject.transform.Find("Weapon").GetComponent<Animator>().SetBool("Shooting", true);
     }
 
-    private void CreateBeamGameObject(GameObject weaponGameObject)
-    {
-        //Create the beam and position it based on range
-        m_goBeam = Object.Instantiate(m_prototypeTemplate.GetBeamGameObject(), weaponGameObject.transform.Find("AimPoint"));
-
-        //Set material based on active StarStone
-        MeshRenderer beamMeshRen = m_goBeam.transform.Find("Beam").GetComponent<MeshRenderer>();
-        ParticleSystem.MainModule beamParticles = m_goBeam.transform.Find("Beam Particles").GetComponent<ParticleSystem>().main;
-        generatorStates.starStoneActive starStoneState = m_weaponHolder.generatorStates.returnState();
-
-        if (starStoneState == generatorStates.starStoneActive.Purple)
-        {
-            beamMeshRen.material = GameUtilities.instance.materialPower;
-            beamParticles.startColor = GameUtilities.instance.colourPurplePower;
-        }
-        else if (starStoneState == generatorStates.starStoneActive.Orange)
-        {
-            beamMeshRen.material = GameUtilities.instance.materialHeat;
-            beamParticles.startColor = GameUtilities.instance.colourOrangeHeat;
-        }
-        else if (starStoneState == generatorStates.starStoneActive.Blue)
-        {
-            beamMeshRen.material = GameUtilities.instance.materialIce;
-            beamParticles.startColor = GameUtilities.instance.colourBlueIce;
-        }
-        else if (starStoneState == generatorStates.starStoneActive.Pink)
-        {
-            beamMeshRen.material = GameUtilities.instance.materialHeal;
-            beamParticles.startColor = GameUtilities.instance.colourPinkHeal;
-        }
-
-        m_goBeam.transform.localPosition = Vector3.zero;
-        m_goBeam.transform.localRotation = Quaternion.Euler(Vector3.zero);
-        GameObject goBeamChild = m_goBeam.transform.Find("Beam").gameObject;
-        goBeamChild.transform.localPosition = new Vector3(0f, 0f, (m_prototypeTemplate.GetRange() / 2f) - 0.5f);
-    }
-
     private void DefaultAttack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
     {
-        if (!m_charging)
-        {
-            m_charging = true;
-            m_damageCharge = 0f;
-            m_damageTimer = 0f;
-
-            CreateBeamGameObject(weaponGameObject);
-
-            SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.GetAttackSound(), m_template.GetAttackSoundVolume(), 0.95f, 1.05f);
-            SoundEffectPlayer.instance.PlayLoopingSoundEffect(m_prototypeTemplate.GetFiringSound(), false, Vector3.zero, "protoBeam", m_prototypeTemplate.GetFiringSoundVolume());
-        }
-
-        if(m_damageTimer <= 0)
+        if (m_damageTimer <= 0)
         {
             m_damageTimer = m_prototypeTemplate.GetDamageInterval();
 
@@ -167,18 +127,6 @@ public class PrototypeWeapon : Weapon
 
     private void HeatAttack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
     {
-        if (!m_charging)
-        {
-            m_charging = true;
-            m_damageCharge = 0f;
-            m_damageTimer = 0f;
-
-            CreateBeamGameObject(weaponGameObject);
-
-            SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.GetAttackSound(), m_template.GetAttackSoundVolume(), 0.95f, 1.05f);
-            SoundEffectPlayer.instance.PlayLoopingSoundEffect(m_prototypeTemplate.GetFiringSound(), false, Vector3.zero, "protoBeam", m_prototypeTemplate.GetFiringSoundVolume());
-        }
-
         if (m_damageTimer <= 0)
         {
             m_damageTimer = m_prototypeTemplate.GetDamageInterval();
@@ -207,15 +155,6 @@ public class PrototypeWeapon : Weapon
 
     private void PowerAttack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
     {
-        if (!m_charging)
-        {
-            m_charging = true;
-            m_damageCharge = 0f;
-
-            SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.GetAttackSound(), m_template.GetAttackSoundVolume(), 0.95f, 1.05f);
-            SoundEffectPlayer.instance.PlayLoopingSoundEffect(m_prototypeTemplate.GetFiringSound(), false, Vector3.zero, "protoBeam", m_prototypeTemplate.GetFiringSoundVolume());
-        }
-
         //Fully charged and ready to shoot
         if(m_damageCharge == 1f)
         {
@@ -258,6 +197,16 @@ public class PrototypeWeapon : Weapon
 
     }
 
+    private void StartCharging(GameObject weaponGameObject)
+    {
+        m_charging = true;
+        m_damageCharge = 0f;
+        m_damageTimer = 0f;
+
+        SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.GetAttackSound(), m_template.GetAttackSoundVolume(), 0.95f, 1.05f);
+        SoundEffectPlayer.instance.PlayLoopingSoundEffect(m_prototypeTemplate.GetFiringSound(), false, Vector3.zero, "protoBeam", m_prototypeTemplate.GetFiringSoundVolume());
+    }
+
     public void StopAttack(Transform transformHead)
     {
         m_charging = false;
@@ -273,6 +222,44 @@ public class PrototypeWeapon : Weapon
         }
         SoundEffectPlayer.instance.PlaySoundEffect2D(m_prototypeTemplate.GetDisableSound(), m_prototypeTemplate.GetDisableSoundVolume());
         SoundEffectPlayer.instance.StopLoopingSoundEffect("protoBeam");
+    }
+
+    private void CreateBeamGameObject(GameObject weaponGameObject)
+    {
+        //Create the beam and position it based on range
+        m_goBeam = Object.Instantiate(m_prototypeTemplate.GetBeamGameObject(), weaponGameObject.transform.Find("AimPoint"));
+
+        //Set material based on active StarStone
+        MeshRenderer beamMeshRen = m_goBeam.transform.Find("Beam").GetComponent<MeshRenderer>();
+        ParticleSystem.MainModule beamParticles = m_goBeam.transform.Find("Beam Particles").GetComponent<ParticleSystem>().main;
+        generatorStates.starStoneActive starStoneState = m_weaponHolder.generatorStates.returnState();
+
+        switch (starStoneState)
+        {
+            case generatorStates.starStoneActive.Purple:
+                beamMeshRen.material = GameUtilities.instance.materialPower;
+                beamParticles.startColor = GameUtilities.instance.colourPurplePower;
+                break;
+            case generatorStates.starStoneActive.Orange:
+                beamMeshRen.material = GameUtilities.instance.materialHeat;
+                beamParticles.startColor = GameUtilities.instance.colourOrangeHeat;
+                break;
+            case generatorStates.starStoneActive.Blue:
+                beamMeshRen.material = GameUtilities.instance.materialIce;
+                beamParticles.startColor = GameUtilities.instance.colourBlueIce;
+                break;
+            case generatorStates.starStoneActive.Pink:
+                beamMeshRen.material = GameUtilities.instance.materialHeal;
+                beamParticles.startColor = GameUtilities.instance.colourPinkHeal;
+                break;
+            default:
+                break;
+        }
+
+        m_goBeam.transform.localPosition = Vector3.zero;
+        m_goBeam.transform.localRotation = Quaternion.Euler(Vector3.zero);
+        GameObject goBeamChild = m_goBeam.transform.Find("Beam").gameObject;
+        goBeamChild.transform.localPosition = new Vector3(0f, 0f, (m_prototypeTemplate.GetRange() / 2f) - 0.5f);
     }
 
     private static float RemapNumber(float value, float lower, float upper, float newLower, float newUpper)
