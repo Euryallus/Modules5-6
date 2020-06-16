@@ -25,6 +25,20 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     [Tooltip("How frequently damage is dealt when firing at an object (seconds)")]
     private float m_damageInterval;
 
+    [Header("-- Heat Effect")]
+
+    [SerializeField]
+    [Tooltip("How long the target is set on fire for (seconds)")]
+    private int m_fireEffectTime;
+
+    [SerializeField]
+    [Tooltip("How much damage is dealt every timeBetweenFireDamage seconds while the target is on fire")]
+    private int m_fireDamage;
+
+    [SerializeField]
+    [Tooltip("Amount of time between the target taking fire damage (seconds)")]
+    private float m_timeBetweenFireDamage;
+
     //Name of sound effect to be looped while this weapon is firing
     public string m_firingSound { get; set; }
 
@@ -75,6 +89,18 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     public float GetDisableSoundVolume()
     {
         return m_disableSoundVolume;
+    }
+    public int GetFireEffectTime()
+    {
+        return m_fireEffectTime;
+    }
+    public int GetFireDamage()
+    {
+        return m_fireDamage;
+    }
+    public float GetTimeBetweenFireDamage()
+    {
+        return m_timeBetweenFireDamage;
     }
 
     #endregion

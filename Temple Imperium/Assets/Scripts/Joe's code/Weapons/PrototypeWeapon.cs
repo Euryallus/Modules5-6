@@ -165,7 +165,7 @@ public class PrototypeWeapon : Weapon
 
             if (weaponAimInfo.m_raycastHit)
             {
-                Debug.Log("Proto weapon firing, hitting " + weaponAimInfo.m_hitInfo.transform.name);
+                Debug.Log("[HEAT] Proto weapon firing, hitting " + weaponAimInfo.m_hitInfo.transform.name);
 
                 if (weaponAimInfo.m_hitInfo.collider.gameObject.CompareTag("Enemy"))
                 {
@@ -174,13 +174,13 @@ public class PrototypeWeapon : Weapon
 
                     Enemy hitEnemy = weaponAimInfo.m_hitInfo.transform.GetComponent<Enemy>();
                     hitEnemy.Damage(scaledDamage);
-                    hitEnemy.setOnFire(5, 1, 0.5f);
+                    hitEnemy.setOnFire(m_prototypeTemplate.GetFireEffectTime(), m_prototypeTemplate.GetFireDamage(), m_prototypeTemplate.GetTimeBetweenFireDamage());
                     UIManager.instance.ShowEnemyHitPopup(scaledDamage, weaponAimInfo.m_hitInfo.point);
                 }
             }
             else
             {
-                Debug.Log("Proto weapon firing, hitting nothing");
+                Debug.Log("[HEAT] Proto weapon firing, hitting nothing");
             }
         }
     }

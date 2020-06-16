@@ -24,3 +24,6 @@ MonoBehaviour:
     type: 3}
   m_range: 20
   m_damageInterval: 0.3
+  m_fireEffectTime: 5
+  m_fireDamage: 1
+  m_timeBetweenFireDamage: 0.5
