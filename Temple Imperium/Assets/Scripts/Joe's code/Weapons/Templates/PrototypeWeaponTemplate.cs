@@ -49,6 +49,16 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     [Tooltip("Maximum damage done to the target when hit after charging the weapon")]
     private int m_maxPowerDamage;
 
+    [Header("-- Ice Effect")]
+
+    [SerializeField]
+    [Tooltip("Multiplier for the speed of the target entity for slowdown effect")]
+    private float m_speedMultiplier;
+
+    [SerializeField]
+    [Tooltip("Amount of time (seconds) to apply the speedMultiplier after an entity is hit")]
+    private float m_slowdownTime;
+
     //Name of sound effect to be looped while this weapon is firing
     public string m_firingSound { get; set; }
 
@@ -125,6 +135,14 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     public int GetMaxPowerDamage()
     {
         return m_maxPowerDamage;
+    }
+    public float GetSpeedMultiplier()
+    {
+        return m_speedMultiplier;
+    }
+    public float GetSlowdownTime()
+    {
+        return m_slowdownTime;
     }
 
     #endregion

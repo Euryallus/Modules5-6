@@ -144,8 +144,6 @@ public class PrototypeWeapon : Weapon
                     hitEnemy.Damage(scaledDamage);
                     hitEnemy.setOnFire(m_prototypeTemplate.GetFireEffectTime(), m_prototypeTemplate.GetFireDamage(), m_prototypeTemplate.GetTimeBetweenFireDamage());
                     UIManager.instance.ShowEnemyHitPopup(scaledDamage, weaponAimInfo.m_hitInfo.point);
-
-                    hitEnemy.SlowEnemyForTime(0.1f, 5f);
                 }
             }
             else
@@ -191,7 +189,30 @@ public class PrototypeWeapon : Weapon
 
     private void IceAttack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
     {
+        if (m_damageTimer <= 0)
+        {
+            m_damageTimer = m_prototypeTemplate.GetDamageInterval();
 
+            if (weaponAimInfo.m_raycastHit)
+            {
+                Debug.Log("[ICE] Proto weapon firing, hitting " + weaponAimInfo.m_hitInfo.transform.name);
+
+                if (weaponAimInfo.m_hitInfo.collider.gameObject.CompareTag("Enemy"))
+                {
+                    float damagePerc = m_damageCharge / 1f;
+                    int scaledDamage = Mathf.RoundToInt(RemapNumber(damagePerc, 0f, 1f, m_template.GetMinAttackDamage(), m_template.GetMaxAttackDamage()));
+
+                    Enemy hitEnemy = weaponAimInfo.m_hitInfo.transform.GetComponent<Enemy>();
+                    hitEnemy.Damage(scaledDamage);
+                    hitEnemy.SlowEnemyForTime(m_prototypeTemplate.GetSpeedMultiplier(), m_prototypeTemplate.GetSlowdownTime());
+                    UIManager.instance.ShowEnemyHitPopup(scaledDamage, weaponAimInfo.m_hitInfo.point);
+                }
+            }
+            else
+            {
+                Debug.Log("[ICE] Proto weapon firing, hitting nothing");
+            }
+        }
     }
 
     private void HealAttack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
