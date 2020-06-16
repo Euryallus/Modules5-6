@@ -47,3 +47,7 @@ MonoBehaviour:
   colourOrangeHeat: {r: 1, g: 0.5797377, b: 0, a: 1}
   colourBlueIce: {r: 0, g: 0.85711694, b: 1, a: 1}
   colourPinkHeal: {r: 1, g: 0.5882353, b: 0.89567894, a: 1}
+  materialPower: {fileID: 2100000, guid: 6158400892498b24dabe436cd98132c6, type: 2}
+  materialHeat: {fileID: 2100000, guid: 420f4c9dc5b3ef64dba4fd460dfd5f90, type: 2}
+  materialIce: {fileID: 2100000, guid: cca5fc4faf5f8a44e8963c0f74a52e8d, type: 2}
+  materialHeal: {fileID: 2100000, guid: 91b4cd524742ee74681005e6c1127570, type: 2}

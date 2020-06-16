@@ -11,6 +11,11 @@ public class GameUtilities : MonoBehaviour
     public Color colourBlueIce;
     public Color colourPinkHeal;
 
+    public Material materialPower;
+    public Material materialHeat;
+    public Material materialIce;
+    public Material materialHeal;
+
     private void Awake()
     {
         //Ensure that an instance of the Utilities class does not already exist
