@@ -5183,7 +5183,7 @@ MonoBehaviour:
   lookingCount: 0
   missileBlueprint: {fileID: 8846208292498101172, guid: 55eb9f1c8a20c2743acbd3ccc2f1962a,
     type: 3}
-  fireRate: 2
+  fireRate: 4
 --- !u!195 &2245337605376213473
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -23,6 +23,8 @@ public class missileTemp : MonoBehaviour
     void FixedUpdate()
     {
         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, missileSpeed * Time.deltaTime);
+
+        transform.LookAt(player.transform);
     }
 
     private void OnCollisionEnter(Collision collision)
