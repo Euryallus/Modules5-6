@@ -25,11 +25,16 @@ public class MeleeWeapon : Weapon
         {
             Debug.Log("Attacking with melee weapon, hit " + hitInfo.transform.name);
 
-            if (hitInfo.collider.gameObject.CompareTag("Enemy"))
+            GameObject goHit = hitInfo.collider.gameObject;
+            if (goHit.CompareTag("Enemy"))
             {
                 int damageAmount = Random.Range(m_template.GetMinAttackDamage(), m_template.GetMaxAttackDamage() + 1);
                 hitInfo.transform.GetComponent<Enemy>().Damage(damageAmount);
                 UIManager.instance.ShowEnemyHitPopup(damageAmount, hitInfo.point);
+            }
+            else if (goHit.CompareTag("ExplodeOnImpact"))
+            {
+                goHit.GetComponent<ExplodeOnImpact>().Explode();
             }
         }
         else

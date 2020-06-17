@@ -51,3 +51,8 @@ MonoBehaviour:
   materialHeat: {fileID: 2100000, guid: 420f4c9dc5b3ef64dba4fd460dfd5f90, type: 2}
   materialIce: {fileID: 2100000, guid: cca5fc4faf5f8a44e8963c0f74a52e8d, type: 2}
   materialHeal: {fileID: 2100000, guid: 91b4cd524742ee74681005e6c1127570, type: 2}
+  materialBreak: {fileID: 2100000, guid: 410b9c4e7d81cb542b0b6ff21f871354, type: 2}
+  prefabBreakParticles: {fileID: 9006540773215796438, guid: 7e28b55ceff8c344a809647b150e39b7,
+    type: 3}
+  prefabDistortionSphere: {fileID: 1748426586010948258, guid: ac4f41bfca3570c499dd16071851bd99,
+    type: 3}

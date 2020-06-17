@@ -18,6 +18,7 @@ TagManager:
   - Pink
   - Purple
   - spawnerManager
+  - ExplodeOnImpact
   layers:
   - Default
   - TransparentFX
