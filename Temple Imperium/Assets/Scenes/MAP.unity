@@ -4851,6 +4851,26 @@ PrefabInstance:
       propertyPath: stateDisplay
       value: 
       objectReference: {fileID: 1230414536}
+    - target: {fileID: 1560171429635137206, guid: 1c9957a437064c84b9b8ad6bd9683108,
+        type: 3}
+      propertyPath: damageReductionPercent
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560171429635137206, guid: 1c9957a437064c84b9b8ad6bd9683108,
+        type: 3}
+      propertyPath: shieldUpTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560171429635137206, guid: 1c9957a437064c84b9b8ad6bd9683108,
+        type: 3}
+      propertyPath: shieldSlowPercentage
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560171429635137206, guid: 1c9957a437064c84b9b8ad6bd9683108,
+        type: 3}
+      propertyPath: shieldRegenTime
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c9957a437064c84b9b8ad6bd9683108, type: 3}
 --- !u!1001 &1867694821
