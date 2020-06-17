@@ -9,6 +9,11 @@ public class GeneratorPiece : MonoBehaviour
 
     public int repairIndex { get; set; }
 
+    public string GetPieceName()
+    {
+        return pieceName;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

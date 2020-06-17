@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using System.Linq;
 
 public class GeneratorRepair : MonoBehaviour
 {
@@ -13,6 +15,15 @@ public class GeneratorRepair : MonoBehaviour
     [SerializeField]
     [Tooltip("Whether the player has to collect pieces in the order they are listed")]
     private bool mustCollectInOrder;
+
+    [SerializeField]
+    private GameObject goPiecesUIPanel;
+
+    [SerializeField]
+    private GameObject prefabUIPiecePreview;
+
+    [SerializeField]
+    private string pieceCollectSound;
 
     private int currentRepairProgress;
     private GameObject goPlayer;
@@ -32,6 +43,12 @@ public class GeneratorRepair : MonoBehaviour
 
     public bool TryCollectPiece(GeneratorPiece piece)
     {
+        if(!piecesForRepair.Contains(piece))
+        {
+            Debug.LogWarning("Generator piece not added to GeneratorRepair script: " + piece.GetPieceName());
+            return false;
+        }
+
         bool canCollect;
         if(mustCollectInOrder)
         {
@@ -51,7 +68,12 @@ public class GeneratorRepair : MonoBehaviour
 
         if (canCollect)
         {
-            if(currentRepairProgress < (piecesForRepair.Length - 1))
+            SoundEffectPlayer.instance.PlaySoundEffect2D(pieceCollectSound);
+
+            GameObject goPiecePreview = Instantiate(prefabUIPiecePreview, goPiecesUIPanel.transform);
+            goPiecePreview.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = piece.GetPieceName();
+
+            if (currentRepairProgress < (piecesForRepair.Length - 1))
             {
                 currentRepairProgress++;
             }

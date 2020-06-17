@@ -52,6 +52,12 @@ MonoBehaviour:
   purple: {fileID: 2100000, guid: 7c0e08c4c4632ce43926edd38dc153cb, type: 2}
   normal: {fileID: 2100000, guid: b0b4de3bd6e976e4f8b3adc6e72377ed, type: 2}
   stoneActiveTime: 6
+  icons: {fileID: 0}
+  bluedisplay: {fileID: 0}
+  orangedisplay: {fileID: 0}
+  pinkdisplay: {fileID: 0}
+  purpledisplay: {fileID: 0}
+  rechargeDelay: 4
 --- !u!114 &758385271895998782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,6 +72,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   piecesForRepair: []
   mustCollectInOrder: 0
+  goPiecesUIPanel: {fileID: 0}
+  prefabUIPiecePreview: {fileID: 7338965881750527681, guid: 138f54a72bbd73d409d23c2b754b388a,
+    type: 3}
+  pieceCollectSound: Mario Powerup
 --- !u!65 &4850311114058803314
 BoxCollider:
   m_ObjectHideFlags: 0
