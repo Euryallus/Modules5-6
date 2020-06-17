@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class generatorStates : MonoBehaviour
 {
@@ -36,6 +37,20 @@ public class generatorStates : MonoBehaviour
     float OrangeActive = 0;
     float PinkActive = 0;
     float PurpleActive = 0;
+
+    [SerializeField]
+    CanvasGroup icons;
+    [SerializeField]
+    Text bluedisplay;
+    [SerializeField]
+    Text orangedisplay;
+    [SerializeField]
+    Text pinkdisplay;
+    [SerializeField]
+    Text purpledisplay;
+
+    [SerializeField]
+    float rechargeDelay = 4;
 
     public starStoneActive returnState()
     {
@@ -74,25 +89,73 @@ public class generatorStates : MonoBehaviour
                 if (PinkActive > stoneActiveTime)
                 {
                     activatePurple();
+
                 }
 
                 break;
 
             case starStoneActive.Purple:
+
                 PurpleActive += Time.deltaTime;
 
                 if (PurpleActive > stoneActiveTime)
                 {
-                    activateNone();    
+                    activateBlue();
                 }
 
                 break;
+
+            case starStoneActive.None:
+                icons.alpha = 0;
+                break;
+        }
+
+        //recharge
+
+        if (activeStone != starStoneActive.Purple)
+        {
+            if(PurpleActive > 0)
+            {
+                PurpleActive -= Time.deltaTime / rechargeDelay;
+                purpledisplay.text = (stoneActiveTime - PurpleActive).ToString("F1");
+            }
+        }
+
+        if (activeStone != starStoneActive.Pink)
+        {
+            if(PinkActive > 0)
+            {
+                PinkActive -= Time.deltaTime / rechargeDelay;
+                pinkdisplay.text = (stoneActiveTime - PinkActive).ToString("F1");
+            }
+        }
+
+        if (activeStone != starStoneActive.Blue)
+        {
+            if (BlueActive > 0)
+            {
+                BlueActive -= Time.deltaTime / rechargeDelay;
+                bluedisplay.text = (stoneActiveTime - BlueActive).ToString("F1");
+            }
+        }
+
+        if (activeStone != starStoneActive.Orange)
+        {
+            if (OrangeActive > 0)
+            {
+                OrangeActive -= Time.deltaTime / rechargeDelay;
+                orangedisplay.text = (stoneActiveTime - OrangeActive).ToString("F1");
+
+            }
         }
     }
 
     public void activatePurple()
     {
+        icons.alpha = 1;
+
         activeStone = starStoneActive.Purple;
+        purpledisplay.text = "Active";
         for (int i = 0; i < enemies.Length; i++)
         {
             enemies[i].GetComponent<MeshRenderer>().material = purple;
@@ -101,7 +164,11 @@ public class generatorStates : MonoBehaviour
 
     public void activateOrange()
     {
+        icons.alpha = 1;
+
         activeStone = starStoneActive.Orange;
+        orangedisplay.text = "Active";
+
         for (int i = 0; i < enemies.Length; i++)
         {
             enemies[i].GetComponent<MeshRenderer>().material = orange;
@@ -110,7 +177,11 @@ public class generatorStates : MonoBehaviour
 
     public void activateBlue()
     {
+        icons.alpha = 1;
+
         activeStone = starStoneActive.Blue;
+        bluedisplay.text = "Active";
+
         for (int i = 0; i < enemies.Length; i++)
         {
             enemies[i].GetComponent<MeshRenderer>().material = blue;
@@ -119,7 +190,11 @@ public class generatorStates : MonoBehaviour
 
     public void activatePink()
     {
+        icons.alpha = 1;
+
         activeStone = starStoneActive.Pink;
+        pinkdisplay.text = "Active";
+
         for (int i = 0; i < enemies.Length; i++)
         {
             enemies[i].GetComponent<MeshRenderer>().material = pink;
@@ -128,13 +203,11 @@ public class generatorStates : MonoBehaviour
 
     public void activateNone()
     {
+        icons.alpha = 0;
+
         for (int i = 0; i < enemies.Length; i++)
         {
             enemies[i].GetComponent<MeshRenderer>().material = normal;
         }
     }
-
-
-
-
 }

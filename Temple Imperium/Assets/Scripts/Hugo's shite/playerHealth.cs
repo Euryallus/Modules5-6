@@ -9,7 +9,7 @@ public class playerHealth : MonoBehaviour
         [SerializeField]
         private float shieldUpTime = 5f;
         [SerializeField]
-        private float damageReductionPercent = 0.75f;
+        private float damageReductionPercent = 1f;
         private GameObject shield;
 
     private bool shieldActive = false;
@@ -23,6 +23,11 @@ public class playerHealth : MonoBehaviour
         private Color fullHealthColour;
         [SerializeField]
         private Color ZeroHealthColour;
+        [SerializeField]
+        private float shieldRegenTime = 5f;
+
+        [SerializeField]
+        private float shieldSlowPercentage = 0.5f;
 
     public Image healthBar;
 
@@ -33,6 +38,8 @@ public class playerHealth : MonoBehaviour
     bool onFire = false;
     [SerializeField]
     public Text stateDisplay;
+
+
 
 
     private void Start()
@@ -47,6 +54,7 @@ public class playerHealth : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && shieldActive == false)
         {
             shieldActive = true;
+            gameObject.GetComponent<playerMovement>().slowEffect(shieldSlowPercentage, shieldUpTime);
             coroutine = sheildDown();
             StartCoroutine(coroutine);
             shield.SetActive(true);
@@ -67,8 +75,12 @@ public class playerHealth : MonoBehaviour
     public IEnumerator sheildDown()
     {
         yield return new WaitForSeconds(shieldUpTime);
-        shieldActive = false;
+        
         shield.SetActive(false);
+
+        yield return new WaitForSeconds(shieldRegenTime);
+
+        shieldActive = false;
     }
 
     public bool isShieldActive()
