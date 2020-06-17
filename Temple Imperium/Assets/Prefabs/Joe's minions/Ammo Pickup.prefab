@@ -106,5 +106,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed88c6ac72103c24a85a04cd15a7c9fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammo: 20
+  ammo: 25
   gunType: {fileID: 11400000, guid: bcc9d427d04d6ba4aad4d77e70dcaaf9, type: 2}
