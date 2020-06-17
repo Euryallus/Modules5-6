@@ -28,6 +28,8 @@ public class GeneratorRepair : MonoBehaviour
 
     [SerializeField]
     private string pieceCollectSound;
+    [SerializeField]
+    private string repairSound;
 
     private Queue<GeneratorPiece> collectedPieceQueue = new Queue<GeneratorPiece>();
     private int currentCollectionProgress;
@@ -104,8 +106,14 @@ public class GeneratorRepair : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool prevCanClickGenerator = canClickGenerator;
         canClickGenerator = (mouseOverGenerator && Vector3.Distance(goPlayer.transform.position, gameObject.transform.position) < 5f);
         
+        if(canClickGenerator != prevCanClickGenerator)
+        {
+            goPlayer.GetComponent<WeaponHolder>().SetEmptyHand(canClickGenerator);
+        }
+
         if (canClickGenerator)
         {
             goRepairProgressUIPanel.SetActive(true);
@@ -123,6 +131,8 @@ public class GeneratorRepair : MonoBehaviour
         {
             if(collectedPieceQueue.Count > 0)
             {
+                SoundEffectPlayer.instance.PlaySoundEffect2D(repairSound);
+
                 GeneratorPiece pieceToAdd = collectedPieceQueue.Dequeue();
                 Destroy(pieceToAdd.goUIPreview);
                 currentRepairProgress++;
