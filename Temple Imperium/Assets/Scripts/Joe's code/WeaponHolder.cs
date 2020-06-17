@@ -39,6 +39,7 @@ public class WeaponHolder : MonoBehaviour
     //public int ammo { get; set; } = 100;
     public generatorStates generatorStates { get; private set; }
     public Weapon activeWeapon { get; private set; }
+    private bool emptyHand;
     private Weapon[] availableWeapons;
     private GameObject goWeapon;
     private WeaponAimInfo weaponAimInfo;
@@ -108,6 +109,11 @@ public class WeaponHolder : MonoBehaviour
             UpdateWeaponPosition();
             UpdateCamera();
         }
+
+        if (emptyHand)
+        {
+            goWeapon.SetActive(false);
+        }
     }
 
     private void UpdateCamera()
@@ -122,6 +128,19 @@ public class WeaponHolder : MonoBehaviour
             targetCameraFOV = defaultCameraFOV;
         }
         playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, targetCameraFOV, Time.deltaTime * 20f);
+    }
+
+    public void SetEmptyHand(bool empty)
+    {
+        emptyHand = empty;
+
+        if(!empty)
+        {
+            if(activeWeapon != null)
+            {
+                SwitchActiveWeapon(Array.IndexOf(availableWeapons, activeWeapon), true);
+            }
+        }
     }
 
     private void UpdateWeaponPosition()
@@ -270,7 +289,7 @@ public class WeaponHolder : MonoBehaviour
     }
     public void TryUsingWeapon(bool buttonDown)
     {
-        if (activeWeapon.ReadyToFire())
+        if (!emptyHand && activeWeapon.ReadyToFire())
         {
             activeWeapon.Attack(weaponAimInfo, goWeapon, prefabFireLight, transformHead, buttonDown);
         }

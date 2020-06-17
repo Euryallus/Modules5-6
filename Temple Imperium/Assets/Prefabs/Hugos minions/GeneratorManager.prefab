@@ -73,9 +73,11 @@ MonoBehaviour:
   piecesForRepair: []
   mustCollectInOrder: 0
   goPiecesUIPanel: {fileID: 0}
+  goRepairProgressUIPanel: {fileID: 0}
   prefabUIPiecePreview: {fileID: 7338965881750527681, guid: 138f54a72bbd73d409d23c2b754b388a,
     type: 3}
   pieceCollectSound: Mario Powerup
+  repairSound: Seal
 --- !u!65 &4850311114058803314
 BoxCollider:
   m_ObjectHideFlags: 0
