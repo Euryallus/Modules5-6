@@ -20,11 +20,16 @@ public class GeneratorRepair : MonoBehaviour
     private GameObject goPiecesUIPanel;
 
     [SerializeField]
+    private GameObject goRepairProgressUIPanel;
+
+    [SerializeField]
     private GameObject prefabUIPiecePreview;
 
     [SerializeField]
     private string pieceCollectSound;
 
+    private Queue<GeneratorPiece> collectedPieceQueue = new Queue<GeneratorPiece>();
+    private int currentCollectionProgress;
     private int currentRepairProgress;
     private GameObject goPlayer;
     private bool mouseOverGenerator;
@@ -52,7 +57,7 @@ public class GeneratorRepair : MonoBehaviour
         bool canCollect;
         if(mustCollectInOrder)
         {
-            if(piece == piecesForRepair[currentRepairProgress])
+            if(piece == piecesForRepair[currentCollectionProgress])
             {
                 canCollect =  true;
             }
@@ -72,10 +77,13 @@ public class GeneratorRepair : MonoBehaviour
 
             GameObject goPiecePreview = Instantiate(prefabUIPiecePreview, goPiecesUIPanel.transform);
             goPiecePreview.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = piece.GetPieceName();
+            piece.goUIPreview = goPiecePreview;
 
-            if (currentRepairProgress < (piecesForRepair.Length - 1))
+            collectedPieceQueue.Enqueue(piece);
+
+            if (currentCollectionProgress < (piecesForRepair.Length - 1))
             {
-                currentRepairProgress++;
+                currentCollectionProgress++;
             }
             else
             {
@@ -90,8 +98,14 @@ public class GeneratorRepair : MonoBehaviour
     void Update()
     {
         canClickGenerator = (mouseOverGenerator && Vector3.Distance(goPlayer.transform.position, gameObject.transform.position) < 5f);
+        
         if (canClickGenerator)
         {
+            goRepairProgressUIPanel.SetActive(true);
+        }
+        else
+        {
+            goRepairProgressUIPanel.SetActive(false);
         }
     }
 
@@ -99,7 +113,8 @@ public class GeneratorRepair : MonoBehaviour
     {
         if (canClickGenerator)
         {
-            Debug.Log("REPAIR");
+            GeneratorPiece pieceToAdd = collectedPieceQueue.Dequeue();
+            Destroy( pieceToAdd.goUIPreview );
         }
     }
 

@@ -8,6 +8,7 @@ public class GeneratorPiece : MonoBehaviour
     private string pieceName;
 
     public int repairIndex { get; set; }
+    public GameObject goUIPreview { get; set; }
 
     public string GetPieceName()
     {
