@@ -36,10 +36,12 @@ public class WeaponTemplate : ScriptableObject
     //Set in custom editor:
 
     //Name of sound effect to be played when this weapon is used
-    public string m_attackSound { get; set; }
+    [SerializeField] [HideInInspector]
+    public string m_attackSound;
 
     //Volume of sound effect to be played when this weapon is used
-    public float m_attackSoundVolume { get; set; }
+    [SerializeField] [HideInInspector]
+    public float m_attackSoundVolume;
 
     #endregion
 
