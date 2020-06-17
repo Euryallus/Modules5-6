@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Linq;
+using UnityEngine.UI;
 
 public class GeneratorRepair : MonoBehaviour
 {
@@ -34,11 +35,15 @@ public class GeneratorRepair : MonoBehaviour
     private GameObject goPlayer;
     private bool mouseOverGenerator;
     private bool canClickGenerator;
+    private Slider repairProgressSlider;
 
     // Start is called before the first frame update
     void Start()
     {
         goPlayer = GameObject.FindGameObjectWithTag("Player");
+        repairProgressSlider = goRepairProgressUIPanel.transform.Find("Slider").GetComponent<Slider>();
+
+        goPiecesUIPanel.transform.parent.gameObject.SetActive(false);
 
         for (int i = 0; i < piecesForRepair.Length; i++)
         {
@@ -75,6 +80,8 @@ public class GeneratorRepair : MonoBehaviour
         {
             SoundEffectPlayer.instance.PlaySoundEffect2D(pieceCollectSound);
 
+            goPiecesUIPanel.transform.parent.gameObject.SetActive(true);
+
             GameObject goPiecePreview = Instantiate(prefabUIPiecePreview, goPiecesUIPanel.transform);
             goPiecePreview.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = piece.GetPieceName();
             piece.goUIPreview = goPiecePreview;
@@ -102,6 +109,7 @@ public class GeneratorRepair : MonoBehaviour
         if (canClickGenerator)
         {
             goRepairProgressUIPanel.SetActive(true);
+            repairProgressSlider.value = (float)currentRepairProgress / piecesForRepair.Length;
         }
         else
         {
@@ -113,8 +121,17 @@ public class GeneratorRepair : MonoBehaviour
     {
         if (canClickGenerator)
         {
-            GeneratorPiece pieceToAdd = collectedPieceQueue.Dequeue();
-            Destroy( pieceToAdd.goUIPreview );
+            if(collectedPieceQueue.Count > 0)
+            {
+                GeneratorPiece pieceToAdd = collectedPieceQueue.Dequeue();
+                Destroy(pieceToAdd.goUIPreview);
+                currentRepairProgress++;
+
+                if(collectedPieceQueue.Count == 0)
+                {
+                    goPiecesUIPanel.transform.parent.gameObject.SetActive(false);
+                }
+            }
         }
     }
 
