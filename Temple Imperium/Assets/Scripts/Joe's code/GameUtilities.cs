@@ -15,6 +15,10 @@ public class GameUtilities : MonoBehaviour
     public Material materialHeat;
     public Material materialIce;
     public Material materialHeal;
+    public Material materialBreak;
+
+    public GameObject prefabBreakParticles;
+    public GameObject prefabDistortionSphere;
 
     private void Awake()
     {

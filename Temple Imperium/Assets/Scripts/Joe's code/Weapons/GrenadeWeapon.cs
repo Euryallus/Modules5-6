@@ -41,7 +41,7 @@ public class GrenadeWeapon : Weapon
         m_goThrow.transform.SetParent(null);
         m_goThrow.GetComponent<Rigidbody>().velocity = transformHead.forward * m_grenadeTemplate.GetThrowVelocity();
 
-        m_thrownGrenades.Add(new ThrownGrenade(this, m_goThrow, m_grenadeTemplate.GetDelay(), transformHead.position));
+        m_thrownGrenades.Add(new ThrownGrenade(this, m_goThrow, m_grenadeTemplate.GetDelay()));
 
         SoundEffectPlayer.instance.PlaySoundEffect2D(m_grenadeTemplate.GetThrowSound(), m_grenadeTemplate.GetThrowSoundVolume(), 0.95f, 1.05f);
     }
@@ -85,15 +85,13 @@ public class ThrownGrenade
 {
     private GameObject m_goThrow;
     private float m_delayTimer;
-    private Vector3 m_headPosition;
     private GrenadeWeapon m_grenadeParent;
 
-    public ThrownGrenade(GrenadeWeapon grenadeParent, GameObject goThrow, float delay, Vector3 headPosition)
+    public ThrownGrenade(GrenadeWeapon grenadeParent, GameObject goThrow, float delay)
     {
         m_grenadeParent = grenadeParent;
         m_goThrow = goThrow;
         m_delayTimer = delay;
-        m_headPosition = headPosition;
     }
 
     public void Update()
@@ -144,12 +142,21 @@ public class ThrownGrenade
                 //Colliders in frag range
                 else
                 {
+                    Debug.Log(collidersInFragRad[i].gameObject.name);
+
                     if (rigidbody.gameObject.CompareTag("Enemy"))
                     {
                         int damageAmount = m_grenadeParent.m_grenadeTemplate.GetFragDamage();
                         rigidbody.gameObject.GetComponent<Enemy>().Damage(damageAmount);
                         UIManager.instance.ShowEnemyHitPopup(damageAmount, rigidbody.gameObject.transform.position);
                     }
+                }
+
+                //Colliders in either range
+                if (collidersInFragRad[i].gameObject.CompareTag("ExplodeOnImpact"))
+                {
+                    Debug.Log("FOUND " + collidersInFragRad[i].gameObject.name);
+                    collidersInFragRad[i].gameObject.GetComponent<ExplodeOnImpact>().Explode();
                 }
             }
         }

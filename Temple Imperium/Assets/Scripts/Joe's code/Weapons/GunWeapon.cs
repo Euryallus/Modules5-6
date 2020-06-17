@@ -70,11 +70,16 @@ public class GunWeapon : Weapon
         {
             Debug.Log("Gun fired, hit " + weaponAimInfo.m_hitInfo.transform.name);
 
-            if (weaponAimInfo.m_hitInfo.collider.gameObject.CompareTag("Enemy"))
+            GameObject goHit = weaponAimInfo.m_hitInfo.collider.gameObject;
+            if (goHit.CompareTag("Enemy"))
             {
                 int damageAmount = Random.Range(m_template.GetMinAttackDamage(), m_template.GetMaxAttackDamage() + 1);
                 weaponAimInfo.m_hitInfo.transform.GetComponent<Enemy>().Damage(damageAmount);
                 UIManager.instance.ShowEnemyHitPopup(damageAmount, weaponAimInfo.m_hitInfo.point);
+            }
+            else if (goHit.CompareTag("ExplodeOnImpact"))
+            {
+                goHit.GetComponent<ExplodeOnImpact>().Explode();
             }
         }
         else
