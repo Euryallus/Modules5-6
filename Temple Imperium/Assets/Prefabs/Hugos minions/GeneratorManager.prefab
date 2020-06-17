@@ -51,7 +51,7 @@ MonoBehaviour:
   pink: {fileID: 2100000, guid: b6114c756ee19724d9fe9ab67b50a0c4, type: 2}
   purple: {fileID: 2100000, guid: 7c0e08c4c4632ce43926edd38dc153cb, type: 2}
   normal: {fileID: 2100000, guid: b0b4de3bd6e976e4f8b3adc6e72377ed, type: 2}
-  stoneActiveTime: 6
+  stoneActiveTime: 20
   icons: {fileID: 0}
   bluedisplay: {fileID: 0}
   orangedisplay: {fileID: 0}
