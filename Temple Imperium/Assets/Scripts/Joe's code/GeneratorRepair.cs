@@ -15,10 +15,15 @@ public class GeneratorRepair : MonoBehaviour
     private bool mustCollectInOrder;
 
     private int currentRepairProgress;
+    private GameObject goPlayer;
+    private bool mouseOverGenerator;
+    private bool canClickGenerator;
 
     // Start is called before the first frame update
     void Start()
     {
+        goPlayer = GameObject.FindGameObjectWithTag("Player");
+
         for (int i = 0; i < piecesForRepair.Length; i++)
         {
             piecesForRepair[i].repairIndex = i;
@@ -62,6 +67,27 @@ public class GeneratorRepair : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        canClickGenerator = (mouseOverGenerator && Vector3.Distance(goPlayer.transform.position, gameObject.transform.position) < 5f);
+        if (canClickGenerator)
+        {
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        if (canClickGenerator)
+        {
+            Debug.Log("REPAIR");
+        }
+    }
+
+    private void OnMouseEnter()
+    {
+        mouseOverGenerator = true;
+    }
+
+    private void OnMouseExit()
+    {
+        mouseOverGenerator = false;
     }
 }
