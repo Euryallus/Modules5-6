@@ -205,7 +205,7 @@ public class Enemy : MonoBehaviour
 
     public virtual void Patrol()
     {
-        if (agent.remainingDistance < 0.5f)
+        if (Vector3.Distance(transform.position, patrolPoints[currentPatrolPoint].position) < 4f)
         {
             currentPatrolPoint += 1;
             if (currentPatrolPoint == patrolPoints.Count)
@@ -213,6 +213,7 @@ public class Enemy : MonoBehaviour
                 currentPatrolPoint = 0;
             }
         }
+
         agent.SetDestination(patrolPoints[currentPatrolPoint].position);
     }
 

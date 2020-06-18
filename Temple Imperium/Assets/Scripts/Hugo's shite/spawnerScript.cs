@@ -82,7 +82,14 @@ public class spawnerScript : MonoBehaviour
 
         for (int j = 0; j < numberOfPointsPassedToEnemies; j++)
         {
-           randomPatrolPoint = Random.Range(0, patrolPoints.Count);
+            randomPatrolPoint = Random.Range(0, patrolPoints.Count);
+
+            while (pointsPassed.Contains(patrolPoints[randomPatrolPoint]))
+            {
+                randomPatrolPoint = Random.Range(0, patrolPoints.Count);
+            }
+           
+            
            pointsPassed.Add(patrolPoints[randomPatrolPoint]);
         }
        
