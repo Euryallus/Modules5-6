@@ -67,22 +67,28 @@ public class PrototypeWeaponTemplate : WeaponTemplate
 
 
     //Name of sound effect to be looped while this weapon is firing
-    public string m_firingSound { get; set; }
+    [SerializeField] [HideInInspector]
+    public string m_firingSound;
 
     //Volume of sound effect to be looped while this weapon is firing
-    public float m_firingSoundVolume { get; set; }
+    [SerializeField] [HideInInspector]
+    public float m_firingSoundVolume;
 
     //Name of sound effect to be played when this weapon stops firing
-    public string m_disableSound { get; set; }
+    [SerializeField] [HideInInspector]
+    public string m_disableSound;
 
     //Volume of sound effect to be played when this weapon stops firing
-    public float m_disableSoundVolume { get; set; }
+    [SerializeField] [HideInInspector]
+    public float m_disableSoundVolume;
 
-    //Name of sound effect to be played when this weapon fires with power StartStone
-    public string m_powerSound { get; set; }
+    //Name of sound effect to be played when this weapon fires with power StarStone
+    [SerializeField] [HideInInspector]
+    public string m_powerSound;
 
-    //Volume of sound effect to be played when this weapon fires with power StartStone
-    public float m_powerSoundVolume { get; set; }
+    //Volume of sound effect to be played when this weapon fires with power StarStone
+    [SerializeField] [HideInInspector]
+    public float m_powerSoundVolume;
 
     #endregion
 

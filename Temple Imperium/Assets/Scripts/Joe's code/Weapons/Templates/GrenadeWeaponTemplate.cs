@@ -44,10 +44,13 @@ public class GrenadeWeaponTemplate : WeaponTemplate
     //Set in custom editor:
 
     //Name of sound effect to be played when this grenade is thrown
-    public string m_throwSound { get; set; }
+    [SerializeField] [HideInInspector]
+    public string m_throwSound;
 
     //Volume of sound effect to be played when this grenade is thrown
-    public float m_throwSoundVolume { get; set; }
+    [SerializeField]
+    [HideInInspector]
+    public float m_throwSoundVolume;
 
     #endregion
 
