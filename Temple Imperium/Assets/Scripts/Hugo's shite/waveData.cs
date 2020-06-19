@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class waveData
+[CreateAssetMenu(fileName ="Wave", menuName = "Waves/New Wave")]
+public class waveData : ScriptableObject
 {
-
-    public int waveNumber;
+    [SerializeField]
+    public int waveNumber { get; set; }
     public float timeBetweenEnemySpawns;
     public int enemy1Numbers;
     public int enemy2Numbers;
@@ -23,6 +24,6 @@ public class waveData
         enemy3Numbers = type3;
         waveLength = length;
         downtime = down;
-    }
+    } 
 
 }

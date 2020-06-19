@@ -5,6 +5,12 @@ using UnityEngine.UI;
 
 public class playStateControl : MonoBehaviour
 {
+    [SerializeField]
+    List<waveData> waves = new List<waveData>();
+
+    [SerializeField]
+    int wavePointer = 0;
+    GameObject[] spawners;
 
     float waveTimer;
     float waveLength;
@@ -12,21 +18,35 @@ public class playStateControl : MonoBehaviour
     GameObject[] remainingEnemies;
     public Text timeRemaining;
 
-    public spawnerScript spawner;
+    bool nextWaveStarted = false;
 
     protected enum waveState
     {
-        beforeWaveStart, waveActive, waveFail, waveComplete
+        beforeWaveStart, waveActive, waveFail, waveComplete, gameWon
     }
 
     protected waveState current;
 
-   public void initiateWave(float waveTimeInSeconds)
+
+    public void startGame()
+    {
+        wavePointer = 0;
+        initiateWave(waves[0]);
+    }
+
+   public void initiateWave(waveData wave)
    {
-        waveLength = waveTimeInSeconds;
+        waveLength = wave.waveLength;
         waveTimer = 0;
+        spawners = GameObject.FindGameObjectsWithTag("Spawner");
+
+        for (int i = 0; i < spawners.Length; i++)
+        {
+            spawners[i].GetComponent<spawnerScript>().startWave(waves[wavePointer]);
+        }
+
         current = waveState.waveActive;
-        
+
    }       
 
     private void FixedUpdate()
@@ -47,16 +67,9 @@ public class playStateControl : MonoBehaviour
                 }
                 else
                 {
-                    if(spawner.spawning == false)
-                    {
-                        checkRemainingEnemies();
-                    }
-                    
+                    checkRemainingEnemies();
                     timeRemaining.text = ("Time remaining: " + (waveLength - waveTimer).ToString("F0"));
                 }
-
-                
-
                 break;
 
             case waveState.waveFail:
@@ -65,6 +78,16 @@ public class playStateControl : MonoBehaviour
 
             case waveState.waveComplete:
                 timeRemaining.text = "Wave complete!";
+                if(nextWaveStarted == false)
+                {
+                    StartCoroutine(waitForNextWave(waves[wavePointer].downtime));
+                    nextWaveStarted = true;
+                }
+
+                break;
+
+            case waveState.gameWon:
+                timeRemaining.text = "Game won!";
                 break;
         }
     }
@@ -73,17 +96,36 @@ public class playStateControl : MonoBehaviour
     {
         remainingEnemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-        if(remainingEnemies.Length == 0)
+        if(spawners[0].GetComponent<spawnerScript>().spawning == false)
         {
-            current = waveState.waveComplete;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Backspace))
-        {
-            for (int i = 0; i < remainingEnemies.Length; i++)
+            Debug.Log("Checking");
+            if(remainingEnemies.Length == 0)
             {
-                Destroy(remainingEnemies[i]);
+                current = waveState.waveComplete;
             }
         }
+
+        
+    }
+
+    private IEnumerator waitForNextWave(float waitLength)
+    {
+        wavePointer += 1;
+
+        if (wavePointer == waves.Count)
+        {
+            current = waveState.gameWon;
+        }
+        else
+        {
+            yield return new WaitForSeconds(waitLength / 2);
+            current = waveState.beforeWaveStart;
+            yield return new WaitForSeconds(waitLength / 2);
+        
+            initiateWave(waves[wavePointer]);
+
+            nextWaveStarted = false;
+        }
+        
     }
 }

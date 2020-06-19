@@ -55,8 +55,6 @@ public class spawnerScript : MonoBehaviour
 
     public void startWave(float time,  int variant1, int variant2, int variant3)
     {
-        
-
         var1Count = 0;
         var2Count = 0;
         var3Count = 0;
@@ -70,6 +68,25 @@ public class spawnerScript : MonoBehaviour
         timeBetween = time;
 
         enemyNumbers = variant1 + variant2 + variant3;
+
+        StartCoroutine(waveSpawn());
+    }
+
+    public void startWave(waveData wave)
+    {
+        var1Count = 0;
+        var2Count = 0;
+        var3Count = 0;
+
+        variant1Spawn = wave.enemy1Numbers;
+        variant2Spawn = wave.enemy2Numbers;
+        variant3Spawn = wave.enemy3Numbers;
+
+        spawning = true;
+
+        timeBetween = wave.timeBetweenEnemySpawns;
+
+        enemyNumbers = variant1Spawn + variant2Spawn + variant3Spawn;
 
         StartCoroutine(waveSpawn());
     }

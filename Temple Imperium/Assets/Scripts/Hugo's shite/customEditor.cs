@@ -42,7 +42,9 @@ public class customEditor : EditorWindow
                 spawner[i].GetComponent<spawnerScript>().startWave(timeBetweenEnemies, variant1, variant2, variant3);
             }
 
-            GameObject.FindGameObjectWithTag("spawnerManager").GetComponent<playStateControl>().initiateWave(waveLength);
+            waveData newWave = new waveData(0, timeBetweenEnemies, variant1, variant2, variant3, waveLength, 30);
+
+            GameObject.FindGameObjectWithTag("spawnerManager").GetComponent<playStateControl>().initiateWave(newWave);
 
             Debug.Log(GameObject.FindGameObjectWithTag("spawnerManager").name);
         }

@@ -154,6 +154,11 @@ public class generatorStates : MonoBehaviour
     {
         icons.alpha = 1;
 
+        if(activeStone == starStoneActive.None)
+        {
+            GameObject.FindGameObjectWithTag("spawnerManager").GetComponent<playStateControl>().startGame();
+        }
+
         activeStone = starStoneActive.Purple;
         purpledisplay.text = "Active";
         for (int i = 0; i < enemies.Length; i++)
@@ -165,6 +170,11 @@ public class generatorStates : MonoBehaviour
     public void activateOrange()
     {
         icons.alpha = 1;
+
+        if (activeStone == starStoneActive.None)
+        {
+            GameObject.FindGameObjectWithTag("spawnerManager").GetComponent<playStateControl>().startGame();
+        }
 
         activeStone = starStoneActive.Orange;
         orangedisplay.text = "Active";
@@ -179,6 +189,11 @@ public class generatorStates : MonoBehaviour
     {
         icons.alpha = 1;
 
+        if (activeStone == starStoneActive.None)
+        {
+            GameObject.FindGameObjectWithTag("spawnerManager").GetComponent<playStateControl>().startGame();
+        }
+
         activeStone = starStoneActive.Blue;
         bluedisplay.text = "Active";
 
@@ -191,6 +206,11 @@ public class generatorStates : MonoBehaviour
     public void activatePink()
     {
         icons.alpha = 1;
+
+        if (activeStone == starStoneActive.None)
+        {
+            GameObject.FindGameObjectWithTag("spawnerManager").GetComponent<playStateControl>().startGame();
+        }
 
         activeStone = starStoneActive.Pink;
         pinkdisplay.text = "Active";
