@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8efa98ef5559004597e780f3c1c956f, type: 3}
-  m_Name: wave1
+  m_Name: wave4
   m_EditorClassIdentifier: 
   timeBetweenEnemySpawns: 0.3
-  enemy1Numbers: 5
-  enemy2Numbers: 0
+  enemy1Numbers: 3
+  enemy2Numbers: 9
   enemy3Numbers: 0
   waveLength: 90
   downtime: 5
