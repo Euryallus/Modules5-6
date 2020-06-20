@@ -11,11 +11,16 @@ public class UIManager : MonoBehaviour
     //Set in inspector:
     [SerializeField]
     private GameObject prefabEnemyHitPopup;
+    [SerializeField]
+    private GameObject prefabDoorLockedPopup;
 
     private GameObject goCanvas;
     private Slider sliderAttackInterval;
     private Slider sliderWeaponCharge;
     private WeaponHolder weaponHolderPlayer;
+
+    private GameObject doorLockedPopup;
+    private Vector3 doorLockedPopupPosition;
 
     private void Awake()
     {
@@ -48,6 +53,28 @@ public class UIManager : MonoBehaviour
         {
             UpdateAttackIntervalSlider(activePlayerWeapon);
             UpdateWeaponChargeSlider(activePlayerWeapon);
+        }
+
+        if (doorLockedPopup != null)
+        {
+            doorLockedPopup.transform.position = Camera.main.WorldToScreenPoint(doorLockedPopupPosition);
+        }
+
+    }
+
+    public void ShowDoorLockedPopup(Vector3 position)
+    {
+        if(doorLockedPopup == null)
+        {
+            doorLockedPopupPosition = position;
+            doorLockedPopup = Instantiate(prefabDoorLockedPopup, goCanvas.transform);
+        }
+    }
+    public void HideDoorLockedPopup()
+    {
+        if(doorLockedPopup != null)
+        {
+            Destroy(doorLockedPopup);
         }
     }
 

@@ -286,7 +286,7 @@ public class PrototypeWeapon : Weapon
         SoundEffectPlayer.instance.PlayLoopingSoundEffect(m_prototypeTemplate.GetFiringSound(), false, Vector3.zero, "protoBeam", m_prototypeTemplate.GetFiringSoundVolume());
     }
 
-    public void StopAttack(Transform transformHead)
+    public void StopAttack()
     {
         m_charging = false;
 
@@ -299,6 +299,7 @@ public class PrototypeWeapon : Weapon
         {
             m_goWeapon.transform.Find("Weapon").GetComponent<Animator>().SetBool("Shooting", false);
         }
+
         SoundEffectPlayer.instance.PlaySoundEffect2D(m_prototypeTemplate.GetDisableSound(), m_prototypeTemplate.GetDisableSoundVolume());
         SoundEffectPlayer.instance.StopLoopingSoundEffect("protoBeam");
     }
