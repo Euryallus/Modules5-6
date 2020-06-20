@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HugoTestScene.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
+  - enabled: 1
+    path: Assets/Scenes/mainMenu.unity
+    guid: 6fc8f9d76a1da6140b7ad5a23c6b8a4e
+  - enabled: 1
+    path: Assets/Scenes/CombinedScene.unity
+    guid: 3decaae00b8353741ae981c98f55b520
+  - enabled: 1
+    path: Assets/Scenes/MAP.unity
+    guid: f7b6670dd27d57947b80b6f2c47c93db
   m_configObjects: {}
