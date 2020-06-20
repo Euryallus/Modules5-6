@@ -141,6 +141,10 @@ public class WeaponHolder : MonoBehaviour
                 SwitchActiveWeapon(Array.IndexOf(availableWeapons, activeWeapon), true);
             }
         }
+        else
+        {
+            TryEndingWeaponUsage();
+        }
     }
 
     private void UpdateWeaponPosition()
@@ -298,7 +302,7 @@ public class WeaponHolder : MonoBehaviour
     {
         if(activeWeapon is PrototypeWeapon activeProto)
         {
-            activeProto.StopAttack(transformHead);
+            activeProto.StopAttack();
         }
     }
     #endregion
