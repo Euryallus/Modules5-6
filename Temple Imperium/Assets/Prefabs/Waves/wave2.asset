@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8efa98ef5559004597e780f3c1c956f, type: 3}
   m_Name: wave2
   m_EditorClassIdentifier: 
-  timeBetweenEnemySpawns: 1
-  enemy1Numbers: 2
+  timeBetweenEnemySpawns: 0.3
+  enemy1Numbers: 10
   enemy2Numbers: 0
   enemy3Numbers: 0
-  waveLength: 30
-  downtime: 10
+  waveLength: 90
+  downtime: 5
