@@ -80,6 +80,10 @@ public class playStateControl : MonoBehaviour
                 timeRemaining.text = "Wave complete!";
                 if(nextWaveStarted == false)
                 {
+                    if(waves[wavePointer].doorToOpen != null)
+                    {
+                        waves[wavePointer].doorToOpen.SetLocked(false);
+                    }
                     StartCoroutine(waitForNextWave(waves[wavePointer].downtime));
                     nextWaveStarted = true;
                 }
@@ -98,7 +102,6 @@ public class playStateControl : MonoBehaviour
 
         if(spawners[0].GetComponent<spawnerScript>().spawning == false)
         {
-            Debug.Log("Checking");
             if(remainingEnemies.Length == 0)
             {
                 current = waveState.waveComplete;

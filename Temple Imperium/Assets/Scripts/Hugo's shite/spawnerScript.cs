@@ -74,6 +74,7 @@ public class spawnerScript : MonoBehaviour
 
     public void startWave(waveData wave)
     {
+        numberSpawned = 0;
         var1Count = 0;
         var2Count = 0;
         var3Count = 0;

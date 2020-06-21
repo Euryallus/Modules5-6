@@ -15,6 +15,8 @@ public class waveData : ScriptableObject
 
     public float downtime;
 
+    public Door doorToOpen = null;
+
     public waveData(int number, float timeBetween, int type1, int type2, int type3, float length, float down)
     {
         waveNumber = number;
