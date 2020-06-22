@@ -27,9 +27,9 @@ public class UIManager : MonoBehaviour
         //Ensure that an instance of the UIManager class does not already exist
         if (instance == null)
         {
-            //Set this class as the instance and ensure that it stays when changing scenes
+            //Set this class as the static instance so it can easily be accessed from any script
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         //If there is an existing instance that is not this, destroy the GameObject this script is connected to
         else if (instance != this)
@@ -80,35 +80,41 @@ public class UIManager : MonoBehaviour
 
     private void UpdateAttackIntervalSlider(Weapon activePlayerWeapon)
     {
-        if (activePlayerWeapon.m_attackIntervalTimer > 0f && activePlayerWeapon.m_template.GetAttackInterval() > 0.1f)
+        if(sliderAttackInterval != null)
         {
-            sliderAttackInterval.gameObject.SetActive(true);
-            float attackTimerPerc = activePlayerWeapon.m_attackIntervalTimer / activePlayerWeapon.m_template.GetAttackInterval();
-            sliderAttackInterval.value = attackTimerPerc;
-        }
-        else
-        {
-            sliderAttackInterval.gameObject.SetActive(false);
+            if (activePlayerWeapon.m_attackIntervalTimer > 0f && activePlayerWeapon.m_template.GetAttackInterval() > 0.1f)
+            {
+                sliderAttackInterval.gameObject.SetActive(true);
+                float attackTimerPerc = activePlayerWeapon.m_attackIntervalTimer / activePlayerWeapon.m_template.GetAttackInterval();
+                sliderAttackInterval.value = attackTimerPerc;
+            }
+            else
+            {
+                sliderAttackInterval.gameObject.SetActive(false);
+            }
         }
     }
 
     private void UpdateWeaponChargeSlider(Weapon activePlayerWeapon)
     {
-        if (activePlayerWeapon is PrototypeWeapon activePlayerProto)
+        if(sliderWeaponCharge != null)
         {
-            if (activePlayerProto.m_charging)
+            if (activePlayerWeapon is PrototypeWeapon activePlayerProto)
             {
-                sliderWeaponCharge.gameObject.SetActive(true);
-                sliderWeaponCharge.value = activePlayerProto.m_damageCharge / 1f;
+                if (activePlayerProto.m_charging)
+                {
+                    sliderWeaponCharge.gameObject.SetActive(true);
+                    sliderWeaponCharge.value = activePlayerProto.m_damageCharge / 1f;
+                }
+                else
+                {
+                    sliderWeaponCharge.gameObject.SetActive(false);
+                }
             }
             else
             {
                 sliderWeaponCharge.gameObject.SetActive(false);
             }
-        }
-        else
-        {
-            sliderWeaponCharge.gameObject.SetActive(false);
         }
     }
 
