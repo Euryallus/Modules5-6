@@ -45,6 +45,7 @@ public class WeaponHolder : MonoBehaviour
     private WeaponAimInfo weaponAimInfo;
     private Quaternion targetWeaponRotation;
     private float targetCameraFOV;
+    private bool aimDownSights;
 
     private void Start()
     {
@@ -114,12 +115,22 @@ public class WeaponHolder : MonoBehaviour
         {
             goWeapon.SetActive(false);
         }
+
+        //Aiming down sights
+        if ((activeWeapon is GunWeapon || activeWeapon is PrototypeWeapon) && Input.GetButton("Fire2"))
+        {
+            aimDownSights = true;
+        }
+        else
+        {
+            aimDownSights = false;
+        }
     }
 
     private void UpdateCamera()
     {
         //Aiming down sights
-        if( (activeWeapon is GunWeapon || activeWeapon is PrototypeWeapon) && Input.GetButton("Fire2"))
+        if(aimDownSights)
         {
             targetCameraFOV = adsCameraFOV;
         }
@@ -287,7 +298,7 @@ public class WeaponHolder : MonoBehaviour
             TryUsingWeapon(buttonDown);
         }
         //Alternate attack (used for weapons with multiple uses, e.g. guns with melee ability)
-        else if (Input.GetButton("AttackAlternate"))
+        else if (Input.GetButton("AttackAlternate") && !aimDownSights)
         {
             TryUsingWeaponAlternate();
         }
