@@ -8,6 +8,7 @@ public abstract class Weapon
     public WeaponTemplate m_template { get; private set; }
     public bool m_hideHeldWeapon { get; protected set; }
     public float m_attackIntervalTimer { get; protected set; }
+    public float m_alternateAttackIntervalTimer { get; protected set; }
 
     public Weapon(WeaponHolder weaponHolder, WeaponTemplate template)
     {
@@ -17,12 +18,23 @@ public abstract class Weapon
 
     public abstract void Attack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown);
 
+    public abstract void AlternateAttack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, Transform transformHead);
+
     public virtual void SwitchingToThisWeapon() { }
     public virtual void SwitchingToOtherWeapon() { }
 
-    public virtual bool ReadyToFire()
+    public virtual bool ReadyToAttack()
     {
         if(m_attackIntervalTimer <= 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public virtual bool ReadyToAttackAlternate()
+    {
+        if (m_alternateAttackIntervalTimer <= 0)
         {
             return true;
         }
@@ -40,6 +52,11 @@ public abstract class Weapon
         if (m_attackIntervalTimer > 0f)
         {
             m_attackIntervalTimer -= Time.deltaTime;
+        }
+
+        if (m_alternateAttackIntervalTimer > 0f)
+        {
+            m_alternateAttackIntervalTimer -= Time.deltaTime;
         }
     }
 

@@ -17,9 +17,9 @@ public class GrenadeWeapon : Weapon
         m_grenadeCount = template.GetStartCount();
     }
 
-    public override bool ReadyToFire()
+    public override bool ReadyToAttack()
     {
-        if(base.ReadyToFire() && m_grenadeCount > 0)
+        if(base.ReadyToAttack() && m_grenadeCount > 0)
         {
             return true;
         }
@@ -43,8 +43,10 @@ public class GrenadeWeapon : Weapon
 
         m_thrownGrenades.Add(new ThrownGrenade(this, m_goThrow, m_grenadeTemplate.GetDelay()));
 
-        SoundEffectPlayer.instance.PlaySoundEffect2D(m_grenadeTemplate.GetThrowSound(), m_grenadeTemplate.GetThrowSoundVolume(), 0.95f, 1.05f);
+        SoundEffectPlayer.instance.PlaySoundEffect2D(m_grenadeTemplate.m_throwSound, m_grenadeTemplate.m_throwSoundVolume, 0.95f, 1.05f);
     }
+
+    public override void AlternateAttack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, Transform transformHead) {}
 
     public override void Update()
     {
@@ -161,7 +163,7 @@ public class ThrownGrenade
             }
         }
 
-        SoundEffectPlayer.instance.PlaySoundEffect3D(m_grenadeParent.m_template.GetAttackSound(), m_goThrow.transform.position, m_grenadeParent.m_template.GetAttackSoundVolume(), 0.95f, 1.05f);
+        SoundEffectPlayer.instance.PlaySoundEffect3D(m_grenadeParent.m_template.m_attackSound, m_goThrow.transform.position, m_grenadeParent.m_template.m_attackSoundVolume, 0.95f, 1.05f);
 
         Object.Destroy(m_goThrow);
 

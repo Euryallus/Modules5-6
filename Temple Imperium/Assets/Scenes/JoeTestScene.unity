@@ -7477,6 +7477,9 @@ MonoBehaviour:
   healthRegenLength: 3
   healthRegenAmountPerCall: 2
   timeBetweenHealthRegen: 0.5
+  meleeDistance: 4
+  meleeHitDamage: 5
+  hitInterval: 1
   currentState: 0
   patrolPoints:
   - {fileID: 5206509637295143146}
@@ -7700,6 +7703,9 @@ MonoBehaviour:
   healthRegenLength: 3
   healthRegenAmountPerCall: 2
   timeBetweenHealthRegen: 0.5
+  meleeDistance: 4
+  meleeHitDamage: 5
+  hitInterval: 1
   currentState: 0
   patrolPoints:
   - {fileID: 5206509638268319682}
@@ -7811,6 +7817,9 @@ MonoBehaviour:
   healthRegenLength: 3
   healthRegenAmountPerCall: 2
   timeBetweenHealthRegen: 0.5
+  meleeDistance: 4
+  meleeHitDamage: 5
+  hitInterval: 1
   currentState: 0
   patrolPoints:
   - {fileID: 5206509638366467529}
@@ -22515,7 +22524,6 @@ MonoBehaviour:
   availableWeaponTemplates:
   - {fileID: 11400000, guid: bcc9d427d04d6ba4aad4d77e70dcaaf9, type: 2}
   - {fileID: 11400000, guid: 762aed5ac06e58e47b13dda5f8d40472, type: 2}
-  - {fileID: 11400000, guid: 8f634272b6b6a1b4caeec1cf44b7e9d0, type: 2}
   - {fileID: 11400000, guid: 8e36741c32ba35b4e8acab4167f7479b, type: 2}
   - {fileID: 11400000, guid: 4a140944ca2d95240af3c6218d0d2f26, type: 2}
   transformHead: {fileID: 7362584270694556537}

@@ -87,14 +87,6 @@ public class GrenadeWeaponTemplate : WeaponTemplate
     {
         return m_fragDamage;
     }
-    public string GetThrowSound()
-    {
-        return m_throwSound;
-    }
-    public float GetThrowSoundVolume()
-    {
-        return m_throwSoundVolume;
-    }
     public GameObject GetExplosionParticles()
     {
         return m_explosionParticles;

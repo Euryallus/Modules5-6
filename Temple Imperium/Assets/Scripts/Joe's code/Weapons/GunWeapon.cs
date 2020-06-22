@@ -38,9 +38,9 @@ public class GunWeapon : Weapon
         }
     }
 
-    public override bool ReadyToFire()
+    public override bool ReadyToAttack()
     {
-        if ( (base.ReadyToFire()) && (m_loadedAmmo > 0) && (!m_reloading) )
+        if ( (base.ReadyToAttack()) && (m_loadedAmmo > 0) && (!m_reloading) )
         {
             return true;
         }
@@ -97,7 +97,43 @@ public class GunWeapon : Weapon
         }
 
         gunGameObject.transform.Find("Gun").GetComponent<Animator>().SetTrigger("Shoot");
-        SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.GetAttackSound(), m_template.GetAttackSoundVolume(), 0.95f, 1.05f);
+        SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.m_attackSound, m_template.m_attackSoundVolume, 0.95f, 1.05f);
+    }
+
+    public override void AlternateAttack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, Transform transformHead)
+    {
+        if (!m_gunTemplate.GetCanUseAsMelee())
+        {
+            return;
+        }
+
+        Debug.Log("GUN ALT");
+
+        m_alternateAttackIntervalTimer = m_gunTemplate.GetMeleeInterval();
+
+        if (Physics.Raycast(transformHead.position, transformHead.forward, out RaycastHit hitInfo, m_gunTemplate.GetMeleeRange(), ~LayerMask.GetMask("Player")))
+        {
+            Debug.Log("Attacking with gun as melee weapon, hit " + hitInfo.transform.name);
+
+            GameObject goHit = hitInfo.collider.gameObject;
+            if (goHit.CompareTag("Enemy"))
+            {
+                int damageAmount = Random.Range(m_template.GetMinAttackDamage(), m_template.GetMaxAttackDamage() + 1);
+                hitInfo.transform.GetComponent<Enemy>().Damage(damageAmount);
+                UIManager.instance.ShowEnemyHitPopup(damageAmount, hitInfo.point);
+            }
+            else if (goHit.CompareTag("ExplodeOnImpact"))
+            {
+                goHit.GetComponent<ExplodeOnImpact>().Explode();
+            }
+        }
+        else
+        {
+            Debug.Log("Attacking with gun as melee weapon, hit nothing");
+        }
+
+        weaponGameObject.transform.Find("Gun").GetComponent<Animator>().SetTrigger("MeleeAttack");
+        SoundEffectPlayer.instance.PlaySoundEffect2D(m_gunTemplate.m_meleeSound, m_gunTemplate.m_meleeSoundVolume, 0.95f, 1.05f);
     }
 
     private void StartReload()

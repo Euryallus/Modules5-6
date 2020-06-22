@@ -99,6 +99,8 @@ public class PrototypeWeapon : Weapon
         weaponGameObject.transform.Find("Weapon").GetComponent<Animator>().SetBool("Shooting", true);
     }
 
+    public override void AlternateAttack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, Transform transformHead) {}
+
     private void DefaultAttack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
     {
         if (m_damageTimer <= 0)
@@ -282,8 +284,8 @@ public class PrototypeWeapon : Weapon
         m_damageCharge = 0f;
         m_damageTimer = 0f;
 
-        SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.GetAttackSound(), m_template.GetAttackSoundVolume(), 0.95f, 1.05f);
-        SoundEffectPlayer.instance.PlayLoopingSoundEffect(m_prototypeTemplate.GetFiringSound(), false, Vector3.zero, "protoBeam", m_prototypeTemplate.GetFiringSoundVolume());
+        SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.m_attackSound, m_template.m_attackSoundVolume, 0.95f, 1.05f);
+        SoundEffectPlayer.instance.PlayLoopingSoundEffect(m_prototypeTemplate.m_firingSound, false, Vector3.zero, "protoBeam", m_prototypeTemplate.m_firingSoundVolume);
     }
 
     public void StopAttack()
@@ -300,7 +302,7 @@ public class PrototypeWeapon : Weapon
             m_goWeapon.transform.Find("Weapon").GetComponent<Animator>().SetBool("Shooting", false);
         }
 
-        SoundEffectPlayer.instance.PlaySoundEffect2D(m_prototypeTemplate.GetDisableSound(), m_prototypeTemplate.GetDisableSoundVolume());
+        SoundEffectPlayer.instance.PlaySoundEffect2D(m_prototypeTemplate.m_disableSound, m_prototypeTemplate.m_disableSoundVolume);
         SoundEffectPlayer.instance.StopLoopingSoundEffect("protoBeam");
     }
 

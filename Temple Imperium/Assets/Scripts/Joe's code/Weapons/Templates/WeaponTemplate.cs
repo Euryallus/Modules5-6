@@ -74,14 +74,6 @@ public class WeaponTemplate : ScriptableObject
     {
         return m_attackInterval;
     }
-    public string GetAttackSound()
-    {
-        return m_attackSound;
-    }
-    public float GetAttackSoundVolume()
-    {
-        return m_attackSoundVolume;
-    }
 
     #endregion
 }

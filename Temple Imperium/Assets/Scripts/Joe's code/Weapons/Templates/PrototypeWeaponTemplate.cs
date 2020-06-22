@@ -113,22 +113,6 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     {
         return m_damageInterval;
     }
-    public string GetFiringSound()
-    {
-        return m_firingSound;
-    }
-    public float GetFiringSoundVolume()
-    {
-        return m_firingSoundVolume;
-    }
-    public string GetDisableSound()
-    {
-        return m_disableSound;
-    }
-    public float GetDisableSoundVolume()
-    {
-        return m_disableSoundVolume;
-    }
     public int GetFireEffectTime()
     {
         return m_fireEffectTime;

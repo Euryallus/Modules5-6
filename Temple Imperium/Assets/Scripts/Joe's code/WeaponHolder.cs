@@ -286,6 +286,12 @@ public class WeaponHolder : MonoBehaviour
             bool buttonDown = Input.GetButtonDown("Fire1");
             TryUsingWeapon(buttonDown);
         }
+        //Alternate attack (used for weapons with multiple uses, e.g. guns with melee ability)
+        else if (Input.GetButton("AttackAlternate"))
+        {
+            TryUsingWeaponAlternate();
+        }
+
         if (Input.GetButtonUp("Fire1"))
         {
             TryEndingWeaponUsage();
@@ -293,9 +299,16 @@ public class WeaponHolder : MonoBehaviour
     }
     public void TryUsingWeapon(bool buttonDown)
     {
-        if (!emptyHand && activeWeapon.ReadyToFire())
+        if (!emptyHand && activeWeapon.ReadyToAttack())
         {
             activeWeapon.Attack(weaponAimInfo, goWeapon, prefabFireLight, transformHead, buttonDown);
+        }
+    }
+    public void TryUsingWeaponAlternate()
+    {
+        if (!emptyHand && activeWeapon.ReadyToAttackAlternate())
+        {
+            activeWeapon.AlternateAttack(weaponAimInfo, goWeapon, transformHead);
         }
     }
     public void TryEndingWeaponUsage()

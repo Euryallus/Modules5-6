@@ -37,6 +37,28 @@ public class GunWeaponTemplate : WeaponTemplate
     [Tooltip("The amount of time taken to reload this gun (seconds)")]
     private float m_reloadTime;
 
+    [SerializeField]
+    [Tooltip("If true, this weapon can be used to as a melee weapon to hit entities at a defined short range")]
+    private bool m_canUseAsMelee;
+
+    [SerializeField]
+    [Tooltip("Maximum distance from the target where this gun will be effective as a melee weapon")]
+    private float m_meleeRange;
+
+    [SerializeField]
+    [Tooltip("Minimum time between each usage of this gun as a melee weapon")]
+    private float m_meleeInterval;
+
+    //Name of sound effect to be played when using this gun as a melee weapon
+    [SerializeField]
+    [HideInInspector]
+    public string m_meleeSound;
+
+    //Volume of sound effect to be played when using this gun as a melee weapon
+    [SerializeField]
+    [HideInInspector]
+    public float m_meleeSoundVolume;
+
     #endregion
 
     #region Getters
@@ -71,6 +93,18 @@ public class GunWeaponTemplate : WeaponTemplate
     public float GetReloadTime()
     {
         return m_reloadTime;
+    }
+    public bool GetCanUseAsMelee()
+    {
+        return m_canUseAsMelee;
+    }
+    public float GetMeleeRange()
+    {
+        return m_meleeRange;
+    }
+    public float GetMeleeInterval()
+    {
+        return m_meleeInterval;
     }
 
     #endregion

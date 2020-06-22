@@ -43,6 +43,8 @@ public class MeleeWeapon : Weapon
         }
 
         meleeGameObject.transform.Find("Weapon").GetComponent<Animator>().SetTrigger("Attack");
-        SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.GetAttackSound(), m_template.GetAttackSoundVolume(), 0.95f, 1.05f);
+        SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.m_attackSound, m_template.m_attackSoundVolume, 0.95f, 1.05f);
     }
+
+    public override void AlternateAttack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, Transform transformHead) {}
 }

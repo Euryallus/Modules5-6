@@ -29,3 +29,8 @@ MonoBehaviour:
   m_totalStartAmmo: 45
   m_magazineSize: 10
   m_reloadTime: 1.8
+  m_canUseAsMelee: 1
+  m_meleeRange: 5
+  m_meleeInterval: 3
+  m_meleeSound: SwordSwipe
+  m_meleeSoundVolume: 1
