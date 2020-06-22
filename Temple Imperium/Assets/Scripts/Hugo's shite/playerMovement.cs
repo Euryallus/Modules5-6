@@ -51,6 +51,8 @@ public class playerMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         controller = gameObject.GetComponent<CharacterController>();
 
+        Time.timeScale = 1;
+
         noteMenu = GameObject.FindGameObjectWithTag("noteDisplayManager");
     }
 
