@@ -21,21 +21,37 @@ public class EnemyVariant2 : Enemy
     {
         if (canSeePlayer)
         {
-            agent.SetDestination(transform.position);
+            if(Vector3.Distance(player.transform.position, transform.position) > 7.5f)
+            {
+                agent.SetDestination(transform.position);
 
-            Quaternion lookRotation = Quaternion.LookRotation(playerVector.normalized);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 3);
+                if(bulletSpawnCount > bulletSpawnRate)
+                {
+                    bulletSpawnCount = 0;
+                    bullet = Instantiate(bulletBlueprint);
+                    bullet.GetComponent<bulletTemp>().setParent(gameObject);
+                    bullet.GetComponent<Rigidbody>().velocity = (playerVector.normalized * bulletSpeed);
+                    bullet.transform.position = gameObject.transform.position + (playerVector.normalized);
+                }
+            }
+            else 
+            {
+                if (playerDist >= 2f)
+                {
+                    agent.SetDestination(lastKnownPos);
+                }
+                else
+                {
+                    agent.SetDestination(transform.position);
+                    meleeHit();
+                }
+
+               
+            }
 
             bulletSpawnCount += Time.deltaTime;
-
-            if(bulletSpawnCount > bulletSpawnRate)
-            {
-                bulletSpawnCount = 0;
-                bullet = Instantiate(bulletBlueprint);
-                bullet.GetComponent<bulletTemp>().setParent(gameObject);
-                bullet.GetComponent<Rigidbody>().velocity = (playerVector.normalized * bulletSpeed);
-                bullet.transform.position = gameObject.transform.position + (playerVector.normalized);
-            }
+            Quaternion lookRotation = Quaternion.LookRotation(playerVector.normalized);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 3);
         }
         
         base.Engage();

@@ -65,7 +65,15 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     protected float timeBetweenHealthRegen = 0.5f;
 
-    
+    [SerializeField]
+    protected float meleeDistance = 4f;
+    [SerializeField]
+    protected float meleeHitDamage = 5;
+
+    [SerializeField]
+    protected float hitInterval = 1f;
+    protected float hitCount = 0;
+
 
     protected enum State
     {
@@ -201,6 +209,8 @@ public class Enemy : MonoBehaviour
                 }
             }
         }
+
+        hitCount += Time.deltaTime;
     }
 
     public virtual void Patrol()
@@ -350,6 +360,49 @@ public class Enemy : MonoBehaviour
     {
         SoundEffectPlayer.instance.PlaySoundEffect3D("Believe", transform.position, 1f, 0.95f, 1.05f);
         Destroy(gameObject);
+    }
+
+    protected void meleeHit()
+    {
+        RaycastHit target;
+        float damageToDo = meleeHitDamage;
+
+        if (Physics.Raycast(transform.position, transform.forward, out target, meleeDistance))
+        {
+            GameObject hitObj = target.transform.gameObject;
+
+            if (hitObj.CompareTag("Player") && hitCount > hitInterval)
+            {
+                //star stone effects
+                switch (generator.returnState())
+                {
+                    case generatorStates.starStoneActive.Orange:
+                        //Burn enemy
+                        hitObj.GetComponent<playerHealth>().setOnFire(fireLength, fireDamage, 0.5f);
+                        break;
+
+                    case generatorStates.starStoneActive.Blue:
+
+                        hitObj.GetComponent<playerMovement>().slowEffect(slowPercent, slowTime);
+
+                        break;
+
+                    case generatorStates.starStoneActive.Purple:
+                        damageToDo *= purpleDamagePercent;
+                        break;
+
+                    case generatorStates.starStoneActive.Pink:
+                        healTimeElapsed = 0;
+                        StartCoroutine(regenHealth(healthRegenLength, timeBetweenHealthRegen, healthRegenAmountPerCall));
+
+                        break;
+                }
+
+                hitObj.GetComponent<playerHealth>().takeDamage(damageToDo);
+
+                hitCount = 0;
+            }
+        }
     }
 }
 

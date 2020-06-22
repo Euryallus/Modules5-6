@@ -5,14 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyVariant1 : Enemy
 {
-    [SerializeField]
-    float meleeDistance = 4f;
-    [SerializeField]
-    float meleeHitDamage = 5;
-
-    [SerializeField]
-    float hitInterval = 1f;
-    float hitCount = 0;
+    
 
     
 
@@ -29,43 +22,9 @@ public class EnemyVariant1 : Enemy
             Quaternion lookRotation = Quaternion.LookRotation(playerVector.normalized);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime);
 
-            RaycastHit target;
-            if(Physics.Raycast(transform.position, transform.forward, out target, meleeDistance))
-            {
-                GameObject hitObj = target.transform.gameObject;
-
-                if (hitObj.CompareTag("Player") && hitCount > hitInterval)
-                {
-                    //star stone effects
-                    switch (generator.returnState())
-                    {
-                        case generatorStates.starStoneActive.Orange:
-                            //Burn enemy
-                            hitObj.GetComponent<playerHealth>().setOnFire(fireLength, fireDamage, 0.5f);
-                            break;
-
-                        case generatorStates.starStoneActive.Blue:
-
-                            hitObj.GetComponent<playerMovement>().slowEffect(slowPercent, slowTime);
-
-                            break;
-
-                        case generatorStates.starStoneActive.Purple:
-                            damageToDo *= purpleDamagePercent;
-                            break;
-
-                        case generatorStates.starStoneActive.Pink:
-                            healTimeElapsed = 0;
-                            StartCoroutine(regenHealth(healthRegenLength, timeBetweenHealthRegen, healthRegenAmountPerCall));
-
-                            break;
-                    }
-
-                    hitObj.GetComponent<playerHealth>().takeDamage(damageToDo);
-
-                    hitCount = 0;
-                }
-            }
+            meleeHit();
+                
+            
         }
 
         if(playerDist >= 3.5f)
