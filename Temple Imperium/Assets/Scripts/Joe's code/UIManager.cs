@@ -101,10 +101,10 @@ public class UIManager : MonoBehaviour
         {
             if (activePlayerWeapon is PrototypeWeapon activePlayerProto)
             {
-                if (activePlayerProto.m_charging)
+                if (activePlayerProto.m_poweringUp)
                 {
                     sliderWeaponCharge.gameObject.SetActive(true);
-                    sliderWeaponCharge.value = activePlayerProto.m_damageCharge / 1f;
+                    sliderWeaponCharge.value = activePlayerProto.m_damagePower / 1f;
                 }
                 else
                 {

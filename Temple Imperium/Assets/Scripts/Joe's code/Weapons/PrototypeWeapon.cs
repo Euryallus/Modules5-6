@@ -5,9 +5,11 @@ using UnityEngine;
 public class PrototypeWeapon : Weapon
 {
     public PrototypeWeaponTemplate m_prototypeTemplate { get; private set; }
-    public float m_damageCharge { get; private set; }
-    public bool m_charging { get; private set; }
+    public float m_damagePower { get; private set; }
+    public bool m_poweringUp { get; private set; }
+    public float m_charge { get; private set; }
 
+    private bool m_charging;
     private float m_damageTimer;
     private GameObject m_goWeapon;
     private GameObject m_goBeam;
@@ -19,26 +21,35 @@ public class PrototypeWeapon : Weapon
 
     public override void SwitchingToThisWeapon()
     {
-        m_charging = false;
+        m_poweringUp = false;
     }
 
     public override void SwitchingToOtherWeapon()
     {
-        m_charging = false;
+        m_poweringUp = false;
         SoundEffectPlayer.instance.StopLoopingSoundEffect("protoBeam");
+    }
+
+    public override bool ReadyToAttack()
+    {
+        if(base.ReadyToAttack() && m_charge > 0f)
+        {
+            return true;
+        }
+        return false;
     }
 
     public override void HeldUpdate()
     {
         base.HeldUpdate();
 
-        if (m_charging)
+        if (m_poweringUp)
         {
-            m_damageCharge += Time.deltaTime;
+            m_damagePower += Time.deltaTime;
             m_damageTimer -= Time.deltaTime;
-            if (m_damageCharge >= 1f)
+            if (m_damagePower >= 1f)
             {
-                m_damageCharge = 1f;
+                m_damagePower = 1f;
             }
         }
 
@@ -51,7 +62,7 @@ public class PrototypeWeapon : Weapon
             }
             else
             {
-                beamWidth = (m_damageCharge * 0.4f);
+                beamWidth = (m_damagePower * 0.4f);
             }
             m_goBeam.transform.Find("Beam").localScale = new Vector3(beamWidth, (m_prototypeTemplate.GetRange() / 2f) - 0.5f, beamWidth);
         }
@@ -60,6 +71,19 @@ public class PrototypeWeapon : Weapon
     public override void Update()
     {
         base.Update();
+
+        if (m_charging)
+        {
+            float maxCharge = m_prototypeTemplate.GetMaxCharge();
+            if (m_charge < maxCharge)
+            {
+                m_charge += (Time.deltaTime * m_prototypeTemplate.GetChargeSpeed());
+            }
+            else
+            {
+                m_charge = maxCharge;
+            }
+        }
     }
 
     public override void Attack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
@@ -67,16 +91,28 @@ public class PrototypeWeapon : Weapon
         m_attackIntervalTimer = m_template.GetAttackInterval();
         m_goWeapon = weaponGameObject;
 
+        if(m_charge > 0f)
+        {
+            m_charge -= (Time.deltaTime * m_prototypeTemplate.GetChargeDrainSpeed());
+        }
+
+        //Stop the attack if StarStone charge has run out
+        if(m_charge <= 0f)
+        {
+            StopAttack();
+            m_charge = 0f;
+            return;
+        }
+
         generatorStates.starStoneActive generatorState = m_weaponHolder.generatorStates.returnState();
 
-        if (!m_charging)
+        if (!m_poweringUp)
         {
-            StartCharging(weaponGameObject);
+            StartPoweringUp();
             if (generatorState != generatorStates.starStoneActive.Purple)
                 CreateBeamGameObject(weaponGameObject);
         }
 
-        //TODO: Remove tempStarStoneState and do a proper check for active star stone
         switch (generatorState)
         {
             case generatorStates.starStoneActive.None:
@@ -114,7 +150,7 @@ public class PrototypeWeapon : Weapon
                 GameObject goHit = weaponAimInfo.m_hitInfo.collider.gameObject;
                 if (goHit.CompareTag("Enemy"))
                 {
-                    float damagePerc = m_damageCharge / 1f;
+                    float damagePerc = m_damagePower / 1f;
                     int scaledDamage = Mathf.RoundToInt( RemapNumber(damagePerc, 0f, 1f, m_template.GetMinAttackDamage(), m_template.GetMaxAttackDamage()) );
 
                     weaponAimInfo.m_hitInfo.transform.GetComponent<Enemy>().Damage(scaledDamage);
@@ -145,7 +181,7 @@ public class PrototypeWeapon : Weapon
                 GameObject goHit = weaponAimInfo.m_hitInfo.collider.gameObject;
                 if (goHit.CompareTag("Enemy"))
                 {
-                    float damagePerc = m_damageCharge / 1f;
+                    float damagePerc = m_damagePower / 1f;
                     int scaledDamage = Mathf.RoundToInt(RemapNumber(damagePerc, 0f, 1f, m_template.GetMinAttackDamage(), m_template.GetMaxAttackDamage()));
 
                     Enemy hitEnemy = weaponAimInfo.m_hitInfo.transform.GetComponent<Enemy>();
@@ -168,7 +204,7 @@ public class PrototypeWeapon : Weapon
     private void PowerAttack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown)
     {
         //Fully charged and ready to shoot
-        if(m_damageCharge == 1f)
+        if(m_damagePower == 1f)
         {
             CreateBeamGameObject(weaponGameObject);
 
@@ -197,7 +233,7 @@ public class PrototypeWeapon : Weapon
 
             SoundEffectPlayer.instance.PlaySoundEffect2D(m_prototypeTemplate.m_powerSound, m_prototypeTemplate.m_powerSoundVolume);
             SoundEffectPlayer.instance.StopLoopingSoundEffect("protoBeam");
-            m_charging = false;
+            m_poweringUp = false;
             m_attackIntervalTimer = m_template.GetAttackInterval();
 
             m_weaponHolder.DestroyWeaponGameObjectAfterTime(m_goBeam, 0.2f);
@@ -217,7 +253,7 @@ public class PrototypeWeapon : Weapon
                 GameObject goHit = weaponAimInfo.m_hitInfo.collider.gameObject;
                 if (goHit.CompareTag("Enemy"))
                 {
-                    float damagePerc = m_damageCharge / 1f;
+                    float damagePerc = m_damagePower / 1f;
                     int scaledDamage = Mathf.RoundToInt(RemapNumber(damagePerc, 0f, 1f, m_template.GetMinAttackDamage(), m_template.GetMaxAttackDamage()));
 
                     Enemy hitEnemy = weaponAimInfo.m_hitInfo.transform.GetComponent<Enemy>();
@@ -250,7 +286,7 @@ public class PrototypeWeapon : Weapon
                 GameObject goHit = weaponAimInfo.m_hitInfo.collider.gameObject;
                 if (goHit.CompareTag("Enemy"))
                 {
-                    float damagePerc = m_damageCharge / 1f;
+                    float damagePerc = m_damagePower / 1f;
                     int scaledDamage = Mathf.RoundToInt(RemapNumber(damagePerc, 0f, 1f, m_template.GetMinAttackDamage(), m_template.GetMaxAttackDamage()));
 
                     int scaledHealthRestore = Mathf.RoundToInt(RemapNumber(damagePerc, 0f, 1f, 0f, m_prototypeTemplate.GetHealthRestoreAmount()));
@@ -278,32 +314,41 @@ public class PrototypeWeapon : Weapon
         }
     }
 
-    private void StartCharging(GameObject weaponGameObject)
+    public void StopAttack()
     {
-        m_charging = true;
-        m_damageCharge = 0f;
+        m_poweringUp = false;
+
+        if (m_goBeam != null)
+        {
+            SoundEffectPlayer.instance.PlaySoundEffect2D(m_prototypeTemplate.m_disableSound, m_prototypeTemplate.m_disableSoundVolume);
+            Object.Destroy(m_goBeam);
+        }
+
+        if (m_goWeapon != null)
+        {
+            m_goWeapon.transform.Find("Weapon").GetComponent<Animator>().SetBool("Shooting", false);
+        }
+
+        SoundEffectPlayer.instance.StopLoopingSoundEffect("protoBeam");
+    }
+
+    private void StartPoweringUp()
+    {
+        m_poweringUp = true;
+        m_damagePower = 0f;
         m_damageTimer = 0f;
 
         SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.m_attackSound, m_template.m_attackSoundVolume, 0.95f, 1.05f);
         SoundEffectPlayer.instance.PlayLoopingSoundEffect(m_prototypeTemplate.m_firingSound, false, Vector3.zero, "protoBeam", m_prototypeTemplate.m_firingSoundVolume);
     }
 
-    public void StopAttack()
+    public void StartCharging()
+    {
+        m_charging = true;
+    }
+    public void StopCharging()
     {
         m_charging = false;
-
-        if(m_goBeam != null)
-        {
-            Object.Destroy(m_goBeam);
-        }
-
-        if(m_goWeapon != null)
-        {
-            m_goWeapon.transform.Find("Weapon").GetComponent<Animator>().SetBool("Shooting", false);
-        }
-
-        SoundEffectPlayer.instance.PlaySoundEffect2D(m_prototypeTemplate.m_disableSound, m_prototypeTemplate.m_disableSoundVolume);
-        SoundEffectPlayer.instance.StopLoopingSoundEffect("protoBeam");
     }
 
     private void CreateBeamGameObject(GameObject weaponGameObject)
