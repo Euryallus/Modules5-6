@@ -60,7 +60,11 @@ public class UIManager : MonoBehaviour
 
         if (doorLockedPopup != null)
         {
-            doorLockedPopup.transform.position = Camera.main.WorldToScreenPoint(doorLockedPopupPosition);
+            Vector3 popupScreenPos = Camera.main.WorldToScreenPoint(doorLockedPopupPosition);
+            if(popupScreenPos.z > 0f)
+            {
+                doorLockedPopup.transform.position = Camera.main.WorldToScreenPoint(doorLockedPopupPosition);
+            }
         }
     }
 
