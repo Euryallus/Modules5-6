@@ -133,15 +133,6 @@ public class WeaponHolder : MonoBehaviour
         }
     }
 
-    private void EnableWeaponTorchGameObject(bool torchOn)
-    {
-        Transform transformTorch = goWeapon.transform.Find("Torch");
-        if(transformTorch != null)
-        {
-            transformTorch.gameObject.SetActive(torchOn);
-        }
-    }
-
     private void UpdateCamera()
     {
         //Aiming down sights
@@ -306,6 +297,14 @@ public class WeaponHolder : MonoBehaviour
     {
         goWeapon.SetActive(!hide);
     }
+    private void EnableWeaponTorchGameObject(bool torchOn)
+    {
+        Transform transformTorch = goWeapon.transform.Find("Torch");
+        if (transformTorch != null)
+        {
+            transformTorch.gameObject.SetActive(torchOn);
+        }
+    }
     #endregion
 
     #region Weapon Usage
@@ -401,6 +400,18 @@ public class WeaponHolder : MonoBehaviour
         {
             Destroy(goWeapon);
         }
+    }
+
+    public PrototypeWeapon GetPrototypeWeapon()
+    {
+        for (int i = 0; i < availableWeapons.Length ; i++)
+        {
+            if (availableWeapons[i] is PrototypeWeapon protoWeapon)
+                return protoWeapon;
+        }
+
+        Debug.LogError("Trying to get prototype weapon on entity that is not holding one (" + gameObject.name + ")");
+        return null;
     }
 
     private void OnDrawGizmos()

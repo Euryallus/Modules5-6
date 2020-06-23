@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     private GameObject goCanvas;
     private Slider sliderAttackInterval;
     private Slider sliderWeaponCharge;
+    private Slider sliderPrototypeCharge;
     private WeaponHolder weaponHolderPlayer;
 
     private GameObject doorLockedPopup;
@@ -43,6 +44,7 @@ public class UIManager : MonoBehaviour
         goCanvas = GameObject.Find("Canvas");
         sliderAttackInterval = goCanvas.transform.Find("Attack Interval Slider").GetComponent<Slider>();
         sliderWeaponCharge = goCanvas.transform.Find("Weapon Charge Slider").GetComponent<Slider>();
+        sliderPrototypeCharge = goCanvas.transform.Find("Prototype Charge Slider").GetComponent<Slider>();
         weaponHolderPlayer = GameObject.Find("Player").GetComponent<WeaponHolder>();
     }
 
@@ -53,13 +55,13 @@ public class UIManager : MonoBehaviour
         {
             UpdateAttackIntervalSlider(activePlayerWeapon);
             UpdateWeaponChargeSlider(activePlayerWeapon);
+            UpdatePrototypeChargeSlider();
         }
 
         if (doorLockedPopup != null)
         {
             doorLockedPopup.transform.position = Camera.main.WorldToScreenPoint(doorLockedPopupPosition);
         }
-
     }
 
     public void ShowDoorLockedPopup(Vector3 position)
@@ -75,6 +77,15 @@ public class UIManager : MonoBehaviour
         if(doorLockedPopup != null)
         {
             Destroy(doorLockedPopup);
+        }
+    }
+
+    private void UpdatePrototypeChargeSlider()
+    {
+        PrototypeWeapon protoWeapon = weaponHolderPlayer.GetPrototypeWeapon();
+        if(sliderPrototypeCharge != null && protoWeapon != null)
+        {
+            sliderPrototypeCharge.value = protoWeapon.m_charge / protoWeapon.m_prototypeTemplate.GetMaxCharge();
         }
     }
 
@@ -101,10 +112,10 @@ public class UIManager : MonoBehaviour
         {
             if (activePlayerWeapon is PrototypeWeapon activePlayerProto)
             {
-                if (activePlayerProto.m_charging)
+                if (activePlayerProto.m_poweringUp)
                 {
                     sliderWeaponCharge.gameObject.SetActive(true);
-                    sliderWeaponCharge.value = activePlayerProto.m_damageCharge / 1f;
+                    sliderWeaponCharge.value = activePlayerProto.m_damagePower / 1f;
                 }
                 else
                 {

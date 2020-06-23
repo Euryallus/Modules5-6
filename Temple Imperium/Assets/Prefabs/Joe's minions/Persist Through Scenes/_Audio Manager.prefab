@@ -68,6 +68,8 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: ab6faeb0077ce4b4cb02b5651df6ba3a, type: 3}
   - name: Laser Shot
     audioClip: {fileID: 8300000, guid: 3cb6b4b5626f4dd44a8bc476e9153d6f, type: 3}
+  - name: Charge Loop
+    audioClip: {fileID: 8300000, guid: c2161efbdc695884b864ee8d0a382adb, type: 3}
   - name: None
     audioClip: {fileID: 0}
   prefabSoundSource: {fileID: 2738532834754265132, guid: c053cf90b98ebd8438265eff97f52cff,

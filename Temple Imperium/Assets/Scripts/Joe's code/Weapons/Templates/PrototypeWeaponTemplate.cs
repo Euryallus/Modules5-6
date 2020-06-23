@@ -25,6 +25,18 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     [Tooltip("How frequently damage is dealt when firing at an object (seconds)")]
     private float m_damageInterval;
 
+    [SerializeField]
+    [Tooltip("The maximum amount of StarStone charge this weapon can hold")]
+    private float m_maxCharge;
+
+    [SerializeField]
+    [Tooltip("How quickly this weapon is charged by StarStones")]
+    private float m_chargeSpeed;
+
+    [SerializeField]
+    [Tooltip("How quickly this weapon's charge depletes when being used")]
+    private float m_chargeDrainSpeed;
+
     [Header("-- Heat Effect")]
 
     [SerializeField]
@@ -64,7 +76,6 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     [SerializeField]
     [Tooltip("Amount of health to restore to the entity holding the weapon when they deal damage")]
     private int m_healthRestoreAmount;
-
 
     //Name of sound effect to be looped while this weapon is firing
     [SerializeField] [HideInInspector]
@@ -113,6 +124,18 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     {
         return m_damageInterval;
     }
+    public float GetMaxCharge()
+    {
+        return m_maxCharge;
+    }
+    public float GetChargeSpeed()
+    {
+        return m_chargeSpeed;
+    }
+    public float GetChargeDrainSpeed()
+    {
+        return m_chargeDrainSpeed;
+    }
     public int GetFireEffectTime()
     {
         return m_fireEffectTime;
@@ -145,6 +168,7 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     {
         return m_healthRestoreAmount;
     }
+
 
     #endregion
 }
