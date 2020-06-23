@@ -125,6 +125,21 @@ public class WeaponHolder : MonoBehaviour
         {
             aimDownSights = false;
         }
+
+        if(activeWeapon is GunWeapon activeGun && Input.GetKeyDown(KeyCode.L))
+        {
+            bool torchOn = activeGun.ToggleTorchOn();
+            EnableWeaponTorchGameObject(torchOn);
+        }
+    }
+
+    private void EnableWeaponTorchGameObject(bool torchOn)
+    {
+        Transform transformTorch = goWeapon.transform.Find("Torch");
+        if(transformTorch != null)
+        {
+            transformTorch.gameObject.SetActive(torchOn);
+        }
     }
 
     private void UpdateCamera()
@@ -279,6 +294,11 @@ public class WeaponHolder : MonoBehaviour
                 goWeapon.transform.localPosition += activeWeapon.m_template.GetVisualOffset();
                 SetHeldWeaponHidden(weapon.m_hideHeldWeapon);
                 weapon.SwitchingToThisWeapon();
+                
+                if(weapon is GunWeapon gun)
+                {
+                    EnableWeaponTorchGameObject(gun.m_torchOn);
+                }
             }
         }
     }

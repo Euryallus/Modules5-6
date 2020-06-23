@@ -8,7 +8,7 @@ public class GunWeapon : Weapon
     public int m_loadedAmmo { get; private set; }
     public bool m_reloading { get; private set; }
     public GunWeaponTemplate m_gunTemplate { get; private set; }
-
+    public bool m_torchOn { get; private set; }
 
     private float m_reloadTimer;
 
@@ -17,6 +17,12 @@ public class GunWeapon : Weapon
         m_loadedAmmo = template.GetMagazineSize();
         m_gunTemplate = template;
         m_totalAmmo = template.GetTotalStartAmmo();
+    }
+
+    public bool ToggleTorchOn()
+    {
+        m_torchOn = !m_torchOn;
+        return m_torchOn;
     }
 
     public override void HeldUpdate()
