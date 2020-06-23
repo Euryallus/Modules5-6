@@ -9,6 +9,9 @@ public class playStateControl : MonoBehaviour
     List<waveData> waves = new List<waveData>();
 
     [SerializeField]
+    List<Door> doors = new List<Door>();
+
+    [SerializeField]
     int wavePointer = 0;
     GameObject[] spawners;
 
@@ -80,9 +83,9 @@ public class playStateControl : MonoBehaviour
                 timeRemaining.text = "Wave complete!";
                 if(nextWaveStarted == false)
                 {
-                    if(waves[wavePointer].doorToOpen != null)
+                    if(doors[wavePointer] != null)
                     {
-                        waves[wavePointer].doorToOpen.SetLocked(false);
+                        doors[wavePointer].SetLocked(false);
                     }
                     StartCoroutine(waitForNextWave(waves[wavePointer].downtime));
                     nextWaveStarted = true;
