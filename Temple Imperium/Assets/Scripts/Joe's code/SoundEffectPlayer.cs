@@ -82,7 +82,7 @@ public class SoundEffectPlayer : MonoBehaviour
         AudioSource audioSource = goSource.GetComponent<AudioSource>();
         audioSource.clip = soundEffectsDict[name];
         audioSource.pitch = UnityEngine.Random.Range(minPitch, maxPitch);
-        audioSource.volume = volume;
+        audioSource.volume = volume * SaveLoadManager.instance.LoadFloatFromPlayerPrefs("Options_Volume_Sound");
         if (use3dSpace)
         {
             audioSource.spatialBlend = 1f;
