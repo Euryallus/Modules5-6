@@ -103,15 +103,10 @@ public class playStateControl : MonoBehaviour
     {
         remainingEnemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-        if(spawners[0].GetComponent<spawnerScript>().spawning == false)
+        if(remainingEnemies.Length == 0)
         {
-            if(remainingEnemies.Length == 0)
-            {
-                current = waveState.waveComplete;
-            }
+            current = waveState.waveComplete;
         }
-
-        
     }
 
     private IEnumerator waitForNextWave(float waitLength)
