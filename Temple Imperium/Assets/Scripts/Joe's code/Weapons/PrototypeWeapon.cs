@@ -17,6 +17,7 @@ public class PrototypeWeapon : Weapon
     public PrototypeWeapon(WeaponHolder weaponHolder, PrototypeWeaponTemplate template) : base(weaponHolder, template)
     {
         m_prototypeTemplate = template;
+        m_charge = m_prototypeTemplate.GetMaxCharge();
     }
 
     public override void SwitchingToThisWeapon()
