@@ -4,6 +4,8 @@ public class PrototypeWeaponCharging : MonoBehaviour
 {
     private PrototypeWeapon weapon;
 
+    private const string loopSoundId = "starStoneCharge";
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -12,6 +14,7 @@ public class PrototypeWeaponCharging : MonoBehaviour
             if(weapon != null)
             {
                 weapon.StartCharging();
+                SoundEffectPlayer.instance.PlayLoopingSoundEffect("Charge Loop", true, transform.position, loopSoundId, 1f);
             }
         }
     }
@@ -24,6 +27,7 @@ public class PrototypeWeaponCharging : MonoBehaviour
             {
                 weapon.StopCharging();
                 weapon = null;
+                SoundEffectPlayer.instance.StopLoopingSoundEffect(loopSoundId);
             }
         }
     }
