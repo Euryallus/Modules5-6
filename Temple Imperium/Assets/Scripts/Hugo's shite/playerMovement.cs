@@ -106,12 +106,12 @@ public class playerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            playerSpeed *= sprintMag;
+            playerSpeed = defaultSpeed * sprintMag;
         }
 
         if(Input.GetKeyUp(KeyCode.LeftShift))
         {
-            playerSpeed /= sprintMag ;
+            playerSpeed = defaultSpeed;
         }
 
         if (onLadder != true)
@@ -203,9 +203,10 @@ public class playerMovement : MonoBehaviour
     private IEnumerator returnToNormalSpeed(float time)
     {
         yield return new WaitForSeconds(time);
-        playerSpeed = defaultSpeed;
+        
         isSlowed = false;
         gameObject.GetComponent<playerHealth>().stateDisplay.text = "";
+        playerSpeed = defaultSpeed;
 
     }
 }
