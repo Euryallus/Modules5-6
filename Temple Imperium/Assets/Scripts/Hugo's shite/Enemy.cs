@@ -302,66 +302,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-
-
-
-
-    //Added by Joe: //thank u Joe
-    public void Damage(int hitPoints)
-    {
-        float damageDone = hitPoints;
-
-        if(generator.returnState() == generatorStates.starStoneActive.Purple)
-        {
-            damageDone /= 1 + damageReductionPurpleStarStone;
-        }
-        enemyHealth -= damageDone;
-
-        float healthBarX = enemyHealth / enemyMaxHealth;
-        healthBar.transform.localScale = new Vector3(healthBarX, 1, 1);
-
-        if (enemyHealth <= 0)
-        {
-            Die();
-        }
-    }
-
-    float originalEnemySpeed;
-    bool slowingEnemy;
-    Coroutine slowEnemyCoroutine;
-    public void SlowEnemyForTime(float speedMultiplier, float time)
-    {
-        if (slowingEnemy)
-        {
-            enemySpeed = originalEnemySpeed;
-            agent.speed = enemySpeed;
-
-            slowingEnemy = false;
-            StopCoroutine(slowEnemyCoroutine);
-        }
-
-        slowEnemyCoroutine = StartCoroutine(SlowEnemyForTimeCoroutine(speedMultiplier, time));
-    }
-
-    private IEnumerator SlowEnemyForTimeCoroutine(float speedMultiplier, float time)
-    {
-        originalEnemySpeed = enemySpeed;
-        slowingEnemy = true;
-        enemySpeed = originalEnemySpeed * speedMultiplier;
-        agent.speed = enemySpeed;
-
-        yield return new WaitForSeconds(time);
-
-        enemySpeed = originalEnemySpeed;
-        agent.speed = enemySpeed;
-    }
-
-    private void Die()
-    {
-        SoundEffectPlayer.instance.PlaySoundEffect3D("Believe", transform.position, 1f, 0.95f, 1.05f);
-        Destroy(gameObject);
-    }
-
     protected void meleeHit()
     {
         RaycastHit target;
@@ -404,6 +344,67 @@ public class Enemy : MonoBehaviour
             }
         }
     }
+
+
+
+    //Added by Joe: //thank u Joe
+    public void Damage(int hitPoints)
+    {
+        float damageDone = hitPoints;
+
+        if(generator.returnState() == generatorStates.starStoneActive.Purple)
+        {
+            damageDone /= 1 + damageReductionPurpleStarStone;
+        }
+        enemyHealth -= damageDone;
+
+        if (enemyHealth <= 0)
+        {
+            Die();
+            return;
+        }
+
+        float healthBarX = enemyHealth / enemyMaxHealth;
+        healthBar.transform.localScale = new Vector3(healthBarX, 1, 1);
+    }
+
+    float originalEnemySpeed;
+    bool slowingEnemy;
+    Coroutine slowEnemyCoroutine;
+    public void SlowEnemyForTime(float speedMultiplier, float time)
+    {
+        if (slowingEnemy)
+        {
+            enemySpeed = originalEnemySpeed;
+            agent.speed = enemySpeed;
+
+            slowingEnemy = false;
+            StopCoroutine(slowEnemyCoroutine);
+        }
+
+        slowEnemyCoroutine = StartCoroutine(SlowEnemyForTimeCoroutine(speedMultiplier, time));
+    }
+
+    private IEnumerator SlowEnemyForTimeCoroutine(float speedMultiplier, float time)
+    {
+        originalEnemySpeed = enemySpeed;
+        slowingEnemy = true;
+        enemySpeed = originalEnemySpeed * speedMultiplier;
+        agent.speed = enemySpeed;
+
+        yield return new WaitForSeconds(time);
+
+        enemySpeed = originalEnemySpeed;
+        agent.speed = enemySpeed;
+    }
+
+    private void Die()
+    {
+        SoundEffectPlayer.instance.PlaySoundEffect3D("Believe", transform.position, 1f, 0.95f, 1.05f);
+        Destroy(gameObject);
+    }
+
+    
 }
 
 

@@ -57,7 +57,7 @@ public class playStateControl : MonoBehaviour
         switch (current)
         {
             case waveState.beforeWaveStart:
-                timeRemaining.text = "Get ready...";
+                timeRemaining.text = "Prepare for wave";
                 break;
 
             case waveState.waveActive:
@@ -71,7 +71,12 @@ public class playStateControl : MonoBehaviour
                 else
                 {
                     checkRemainingEnemies();
-                    timeRemaining.text = ("Time remaining: " + (waveLength - waveTimer).ToString("F0"));
+
+                    float remaining = waveLength - waveTimer;
+                    string minutes = Mathf.Floor(remaining / 60).ToString("00");
+                    string seconds = (remaining % 60).ToString("00");
+
+                    timeRemaining.text = minutes + ":" + seconds;
                 }
                 break;
 

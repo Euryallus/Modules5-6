@@ -31,7 +31,7 @@ public class generatorStates : MonoBehaviour
     Material normal;
 
     [SerializeField]
-    float stoneActiveTime = 6f;
+    float stoneActiveTime = 20f;
 
     float BlueActive = 0;
     float OrangeActive = 0;
@@ -50,7 +50,7 @@ public class generatorStates : MonoBehaviour
     Text purpledisplay;
 
     [SerializeField]
-    float rechargeDelay = 4;
+    float rechargeDelay = 2;
 
     public starStoneActive returnState()
     {
@@ -66,7 +66,12 @@ public class generatorStates : MonoBehaviour
             case starStoneActive.Blue:
                 BlueActive += Time.deltaTime;
 
-                if(BlueActive > stoneActiveTime)
+                for (int i = 0; i < enemies.Length; i++)
+                {
+                    enemies[i].GetComponent<MeshRenderer>().material = blue;
+                }
+
+                if (BlueActive > stoneActiveTime)
                 {
                     activateOrange();
                 }
@@ -75,6 +80,11 @@ public class generatorStates : MonoBehaviour
 
             case starStoneActive.Orange:
                 OrangeActive += Time.deltaTime;
+
+                for (int i = 0; i < enemies.Length; i++)
+                {
+                    enemies[i].GetComponent<MeshRenderer>().material = orange;
+                }
 
                 if (OrangeActive > stoneActiveTime)
                 {
@@ -85,6 +95,11 @@ public class generatorStates : MonoBehaviour
 
             case starStoneActive.Pink:
                 PinkActive += Time.deltaTime;
+
+                for (int i = 0; i < enemies.Length; i++)
+                {
+                    enemies[i].GetComponent<MeshRenderer>().material = pink;
+                }
 
                 if (PinkActive > stoneActiveTime)
                 {
@@ -97,6 +112,11 @@ public class generatorStates : MonoBehaviour
             case starStoneActive.Purple:
 
                 PurpleActive += Time.deltaTime;
+
+                for (int i = 0; i < enemies.Length; i++)
+                {
+                    enemies[i].GetComponent<MeshRenderer>().material = purple;
+                }
 
                 if (PurpleActive > stoneActiveTime)
                 {
@@ -161,10 +181,7 @@ public class generatorStates : MonoBehaviour
 
         activeStone = starStoneActive.Purple;
         purpledisplay.text = "Active";
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            enemies[i].GetComponent<MeshRenderer>().material = purple;
-        }
+        
     }
 
     public void activateOrange()
@@ -179,10 +196,7 @@ public class generatorStates : MonoBehaviour
         activeStone = starStoneActive.Orange;
         orangedisplay.text = "Active";
 
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            enemies[i].GetComponent<MeshRenderer>().material = orange;
-        }
+      
     }
 
     public void activateBlue()
@@ -197,10 +211,7 @@ public class generatorStates : MonoBehaviour
         activeStone = starStoneActive.Blue;
         bluedisplay.text = "Active";
 
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            enemies[i].GetComponent<MeshRenderer>().material = blue;
-        }
+        
     }
 
     public void activatePink()
@@ -215,10 +226,7 @@ public class generatorStates : MonoBehaviour
         activeStone = starStoneActive.Pink;
         pinkdisplay.text = "Active";
 
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            enemies[i].GetComponent<MeshRenderer>().material = pink;
-        }
+       
     }
 
     public void activateNone()
