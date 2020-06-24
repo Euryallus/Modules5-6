@@ -32,6 +32,7 @@ public class GeneratorRepair : MonoBehaviour
     private string repairSound;
 
     private Queue<GeneratorPiece> collectedPieceQueue = new Queue<GeneratorPiece>();
+    private bool generatorReapired;
     private int currentCollectionProgress;
     private int currentRepairProgress;
     private GameObject goPlayer;
@@ -51,6 +52,11 @@ public class GeneratorRepair : MonoBehaviour
         {
             piecesForRepair[i].repairIndex = i;
         }
+    }
+
+    public bool GetGeneratorRepaired()
+    {
+        return generatorReapired;
     }
 
     public bool TryCollectPiece(GeneratorPiece piece)
@@ -96,6 +102,7 @@ public class GeneratorRepair : MonoBehaviour
             }
             else
             {
+                generatorReapired = true;
                 Debug.Log("ALL GENERATOR PIECES COLLECTED!");
             }
         }
