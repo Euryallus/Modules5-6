@@ -782,7 +782,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: This menu is a work in progress i appreciate that it's shit
+  m_Text: This menu is a work in progress
 --- !u!222 &176710223
 CanvasRenderer:
   m_ObjectHideFlags: 0

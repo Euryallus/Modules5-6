@@ -4319,6 +4319,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: TimerDisplay
       objectReference: {fileID: 0}
+    - target: {fileID: 719642563612090956, guid: f634b67bb04ea7d42abac266382ff904,
+        type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 719642563612090956, guid: f634b67bb04ea7d42abac266382ff904,
+        type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 719642563612090958, guid: f634b67bb04ea7d42abac266382ff904,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4447,7 +4457,7 @@ PrefabInstance:
     - target: {fileID: 719642563635046261, guid: f634b67bb04ea7d42abac266382ff904,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 261
+      value: 235
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f634b67bb04ea7d42abac266382ff904, type: 3}
