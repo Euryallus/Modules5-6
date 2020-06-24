@@ -17,13 +17,13 @@ public class IntroScene : MonoBehaviour
     private TextMeshProUGUI activeTextElement;
     private int textElementIndex;
     private string fullText;
-    private int charIndex;
     private bool animatingText;
 
     private Coroutine animatingTextCoroutine;
 
     private void Start()
     {
+        Time.timeScale = 1f;
         for (int i = 0; i < textElements.Length; i++)
         {
             textElements[i].gameObject.SetActive(false);
@@ -73,7 +73,6 @@ public class IntroScene : MonoBehaviour
         fullText = textElement.text;
         textElement.text = "";
         textElement.gameObject.SetActive(true);
-        charIndex = 0;
 
         if (animatingText)
         {
@@ -97,6 +96,8 @@ public class IntroScene : MonoBehaviour
 
         bool triggerSound = true;
 
+        int charIndex = 0;
+
         while (activeTextElement.text.Length < fullText.Length)
         {
             activeTextElement.text += fullText[charIndex];
@@ -109,6 +110,8 @@ public class IntroScene : MonoBehaviour
 
             yield return new WaitForSeconds(1f / animationSpeed);
         }
+
+        Debug.Log("A DONE");
 
         SoundEffectPlayer.instance.PlaySoundEffect2D("Typewriter Ding", 0.8f, 0.98f, 1.02f);
 
