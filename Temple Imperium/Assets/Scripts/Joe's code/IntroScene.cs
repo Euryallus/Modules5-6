@@ -111,8 +111,6 @@ public class IntroScene : MonoBehaviour
             yield return new WaitForSeconds(1f / animationSpeed);
         }
 
-        Debug.Log("A DONE");
-
         SoundEffectPlayer.instance.PlaySoundEffect2D("Typewriter Ding", 0.8f, 0.98f, 1.02f);
 
         StopAnimatingText();
