@@ -5547,12 +5547,12 @@ PrefabInstance:
     - target: {fileID: 3946322666855086247, guid: 4bc8d1054fe4c3c4298a1bcbb5ca77e4,
         type: 3}
       propertyPath: waves.Array.size
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3946322666855086247, guid: 4bc8d1054fe4c3c4298a1bcbb5ca77e4,
         type: 3}
       propertyPath: doors.Array.size
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3946322666855086247, guid: 4bc8d1054fe4c3c4298a1bcbb5ca77e4,
         type: 3}
@@ -5568,13 +5568,13 @@ PrefabInstance:
         type: 3}
       propertyPath: waves.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: cc9e3b66cdaa43640b985cf0003de15c,
+      objectReference: {fileID: 11400000, guid: 5f14ea31ca1449946ba0f3f518ab84ef,
         type: 2}
     - target: {fileID: 3946322666855086247, guid: 4bc8d1054fe4c3c4298a1bcbb5ca77e4,
         type: 3}
       propertyPath: waves.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 9092bc2f44b606c4aaa1287c91be925f,
+      objectReference: {fileID: 11400000, guid: d797f8c8895cf10499f96921e7a811a1,
         type: 2}
     - target: {fileID: 3946322666855086247, guid: 4bc8d1054fe4c3c4298a1bcbb5ca77e4,
         type: 3}
@@ -5603,6 +5603,11 @@ PrefabInstance:
     - target: {fileID: 3946322666855086247, guid: 4bc8d1054fe4c3c4298a1bcbb5ca77e4,
         type: 3}
       propertyPath: doors.Array.data[2]
+      value: 
+      objectReference: {fileID: 328250240}
+    - target: {fileID: 3946322666855086247, guid: 4bc8d1054fe4c3c4298a1bcbb5ca77e4,
+        type: 3}
+      propertyPath: doors.Array.data[0]
       value: 
       objectReference: {fileID: 328250240}
     m_RemovedComponents: []

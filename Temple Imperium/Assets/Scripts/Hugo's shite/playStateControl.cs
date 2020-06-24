@@ -25,7 +25,7 @@ public class playStateControl : MonoBehaviour
 
     protected enum waveState
     {
-        beforeWaveStart, waveActive, waveFail, waveComplete, gameWon
+        beforeWaveStart, waveActive, waveFail, waveComplete, gameWon, gameLost
     }
 
     protected waveState current;
@@ -86,6 +86,7 @@ public class playStateControl : MonoBehaviour
 
             case waveState.waveComplete:
                 timeRemaining.text = "Wave complete!";
+
                 if(nextWaveStarted == false)
                 {
                     if(doors[wavePointer] != null)
@@ -100,6 +101,10 @@ public class playStateControl : MonoBehaviour
 
             case waveState.gameWon:
                 timeRemaining.text = "Game won!";
+                break;
+
+            case waveState.gameLost:
+                timeRemaining.text = "Generator exploded? Game lost";
                 break;
         }
     }
@@ -120,7 +125,15 @@ public class playStateControl : MonoBehaviour
 
         if (wavePointer == waves.Count)
         {
-            current = waveState.gameWon;
+            if(GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<GeneratorRepair>().GetGeneratorRepaired() == true)
+            {
+                current = waveState.gameWon;
+            }
+            else
+            {
+                current = waveState.gameLost;
+            }
+            
         }
         else
         {
