@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f68bc51fb928cdc4e9831fc27b6f1226, type: 3}
+  m_Name: Secondary Weapon
+  m_EditorClassIdentifier: 
+  m_weaponName: Secondary Weapon
+  m_gameObject: {fileID: 1828699209427079622, guid: e50f2b67a6dd90d4f8687e71b1cc82ac,
+    type: 3}
+  m_visualOffset: {x: 0.48, y: -0.17, z: 0.6}
+  m_minAttackDamage: 7
+  m_maxAttackDamage: 9
+  m_attackInterval: 0.2
+  m_attackSound: GunShot
+  m_attackSoundVolume: 1
+  m_aimDownSightOffset: {x: 0, y: -0.17, z: 0.6}
+  m_fireParticles: {fileID: 748127710705125160, guid: 04046b32a0c3c98429c670cd7e52c353,
+    type: 3}
+  m_range: 30
+  m_continuousFire: 0
+  m_totalStartAmmo: 45
+  m_magazineSize: 10
+  m_reloadTime: 1.8
+  m_canUseAsMelee: 1
+  m_meleeRange: 5
+  m_meleeInterval: 3
+  m_meleeSound: SwordSwipe
+  m_meleeSoundVolume: 1

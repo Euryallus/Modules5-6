@@ -1,0 +1,67 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public abstract class Weapon
+{
+    public WeaponHolder m_weaponHolder { get; private set; }
+    public WeaponTemplate m_template { get; private set; }
+    public bool m_hideHeldWeapon { get; protected set; }
+    public float m_attackIntervalTimer { get; protected set; }
+    public float m_alternateAttackIntervalTimer { get; protected set; }
+
+    public Weapon(WeaponHolder weaponHolder, WeaponTemplate template)
+    {
+        m_weaponHolder = weaponHolder;
+        m_template = template;
+    }
+
+    public abstract void Attack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, GameObject prefabAttackLight, Transform transformHead, bool buttonDown);
+
+    public abstract void AlternateAttack(WeaponAimInfo weaponAimInfo, GameObject weaponGameObject, Transform transformHead);
+
+    public virtual void SwitchingToThisWeapon() { }
+    public virtual void SwitchingToOtherWeapon() { }
+
+    public virtual bool ReadyToAttack()
+    {
+        if(m_attackIntervalTimer <= 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public virtual bool ReadyToAttackAlternate()
+    {
+        if (m_alternateAttackIntervalTimer <= 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    protected void SetHideHeldWeapon(bool hideHeldWeapon)
+    {
+        m_hideHeldWeapon = hideHeldWeapon;
+        m_weaponHolder.SetHeldWeaponHidden(hideHeldWeapon);
+    }
+
+    public virtual void Update()
+    {
+        if (m_attackIntervalTimer > 0f)
+        {
+            m_attackIntervalTimer -= Time.deltaTime;
+        }
+
+        if (m_alternateAttackIntervalTimer > 0f)
+        {
+            m_alternateAttackIntervalTimer -= Time.deltaTime;
+        }
+    }
+
+    public virtual void HeldUpdate()
+    {
+
+    }
+}
