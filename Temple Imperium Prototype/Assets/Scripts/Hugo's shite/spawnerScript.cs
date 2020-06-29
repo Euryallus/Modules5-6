@@ -24,7 +24,7 @@ public class spawnerScript : MonoBehaviour
         [SerializeField]
         float spawnRadius;
 
-    HideInInspector]
+    [HideInInspector]
     public List<Transform> patrolPoints = new List<Transform>();
 
     private GameObject spawnedEnemy;
