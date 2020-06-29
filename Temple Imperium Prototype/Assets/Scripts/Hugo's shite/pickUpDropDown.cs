@@ -3,28 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//
+// ## HUGO BAILEY
+// ## Written: Proof of Concept phase
+// ## Purpose: Controls drop down item display
+//
+
 public class pickUpDropDown : MonoBehaviour
 {
-    public Image displayImage;
-    public Text itemName;
-    public Text sum;
+    [Header("UI Details")]
+    [SerializeField]
+    private Image displayImage;
+    [SerializeField]
+    private Text itemName;
+    [SerializeField]
+    private Text sum;
 
 
-    bool fadingIn = false;
-    bool displaying = false;
-    bool fadingOut = false;
+    private bool fadingIn = false;
+    private bool displaying = false;
+    private bool fadingOut = false;
+    private CanvasGroup group;
 
-    public float displayTime = 0;
+    private float displayTime = 0;
 
-    CanvasGroup group;
+
 
     private void Start()
-    {
+    { 
+        //Saves items canvasGroup component for easy access
         group = gameObject.GetComponent<CanvasGroup>();
     }
 
     public void displayItemPickUp(Sprite icon, string name, string summary)
     {
+        //On item pick-up, resets all items needed for display (time elapsed, icon & text to display, etc.)
         fadingIn = true;
         displaying = true;
         displayTime = 0;
@@ -34,7 +47,7 @@ public class pickUpDropDown : MonoBehaviour
 
     }
 
-    public void fadeIn()
+    public void fadeIn() //Increases alpha over 1 second and resets when it reaches 1
     {
         if(group.alpha < 0.75f)
         {
@@ -48,12 +61,13 @@ public class pickUpDropDown : MonoBehaviour
         }
     }
 
-    public void fadeOut()
+    public void fadeOut() //Reduces alpha over 1 second and resets when it reaches 0
     {
         if (group.alpha > 0f)
         {
             group.alpha -= Time.deltaTime;
         }
+
         if(group.alpha == 0)
         {
             fadingOut = false;
@@ -63,7 +77,7 @@ public class pickUpDropDown : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (displaying)
+        if (displaying) //controls whether display is fading in, out, or static (on / off)
         {
             displayTime += Time.deltaTime;
         }

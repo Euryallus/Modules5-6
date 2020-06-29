@@ -2,7 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName ="Wave", menuName = "Waves/New Wave")]
+//
+// ## HUGO BAILEY
+// ## Written: Proof of Concept phase
+// ## Purpose: Custom data created for each wave of combat, created by designer and altered in inspector
+//
+
+[CreateAssetMenu(fileName ="Wave", menuName = "Waves/New Wave")] //allows waveData items to be created in project assets
 public class waveData : ScriptableObject
 {
     [SerializeField]
@@ -15,7 +21,7 @@ public class waveData : ScriptableObject
 
     public float downtime;
 
-    public waveData(int number, float timeBetween, int type1, int type2, int type3, float length, float down)
+    public waveData(int number, float timeBetween, int type1, int type2, int type3, float length, float down) //data available to change in inspector, and accessable by referencing item in script (used in playStateControl)
     {
         waveNumber = number;
         timeBetweenEnemySpawns = timeBetween;

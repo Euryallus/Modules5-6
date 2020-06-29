@@ -3,25 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//
+// ## HUGO BAILEY
+// ## Written: Proof of Concept phase
+// ## Purpose: Manages wave UI and handles wave state (before, during, won, failed, etc.)
+//
+
 public class playStateControl : MonoBehaviour
 {
-    [SerializeField]
-    List<waveData> waves = new List<waveData>();
+    [Header("Wave info")]
+        [SerializeField]
+        List<waveData> waves = new List<waveData>();
+        [SerializeField]
+        List<Door> doors = new List<Door>();
+        [SerializeField]
+        private Text timeRemaining;
 
-    [SerializeField]
-    List<Door> doors = new List<Door>();
+    private int wavePointer = 0;
+    
+    private bool nextWaveStarted = false;
 
-    [SerializeField]
-    int wavePointer = 0;
-    GameObject[] spawners;
+    private float waveTimer;
+    private float waveLength;
 
-    float waveTimer;
-    float waveLength;
+    private GameObject[] remainingEnemies;
+    private GameObject[] spawners;
 
-    GameObject[] remainingEnemies;
-    public Text timeRemaining;
-
-    bool nextWaveStarted = false;
 
     protected enum waveState
     {
@@ -31,14 +38,19 @@ public class playStateControl : MonoBehaviour
     protected waveState current;
 
 
-    public void startGame()
+    public void startGame() //begins game from the top
     {
         wavePointer = 0;
         initiateWave(waves[0]);
     }
 
-   public void initiateWave(waveData wave)
+   public void initiateWave(waveData wave) 
    {
+        //
+        // ## Calls spawn script from Spawners in scene
+        // ## Sets current state to waveActive
+        //
+
         waveLength = wave.waveLength;
         waveTimer = 0;
         spawners = GameObject.FindGameObjectsWithTag("Spawner");
@@ -61,6 +73,9 @@ public class playStateControl : MonoBehaviour
                 break;
 
             case waveState.waveActive:
+                //
+                // ## Updates wave UI timer, calculates if time has run out & changes state accordingly
+                //
 
                 waveTimer += Time.deltaTime;
 
@@ -85,6 +100,12 @@ public class playStateControl : MonoBehaviour
                 break;
 
             case waveState.waveComplete:
+                //
+                // ## checks if this is the last wave - if not, waits for DownTime until starting the next
+                // ## if none come next, game is complete - if generator is fixed, the game is won
+                // ## if generator is still broken, game is lost
+                //
+
                 timeRemaining.text = "Wave complete!";
 
                 if(nextWaveStarted == false)
@@ -111,6 +132,10 @@ public class playStateControl : MonoBehaviour
 
     public void checkRemainingEnemies()
     {
+        //
+        // ## Checks how many enemies are present in scene & sets state to waveComplete depending
+        //
+
         remainingEnemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         if(remainingEnemies.Length == 0)
@@ -135,8 +160,8 @@ public class playStateControl : MonoBehaviour
             }
             
         }
-        else
-        {
+        else //waits for 1/2 downtime, changes state to beforeWave
+        {   // waits another 1/2 downtime before starting wave
             yield return new WaitForSeconds(waitLength / 2);
             current = waveState.beforeWaveStart;
             yield return new WaitForSeconds(waitLength / 2);

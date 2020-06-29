@@ -2,48 +2,49 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//
+// ## HUGO BAILEY
+// ## Written: Proof of Concept phase
+// ## Purpose: Manages player's health & associated effects
+//
+
 public class playerMovement : MonoBehaviour
 {
-
-    float yVelocity;
-    float mouseX;
-    float mouseY;
-
-    float rotateY = 0;
-
-    float inputX;
-    float inputY;
-    Vector3 moveTo;
-
-    float defaultSpeed;
-
-    bool onLadder = false;
-
     [Header("Basic control options")]
         [SerializeField]
-        float playerJump = 1f;
+        private float playerJump = 1f;
         [SerializeField]
-        float mouseSensitivity = 500f;
+        private float mouseSensitivity = 500f;
         [SerializeField]
-        float playerSpeed = 10f;
+        private float playerSpeed = 10f;
         [SerializeField]
-        float playerMass = 1;
+        private float playerMass = 1;
         [SerializeField]
-        float sprintMag = 1.75f;
+        private float sprintMag = 1.75f;
         [SerializeField]
-        float crouchSpeedReduction = 2;
-
-    private bool isCrouching = false;
-    private float gravConst = 9.81f;
-    private bool hasJumped = false;
-    GameObject playerCamera;
-    CharacterController controller;
-    bool canClimb = false;
+        private float crouchSpeedReduction = 2;
 
     private GameObject noteMenu;
+    private GameObject playerCamera;
+    private CharacterController controller;
 
-    //star stone effects
-    bool isSlowed = false;
+    private Vector3 moveTo;
+
+    private float yVelocity;
+    private float mouseX;
+    private float mouseY;
+    private float rotateY = 0;
+    private float inputX;
+    private float inputY;
+    private float defaultSpeed;
+    private float gravConst = 9.81f;
+
+    private bool canClimb = false;
+    private bool onLadder = false;
+    private bool isCrouching = false;
+    private bool hasJumped = false;
+    private bool isSlowed = false;
+
     void Start()
     {
         playerCamera = gameObject.transform.GetChild(0).gameObject;
@@ -56,7 +57,7 @@ public class playerMovement : MonoBehaviour
         noteMenu = GameObject.FindGameObjectWithTag("noteDisplayManager");
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         moveCamera();
@@ -65,6 +66,14 @@ public class playerMovement : MonoBehaviour
 
     void moveCamera()
     {
+        //
+        // ## CONTROLS CAMERA ROTATION
+        // ## Takes mouse X and Y input and translates into rotation (Y clamped between -75 and 75)
+        // ## Camera rotation affected by Y input, player rotation affected by X input
+        // 
+        // ## VIDEO LOOSLY FOLLOWED: https://youtu.be/_QajrabyTJc 2019 - Brackeys "FIRST PERSON MOVEMENT in Unity - FPS Controller"
+        //
+
         mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
@@ -78,25 +87,32 @@ public class playerMovement : MonoBehaviour
 
     void movePlayer()
     {
+        //
+        // ## PLAYER MOVEMENT CONTROLS
+        // ## Mouse WASD input used to determine characterController movement
+        // 
+        // ## VIDEO LOOSLY FOLLOWED: https://youtu.be/_QajrabyTJc 2019 - Brackeys "FIRST PERSON MOVEMENT in Unity - FPS Controller"
+        //
 
         inputX = Input.GetAxis("Horizontal");
         inputY = Input.GetAxis("Vertical");
 
-        if (controller.isGrounded)
+        if (controller.isGrounded) //once player hits the ground, resets jump condition and sets gravity to -9.81
         {
             hasJumped = false;
             yVelocity = -gravConst * Time.deltaTime;
         }
         else
         {
-            if(hasJumped == false && onLadder == false)
+            if(hasJumped == false && onLadder == false)  
             {
-                hasJumped = true;
+                hasJumped = true; //sets jumped to true if player has just left the ground, sets Y position to itself - scaled gravity
+                // Character controller has no programmed gravity, hence implementing it manually
             }
             yVelocity -= gravConst * Time.deltaTime * playerMass;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)) //when space is pressed, y velocity = upward velocity defined in inspector
         {
             if(hasJumped == false)
             {
@@ -104,18 +120,35 @@ public class playerMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        //Handles sprint conditions - alters depending on whether or not the player is affected by slow conditions or not
+        if (Input.GetKeyDown(KeyCode.LeftShift))  //begin sprint
         {
-            playerSpeed = defaultSpeed * sprintMag;
+            if(isSlowed == false)
+            {
+                playerSpeed = defaultSpeed * sprintMag;
+            }
+            else
+            {
+                playerSpeed = playerSpeed * sprintMag;
+            }
         }
 
-        if(Input.GetKeyUp(KeyCode.LeftShift))
+        if(Input.GetKeyUp(KeyCode.LeftShift)) //end sprint
         {
-            playerSpeed = defaultSpeed;
+            if(isSlowed == false)
+            {
+                playerSpeed = defaultSpeed;
+            }
+            else
+            {
+                playerSpeed = playerSpeed / sprintMag;
+
+            }
+            
         }
 
-        if (onLadder != true)
-        {
+        if (onLadder != true) //alters how Y input is handled based on whether or not player is on ladder:
+        {                     // if on ladder, Y controls "forward" velocity, else it controls "up" velocity
             moveTo = transform.right * inputX + transform.forward * inputY;
             moveTo.y = yVelocity;
         }
@@ -124,9 +157,9 @@ public class playerMovement : MonoBehaviour
             moveTo = transform.up * inputY ;
         }
 
-        controller.Move(moveTo * playerSpeed * Time.deltaTime);
+        controller.Move(moveTo * playerSpeed * Time.deltaTime); //applies movement to player
 
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C)) //toggles crouching (reduces verticle scale of player by 1/2)
         {
             isCrouching = !isCrouching;
             if (isCrouching)
@@ -139,34 +172,34 @@ public class playerMovement : MonoBehaviour
             }
         }
 
-        if(canClimb && Input.GetKeyDown(KeyCode.E))
+        if(canClimb && Input.GetKeyDown(KeyCode.E)) //if player is within ladder trigger volume & presses E, either enter or exit the ladder
         {
             onLadder = !onLadder;
         }
 
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I)) //while I is held, display the note menu
         {
             noteMenu.GetComponent<CanvasGroup>().alpha = 1;
         }
-        if (Input.GetKeyUp(KeyCode.I))
+        if (Input.GetKeyUp(KeyCode.I)) //when I is released, hide display menu
         {
             noteMenu.GetComponent<CanvasGroup>().alpha = 0;
         }
     }
 
-    public void crouch()
+    public void crouch() //crouching recudes speed by predetermined %
     {
         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y / 2, transform.localScale.z);
         playerSpeed /= crouchSpeedReduction;
     }
 
-    public void standUp()
+    public void standUp() //returns scale & speed to previous speed
     {
         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 2, transform.localScale.z);
-        playerSpeed = defaultSpeed;
+        playerSpeed *= defaultSpeed;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other) //detects when wnters ladder trigger volume
     {
         GameObject collided = other.transform.gameObject;
 
@@ -176,7 +209,7 @@ public class playerMovement : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other) //detects when exits ladder trigger volume
     {
         GameObject collided = other.transform.gameObject;
 
@@ -187,26 +220,26 @@ public class playerMovement : MonoBehaviour
         }
     }
 
-    public void slowEffect(float percentageSlow, float time)
+    public void slowEffect(float percentageSlow, float time) //initiates speed reduction
     {
-        if(isSlowed == false)
+        if(isSlowed == false) 
         {
-            gameObject.GetComponent<playerHealth>().stateDisplay.text = "slowed!";
+            gameObject.GetComponent<playerHealth>().stateDisplay.text = "slowed!"; //updates UI
             isSlowed = true;
-            playerSpeed = playerSpeed *  (1 - percentageSlow);
+            playerSpeed = playerSpeed *  (1 - percentageSlow); // reduces speed by predetermined %
 
-            StartCoroutine(returnToNormalSpeed(time));
+            StartCoroutine(returnToNormalSpeed(time)); //begins countdown to return to normal speed based on parameter passed
         }
         
     }
 
     private IEnumerator returnToNormalSpeed(float time)
     {
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(time); 
         
-        isSlowed = false;
-        gameObject.GetComponent<playerHealth>().stateDisplay.text = "";
-        playerSpeed = defaultSpeed;
+        isSlowed = false; //resets speed reduction condition
+        gameObject.GetComponent<playerHealth>().stateDisplay.text = ""; //alters UI
+        playerSpeed = defaultSpeed; //resets speed
 
     }
 }

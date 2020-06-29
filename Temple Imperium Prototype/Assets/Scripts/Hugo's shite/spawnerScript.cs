@@ -2,51 +2,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//
+// ## HUGO BAILEY
+// ## Written: Proof of Concept phase
+// ## Purpose: Spawns enemies at set locations using data passed from waveData
+//
 
 public class spawnerScript : MonoBehaviour
 {
-    [SerializeField]
+    [Header("Enemy prefabs")]
+        [SerializeField]
+        private GameObject variant1;
+        [SerializeField]
+        private GameObject variant2;
+        [SerializeField]
+        private GameObject variant3;
+
+    [Header("Spawn data")]
+        [SerializeField]
+        private int numberOfPointsPassedToEnemies = 4;
+        [SerializeField]
+        float spawnRadius;
+
+    HideInInspector]
     public List<Transform> patrolPoints = new List<Transform>();
 
+    private GameObject spawnedEnemy;
     public playStateControl stateControl;
-
-    public float spawnCount = 0;
-
-    [SerializeField]
-    private GameObject variant1;
-    [SerializeField]
-    private GameObject variant2;
-    [SerializeField]
-    private GameObject variant3;
-
-    [SerializeField]
-    int randomPatrolPoint;
-
-    int randomEnemy;
-    GameObject spawnedEnemy;
-
-    [SerializeField]
-    int numberOfPointsPassedToEnemies = 4;
 
     public bool spawning = false;
 
-    float timeBetween;
-    int enemyNumbers;
-    int enemyVairants;
+    private float timeBetween;
 
-    int numberSpawned = 0 ;
+    private int enemyNumbers;
+    private int enemyVairants;
 
-    int variant1Spawn;
-    int variant2Spawn;
-    int variant3Spawn;
+    private int numberSpawned = 0 ;
 
-    int var1Count = 0;
-    public int var2Count = 0;
-    int var3Count = 0;
+    private int variant1Spawn;
+    private int variant2Spawn;
+    private int variant3Spawn;
 
-    [SerializeField]
-    float spawnRadius;
+    private int var1Count = 0;
+    private int var2Count = 0;
+    private int var3Count = 0;
 
+    private int randomPatrolPoint;
+    private int randomEnemy;
 
     private void Start()
     {
@@ -55,6 +57,10 @@ public class spawnerScript : MonoBehaviour
 
     public void startWave(float time,  int variant1, int variant2, int variant3)
     {
+        //
+        // ## Initialises all variables needed each wave and calls coroutine
+        //
+
         var1Count = 0;
         var2Count = 0;
         var3Count = 0;
@@ -74,6 +80,10 @@ public class spawnerScript : MonoBehaviour
 
     public void startWave(waveData wave)
     {
+        //
+        // ## Initialises all variables needed each wave and calls coroutine (takes type waveData as a parameter)
+        //
+
         numberSpawned = 0;
         var1Count = 0;
         var2Count = 0;
@@ -94,30 +104,34 @@ public class spawnerScript : MonoBehaviour
 
     public void spawnEnemy(GameObject enemyToSpawn)
     {
+        //
+        // Instantiates enemy passed in parameters, assigns it 3+ patrol points from list defined in inspector, and assigns enemy a position within X meters of the spawner
+        //
+
         spawnedEnemy = Instantiate(enemyToSpawn);
     
         List<Transform> pointsPassed = new List<Transform>();
 
-        for (int j = 0; j < numberOfPointsPassedToEnemies; j++)
+        for (int j = 0; j < numberOfPointsPassedToEnemies; j++) //assigns [numberOfPointsPassedToEnemies] patrol points
         {
-            randomPatrolPoint = Random.Range(0, patrolPoints.Count);
+            randomPatrolPoint = Random.Range(0, patrolPoints.Count); //generates randsom point from list
 
             while (pointsPassed.Contains(patrolPoints[randomPatrolPoint]))
             {
-                randomPatrolPoint = Random.Range(0, patrolPoints.Count);
+                randomPatrolPoint = Random.Range(0, patrolPoints.Count); //if item already exists in points to pass, generate another
             }
            
             
            pointsPassed.Add(patrolPoints[randomPatrolPoint]);
         }
        
-        spawnedEnemy.GetComponent<Enemy>().patrolPoints = pointsPassed;
+        spawnedEnemy.GetComponent<Enemy>().patrolPoints = pointsPassed; //pass points to newly spawned enemy
        
-        spawnedEnemy.transform.position = (Random.insideUnitSphere * spawnRadius + gameObject.transform.position);
+        spawnedEnemy.transform.position = (Random.insideUnitSphere * spawnRadius + gameObject.transform.position); //assign random position around spawner
 
     }
 
-    public IEnumerator waveSpawn()
+    public IEnumerator waveSpawn() //cycles each type of enemy every X seconds until desired number are spawned (e.g. all type 1's spawned, then type 2's, then type 3's)
     {
         while(numberSpawned < enemyNumbers)
         {
