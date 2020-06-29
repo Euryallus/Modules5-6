@@ -1,14 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
+//------------------------------------------------------\\
+//  Add this to a GameObject to allow it to be          \\
+//  automatically destroyed after a set amount of time. \\
+//------------------------------------------------------\\
+//      Written by Joe for proof of concept phase       \\
+//------------------------------------------------------\\
 
 public class DestroyAfterTime : MonoBehaviour
 {
-    public float time = 1f;
+    public float time = 1f;     //Amount of time before the object will be destroyed
 
-    // Start is called before the first frame update
     void Start()
     {
+        //Destroy the object after it has been in existence for (time) seconds
         Destroy(gameObject, time);
     }
 }
