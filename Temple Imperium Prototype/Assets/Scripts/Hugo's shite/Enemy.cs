@@ -57,7 +57,7 @@ public class Enemy : MonoBehaviour
         [SerializeField]
         float damageReductionPurpleStarStone = 0.5f;
 
-    protected generatorStates generator;
+    protected starStoneManager generator;
     protected bool hasAttacked = false;
 
     //
@@ -124,7 +124,7 @@ public class Enemy : MonoBehaviour
         enemyMaxHealth = enemyHealth;
         healthBar = transform.GetChild(0).gameObject;
 
-        generator = GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<generatorStates>(); //saves scene's instance of GeneratorManager (allows access to star stone states)
+        generator = GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<starStoneManager>(); //saves scene's instance of GeneratorManager (allows access to star stone states)
     }
 
     private void Update()
@@ -382,9 +382,9 @@ public class Enemy : MonoBehaviour
                 // ## DEPENDS ON STAR STONE ACTIVE
                 // 
 
-                switch (generator.returnState())
+                switch (generator.returnActive())
                 {
-                    case generatorStates.starStoneActive.Orange:
+                    case starStoneManager.starStones.Orange:
                         //
                         // ## ORANGE STAR STONE
                         // ## Burn enemy
@@ -392,7 +392,7 @@ public class Enemy : MonoBehaviour
                         hitObj.GetComponent<playerHealth>().setOnFire(fireLength, fireDamage, 0.5f);
                         break;
 
-                    case generatorStates.starStoneActive.Blue:
+                    case starStoneManager.starStones.Blue:
                         //
                         // ## BLUE STAR STONE
                         // ## slow player after hit
@@ -401,7 +401,7 @@ public class Enemy : MonoBehaviour
 
                         break;
 
-                    case generatorStates.starStoneActive.Purple:
+                    case starStoneManager.starStones.Purple:
                         //
                         // ## PURPLE STAR STONE
                         // ## Damage done is increased by pre-determined %
@@ -409,7 +409,7 @@ public class Enemy : MonoBehaviour
                         damageToDo *= purpleDamagePercent;
                         break;
 
-                    case generatorStates.starStoneActive.Pink:
+                    case starStoneManager.starStones.Pink:
                         //
                         // ## PINK STAR STONE
                         // ## Trigger enemy regen health

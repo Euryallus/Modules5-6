@@ -18,7 +18,7 @@ public class pickUpControlScript : MonoBehaviour
 
     private GameObject display;
     private GameObject noteMenu;
-    private generatorStates generator;
+    private starStoneManager generator;
 
     void Start()
     {
@@ -26,7 +26,7 @@ public class pickUpControlScript : MonoBehaviour
         camera = GameObject.FindGameObjectWithTag("MainCamera");
         display = GameObject.FindGameObjectWithTag("display");
         noteMenu = GameObject.FindGameObjectWithTag("noteDisplayManager");
-        generator = GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<generatorStates>();
+        generator = GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<starStoneManager>();
     }
 
     void Update()
@@ -52,16 +52,19 @@ public class pickUpControlScript : MonoBehaviour
                 switch (hitObject.tag)
                 {
                     case "Blue":
-                        generator.activateBlue();
+                        generator.activateStone(starStoneManager.starStones.Blue);
                         break;
+
                     case "Purple":
-                        generator.activatePurple();
+                        generator.activateStone(starStoneManager.starStones.Purple);
                         break;
+
                     case "Orange":
-                        generator.activateOrange();
+                        generator.activateStone(starStoneManager.starStones.Orange);
                         break;
+
                     case "Pink":
-                        generator.activatePink();
+                        generator.activateStone(starStoneManager.starStones.Pink);
                         break;
 
                 }

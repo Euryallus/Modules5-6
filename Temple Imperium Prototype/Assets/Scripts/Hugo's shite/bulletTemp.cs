@@ -12,7 +12,7 @@ public class bulletTemp : MonoBehaviour
     [SerializeField]
     float bulletDamage = 5;
 
-    generatorStates generator;
+    starStoneManager generator;
 
     [Header("Star stone effects")]
     [SerializeField]
@@ -32,7 +32,7 @@ public class bulletTemp : MonoBehaviour
     private void Start()
     {
         //saves scene instance of generatorManager using find object
-        generator = GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<generatorStates>();
+        generator = GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<starStoneManager>();
     }
 
     public void setParent(GameObject self)
@@ -54,9 +54,9 @@ public class bulletTemp : MonoBehaviour
             // ## Allows each star stone effect to be implemented when player is hit
             //
 
-            switch (generator.returnState())
+            switch (generator.returnActive())
             {
-                case generatorStates.starStoneActive.Orange:
+                case starStoneManager.starStones.Orange:
                     //
                     // ## ORANGE STAR STONE
                     // ## Burn enemy
@@ -64,7 +64,7 @@ public class bulletTemp : MonoBehaviour
                     collision.transform.gameObject.GetComponent<playerHealth>().setOnFire(fireLength, fireDamage, 0.5f);
                     break;
 
-                case generatorStates.starStoneActive.Blue:
+                case starStoneManager.starStones.Blue:
                     //
                     // ## BLUE STAR STONE
                     // ## slow player after hit
@@ -72,7 +72,7 @@ public class bulletTemp : MonoBehaviour
                     collision.transform.gameObject.GetComponent<playerMovement>().slowEffect(slowPercent, slowTime);
                     break;
 
-                case generatorStates.starStoneActive.Purple:
+                case starStoneManager.starStones.Purple:
                     //
                     // ## PURPLE STAR STONE
                     // ## Damage done is increased by pre-determined %
@@ -80,7 +80,7 @@ public class bulletTemp : MonoBehaviour
                     damageToDo *= purpleDamagePercent;
                     break;
 
-                case generatorStates.starStoneActive.Pink:
+                case starStoneManager.starStones.Pink:
                     //
                     // ## PINK STAR STONE
                     // ## Trigger enemy regen health

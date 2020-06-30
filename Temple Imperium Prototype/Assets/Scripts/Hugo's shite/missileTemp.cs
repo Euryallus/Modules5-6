@@ -29,7 +29,7 @@ public class missileTemp : MonoBehaviour
         [SerializeField]
         float purpleDamagePercent = 1.6f;
 
-    private generatorStates generator;
+    private starStoneManager generator;
     private GameObject parent;
     private GameObject player;
 
@@ -37,7 +37,7 @@ public class missileTemp : MonoBehaviour
     {
         // Stores scene instances of Player and generator manager using 'find object;
         player = GameObject.FindGameObjectWithTag("Player");
-        generator = GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<generatorStates>();
+        generator = GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<starStoneManager>();
     }
 
     public void setParent(GameObject self) //allows 'parent' object (object that spawned missile) to be stored and affected
@@ -68,9 +68,9 @@ public class missileTemp : MonoBehaviour
             // ## Allows each star stone effect to be implemented when player is hit
             //
 
-            switch (generator.returnState())
+            switch (generator.returnActive())
             {
-                case generatorStates.starStoneActive.Orange:
+                case starStoneManager.starStones.Orange:
                     //
                     // ## ORANGE STAR STONE
                     // ## Burn enemy
@@ -78,7 +78,7 @@ public class missileTemp : MonoBehaviour
                     collision.transform.gameObject.GetComponent<playerHealth>().setOnFire(fireLength, fireDamage, 0.5f);
                     break;
 
-                case generatorStates.starStoneActive.Blue:
+                case starStoneManager.starStones.Blue:
                     //
                     // ## BLUE STAR STONE
                     // ## slow player after hit
@@ -86,7 +86,7 @@ public class missileTemp : MonoBehaviour
                     collision.transform.gameObject.GetComponent<playerMovement>().slowEffect(slowPercent, slowTime);
                     break;
 
-                case generatorStates.starStoneActive.Purple:
+                case starStoneManager.starStones.Purple:
                     //
                     // ## PURPLE STAR STONE
                     // ## Damage done is increased by pre-determined %
@@ -94,7 +94,7 @@ public class missileTemp : MonoBehaviour
                     damageToDo *= purpleDamagePercent;
                     break;
 
-                case generatorStates.starStoneActive.Pink:
+                case starStoneManager.starStones.Pink:
                     //
                     // ## PINK STAR STONE
                     // ## Trigger enemy regen health
