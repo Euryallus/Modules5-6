@@ -37,7 +37,7 @@ public class WeaponHolder : MonoBehaviour
     private float adsCameraFOV = 60f;
 
     //public int ammo { get; set; } = 100;
-    public generatorStates generatorStates { get; private set; }
+    public starStoneManager generatorStates { get; private set; }
     public Weapon activeWeapon { get; private set; }
     private bool emptyHand;
     private Weapon[] availableWeapons;
@@ -49,7 +49,7 @@ public class WeaponHolder : MonoBehaviour
 
     private void Start()
     {
-        generatorStates = GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<generatorStates>();
+        generatorStates = GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<starStoneManager>();
 
         targetCameraFOV = defaultCameraFOV;
 

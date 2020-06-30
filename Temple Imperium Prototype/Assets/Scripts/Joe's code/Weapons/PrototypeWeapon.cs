@@ -57,7 +57,7 @@ public class PrototypeWeapon : Weapon
         if (m_goBeam != null)
         {
             float beamWidth;
-            if (m_weaponHolder.generatorStates.returnState() == generatorStates.starStoneActive.Purple)
+            if (m_weaponHolder.generatorStates.returnActive() == starStoneManager.starStones.Purple)
             {
                 beamWidth = 0.4f;
             }
@@ -105,30 +105,30 @@ public class PrototypeWeapon : Weapon
             return;
         }
 
-        generatorStates.starStoneActive generatorState = m_weaponHolder.generatorStates.returnState();
+        starStoneManager.starStones generatorState = m_weaponHolder.generatorStates.returnActive();
 
         if (!m_poweringUp)
         {
             StartPoweringUp();
-            if (generatorState != generatorStates.starStoneActive.Purple)
+            if (generatorState != starStoneManager.starStones.Purple)
                 CreateBeamGameObject(weaponGameObject);
         }
 
         switch (generatorState)
         {
-            case generatorStates.starStoneActive.None:
+            case starStoneManager.starStones.None:
                 DefaultAttack(weaponAimInfo, weaponGameObject, prefabAttackLight, transformHead, buttonDown);
                 break;
-            case generatorStates.starStoneActive.Orange:
+            case starStoneManager.starStones.Orange:
                 HeatAttack(weaponAimInfo, weaponGameObject, prefabAttackLight, transformHead, buttonDown);
                 break;
-            case generatorStates.starStoneActive.Purple:
+            case starStoneManager.starStones.Purple:
                 PowerAttack(weaponAimInfo, weaponGameObject, prefabAttackLight, transformHead, buttonDown);
                 break;
-            case generatorStates.starStoneActive.Blue:
+            case starStoneManager.starStones.Blue:
                 IceAttack(weaponAimInfo, weaponGameObject, prefabAttackLight, transformHead, buttonDown);
                 break;
-            case generatorStates.starStoneActive.Pink:
+            case starStoneManager.starStones.Pink:
                 HealAttack(weaponAimInfo, weaponGameObject, prefabAttackLight, transformHead, buttonDown);
                 break;
         }
@@ -360,23 +360,23 @@ public class PrototypeWeapon : Weapon
         //Set material based on active StarStone
         MeshRenderer beamMeshRen = m_goBeam.transform.Find("Beam").GetComponent<MeshRenderer>();
         ParticleSystem.MainModule beamParticles = m_goBeam.transform.Find("Beam Particles").GetComponent<ParticleSystem>().main;
-        generatorStates.starStoneActive starStoneState = m_weaponHolder.generatorStates.returnState();
+        starStoneManager.starStones starStoneState = m_weaponHolder.generatorStates.returnActive();
 
         switch (starStoneState)
         {
-            case generatorStates.starStoneActive.Purple:
+            case starStoneManager.starStones.Purple:
                 beamMeshRen.material = GameUtilities.instance.materialPower;
                 beamParticles.startColor = GameUtilities.instance.colourPurplePower;
                 break;
-            case generatorStates.starStoneActive.Orange:
+            case starStoneManager.starStones.Orange:
                 beamMeshRen.material = GameUtilities.instance.materialHeat;
                 beamParticles.startColor = GameUtilities.instance.colourOrangeHeat;
                 break;
-            case generatorStates.starStoneActive.Blue:
+            case starStoneManager.starStones.Blue:
                 beamMeshRen.material = GameUtilities.instance.materialIce;
                 beamParticles.startColor = GameUtilities.instance.colourBlueIce;
                 break;
-            case generatorStates.starStoneActive.Pink:
+            case starStoneManager.starStones.Pink:
                 beamMeshRen.material = GameUtilities.instance.materialHeal;
                 beamParticles.startColor = GameUtilities.instance.colourPinkHeal;
                 break;

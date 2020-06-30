@@ -69,7 +69,7 @@ public class playStateControl : MonoBehaviour
         switch (current)
         {
             case waveState.beforeWaveStart:
-                timeRemaining.text = "Prepare for wave";
+                timeRemaining.text = "Get ready";
                 break;
 
             case waveState.waveActive:
@@ -125,7 +125,7 @@ public class playStateControl : MonoBehaviour
                 break;
 
             case waveState.gameLost:
-                timeRemaining.text = "Generator exploded? Game lost";
+                timeRemaining.text = "FAILED";
                 break;
         }
     }

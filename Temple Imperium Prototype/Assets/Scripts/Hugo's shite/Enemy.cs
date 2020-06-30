@@ -434,7 +434,7 @@ public class Enemy : MonoBehaviour
     {
         float damageDone = hitPoints;
 
-        if(generator.returnState() == generatorStates.starStoneActive.Purple)
+        if(generator.returnActive() == starStoneManager.starStones.Purple)
         {
             damageDone /= 1 + damageReductionPurpleStarStone;
         }
