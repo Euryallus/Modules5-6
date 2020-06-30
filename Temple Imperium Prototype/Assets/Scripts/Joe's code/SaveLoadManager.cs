@@ -1,11 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+
+//------------------------------------------------------\\
+//  SaveLoadManager provides an easy interface for      \\
+//  saving/loading to/from PlayerPrefs in any scene     \\
+//------------------------------------------------------\\
+//      Written by Joe for proof of concept phase       \\
+//------------------------------------------------------\\
 
 public class SaveLoadManager : MonoBehaviour
 {
     public static SaveLoadManager instance;
 
+    //These dictionaries contain default PlayerPref values to be used when loading from
+    //  a PlayerPref that has never been set. Ensures consistency across all load calls
     private readonly Dictionary<string, string> playerPrefsDefaultStringDict = new Dictionary<string, string>
     {
     };
@@ -34,8 +42,8 @@ public class SaveLoadManager : MonoBehaviour
         }
     }
 
-    //==============PLAYER PREFS====================================
-
+    //Saving to PlayerPrefs for each main data type
+    //=============================================
     public void SaveStringToPlayerPrefs(string key, string val)
     {
         PlayerPrefs.SetString(key, val);
@@ -52,6 +60,9 @@ public class SaveLoadManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    //Loading from PlayerPrefs for each main data type - uses default values if
+    //  a value has never been set, or throws an error if no default value can be found
+    //=================================================================================
     public string LoadStringFromPlayerPrefs(string key)
     {
         if (playerPrefsDefaultStringDict.ContainsKey(key))
@@ -68,7 +79,6 @@ public class SaveLoadManager : MonoBehaviour
     {
         if (playerPrefsDefaultIntDict.ContainsKey(key))
         {
-            //Debug.Log("Loading int " + key + ": " + PlayerPrefs.GetInt(key, playerPrefsDefaultIntDict[key]));
             return PlayerPrefs.GetInt(key, playerPrefsDefaultIntDict[key]);
         }
         else
