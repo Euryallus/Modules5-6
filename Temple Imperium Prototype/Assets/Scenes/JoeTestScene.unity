@@ -470,7 +470,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -5153014842605048515, guid: 6d51932168d2c4e469c42d27fd9ea2ba, type: 3}
+  - {fileID: 2100000, guid: 420f4c9dc5b3ef64dba4fd460dfd5f90, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1410,7 +1410,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1564277040735200032, guid: 885410de62379fb499b6d32ef3864192, type: 3}
+  - {fileID: 2100000, guid: 79f64ed6f5d6d374d91c3a0af4070258, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7742,7 +7742,7 @@ MonoBehaviour:
   enemyHealth: 25
   regenPerSecond: 0.5
   healthBar: {fileID: 2539774908593922455}
-  currentTarget: {fileID: 0}
+  enemyViewAngle: 150
   fireDamage: 2
   fireLength: 4
   slowPercent: 0.6
@@ -7754,13 +7754,9 @@ MonoBehaviour:
   meleeDistance: 4
   meleeHitDamage: 5
   hitInterval: 1
-  currentState: 0
+  damageReductionPurpleStarStone: 0.5
   patrolPoints:
   - {fileID: 5206509637295143146}
-  canSeePlayer: 0
-  enemyViewAngle: 150
-  lookingCount: 0
-  damageReductionPurpleStarStone: 0.5
   bulletSpawnRate: 2
   bulletBlueprint: {fileID: 5455800343749663860, guid: 686ed8badb4dcd7408efa577f7089a05,
     type: 3}
@@ -7968,7 +7964,7 @@ MonoBehaviour:
   enemyHealth: 25
   regenPerSecond: 0.5
   healthBar: {fileID: 2539774909766069951}
-  currentTarget: {fileID: 0}
+  enemyViewAngle: 150
   fireDamage: 2
   fireLength: 4
   slowPercent: 0.6
@@ -7980,13 +7976,9 @@ MonoBehaviour:
   meleeDistance: 4
   meleeHitDamage: 5
   hitInterval: 1
-  currentState: 0
+  damageReductionPurpleStarStone: 0.5
   patrolPoints:
   - {fileID: 5206509638268319682}
-  canSeePlayer: 0
-  enemyViewAngle: 150
-  lookingCount: 0
-  damageReductionPurpleStarStone: 0.5
   bulletSpawnRate: 2
   bulletBlueprint: {fileID: 5455800343749663860, guid: 686ed8badb4dcd7408efa577f7089a05,
     type: 3}
@@ -8082,7 +8074,7 @@ MonoBehaviour:
   enemyHealth: 25
   regenPerSecond: 0.5
   healthBar: {fileID: 2539774909678357684}
-  currentTarget: {fileID: 0}
+  enemyViewAngle: 150
   fireDamage: 2
   fireLength: 4
   slowPercent: 0.6
@@ -8094,13 +8086,9 @@ MonoBehaviour:
   meleeDistance: 4
   meleeHitDamage: 5
   hitInterval: 1
-  currentState: 0
+  damageReductionPurpleStarStone: 0.5
   patrolPoints:
   - {fileID: 5206509638366467529}
-  canSeePlayer: 0
-  enemyViewAngle: 150
-  lookingCount: 0
-  damageReductionPurpleStarStone: 0.5
   bulletSpawnRate: 2
   bulletBlueprint: {fileID: 5455800343749663860, guid: 686ed8badb4dcd7408efa577f7089a05,
     type: 3}
