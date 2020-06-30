@@ -16,6 +16,8 @@ public class starStoneManager : MonoBehaviour
     private List<Texture> UIMaterials = new List<Texture>();
     [SerializeField]
     private List<Image> UIElements = new List<Image>();
+    [SerializeField]
+    private List<GameObject> UIHighlights = new List<GameObject>();
     private List<float> activeCharge = new List<float> {0, 0, 0, 0};
     private Texture currentTexture;
 
@@ -83,16 +85,22 @@ public class starStoneManager : MonoBehaviour
 
                     activeStone = (starStones)nextStone;
                 }
+
+                UIHighlights[i].SetActive(true);
             }
             else
             {
+                UIHighlights[i].SetActive(false);
                 if (activeCharge[i] < maxCharge)
                 {
                     activeCharge[i] += Time.deltaTime;
                 }
             }
 
+            UIHighlights[i].GetComponent<Image>().color = new Color(UIHighlights[i].GetComponent<Image>().color.r, UIHighlights[i].GetComponent<Image>().color.g, UIHighlights[i].GetComponent<Image>().color.b, activeCharge[i] / maxCharge);
+
             UIElements[i].color = new Color(UIElements[i].color.r, UIElements[i].color.g, UIElements[i].color.b, activeCharge[i] / maxCharge);
+            
         } 
     }
 }
