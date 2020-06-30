@@ -21,7 +21,7 @@ public class PrototypeWeaponCharging : MonoBehaviour
             weapon = other.gameObject.GetComponent<WeaponHolder>().GetPrototypeWeapon();
             if(weapon != null)
             {
-                weapon.StartCharging();
+                weapon.SetCharging(true);
                 SoundEffectPlayer.instance.PlayLoopingSoundEffect("Charge Loop", true, transform.position, loopSoundId, 1f);
             }
         }
@@ -34,7 +34,7 @@ public class PrototypeWeaponCharging : MonoBehaviour
             //When the player exits the trigger, stop charging the weapon and stop the looping sound
             if (weapon != null)
             {
-                weapon.StopCharging();
+                weapon.SetCharging(false);
                 weapon = null;
                 SoundEffectPlayer.instance.StopLoopingSoundEffect(loopSoundId);
             }

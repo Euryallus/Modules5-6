@@ -46,6 +46,14 @@ public class GunWeaponTemplate : WeaponTemplate
     private float m_meleeRange;
 
     [SerializeField]
+    [Tooltip("Minimum damage given to the enemy/player when using this gun a a melee weapon")]
+    private int m_minMeleeAttackDamage;
+
+    [SerializeField]
+    [Tooltip("Maximum damage given to the enemy/player when using this gun a a melee weapon")]
+    private int m_maxMeleeAttackDamage;
+
+    [SerializeField]
     [Tooltip("Minimum time between each usage of this gun as a melee weapon")]
     private float m_meleeInterval;
 
@@ -105,6 +113,14 @@ public class GunWeaponTemplate : WeaponTemplate
     public float GetMeleeInterval()
     {
         return m_meleeInterval;
+    }
+    public int GetMinMeleeAttackDamage()
+    {
+        return m_minMeleeAttackDamage;
+    }
+    public int GetMaxMeleeAttackDamage()
+    {
+        return m_maxMeleeAttackDamage;
     }
 
     #endregion
