@@ -1,4 +1,12 @@
 ﻿using UnityEngine;
+
+//------------------------------------------------------\\
+//  Template with shared weapon properties that acts    \\
+//  as a base class for all other weapon templates      \\
+//------------------------------------------------------\\
+//      Written by Joe for proof of concept phase       \\
+//------------------------------------------------------\\
+
 public class WeaponTemplate : ScriptableObject
 {
     #region Properties

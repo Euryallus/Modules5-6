@@ -1,5 +1,13 @@
 ﻿using UnityEngine;
 
+//------------------------------------------------------\\
+//  Template that defines a type of grenade that can    \\
+//  be edited in the inspector by creating a            \\
+//  ScriptableObject and adjusting its properties       \\
+//------------------------------------------------------\\
+//      Written by Joe for proof of concept phase       \\
+//------------------------------------------------------\\
+
 [CreateAssetMenu(fileName = "Grenade Template", menuName = "Weapon Template/Grenade")]
 public class GrenadeWeaponTemplate : WeaponTemplate
 {

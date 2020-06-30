@@ -1,5 +1,13 @@
 ﻿using UnityEngine;
 
+//------------------------------------------------------\\
+//  Template that defines a type of gun that can        \\
+//  be edited in the inspector by creating a            \\
+//  ScriptableObject and adjusting its properties       \\
+//------------------------------------------------------\\
+//      Written by Joe for proof of concept phase       \\
+//------------------------------------------------------\\
+
 [CreateAssetMenu(fileName = "Gun Template", menuName = "Weapon Template/Gun")]
 public class GunWeaponTemplate : WeaponTemplate
 {
@@ -56,6 +64,8 @@ public class GunWeaponTemplate : WeaponTemplate
     [SerializeField]
     [Tooltip("Minimum time between each usage of this gun as a melee weapon")]
     private float m_meleeInterval;
+
+    //Set in custom editor:
 
     //Name of sound effect to be played when using this gun as a melee weapon
     [SerializeField]

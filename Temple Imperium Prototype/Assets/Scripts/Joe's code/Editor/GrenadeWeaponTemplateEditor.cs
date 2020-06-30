@@ -5,6 +5,7 @@ using UnityEngine;
 [CustomEditor(typeof(GrenadeWeaponTemplate))]
 public class GrenadeWeaponTemplateEditor : WeaponTemplateEditor
 {
+    //Index for the dropdown menu used to select the throw sound
     int throwSoundIndex;
 
     public override void OnInspectorGUI()
@@ -12,6 +13,7 @@ public class GrenadeWeaponTemplateEditor : WeaponTemplateEditor
         serializedObject.Update();
         GrenadeWeaponTemplate targetTemplate = (GrenadeWeaponTemplate)target;
 
+        //Draw the default weapon editor GUI first
         base.OnInspectorGUI();
 
         //Set the sound array indexes to the index of the chosen sound (prevents them from resetting)
@@ -26,6 +28,7 @@ public class GrenadeWeaponTemplateEditor : WeaponTemplateEditor
         GUILayout.EndHorizontal();
         targetTemplate.m_throwSound = soundEffectOptions[throwSoundIndex];
 
+        //Apply any properties that have been changed
         EditorUtility.SetDirty(target);
         serializedObject.ApplyModifiedProperties();
     }
