@@ -11764,10 +11764,20 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3477854838883304455, guid: a15e3378302d4ba489d077ac8a0869dc,
+        type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3477854838883304569, guid: a15e3378302d4ba489d077ac8a0869dc,
         type: 3}
       propertyPath: m_Name
       value: NotePickUpMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477854838883304569, guid: a15e3378302d4ba489d077ac8a0869dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15e3378302d4ba489d077ac8a0869dc, type: 3}
