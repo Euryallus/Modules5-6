@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Demo1
   m_EditorClassIdentifier: 
   timeBetweenEnemySpawns: 0.5
-  enemy1Numbers: 3
+  enemy1Numbers: 4
   enemy2Numbers: 1
   enemy3Numbers: 0
   waveLength: 70

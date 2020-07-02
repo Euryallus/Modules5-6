@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: wave3
   m_EditorClassIdentifier: 
   timeBetweenEnemySpawns: 0.3
-  enemy1Numbers: 6
-  enemy2Numbers: 5
+  enemy1Numbers: 3
+  enemy2Numbers: 2
   enemy3Numbers: 0
   waveLength: 90
-  downtime: 5
+  downtime: 10
