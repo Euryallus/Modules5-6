@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce66b26bf5c0c54c8d8added850ba47, type: 3}
   m_Name: Hard
   m_EditorClassIdentifier: 
-  healthPercentageChange: 1.5
-  speedPercentageChange: 1.5
-  damagePercentageChange: 1.5
+  healthPercentageChange: 1.25
+  speedPercentageChange: 1
+  damagePercentageChange: 1.25

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Easy
   m_EditorClassIdentifier: 
   healthPercentageChange: 0.75
-  speedPercentageChange: 0.75
+  speedPercentageChange: 1
   damagePercentageChange: 0.75
