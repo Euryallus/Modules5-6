@@ -16,6 +16,11 @@ public class GunWeaponTemplateEditor : WeaponTemplateEditor
         //Draw the default weapon editor GUI 
         base.OnInspectorGUI();
 
+        if (soundEffectOptions == null || soundEffectOptions.Length == 0)
+            return;
+
+        Debug.Log(soundEffectOptions.Length);
+
         //Set the sound array index to the index of the chosen sound (prevents them from resetting)
         if (!string.IsNullOrEmpty(targetTemplate.m_meleeSound))
             meleeSoundIndex = Array.IndexOf(soundEffectOptions, targetTemplate.m_meleeSound);
