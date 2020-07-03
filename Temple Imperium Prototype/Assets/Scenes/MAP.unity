@@ -1319,6 +1319,11 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: e67cb96e6a24054448a6e856ba53e968,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: -870303517290515158, guid: e67cb96e6a24054448a6e856ba53e968,
         type: 3}
       propertyPath: m_StaticEditorFlags

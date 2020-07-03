@@ -56,3 +56,5 @@ MonoBehaviour:
     type: 3}
   prefabDistortionSphere: {fileID: 1748426586010948258, guid: ac4f41bfca3570c499dd16071851bd99,
     type: 3}
+  prefabBulletHole: {fileID: 5911087645264489932, guid: c877df321de455d498c0cd321663e041,
+    type: 3}

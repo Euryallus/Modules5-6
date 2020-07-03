@@ -21,6 +21,7 @@ TagManager:
   - ExplodeOnImpact
   - WaveManager
   - head
+  - Wall
   layers:
   - Default
   - TransparentFX

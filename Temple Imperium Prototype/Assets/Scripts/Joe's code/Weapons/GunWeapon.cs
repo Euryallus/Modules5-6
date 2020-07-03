@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 //------------------------------------------------------\\
 //  A gun that can be used by an entity with            \\
@@ -17,6 +18,11 @@ public class GunWeapon : Weapon
     public bool m_torchOn { get; private set; }                 //Whether a torch is turned on for this gun
 
     private float m_reloadTimer;                                //Amount of time (seconds) until reloading is done
+    private Queue<GameObject> m_bulletHoles = new Queue<GameObject>();  //All bullet holes that have been spawned when a wall was shot.
+                                                                        //  Using queue so holes can be destroyed in the order they were instantiated when MAX_BULLET_HOLES is reached
+
+    private const int MAX_BULLET_HOLES = 100;   //The maximum number of bullet holes that can be in a scene at any given time,
+                                                //  prevents game lag due to a huge amount of bullet holes
 
     //Constructor
     public GunWeapon(WeaponHolder weaponHolder, GunWeaponTemplate template) : base(weaponHolder, template)
@@ -101,6 +107,10 @@ public class GunWeapon : Weapon
             else if (goHit.CompareTag("ExplodeOnImpact"))
             {
                 goHit.GetComponent<ExplodeOnImpact>().Explode();
+            }
+            else if (goHit.CompareTag("Wall") || (goHit.transform.parent != null && goHit.transform.parent.CompareTag("Wall")))
+            {
+                CreateBulletHole(weaponAimInfo.m_hitInfo);
             }
         }
         else
@@ -192,5 +202,17 @@ public class GunWeapon : Weapon
     public void AddAmmo(int amount)
     {
         m_totalAmmo += amount;
+    }
+
+    private void CreateBulletHole(RaycastHit hitInfo)
+    {
+        GameObject goBulletHole = Object.Instantiate(GameUtilities.instance.prefabBulletHole);
+        goBulletHole.transform.position = hitInfo.point + (hitInfo.normal * 0.001f);
+        goBulletHole.transform.rotation = Quaternion.LookRotation(hitInfo.normal);
+        if (m_bulletHoles.Count >= MAX_BULLET_HOLES)
+        {
+            Object.Destroy(m_bulletHoles.Dequeue());
+        }
+        m_bulletHoles.Enqueue(goBulletHole);
     }
 }

@@ -32,6 +32,9 @@ public class GameUtilities : MonoBehaviour
     public GameObject prefabBreakParticles;
     public GameObject prefabDistortionSphere;
 
+    //Bullet hole to spawn when a wall it shot
+    public GameObject prefabBulletHole;
+
     private void Awake()
     {
         //Ensure that an instance of the GameUtilities class does not already exist
