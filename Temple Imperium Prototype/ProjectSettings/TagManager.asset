@@ -20,6 +20,7 @@ TagManager:
   - spawnerManager
   - ExplodeOnImpact
   - WaveManager
+  - head
   layers:
   - Default
   - TransparentFX
