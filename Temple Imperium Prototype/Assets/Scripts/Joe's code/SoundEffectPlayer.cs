@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //------------------------------------------------------\\
 //  SaveLoadManager provides an easy interface for      \\
@@ -14,21 +15,24 @@ public class SoundEffectPlayer : MonoBehaviour
 {
     public static SoundEffectPlayer instance;
 
-    [Header("Please make changes on the prefab object.")]
-
     //Set in inspector:
-    [Header("Add music:")]
+    [Header("Add music for different scenes:")]
+    [Header("Please make changes on the prefab object.")]
     [SerializeField]
-    private MusicTrack[] musicTracks;
+    private SceneMusicTracks[] sceneMusicTracks;
     [Header("Add sound effects:")]
     [SerializeField]
     private SoundEffect[] soundEffects;     //All available sound effects
     [SerializeField]
     private GameObject prefabSoundSource;   //Sound source to be instantiated when a sound is played
+    [SerializeField]
+    private AudioSource audioSourceMusic;
 
     private Dictionary<string, AudioClip> soundEffectsDict; //Dictionary so audio clips can be accessed based on their name
 
     public SoundEffect[] GetSoundEffects() { return soundEffects; }
+
+    private List<MusicTrack> currentSceneMusicTracks = new List<MusicTrack>();
 
     private void Awake()
     {
@@ -51,6 +55,55 @@ public class SoundEffectPlayer : MonoBehaviour
         SetupSoundEffectsDict();
         //Start the sound effect cleanup coroutine that will loop for the duration of the game
         StartCoroutine(SoundSourceCleanupCoroutine());
+
+        SceneManager.sceneLoaded += OnSceneLoad;
+        OnSceneLoad(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+    }
+
+    private void Update()
+    {
+        if(!audioSourceMusic.isPlaying && currentSceneMusicTracks.Count > 0)
+        {
+            PlayRandomSceneMusicTrack();
+        }
+        audioSourceMusic.volume = SaveLoadManager.instance.LoadFloatFromPlayerPrefs("Options_Volume_Music");
+    }
+
+    private void OnSceneLoad(Scene scene, LoadSceneMode loadSceneMode)
+    {
+        currentSceneMusicTracks = new List<MusicTrack>();
+        for (int i = 0; i < sceneMusicTracks.Length; i++)
+        {
+            if(sceneMusicTracks[i].sceneName == scene.name)
+            {
+                for (int j = 0; j < sceneMusicTracks[i].musicTracks.Count; j++)
+                {
+                    currentSceneMusicTracks.Add(sceneMusicTracks[i].musicTracks[j]);
+                }
+            }
+        }
+
+        if (audioSourceMusic.isPlaying)
+        {
+            audioSourceMusic.Stop();
+        }
+        PlayRandomSceneMusicTrack();
+
+        Debug.Log("AudioManager - " + scene.name + ". Available tracks: " + currentSceneMusicTracks.Count);
+    }
+
+    private void PlayRandomSceneMusicTrack()
+    {
+        if (currentSceneMusicTracks.Count == 0)
+            return;
+
+        int randTrackIndex = UnityEngine.Random.Range(0, currentSceneMusicTracks.Count);
+        MusicTrack chosenTrack = currentSceneMusicTracks[randTrackIndex];
+        audioSourceMusic.clip = chosenTrack.audioClip;
+        audioSourceMusic.loop = chosenTrack.loop;
+        audioSourceMusic.Play();
+
+        Debug.Log("AudioManager - Playing music track: " + chosenTrack.name);
     }
 
     public void SetupSoundEffectsDict()
@@ -188,10 +241,15 @@ public struct SoundEffect
     public AudioClip audioClip;
 }
 [Serializable]
+public struct SceneMusicTracks
+{
+    public string sceneName;
+    public List<MusicTrack> musicTracks;
+}
+[Serializable]
 public struct MusicTrack
 {
     public string name;
-    public string playInSceneName;
     public bool loop;
     public AudioClip audioClip;
 }
