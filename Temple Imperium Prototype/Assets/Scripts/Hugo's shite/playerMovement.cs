@@ -25,6 +25,7 @@ public class playerMovement : MonoBehaviour
         private float crouchSpeedReduction = 2;
 
     private GameObject noteMenu;
+    private GameObject head;
     private GameObject playerCamera;
     private CharacterController controller;
 
@@ -55,6 +56,7 @@ public class playerMovement : MonoBehaviour
         Time.timeScale = 1;
 
         noteMenu = GameObject.FindGameObjectWithTag("noteDisplayManager");
+        head = GameObject.FindGameObjectWithTag("head");
     }
 
 
@@ -191,12 +193,14 @@ public class playerMovement : MonoBehaviour
     {
         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y / 2, transform.localScale.z);
         playerSpeed /= crouchSpeedReduction;
+        head.transform.localScale = new Vector3(head.transform.localScale.x, head.transform.localScale.y * 2, head.transform.localScale.z);
     }
 
     public void standUp() //returns scale & speed to previous speed
     {
         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 2, transform.localScale.z);
         playerSpeed = defaultSpeed;
+        head.transform.localScale = new Vector3(head.transform.localScale.x, head.transform.localScale.y / 2, head.transform.localScale.z);
     }
 
     private void OnTriggerEnter(Collider other) //detects when wnters ladder trigger volume
