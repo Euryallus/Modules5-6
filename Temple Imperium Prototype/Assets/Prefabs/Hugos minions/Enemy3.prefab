@@ -5175,7 +5175,7 @@ MonoBehaviour:
   enemyHealth: 40
   regenPerSecond: 0.5
   healthBar: {fileID: 2245337604960216129}
-  currentTarget: {fileID: 0}
+  enemyViewAngle: 130
   fireDamage: 2
   fireLength: 4
   slowPercent: 0.6
@@ -5184,12 +5184,15 @@ MonoBehaviour:
   healthRegenLength: 3
   healthRegenAmountPerCall: 2
   timeBetweenHealthRegen: 0.5
-  currentState: 0
-  patrolPoints: []
-  canSeePlayer: 0
-  enemyViewAngle: 130
-  lookingCount: 0
+  meleeDistance: 4
+  meleeHitDamage: 5
+  hitInterval: 1
   damageReductionPurpleStarStone: 0.5
+  patrolPoints: []
+  difficulty:
+  - {fileID: 11400000, guid: de7b8d2a854618c419fd44cc3d333128, type: 2}
+  - {fileID: 11400000, guid: cbbca1ae5b134384b8042d19453ab610, type: 2}
+  - {fileID: 11400000, guid: 6e2cf650eb0e8a1468ebcfea6e53947b, type: 2}
   missileBlueprint: {fileID: 5288727814666695934, guid: 55eb9f1c8a20c2743acbd3ccc2f1962a,
     type: 3}
   fireRate: 4

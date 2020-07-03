@@ -33,6 +33,7 @@ public class bulletTemp : MonoBehaviour
     {
         //saves scene instance of generatorManager using find object
         generator = GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<starStoneManager>();
+
     }
 
     public void setParent(GameObject self)
@@ -40,6 +41,9 @@ public class bulletTemp : MonoBehaviour
         //sets scene reference to "parent" (enemy bullet was fired by)
         //called from "parent" on bullet instantiation
         parent = self;
+
+        bulletDamage *= parent.GetComponent<Enemy>().difficulty[PlayerPrefs.GetInt("Difficulty", 1)].damagePercentageChange;
+
     }
 
     private void OnCollisionEnter(Collision collision)

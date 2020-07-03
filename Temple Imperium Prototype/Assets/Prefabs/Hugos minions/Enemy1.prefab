@@ -5175,7 +5175,7 @@ MonoBehaviour:
   enemyHealth: 20
   regenPerSecond: 0.25
   healthBar: {fileID: 0}
-  currentTarget: {fileID: 0}
+  enemyViewAngle: 170
   fireDamage: 2
   fireLength: 4
   slowPercent: 0.6
@@ -5184,16 +5184,16 @@ MonoBehaviour:
   healthRegenLength: 3
   healthRegenAmountPerCall: 2
   timeBetweenHealthRegen: 0.5
-  currentState: 0
-  patrolPoints:
-  - {fileID: 0}
-  canSeePlayer: 0
-  enemyViewAngle: 170
-  lookingCount: 0
-  damageReductionPurpleStarStone: 0.5
   meleeDistance: 2
   meleeHitDamage: 5
   hitInterval: 1
+  damageReductionPurpleStarStone: 0.5
+  patrolPoints:
+  - {fileID: 0}
+  difficulty:
+  - {fileID: 11400000, guid: de7b8d2a854618c419fd44cc3d333128, type: 2}
+  - {fileID: 11400000, guid: cbbca1ae5b134384b8042d19453ab610, type: 2}
+  - {fileID: 11400000, guid: 6e2cf650eb0e8a1468ebcfea6e53947b, type: 2}
 --- !u!195 &9209157375183940789
 NavMeshAgent:
   m_ObjectHideFlags: 0

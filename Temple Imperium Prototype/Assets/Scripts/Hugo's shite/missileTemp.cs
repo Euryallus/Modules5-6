@@ -43,6 +43,7 @@ public class missileTemp : MonoBehaviour
     public void setParent(GameObject self) //allows 'parent' object (object that spawned missile) to be stored and affected
     {
         parent = self;
+        missileDamage *= parent.GetComponent<Enemy>().difficulty[PlayerPrefs.GetInt("Difficulty", 1)].damagePercentageChange;
     }
 
     // Update is called once per frame

@@ -91,6 +91,10 @@ public class Enemy : MonoBehaviour
     protected float playerDist;
     protected float lookingCount = 0;
 
+    [Header("Difficulty presents")]
+    [SerializeField]
+    public List<difficultySetting> difficulty = new List<difficultySetting>();
+
     protected enum State
     {
         Idle,
@@ -113,13 +117,19 @@ public class Enemy : MonoBehaviour
     }
 
     private void Start()
-    {
+    {        
         // Assigns variables based on input from inspector and components attached to game objects
         agent = gameObject.GetComponent<NavMeshAgent>(); 
-        agent.speed = enemySpeed;
+        
         lastKnownPos = gameObject.transform.position;
         player = GameObject.FindGameObjectWithTag("Player");
         currentState = State.Patrol;
+
+        //difficulty alterations
+
+        enemyHealth *= difficulty[PlayerPrefs.GetInt("Difficulty", 1)].healthPercentageChange;
+        agent.speed = enemySpeed * difficulty[PlayerPrefs.GetInt("Difficulty", 1)].speedPercentageChange;
+        meleeHitDamage *= difficulty[PlayerPrefs.GetInt("Difficulty", 1)].damagePercentageChange;
 
         enemyMaxHealth = enemyHealth;
         healthBar = transform.GetChild(0).gameObject;

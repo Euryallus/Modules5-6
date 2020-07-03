@@ -307,8 +307,8 @@ GameObject:
   - component: {fileID: 5206509638742407883}
   - component: {fileID: 5206509638742407882}
   - component: {fileID: 5206509638742407877}
-  - component: {fileID: 5206509638742407876}
   - component: {fileID: 5206509638742407879}
+  - component: {fileID: 5206509638742407876}
   - component: {fileID: -3323168773814561077}
   m_Layer: 0
   m_Name: Enemy2
@@ -394,6 +394,50 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5206509638742407879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5206509638742407878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0005003bd4aa36418f384c216a2815b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewDistance: 20
+  transitionTime: 2.5
+  enemySpeed: 3.5
+  enemyHealth: 25
+  regenPerSecond: 0.5
+  healthBar: {fileID: 0}
+  enemyViewAngle: 150
+  fireDamage: 2
+  fireLength: 4
+  slowPercent: 0.6
+  slowTime: 2
+  purpleDamagePercent: 1.5
+  healthRegenLength: 3
+  healthRegenAmountPerCall: 2
+  timeBetweenHealthRegen: 0.5
+  meleeDistance: 4
+  meleeHitDamage: 5
+  hitInterval: 1
+  damageReductionPurpleStarStone: 0.5
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  difficulty:
+  - {fileID: 11400000, guid: de7b8d2a854618c419fd44cc3d333128, type: 2}
+  - {fileID: 11400000, guid: cbbca1ae5b134384b8042d19453ab610, type: 2}
+  - {fileID: 11400000, guid: 6e2cf650eb0e8a1468ebcfea6e53947b, type: 2}
+  bulletSpawnRate: 2
+  bulletBlueprint: {fileID: 5455800343749663860, guid: 686ed8badb4dcd7408efa577f7089a05,
+    type: 3}
+  bullet: {fileID: 0}
+  bulletSpeed: 20
 --- !u!195 &5206509638742407876
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -416,47 +460,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &5206509638742407879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5206509638742407878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0005003bd4aa36418f384c216a2815b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewDistance: 20
-  transitionTime: 2.5
-  enemySpeed: 3.5
-  enemyHealth: 25
-  regenPerSecond: 0.5
-  healthBar: {fileID: 0}
-  currentTarget: {fileID: 0}
-  fireDamage: 2
-  fireLength: 4
-  slowPercent: 0.6
-  slowTime: 2
-  purpleDamagePercent: 1.5
-  healthRegenLength: 3
-  healthRegenAmountPerCall: 2
-  timeBetweenHealthRegen: 0.5
-  currentState: 0
-  patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  canSeePlayer: 0
-  enemyViewAngle: 150
-  lookingCount: 0
-  damageReductionPurpleStarStone: 0.5
-  bulletSpawnRate: 2
-  bulletBlueprint: {fileID: 5455800343749663860, guid: 686ed8badb4dcd7408efa577f7089a05,
-    type: 3}
-  bullet: {fileID: 0}
-  bulletSpeed: 20
 --- !u!54 &-3323168773814561077
 Rigidbody:
   m_ObjectHideFlags: 0

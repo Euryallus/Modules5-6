@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 //
 // ## HUGO BAILEY
@@ -11,6 +12,13 @@ using UnityEngine.SceneManagement;
 
 public class mainMenu : MonoBehaviour
 {
+    [SerializeField]
+    private Dropdown difficultyDropDown;
+
+    private void Start()
+    {
+        difficultyDropDown.value = PlayerPrefs.GetInt("Difficulty", 1);
+    }
     public void loadScene(string sceneToLoad) // Loads scene whos name has been passed as a parameter (e.g. "MAP" loads the map scene from Build)
     {
         SceneManager.LoadScene(sceneToLoad);
@@ -30,5 +38,11 @@ public class mainMenu : MonoBehaviour
             options.interactable = true;
             options.blocksRaycasts = true;
         }
+    }
+
+    public void difficultyChange()
+    {
+        PlayerPrefs.SetInt("Difficulty", difficultyDropDown.value);
+        Debug.Log("Current difficulty: " + difficultyDropDown.value);
     }
 }

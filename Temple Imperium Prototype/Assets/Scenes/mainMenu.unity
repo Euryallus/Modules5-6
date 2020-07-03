@@ -1822,7 +1822,18 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 760688728}
+        m_MethodName: difficultyChange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &567782524
 MonoBehaviour:
@@ -2105,6 +2116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feeb4d211d918a04aa07d2a62301d30f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficultyDropDown: {fileID: 567782523}
 --- !u!225 &760688729
 CanvasGroup:
   m_ObjectHideFlags: 0
