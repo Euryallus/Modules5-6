@@ -196,7 +196,7 @@ public class playerMovement : MonoBehaviour
     public void standUp() //returns scale & speed to previous speed
     {
         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * 2, transform.localScale.z);
-        playerSpeed *= defaultSpeed;
+        playerSpeed = defaultSpeed;
     }
 
     private void OnTriggerEnter(Collider other) //detects when wnters ladder trigger volume
