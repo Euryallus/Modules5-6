@@ -25,8 +25,11 @@ public class PrototypeWeaponTemplateEditor : WeaponTemplateEditor
         //Draw the default weapon editor GUI first
         base.OnInspectorGUI();
 
+        if (soundEffectOptions == null || soundEffectOptions.Length == 0)
+            return;
+
         //Set the sound array indexes to the index of the chosen sound (prevents them from resetting)
-        if(!string.IsNullOrEmpty( targetTemplate.m_firingSound ))
+        if (!string.IsNullOrEmpty( targetTemplate.m_firingSound ))
             firingSoundIndex = Array.IndexOf(soundEffectOptions, targetTemplate.m_firingSound);
         if (!string.IsNullOrEmpty(targetTemplate.m_disableSound))
             disableSoundIndex = Array.IndexOf(soundEffectOptions, targetTemplate.m_disableSound);

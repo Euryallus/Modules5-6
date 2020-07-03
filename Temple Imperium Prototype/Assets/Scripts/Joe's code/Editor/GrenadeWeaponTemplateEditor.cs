@@ -16,6 +16,9 @@ public class GrenadeWeaponTemplateEditor : WeaponTemplateEditor
         //Draw the default weapon editor GUI first
         base.OnInspectorGUI();
 
+        if (soundEffectOptions == null || soundEffectOptions.Length == 0)
+            return;
+
         //Set the sound array indexes to the index of the chosen sound (prevents them from resetting)
         if (!string.IsNullOrEmpty(targetTemplate.m_throwSound))
             throwSoundIndex = Array.IndexOf(soundEffectOptions, targetTemplate.m_throwSound);

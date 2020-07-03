@@ -14,9 +14,13 @@ public class SoundEffectPlayer : MonoBehaviour
 {
     public static SoundEffectPlayer instance;
 
-    [Header("Add sound effects:")]
     [Header("Please make changes on the prefab object.")]
+
     //Set in inspector:
+    [Header("Add music:")]
+    [SerializeField]
+    private MusicTrack[] musicTracks;
+    [Header("Add sound effects:")]
     [SerializeField]
     private SoundEffect[] soundEffects;     //All available sound effects
     [SerializeField]
@@ -181,5 +185,13 @@ public class SoundEffectPlayer : MonoBehaviour
 public struct SoundEffect
 {
     public string name;
+    public AudioClip audioClip;
+}
+[Serializable]
+public struct MusicTrack
+{
+    public string name;
+    public string playInSceneName;
+    public bool loop;
     public AudioClip audioClip;
 }
