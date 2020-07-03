@@ -42,6 +42,17 @@ public class playStateControl : MonoBehaviour
     {
         wavePointer = 0;
         initiateWave(waves[0]);
+
+        for (int i = 0; i < waves.Count; i++)
+        {
+            if(doors.Count < waves.Count)
+            {
+                if(doors[i] == null)
+                {
+                    doors.Insert(i, null);
+                }
+            }
+        }
     }
 
    public void initiateWave(waveData wave) 

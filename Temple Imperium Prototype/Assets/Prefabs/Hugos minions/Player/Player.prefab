@@ -4896,6 +4896,7 @@ GameObject:
   - component: {fileID: 1560171429635137204}
   - component: {fileID: 1560171429635137192}
   - component: {fileID: 1560171429635137207}
+  - component: {fileID: 1282354302}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -4997,11 +4998,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec85b564eda8e1847b354546ca87335b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shieldUpTime: 3
-  damageReductionPercent: 0.5
+  shieldUpTime: 5
+  damageReductionPercent: 1
   health: 50
   fullHealthColour: {r: 0.4764151, g: 1, b: 0.50655013, a: 1}
   ZeroHealthColour: {r: 0.8666667, g: 0.25098038, b: 0.28509638, a: 1}
+  shieldRegenTime: 3
+  shieldSlowPercentage: 0.7
   healthBar: {fileID: 0}
   fireEffect: {fileID: 1560171429093023198}
   stateDisplay: {fileID: 0}
@@ -5061,7 +5064,6 @@ MonoBehaviour:
   playerCamera: {fileID: 1560171428937173245}
   defaultCameraFOV: 90
   adsCameraFOV: 60
-  tempStarStoneState: 0
 --- !u!136 &1560171429635137207
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5076,6 +5078,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1282354302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560171429635137199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40bce4aea5ba9c64d98c4aeeb20c17df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1560171430078695318
 GameObject:
   m_ObjectHideFlags: 0
