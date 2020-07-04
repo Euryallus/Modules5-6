@@ -8342,9 +8342,14 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1560171429635137192, guid: 1c9957a437064c84b9b8ad6bd9683108,
         type: 3}
+      propertyPath: availableWeaponTemplates.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560171429635137192, guid: 1c9957a437064c84b9b8ad6bd9683108,
+        type: 3}
       propertyPath: availableWeaponTemplates.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: 8f634272b6b6a1b4caeec1cf44b7e9d0,
+      objectReference: {fileID: 11400000, guid: 4a140944ca2d95240af3c6218d0d2f26,
         type: 2}
     - target: {fileID: 1560171429635137199, guid: 1c9957a437064c84b9b8ad6bd9683108,
         type: 3}
