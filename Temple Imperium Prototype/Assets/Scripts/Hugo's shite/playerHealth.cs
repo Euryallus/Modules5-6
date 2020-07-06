@@ -45,12 +45,17 @@ public class playerHealth : MonoBehaviour
     private bool shieldActive = false;
     private IEnumerator coroutine;
 
+    private GameObject healthFlash;
+
     private void Start()
     {
         //assigns values & gameObjects accordingly, disables shield visual effect
         maxHealth = health;
         shield = gameObject.transform.GetChild(1).gameObject;
         shield.SetActive(false);
+
+        healthFlash = GameObject.FindGameObjectWithTag("healthFlash");
+        healthFlash.GetComponent<Image>().enabled = false;
     }
 
     private void Update()
@@ -75,6 +80,15 @@ public class playerHealth : MonoBehaviour
         {
             //update's health bar size based on current health
             healthBar.transform.localScale = new Vector3(healthBarX, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
+        }
+
+        if (healthFlash.GetComponent<Image>().IsActive())
+        {
+            healthFlash.GetComponent<Image>().color = new Color(healthFlash.GetComponent<Image>().color.r, healthFlash.GetComponent<Image>().color.g, healthFlash.GetComponent<Image>().color.b, healthFlash.GetComponent<Image>().color.a - Time.deltaTime);
+            if(healthFlash.GetComponent<Image>().color.a <= 0)
+            {
+                healthFlash.GetComponent<Image>().enabled = false;
+            }
         }
     }
 
@@ -107,7 +121,11 @@ public class playerHealth : MonoBehaviour
 
         health -= damage;
 
-        if(health == 0)
+        healthFlash.GetComponent<Image>().enabled = true;
+        healthFlash.GetComponent<Image>().color = new Color(healthFlash.GetComponent<Image>().color.r, healthFlash.GetComponent<Image>().color.g, healthFlash.GetComponent<Image>().color.b, 0.3f);
+
+
+        if (health == 0)
         {
             // TEMPORARY DEATH STATE
 
