@@ -31,7 +31,7 @@ public class WeaponTemplateEditor : Editor
 
         if (goAudioManager != null)
         {
-            SoundEffect[] availableSounds = goAudioManager.GetComponent<SoundEffectPlayer>().GetSoundEffects();
+            SoundEffect[] availableSounds = goAudioManager.GetComponent<AudioManager>().GetSoundEffects();
             soundEffectOptions = new string[availableSounds.Length];
             for (int i = 0; i < availableSounds.Length; i++)
             {
