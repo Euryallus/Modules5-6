@@ -28261,7 +28261,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: U DEAD
+  m_Text: U DEADED
 --- !u!222 &1698120392
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -28753,7 +28753,7 @@ PrefabInstance:
     - target: {fileID: 1560171429635137205, guid: 1c9957a437064c84b9b8ad6bd9683108,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.5
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1560171429635137205, guid: 1c9957a437064c84b9b8ad6bd9683108,
         type: 3}
