@@ -144,7 +144,11 @@ public class playerHealth : MonoBehaviour
             deathMenu.GetComponent<Animator>().Play("deadFade", 0);
             //Time.timeScale = 0;
             isPlayerDead = true;
+            GameObject.FindGameObjectWithTag("spawnerManager").GetComponent<playStateControl>().playerDied();
             gameObject.GetComponent<playerMovement>().enabled = false;
+            gameObject.GetComponent<WeaponHolder>().enabled = false;
+
+            Cursor.lockState = CursorLockMode.None;
 
             // ############################
         }

@@ -55,6 +55,11 @@ public class playStateControl : MonoBehaviour
         }
     }
 
+    public void playerDied()
+    {
+        current = waveState.gameLost;
+    }
+
    public void initiateWave(waveData wave) 
    {
         //
