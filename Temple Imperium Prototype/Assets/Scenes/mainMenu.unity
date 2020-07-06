@@ -4568,8 +4568,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 760688728}
-        m_MethodName: loadScene
-        m_Mode: 5
+        m_MethodName: LoadIntroScene
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

@@ -45,4 +45,12 @@ public class mainMenu : MonoBehaviour
         PlayerPrefs.SetInt("Difficulty", difficultyDropDown.value);
         Debug.Log("Current difficulty: " + difficultyDropDown.value);
     }
+
+    //Added by Joe
+    public void LoadIntroScene()
+    {
+        //Reset the cutscene story index so it doesn't carry over from a previously viewed cutscene
+        TextCutscene.storyIndex = 0;
+        SceneManager.LoadScene("IntroScene");
+    }
 }

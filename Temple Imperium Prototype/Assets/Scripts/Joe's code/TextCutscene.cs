@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections.Generic;
 
 //------------------------------------------------------\\
 //  Used for the intro scene which shows some animated  \\
@@ -14,7 +15,7 @@ public class TextCutscene : MonoBehaviour
 {
     //Set in inspector:
     [SerializeField]
-    private Transform transformTextElements;
+    private Transform[] textElementContainers;
     [SerializeField]
     private string nextSceneName;
     [SerializeField]
@@ -22,30 +23,44 @@ public class TextCutscene : MonoBehaviour
     [SerializeField]
     private float animationSpeed;                   //How quickly text is animated
 
-    private TextMeshProUGUI[] textElements;
+    private List<TextMeshProUGUI[]> textElements;
     private TextMeshProUGUI activeTextElement;  //Text element currently being shown/animated
     private int textElementIndex;               //Index of the current text element in the textElements array
     private string fullText;                    //Full text to be shown for the active text element
     private bool animatingText;                 //True = text is currently animating in, false = done animating
     private Coroutine animatingTextCoroutine;   //Coroutine used for text animation
 
+    public static int storyIndex = 0;
+
     private void Start()
     {
         //Reset timeScale in case game was paused
         Time.timeScale = 1f;
 
-        textElements = new TextMeshProUGUI[transformTextElements.childCount];
-        for (int i = 0; i < transformTextElements.childCount; i++)
+        if(storyIndex < 0 || storyIndex >= textElementContainers.Length)
         {
-            textElements[i] = transformTextElements.GetChild(i).GetComponent<TextMeshProUGUI>();
-            //Hide all text elements by default
-            textElements[i].gameObject.SetActive(false);
+            storyIndex = 0;
+            Debug.LogError("Invalid story index for cutscene, changing to 0 from " + storyIndex);
         }
+
+        textElements = new List<TextMeshProUGUI[]>();
+        for (int i = 0; i < textElementContainers.Length; i++)
+        {
+            TextMeshProUGUI[] addedTextElements = new TextMeshProUGUI[textElementContainers[i].childCount];
+            for (int j = 0; j < textElementContainers[i].childCount; j++)
+            {
+                addedTextElements[j] = textElementContainers[i].GetChild(j).GetComponent<TextMeshProUGUI>();
+                //Hide all text elements by default
+                addedTextElements[j].gameObject.SetActive(false);
+            }
+            textElements.Add(addedTextElements);
+        }
+
 
         textContinuePrompt.gameObject.SetActive(false);
 
         //Start animating the first text element
-        StartAnimatingText(textElements[textElementIndex]);
+        StartAnimatingText(textElements[storyIndex][textElementIndex]);
     }
 
     private void Update()
@@ -67,11 +82,11 @@ public class TextCutscene : MonoBehaviour
 
     private void ContinueStory()
     {
-        if(textElementIndex < textElements.Length - 1)
+        if(textElementIndex < textElements[storyIndex].Length - 1)
         {
             //Start animating the next text element
             textElementIndex++;
-            StartAnimatingText(textElements[textElementIndex]);
+            StartAnimatingText(textElements[storyIndex][textElementIndex]);
         }
         else
         {

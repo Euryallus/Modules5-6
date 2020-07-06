@@ -1033,7 +1033,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 466ea8729a32bde4996ed8c8a6a6af81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformTextElements: {fileID: 1679826796}
+  textElementContainers:
+  - {fileID: 1679826796}
   nextSceneName: MAP
   textContinuePrompt: {fileID: 830381392}
   animationSpeed: 20
