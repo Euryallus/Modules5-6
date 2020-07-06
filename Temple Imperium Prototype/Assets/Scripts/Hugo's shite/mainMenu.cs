@@ -46,7 +46,10 @@ public class mainMenu : MonoBehaviour
         Debug.Log("Current difficulty: " + difficultyDropDown.value);
     }
 
+    //Added by Joe:
     public void LoadIntroScene()
     {
+        TextCutscene.storyIndex = 0;
+        SceneManager.LoadScene("IntroScene");
     }
 }
