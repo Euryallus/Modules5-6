@@ -111,6 +111,7 @@ public class GunWeapon : Weapon
             else if (goHit.CompareTag("Wall") || (goHit.transform.parent != null && goHit.transform.parent.CompareTag("Wall")))
             {
                 CreateBulletHole(weaponAimInfo.m_hitInfo);
+                SoundEffectPlayer.instance.PlaySoundEffect3D(m_gunTemplate.m_objectHitSound, weaponAimInfo.m_hitInfo.point, m_gunTemplate.m_objectHitSoundVolume);
             }
         }
         else
@@ -174,12 +175,13 @@ public class GunWeapon : Weapon
 
     public void StartReload()
     {
-        //Start reloading the gun if ammo is available
-        if(m_totalAmmo > 0)
+        //Start reloading the gun if ammo is available, not already reloading and loaded ammo is not full
+        if(!m_reloading && m_totalAmmo > 0 && m_loadedAmmo < m_gunTemplate.GetMagazineSize())
         {
             Debug.Log(m_template.GetWeaponName() + ": Starting reload");
             m_reloadTimer = m_gunTemplate.GetReloadTime();
             m_reloading = true;
+            SoundEffectPlayer.instance.PlaySoundEffect2D(m_gunTemplate.m_reloadSound, m_gunTemplate.m_reloadSoundVolume);
         }
     }
 

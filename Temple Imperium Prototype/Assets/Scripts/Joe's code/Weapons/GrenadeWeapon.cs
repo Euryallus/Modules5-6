@@ -75,12 +75,6 @@ public class GrenadeWeapon : Weapon
     {
         base.HeldUpdate();
 
-        //Debug shortcut for adding more grenades
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            m_grenadeCount++;
-        }
-
         //Show the held grenade if ready to attack
         if(m_attackIntervalTimer <= 0)
         {

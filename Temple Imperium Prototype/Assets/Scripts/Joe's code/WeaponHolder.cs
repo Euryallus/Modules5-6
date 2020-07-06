@@ -6,7 +6,7 @@ using UnityEngine;
 //  Can be applied to a player or enemy to allow them   \\
 //  to hold and fire/attack with weapons                \\
 //------------------------------------------------------\\
-//      Written by Joe for proof of concept phase       \\
+//      Written by Joe for prototype phase              \\
 //------------------------------------------------------\\
 
 public class WeaponHolder : MonoBehaviour

@@ -5,7 +5,7 @@
 //  be edited in the inspector by creating a            \\
 //  ScriptableObject and adjusting its properties       \\
 //------------------------------------------------------\\
-//      Written by Joe for proof of concept phase       \\
+//      Written by Joe for prototype phase              \\
 //------------------------------------------------------\\
 
 [CreateAssetMenu(fileName = "Gun Template", menuName = "Weapon Template/Gun")]
@@ -76,6 +76,26 @@ public class GunWeaponTemplate : WeaponTemplate
     [SerializeField]
     [HideInInspector]
     public float m_meleeSoundVolume;
+
+    //Name of sound effect to be played when this gun is reloaded
+    [SerializeField]
+    [HideInInspector]
+    public string m_reloadSound;
+
+    //Volume of sound effect to be played when this gun is reloaded
+    [SerializeField]
+    [HideInInspector]
+    public float m_reloadSoundVolume;
+
+    //Name of sound effect to be played when an object is hit by a bullet
+    [SerializeField]
+    [HideInInspector]
+    public string m_objectHitSound;
+
+    //Volume of sound effect to be played when an object is hit by a bullet
+    [SerializeField]
+    [HideInInspector]
+    public float m_objectHitSoundVolume;
 
     #endregion
 
