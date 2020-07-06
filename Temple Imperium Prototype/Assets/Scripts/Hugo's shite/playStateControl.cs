@@ -18,6 +18,8 @@ public class playStateControl : MonoBehaviour
         List<Door> doors = new List<Door>();
         [SerializeField]
         private Text timeRemaining;
+    [SerializeField]
+    private Text waveDisplay;
 
     private int wavePointer = 0;
     
@@ -86,6 +88,7 @@ public class playStateControl : MonoBehaviour
         {
             case waveState.beforeWaveStart:
                 timeRemaining.text = "Get ready";
+                waveDisplay.text = "";
                 break;
 
             case waveState.waveActive:
@@ -109,10 +112,13 @@ public class playStateControl : MonoBehaviour
 
                     timeRemaining.text = minutes + ":" + seconds;
                 }
+
+                waveDisplay.text = "Wave " + (wavePointer + 1).ToString() + " of " + waves.Count.ToString();
                 break;
 
             case waveState.waveFail:
                 timeRemaining.text = "Wave failed!";
+                waveDisplay.text = "";
                 break;
 
             case waveState.waveComplete:
@@ -133,15 +139,18 @@ public class playStateControl : MonoBehaviour
                     StartCoroutine(waitForNextWave(waves[wavePointer].downtime));
                     nextWaveStarted = true;
                 }
+                waveDisplay.text = "";
 
                 break;
 
             case waveState.gameWon:
                 timeRemaining.text = "Game won!";
+                waveDisplay.text = "";
                 break;
 
             case waveState.gameLost:
                 timeRemaining.text = "FAILED";
+                waveDisplay.text = "";
                 break;
         }
     }
