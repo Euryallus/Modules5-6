@@ -7,19 +7,22 @@ using TMPro;
 //  Used for the intro scene which shows some animated  \\
 //  text to introcuce the game's story                  \\
 //------------------------------------------------------\\
-//      Written by Joe for proof of concept phase       \\
+//      Written by Joe for prototype phase              \\
 //------------------------------------------------------\\
 
-public class IntroScene : MonoBehaviour
+public class TextCutscene : MonoBehaviour
 {
     //Set in inspector:
     [SerializeField]
-    private TextMeshProUGUI[] textElements;         //All text elements that are used to show story text
+    private Transform transformTextElements;
+    [SerializeField]
+    private string nextSceneName;
     [SerializeField]
     private TextMeshProUGUI textContinuePrompt;     //Text telling the player how to continue with the story
     [SerializeField]
     private float animationSpeed;                   //How quickly text is animated
 
+    private TextMeshProUGUI[] textElements;
     private TextMeshProUGUI activeTextElement;  //Text element currently being shown/animated
     private int textElementIndex;               //Index of the current text element in the textElements array
     private string fullText;                    //Full text to be shown for the active text element
@@ -31,11 +34,14 @@ public class IntroScene : MonoBehaviour
         //Reset timeScale in case game was paused
         Time.timeScale = 1f;
 
-        //Hide all text elements by default
-        for (int i = 0; i < textElements.Length; i++)
+        textElements = new TextMeshProUGUI[transformTextElements.childCount];
+        for (int i = 0; i < transformTextElements.childCount; i++)
         {
+            textElements[i] = transformTextElements.GetChild(i).GetComponent<TextMeshProUGUI>();
+            //Hide all text elements by default
             textElements[i].gameObject.SetActive(false);
         }
+
         textContinuePrompt.gameObject.SetActive(false);
 
         //Start animating the first text element
@@ -70,7 +76,7 @@ public class IntroScene : MonoBehaviour
         else
         {
             //Done, continue to game
-            SceneManager.LoadScene("MAP");
+            SceneManager.LoadScene(nextSceneName);
         }
     }
 
