@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6580641263994631133}
-  - component: {fileID: 6580641263994631132}
+  - component: {fileID: 9133071825704654925}
   - component: {fileID: 6062936345867866367}
   m_Layer: 0
   m_Name: _Audio Manager
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6580641263994631132
+--- !u!114 &9133071825704654925
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6580641263994631107}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d20c2c014f818d4aa8e6ca6dadcb0b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 8aec6eff78021ea4280bcd980825b4cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sceneMusicTracks:
@@ -50,6 +50,11 @@ MonoBehaviour:
     - name: Seal Music
       loop: 1
       audioClip: {fileID: 8300000, guid: 133a1434fbc6a3349a05a8a77aa4d759, type: 3}
+  - sceneName: IntroScene
+    musicTracks:
+    - name: March of the Seals 2
+      loop: 1
+      audioClip: {fileID: 8300000, guid: e68f34ac39dd4d94c82f87952017a94d, type: 3}
   soundEffects:
   - name: Wilhelm
     audioClip: {fileID: 8300000, guid: df96fd4101635ff46ab35fd9b0d45671, type: 3}

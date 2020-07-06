@@ -25,7 +25,7 @@ public class AmmoPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<WeaponHolder>().PickupAmmo(ammo, gunType);
-            SoundEffectPlayer.instance.PlaySoundEffect3D(pickupSound, transform.position);
+            AudioManager.instance.PlaySoundEffect3D(pickupSound, transform.position);
             Destroy(gameObject);
         }
     }

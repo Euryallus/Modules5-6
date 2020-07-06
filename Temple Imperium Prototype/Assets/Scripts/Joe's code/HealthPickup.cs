@@ -21,7 +21,7 @@ public class HealthPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<playerHealth>().RestoreHealth(health);
-            SoundEffectPlayer.instance.PlaySoundEffect3D(pickupSound, transform.position);
+            AudioManager.instance.PlaySoundEffect3D(pickupSound, transform.position);
             Destroy(gameObject);
         }
     }

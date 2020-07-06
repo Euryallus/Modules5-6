@@ -50,7 +50,7 @@ public class GrenadeWeapon : Weapon
         m_thrownGrenades.Add(new ThrownGrenade(this, m_grenadeTemplate.GetDelay(), transformHead));
 
         //Play the throw sound set in the template editor
-        SoundEffectPlayer.instance.PlaySoundEffect2D(m_grenadeTemplate.m_throwSound, m_grenadeTemplate.m_throwSoundVolume, 0.95f, 1.05f);
+        AudioManager.instance.PlaySoundEffect2D(m_grenadeTemplate.m_throwSound, m_grenadeTemplate.m_throwSoundVolume, 0.95f, 1.05f);
     }
 
     //Grenade has no alternate attack
@@ -177,7 +177,7 @@ public class ThrownGrenade
         }
 
         //Play the attack/explosion sound
-        SoundEffectPlayer.instance.PlaySoundEffect3D(m_grenadeParent.m_template.m_attackSound, m_goThrow.transform.position, m_grenadeParent.m_template.m_attackSoundVolume, 0.95f, 1.05f);
+        AudioManager.instance.PlaySoundEffect3D(m_grenadeParent.m_template.m_attackSound, m_goThrow.transform.position, m_grenadeParent.m_template.m_attackSoundVolume, 0.95f, 1.05f);
         //Remove the thrown grenade GameObject/instantiated object
         Object.Destroy(m_goThrow);
         m_grenadeParent.RemoveThrownGrenade(this);
