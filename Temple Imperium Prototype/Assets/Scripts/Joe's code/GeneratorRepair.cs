@@ -23,8 +23,6 @@ public class GeneratorRepair : MonoBehaviour
     [SerializeField]
     private GameObject prefabUIPiecePreview;    //The prefab UI panel used to show each collected piece
     [SerializeField]
-    private string pieceCollectSound;           //The sound to be played when a GeneratorPiece is collected
-    [SerializeField]
     private string repairSound;                 //The sound to be played when repairing the generator
 
     private Queue<GeneratorPiece> collectedPieceQueue = new Queue<GeneratorPiece>();    //Collected generator pieces, using queue so items
@@ -55,7 +53,7 @@ public class GeneratorRepair : MonoBehaviour
         }
     }
 
-    public bool TryCollectPiece(GeneratorPiece piece)
+    public bool TryCollectPiece(GeneratorPiece piece, string collectionSoundName)
     {
         //All pieces to be picked up should be added to this script
         if(!piecesForRepair.Contains(piece))
@@ -107,7 +105,7 @@ public class GeneratorRepair : MonoBehaviour
             }
 
             //Play the collection sound for audio feedback
-            SoundEffectPlayer.instance.PlaySoundEffect2D(pieceCollectSound);
+            SoundEffectPlayer.instance.PlaySoundEffect2D(collectionSoundName);
         }
 
         return canCollect;

@@ -5,7 +5,7 @@
 //  it to be picked up by a player, and supply them     \\
 //  with a set amount of ammo for a certain gun.        \\
 //------------------------------------------------------\\
-//      Written by Joe for proof of concept phase       \\
+//      Written by Joe for prototype phase              \\
 //------------------------------------------------------\\
 
 public class AmmoPickup : MonoBehaviour
@@ -15,6 +15,8 @@ public class AmmoPickup : MonoBehaviour
     private int ammo;                   //The amount of ammo to be picked up
     [SerializeField]
     private GunWeaponTemplate gunType;  //The gun type this ammo is used for
+    [SerializeField]
+    private string pickupSound; //Name of the sound to be played when this item is picked up
 
     private void OnTriggerEnter(Collider other)
     {
@@ -23,6 +25,7 @@ public class AmmoPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<WeaponHolder>().PickupAmmo(ammo, gunType);
+            SoundEffectPlayer.instance.PlaySoundEffect3D(pickupSound, transform.position);
             Destroy(gameObject);
         }
     }

@@ -12,6 +12,8 @@ public class GeneratorPiece : MonoBehaviour
     //Set in inspector:
     [SerializeField]
     private string pieceName;   //The name of this piece to display in the UI
+    [SerializeField]
+    private string pickupSound; //Name of the sound to be played when this piece is picked up
 
     public int repairIndex { get; set; }        //Used to check if this piece should be collected before/after others
     public GameObject goUIPreview { get; set; } //UI to show that this piece was collected
@@ -40,7 +42,7 @@ public class GeneratorPiece : MonoBehaviour
 
             //If this is a valid piece to collect, collect it and destroy the GameObject
             //  so it can't be collected multiple times
-            if (generatorRepair.TryCollectPiece(this))
+            if (generatorRepair.TryCollectPiece(this, pickupSound))
             {
                 Debug.Log("Collected GeneratorPiece: " + pieceName);
                 Destroy(gameObject);

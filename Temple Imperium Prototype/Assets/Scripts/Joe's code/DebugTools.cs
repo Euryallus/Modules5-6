@@ -51,9 +51,8 @@ public class DebugTools : MonoBehaviour
             {
                 //Extra info to display for grenades: number remaining and shortcut info
                 textInfo1.gameObject.SetActive(true);
-                textInfo2.gameObject.SetActive(true);
+                textInfo2.gameObject.SetActive(false);
                 textInfo1.text = "Grenades remaining: " + grenade.m_grenadeCount;
-                textInfo2.text = "(Press G to add a grenade)";
             }
             else
             {
