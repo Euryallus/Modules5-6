@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 //
@@ -133,10 +134,16 @@ public class playStateControl : MonoBehaviour
 
             case waveState.gameWon:
                 timeRemaining.text = "Game won!";
+                //Added by Joe - loads the end text cutscene when the player wins
+                TextCutscene.storyIndex = 0;    //0 = 'player won' outcome for the cutscene
+                SceneManager.LoadScene("EndScene");
                 break;
 
             case waveState.gameLost:
                 timeRemaining.text = "FAILED";
+                //Added by Joe - loads the end text cutscene when the player loses
+                TextCutscene.storyIndex = 1;    //1 = 'player lost' outcome for the cutscene
+                SceneManager.LoadScene("EndScene");
                 break;
         }
     }
