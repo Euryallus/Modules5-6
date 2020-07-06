@@ -45,4 +45,8 @@ public class mainMenu : MonoBehaviour
         PlayerPrefs.SetInt("Difficulty", difficultyDropDown.value);
         Debug.Log("Current difficulty: " + difficultyDropDown.value);
     }
+
+    public void LoadIntroScene()
+    {
+    }
 }

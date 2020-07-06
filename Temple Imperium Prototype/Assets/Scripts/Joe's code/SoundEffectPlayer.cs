@@ -120,6 +120,9 @@ public class SoundEffectPlayer : MonoBehaviour
 
     public void PlayGenericSoundEffect(string name, bool use3dSpace, Vector3 sourcePosition, float volume = 1f, float minPitch = 1f, float maxPitch = 1f, bool looping = false, string loopId = "")
     {
+        if (soundEffectsDict == null)
+            return;
+
         //Check that the specified sound exists and throw an error if now
         if (!soundEffectsDict.ContainsKey(name))
         {
