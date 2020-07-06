@@ -172,7 +172,7 @@ public class GunWeapon : Weapon
         SoundEffectPlayer.instance.PlaySoundEffect2D(m_gunTemplate.m_meleeSound, m_gunTemplate.m_meleeSoundVolume, 0.95f, 1.05f);
     }
 
-    private void StartReload()
+    public void StartReload()
     {
         //Start reloading the gun if ammo is available
         if(m_totalAmmo > 0)
@@ -189,12 +189,12 @@ public class GunWeapon : Weapon
 
         m_reloading = false;
         //Set loaded ammo to the gun's magazine size, or the remaining amount of ammo if there is not enough for a full reload
-        int reloadAmount = ((GunWeaponTemplate)m_template).GetMagazineSize();
+        int reloadAmount = ((GunWeaponTemplate)m_template).GetMagazineSize() - m_loadedAmmo;
         if(reloadAmount > m_totalAmmo)
         {
             reloadAmount = m_totalAmmo;
         }
-        m_loadedAmmo = reloadAmount;
+        m_loadedAmmo += reloadAmount;
         //Reduce totalAmmo by the ammo amount that was loaded
         m_totalAmmo -= reloadAmount;
     }

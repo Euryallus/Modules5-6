@@ -100,6 +100,7 @@ public class WeaponHolder : MonoBehaviour
         {
             CheckForWeaponSwitchInput();
             CheckForAttackInput();
+            CheckForWeaponActionInput();
             UpdateWeaponPosition();
             UpdateCamera();
         }
@@ -337,6 +338,18 @@ public class WeaponHolder : MonoBehaviour
         if (Input.GetButtonUp("Fire1"))
         {
             TryEndingWeaponUsage();
+        }
+    }
+    private void CheckForWeaponActionInput()
+    {
+        //If holding a gun, reload when the R key is pressed
+        //  (Guns auto reload when out of ammo, this gives the option for a manual reload at any time)
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if(activeWeapon != null && activeWeapon is GunWeapon activeGun)
+            {
+                activeGun.StartReload();
+            }
         }
     }
     public void TryUsingWeapon(bool buttonDown)
