@@ -31,6 +31,8 @@ public class playStateControl : MonoBehaviour
     private GameObject[] remainingEnemies;
     private GameObject[] spawners;
 
+    public float timeBeforeGameStarts = 5f;
+
 
     protected enum waveState
     {
@@ -39,7 +41,10 @@ public class playStateControl : MonoBehaviour
 
     protected waveState current;
 
-
+    private void Start()
+    {
+        StartCoroutine(autoStart());
+    }
     public void startGame() //begins game from the top
     {
         wavePointer = 0;
@@ -55,6 +60,13 @@ public class playStateControl : MonoBehaviour
                 }
             }
         }
+    }
+
+    private IEnumerator autoStart()
+    {
+        yield return new WaitForSeconds(timeBeforeGameStarts);
+        GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<starStoneManager>().activateStone((starStoneManager.starStones)Random.Range(0, 4));
+        startGame();
     }
 
     public void playerDied()

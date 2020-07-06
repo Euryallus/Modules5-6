@@ -56,7 +56,7 @@ public class starStoneManager : MonoBehaviour
     {
         if(activeStone == starStones.None)
         {
-            GameObject.FindGameObjectWithTag("spawnerManager").GetComponent<playStateControl>().startGame();
+            //GameObject.FindGameObjectWithTag("spawnerManager").GetComponent<playStateControl>().startGame();
             starStoneHUD.alpha = 1;
         }
 
