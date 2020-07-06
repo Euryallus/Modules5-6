@@ -111,7 +111,7 @@ public class GunWeapon : Weapon
             else if (goHit.CompareTag("Wall") || (goHit.transform.parent != null && goHit.transform.parent.CompareTag("Wall")))
             {
                 CreateBulletHole(weaponAimInfo.m_hitInfo);
-                SoundEffectPlayer.instance.PlaySoundEffect3D(m_gunTemplate.m_objectHitSound, weaponAimInfo.m_hitInfo.point, m_gunTemplate.m_objectHitSoundVolume);
+                AudioManager.instance.PlaySoundEffect3D(m_gunTemplate.m_objectHitSound, weaponAimInfo.m_hitInfo.point, m_gunTemplate.m_objectHitSoundVolume);
             }
         }
         else
@@ -128,7 +128,7 @@ public class GunWeapon : Weapon
 
         //Trigger the shoot animation and sound
         gunGameObject.transform.Find("Gun").GetComponent<Animator>().SetTrigger("Shoot");
-        SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.m_attackSound, m_template.m_attackSoundVolume, 0.95f, 1.05f);
+        AudioManager.instance.PlaySoundEffect2D(m_template.m_attackSound, m_template.m_attackSoundVolume, 0.95f, 1.05f);
     }
 
     //Alternate melee attack for guns
@@ -170,7 +170,7 @@ public class GunWeapon : Weapon
 
         //Trigger the melee animation and sound
         weaponGameObject.transform.Find("Gun").GetComponent<Animator>().SetTrigger("MeleeAttack");
-        SoundEffectPlayer.instance.PlaySoundEffect2D(m_gunTemplate.m_meleeSound, m_gunTemplate.m_meleeSoundVolume, 0.95f, 1.05f);
+        AudioManager.instance.PlaySoundEffect2D(m_gunTemplate.m_meleeSound, m_gunTemplate.m_meleeSoundVolume, 0.95f, 1.05f);
     }
 
     public void StartReload()
@@ -181,7 +181,7 @@ public class GunWeapon : Weapon
             Debug.Log(m_template.GetWeaponName() + ": Starting reload");
             m_reloadTimer = m_gunTemplate.GetReloadTime();
             m_reloading = true;
-            SoundEffectPlayer.instance.PlaySoundEffect2D(m_gunTemplate.m_reloadSound, m_gunTemplate.m_reloadSoundVolume);
+            AudioManager.instance.PlaySoundEffect2D(m_gunTemplate.m_reloadSound, m_gunTemplate.m_reloadSoundVolume);
         }
     }
 

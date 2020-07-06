@@ -152,7 +152,7 @@ public class TextCutscene : MonoBehaviour
 
             //Play a sound every other loop
             if (triggerSound)
-                SoundEffectPlayer.instance.PlaySoundEffect2D("Typewriter Key", 0.6f, 0.98f, 1.02f);
+                AudioManager.instance.PlaySoundEffect2D("Typewriter Key", 0.6f, 0.98f, 1.02f);
             triggerSound = !triggerSound;
 
             //Wait for a set amount of time based on animationSpeed before continuing the animaion
@@ -160,7 +160,7 @@ public class TextCutscene : MonoBehaviour
         }
 
         //All characters are added, animating is done
-        SoundEffectPlayer.instance.PlaySoundEffect2D("Typewriter Ding", 0.8f, 0.98f, 1.02f);
+        AudioManager.instance.PlaySoundEffect2D("Typewriter Ding", 0.8f, 0.98f, 1.02f);
         StopAnimatingText();
     }
 }

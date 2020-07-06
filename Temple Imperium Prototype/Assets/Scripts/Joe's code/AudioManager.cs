@@ -5,15 +5,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 //------------------------------------------------------\\
-//  SoundEffectPlayer provides an easy interface for    \\
+//  AudioManager provides an easy interface for         \\
 //  sounds of various types to be played from any scene \\
 //------------------------------------------------------\\
-//      Written by Joe for proof of concept phase       \\
+//      Written by Joe for prototype phase              \\
 //------------------------------------------------------\\
 
-public class SoundEffectPlayer : MonoBehaviour
+public class AudioManager : MonoBehaviour
 {
-    public static SoundEffectPlayer instance;
+    public static AudioManager instance;
 
     //Set in inspector:
     [Header("Add music for different scenes:")]
@@ -36,7 +36,7 @@ public class SoundEffectPlayer : MonoBehaviour
 
     private void Awake()
     {
-        //Ensure that an instance of the SoundEffectPlayer class does not already exist
+        //Ensure that an instance of the AudioManager class does not already exist
         if (instance == null)
         {
             //Set this class as the instance and ensure that it stays when changing scenes
@@ -62,7 +62,7 @@ public class SoundEffectPlayer : MonoBehaviour
 
     private void Update()
     {
-        if(!audioSourceMusic.isPlaying && currentSceneMusicTracks.Count > 0)
+        if (!audioSourceMusic.isPlaying && currentSceneMusicTracks.Count > 0)
         {
             PlayRandomSceneMusicTrack();
         }
@@ -74,7 +74,7 @@ public class SoundEffectPlayer : MonoBehaviour
         currentSceneMusicTracks = new List<MusicTrack>();
         for (int i = 0; i < sceneMusicTracks.Length; i++)
         {
-            if(sceneMusicTracks[i].sceneName == scene.name)
+            if (sceneMusicTracks[i].sceneName == scene.name)
             {
                 for (int j = 0; j < sceneMusicTracks[i].musicTracks.Count; j++)
                 {
@@ -198,7 +198,7 @@ public class SoundEffectPlayer : MonoBehaviour
     public void StopLoopingSoundEffect(string loopId)
     {
         GameObject goLoopSource = GameObject.Find("LoopSound_" + loopId);
-        if(goLoopSource != null)
+        if (goLoopSource != null)
         {
             Destroy(goLoopSource);
         }
@@ -232,4 +232,27 @@ public class SoundEffectPlayer : MonoBehaviour
             }
         }
     }
+}
+
+//Used to define sound effects in the editor, each SoundEffect has
+//  - a name used to identify it
+//  - an audioClip, the actual sound to be played
+[Serializable]
+public struct SoundEffect
+{
+    public string name;
+    public AudioClip audioClip;
+}
+[Serializable]
+public struct SceneMusicTracks
+{
+    public string sceneName;
+    public List<MusicTrack> musicTracks;
+}
+[Serializable]
+public struct MusicTrack
+{
+    public string name;
+    public bool loop;
+    public AudioClip audioClip;
 }

@@ -507,7 +507,7 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
-        SoundEffectPlayer.instance.PlaySoundEffect3D("Believe", transform.position, 1f, 0.95f, 1.05f);
+        AudioManager.instance.PlaySoundEffect3D("Believe", transform.position, 1f, 0.95f, 1.05f);
         Destroy(gameObject);
     }
 

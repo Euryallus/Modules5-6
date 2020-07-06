@@ -105,7 +105,7 @@ public class GeneratorRepair : MonoBehaviour
             }
 
             //Play the collection sound for audio feedback
-            SoundEffectPlayer.instance.PlaySoundEffect2D(collectionSoundName);
+            AudioManager.instance.PlaySoundEffect2D(collectionSoundName);
         }
 
         return canCollect;
@@ -155,7 +155,7 @@ public class GeneratorRepair : MonoBehaviour
                 {
                     goPiecesUIPanel.transform.parent.gameObject.SetActive(false);
                 }
-                SoundEffectPlayer.instance.PlaySoundEffect2D(repairSound);
+                AudioManager.instance.PlaySoundEffect2D(repairSound);
             }
         }
     }

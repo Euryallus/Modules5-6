@@ -22,7 +22,7 @@ public class PrototypeWeaponCharging : MonoBehaviour
             if(weapon != null)
             {
                 weapon.SetCharging(true);
-                SoundEffectPlayer.instance.PlayLoopingSoundEffect("Charge Loop", true, transform.position, loopSoundId, 1f);
+                AudioManager.instance.PlayLoopingSoundEffect("Charge Loop", true, transform.position, loopSoundId, 1f);
             }
         }
     }
@@ -36,7 +36,7 @@ public class PrototypeWeaponCharging : MonoBehaviour
             {
                 weapon.SetCharging(false);
                 weapon = null;
-                SoundEffectPlayer.instance.StopLoopingSoundEffect(loopSoundId);
+                AudioManager.instance.StopLoopingSoundEffect(loopSoundId);
             }
         }
     }

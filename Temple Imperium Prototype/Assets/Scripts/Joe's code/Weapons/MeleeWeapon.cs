@@ -55,7 +55,7 @@ public class MeleeWeapon : Weapon
 
         //Trigger the attack animation and sound
         meleeGameObject.transform.Find("Weapon").GetComponent<Animator>().SetTrigger("Attack");
-        SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.m_attackSound, m_template.m_attackSoundVolume, 0.95f, 1.05f);
+        AudioManager.instance.PlaySoundEffect2D(m_template.m_attackSound, m_template.m_attackSoundVolume, 0.95f, 1.05f);
     }
 
     //No alternate attack for melee weapons

@@ -39,7 +39,7 @@ public class PrototypeWeapon : Weapon
     public override void SwitchingToOtherWeapon()
     {
         m_poweringUp = false;
-        SoundEffectPlayer.instance.StopLoopingSoundEffect("protoBeam");
+        AudioManager.instance.StopLoopingSoundEffect("protoBeam");
     }
 
     public override bool ReadyToAttack()
@@ -269,10 +269,10 @@ public class PrototypeWeapon : Weapon
             }
 
             //Power attack is a one-shot attack, so stop powering up and reset the attack interval
-            SoundEffectPlayer.instance.PlaySoundEffect2D(m_prototypeTemplate.m_powerSound, m_prototypeTemplate.m_powerSoundVolume);
+            AudioManager.instance.PlaySoundEffect2D(m_prototypeTemplate.m_powerSound, m_prototypeTemplate.m_powerSoundVolume);
             m_poweringUp = false;
             m_attackIntervalTimer = m_template.GetAttackInterval();
-            SoundEffectPlayer.instance.StopLoopingSoundEffect("protoBeam");
+            AudioManager.instance.StopLoopingSoundEffect("protoBeam");
             //Also destroy the beam after a short amount of time so it appears as a flash of light
             m_weaponHolder.DestroyWeaponGameObjectAfterTime(m_goBeam, 0.2f);
         }
@@ -362,14 +362,14 @@ public class PrototypeWeapon : Weapon
         m_poweringUp = false;
         if (m_goBeam != null)
         {
-            SoundEffectPlayer.instance.PlaySoundEffect2D(m_prototypeTemplate.m_disableSound, m_prototypeTemplate.m_disableSoundVolume);
+            AudioManager.instance.PlaySoundEffect2D(m_prototypeTemplate.m_disableSound, m_prototypeTemplate.m_disableSoundVolume);
             Object.Destroy(m_goBeam);
         }
         if (m_goWeapon != null)
         {
             m_goWeapon.transform.Find("Weapon").GetComponent<Animator>().SetBool("Shooting", false);
         }
-        SoundEffectPlayer.instance.StopLoopingSoundEffect("protoBeam");
+        AudioManager.instance.StopLoopingSoundEffect("protoBeam");
     }
 
     private void StartPoweringUp()
@@ -380,8 +380,8 @@ public class PrototypeWeapon : Weapon
         m_damageTimer = 0f;
 
         //Play attack sound and start a looping sonud that plays for the duration of an attack
-        SoundEffectPlayer.instance.PlaySoundEffect2D(m_template.m_attackSound, m_template.m_attackSoundVolume, 0.95f, 1.05f);
-        SoundEffectPlayer.instance.PlayLoopingSoundEffect(m_prototypeTemplate.m_firingSound, false, Vector3.zero, "protoBeam", m_prototypeTemplate.m_firingSoundVolume);
+        AudioManager.instance.PlaySoundEffect2D(m_template.m_attackSound, m_template.m_attackSoundVolume, 0.95f, 1.05f);
+        AudioManager.instance.PlayLoopingSoundEffect(m_prototypeTemplate.m_firingSound, false, Vector3.zero, "protoBeam", m_prototypeTemplate.m_firingSoundVolume);
     }
 
     private void CreateBeamGameObject(GameObject weaponGameObject)
