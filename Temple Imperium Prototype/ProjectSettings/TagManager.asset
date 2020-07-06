@@ -23,6 +23,7 @@ TagManager:
   - head
   - Wall
   - healthFlash
+  - deathMenu
   layers:
   - Default
   - TransparentFX

@@ -13,14 +13,16 @@ public class pauseMenu : MonoBehaviour
 {
     private CanvasGroup group;
     private bool showingPause = false;
+    private GameObject player;
 
     private void Start()
     {
         group = gameObject.GetComponent<CanvasGroup>(); //assigns canvas group component for later use
+        player = GameObject.FindGameObjectWithTag("Player");
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) //on Escape input;
+        if (Input.GetKeyDown(KeyCode.Escape) && player.GetComponent<playerHealth>().isDead() == false) //on Escape input;
         {
             showingPause = !showingPause; //value of showingPause is inverted
 

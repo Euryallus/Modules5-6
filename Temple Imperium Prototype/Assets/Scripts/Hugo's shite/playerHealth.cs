@@ -46,6 +46,9 @@ public class playerHealth : MonoBehaviour
     private IEnumerator coroutine;
 
     private GameObject healthFlash;
+    private GameObject deathMenu;
+
+    private bool isPlayerDead = false;
 
     private void Start()
     {
@@ -56,6 +59,8 @@ public class playerHealth : MonoBehaviour
 
         healthFlash = GameObject.FindGameObjectWithTag("healthFlash");
         healthFlash.GetComponent<Image>().enabled = false;
+        deathMenu = GameObject.FindGameObjectWithTag("deathMenu");
+        deathMenu.SetActive(false);
     }
 
     private void Update()
@@ -103,6 +108,11 @@ public class playerHealth : MonoBehaviour
         shieldActive = false;
     }
 
+    public bool isDead()
+    {
+        return isPlayerDead;
+    }
+
     public bool isShieldActive() //returns true / false value for if shield is active
     {
         return shieldActive;
@@ -125,12 +135,17 @@ public class playerHealth : MonoBehaviour
         healthFlash.GetComponent<Image>().color = new Color(healthFlash.GetComponent<Image>().color.r, healthFlash.GetComponent<Image>().color.g, healthFlash.GetComponent<Image>().color.b, 0.3f);
 
 
-        if (health == 0)
+        if (health <= 0)
         {
             // TEMPORARY DEATH STATE
 
             // ############################
-            Debug.LogWarning("Player dead");
+            deathMenu.SetActive(true);
+            deathMenu.GetComponent<Animator>().Play("deadFade", 0);
+            //Time.timeScale = 0;
+            isPlayerDead = true;
+            gameObject.GetComponent<playerMovement>().enabled = false;
+
             // ############################
         }
     }

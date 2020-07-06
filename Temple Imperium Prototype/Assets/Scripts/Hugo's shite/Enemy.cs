@@ -139,7 +139,16 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        checkForPlayer();
+        if (player.GetComponent<playerHealth>().isDead())
+        {
+            currentState = State.Idle;
+        }
+        else
+        {
+            checkForPlayer();
+        }
+
+
 
         // 
         // ## SWITCH STATEMENT
@@ -153,6 +162,12 @@ public class Enemy : MonoBehaviour
                 // ## IDLE STATE
                 // ## Nothing happens - Debug state
                 //
+                if(gameObject.GetComponent<NavMeshAgent>().enabled == true)
+                {
+                    gameObject.GetComponent<NavMeshAgent>().enabled = false;
+                }
+                //agent.SetDestination(transform.position);
+
                 break;
 
             case State.Patrol:
