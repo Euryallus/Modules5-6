@@ -360,6 +360,7 @@ public class PrototypeWeapon : Weapon
     {
         //Disable attack sounds/animations and stop powering up
         m_poweringUp = false;
+        m_damagePower = 0f;
         if (m_goBeam != null)
         {
             AudioManager.instance.PlaySoundEffect2D(m_prototypeTemplate.m_disableSound, m_prototypeTemplate.m_disableSoundVolume);
@@ -386,6 +387,12 @@ public class PrototypeWeapon : Weapon
 
     private void CreateBeamGameObject(GameObject weaponGameObject)
     {
+
+        if (m_goBeam != null)
+        {
+            Object.Destroy(m_goBeam);
+        }
+
         //Create the beam and position it based on range
         m_goBeam = Object.Instantiate(m_prototypeTemplate.GetBeamGameObject(), weaponGameObject.transform.Find("AimPoint"));
 

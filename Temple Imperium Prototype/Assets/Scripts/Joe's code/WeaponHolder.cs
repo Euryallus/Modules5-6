@@ -39,6 +39,7 @@ public class WeaponHolder : MonoBehaviour
     private Quaternion targetWeaponRotation;                    //Rotation of the held weapon to lerp towards
     private float targetCameraFOV;                              //First person camera field of view to lerp towards
     private bool aimDownSights;                                 //Is the entity currently aiming down sights
+    private starStoneManager.starStones lastFrameStarStone;
 
     private void Start()
     {
@@ -94,6 +95,12 @@ public class WeaponHolder : MonoBehaviour
         {
             activeWeapon.HeldUpdate();
         }
+
+        if (generatorStates.returnActive() != lastFrameStarStone)
+        {
+            TryEndingWeaponUsage();
+        }
+        lastFrameStarStone = generatorStates.returnActive();
 
         //Player specific updates
         if (playerControlsWeapons)

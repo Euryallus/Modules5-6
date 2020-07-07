@@ -213,7 +213,7 @@ public class GunWeapon : Weapon
     {
         int layerMask = (~LayerMask.GetMask("Player"));
 
-        float bulletHoleRadius = 0.05f;
+        const float bulletHoleRadius = 0.05f;
         Vector3[] rayOffsets = new Vector3[] { m_weaponHolder.transform.right * bulletHoleRadius, m_weaponHolder.transform.up * -bulletHoleRadius,
                                                m_weaponHolder.transform.right * -bulletHoleRadius, m_weaponHolder.transform.up * bulletHoleRadius };
         for (int i = 0; i < rayOffsets.Length; i++)
