@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Demo1
   m_EditorClassIdentifier: 
   timeBetweenEnemySpawns: 0.5
-  enemy1Numbers: 4
-  enemy2Numbers: 1
+  enemy1Numbers: 0
+  enemy2Numbers: 0
   enemy3Numbers: 0
+  bossNumbers: 1
   waveLength: 70
   downtime: 15

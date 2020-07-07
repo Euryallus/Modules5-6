@@ -5055,9 +5055,8 @@ MonoBehaviour:
   availableWeaponTemplates:
   - {fileID: 11400000, guid: bcc9d427d04d6ba4aad4d77e70dcaaf9, type: 2}
   - {fileID: 11400000, guid: 762aed5ac06e58e47b13dda5f8d40472, type: 2}
-  - {fileID: 11400000, guid: 8f634272b6b6a1b4caeec1cf44b7e9d0, type: 2}
-  - {fileID: 11400000, guid: 8e36741c32ba35b4e8acab4167f7479b, type: 2}
   - {fileID: 11400000, guid: 4a140944ca2d95240af3c6218d0d2f26, type: 2}
+  - {fileID: 11400000, guid: 8e36741c32ba35b4e8acab4167f7479b, type: 2}
   transformHead: {fileID: 1560171430344771203}
   prefabFireLight: {fileID: 5915441349947503207, guid: 859a468e0eabd5544826ab78aeb548e4,
     type: 3}
@@ -5180,7 +5179,7 @@ GameObject:
   - component: {fileID: 1560171430344771203}
   m_Layer: 0
   m_Name: Head
-  m_TagString: Untagged
+  m_TagString: head
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -17,6 +17,7 @@ public class waveData : ScriptableObject
     public int enemy1Numbers;
     public int enemy2Numbers;
     public int enemy3Numbers;
+    public int bossNumbers;
     public float waveLength;
 
     public float downtime;

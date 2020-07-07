@@ -18,8 +18,14 @@ public class playStateControl : MonoBehaviour
         List<Door> doors = new List<Door>();
         [SerializeField]
         private Text timeRemaining;
+        [SerializeField]
+        private Transform bossWavePlayerSpawnLocation;
+        [SerializeField]
+        private Transform bossWaveBossSpawnLocation;
+        [SerializeField]
+        private Text waveDisplay;
     [SerializeField]
-    private Text waveDisplay;
+    private GameObject boss;
 
     private int wavePointer = 0;
     
@@ -30,6 +36,7 @@ public class playStateControl : MonoBehaviour
 
     private GameObject[] remainingEnemies;
     private GameObject[] spawners;
+    private GameObject player;
 
     public float timeBeforeGameStarts = 5f;
 
@@ -43,7 +50,9 @@ public class playStateControl : MonoBehaviour
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         StartCoroutine(autoStart());
+        
     }
     public void startGame() //begins game from the top
     {
@@ -85,10 +94,16 @@ public class playStateControl : MonoBehaviour
         waveTimer = 0;
         spawners = GameObject.FindGameObjectsWithTag("Spawner");
 
-        for (int i = 0; i < spawners.Length; i++)
-        {
-            spawners[i].GetComponent<spawnerScript>().startWave(waves[wavePointer]);
-        }
+        
+            for (int i = 0; i < spawners.Length; i++)
+            {
+                spawners[i].GetComponent<spawnerScript>().startWave(waves[wavePointer]);
+            }
+        
+
+       
+
+
 
         current = waveState.waveActive;
 
@@ -165,6 +180,8 @@ public class playStateControl : MonoBehaviour
                 waveDisplay.text = "";
                 break;
         }
+
+        Debug.Log("MOVED TO " + player.transform.position);
     }
 
     public void checkRemainingEnemies()
@@ -202,11 +219,35 @@ public class playStateControl : MonoBehaviour
             yield return new WaitForSeconds(waitLength / 2);
             current = waveState.beforeWaveStart;
             yield return new WaitForSeconds(waitLength / 2);
-        
-            initiateWave(waves[wavePointer]);
+
+            if(wavePointer == waves.Count - 1 && waves[wavePointer].bossNumbers > 0)
+            {
+                initiateBossFight();
+            }
+            else
+            {
+                initiateWave(waves[wavePointer]);
+            }
 
             nextWaveStarted = false;
         }
         
+    }
+
+    private void initiateBossFight()
+    {
+        player.GetComponent<playerMovement>().enabled = false;
+        player.transform.position = bossWavePlayerSpawnLocation.position;
+        player.GetComponent<playerMovement>().enabled = true;
+
+        waveLength = waves[wavePointer].waveLength;
+        waveTimer = 0;
+
+
+        boss.SetActive(true);
+        //
+        current = waveState.waveActive;
+        nextWaveStarted = true;
+        //current = waveState.waveActive;
     }
 }

@@ -18,6 +18,8 @@ public class starStoneManager : MonoBehaviour
     private List<Image> UIElements = new List<Image>();
     [SerializeField]
     private List<GameObject> UIHighlights = new List<GameObject>();
+    [SerializeField]
+    private List<Material> enemyMaterials = new List<Material>();
     private List<float> activeCharge = new List<float> {0, 0, 0, 0};
     private Texture currentTexture;
 
@@ -100,7 +102,20 @@ public class starStoneManager : MonoBehaviour
             UIHighlights[i].GetComponent<Image>().color = new Color(UIHighlights[i].GetComponent<Image>().color.r, UIHighlights[i].GetComponent<Image>().color.g, UIHighlights[i].GetComponent<Image>().color.b, activeCharge[i] / maxCharge);
 
             UIElements[i].color = new Color(UIElements[i].color.r, UIElements[i].color.g, UIElements[i].color.b, activeCharge[i] / maxCharge);
+
             
-        } 
+
+            
+            
+        }
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if(enemies.Length > 0)
+        {
+            for (int j = 0; j < enemies.Length; j++)
+            {
+                enemies[j].GetComponent<MeshRenderer>().material = enemyMaterials[(int)activeStone];
+            }
+        }
+        
     }
 }

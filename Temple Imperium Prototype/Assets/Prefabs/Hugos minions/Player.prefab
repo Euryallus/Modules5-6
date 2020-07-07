@@ -148,7 +148,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7362584270439398437}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.5, y: 1.45, z: -8.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7362584270012230262}
@@ -236,7 +236,13 @@ MonoBehaviour:
   shieldUpTime: 5
   damageReductionPercent: 0.75
   health: 30
+  fullHealthColour: {r: 0, g: 0, b: 0, a: 0}
+  ZeroHealthColour: {r: 0, g: 0, b: 0, a: 0}
+  shieldRegenTime: 5
+  shieldSlowPercentage: 0.5
   healthBar: {fileID: 0}
+  fireEffect: {fileID: 0}
+  stateDisplay: {fileID: 0}
 --- !u!114 &7362584270439398436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,19 +255,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98e7ec45f4522774a80d25fa1f8dc914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTo: {x: 0, y: 0, z: 0}
-  onLadder: 0
   playerJump: 1.75
   mouseSensitivity: 250
   playerSpeed: 6
   playerMass: 1
-  isCrouching: 0
-  gravConst: 9.81
-  hasJumped: 0
-  playerCamera: {fileID: 0}
-  controller: {fileID: 0}
-  canClimb: 0
-  noteMenu: {fileID: 0}
+  sprintMag: 1.75
+  crouchSpeedReduction: 2
 --- !u!114 &7362584270439398462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,10 +274,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 0}
-  hitObject: {fileID: 0}
-  pickUpItem: {fileID: 0}
-  display: {fileID: 0}
-  noteMenu: {fileID: 0}
 --- !u!114 &7362584270439398434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,6 +295,9 @@ MonoBehaviour:
   transformHead: {fileID: 7362584271407506441}
   prefabFireLight: {fileID: 5915441349947503207, guid: 859a468e0eabd5544826ab78aeb548e4,
     type: 3}
+  playerCamera: {fileID: 0}
+  defaultCameraFOV: 90
+  adsCameraFOV: 60
 --- !u!136 &7362584270439398461
 CapsuleCollider:
   m_ObjectHideFlags: 0
