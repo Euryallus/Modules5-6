@@ -110,7 +110,10 @@ public class GunWeapon : Weapon
             }
             else if (goHit.CompareTag("Wall") || (goHit.transform.parent != null && goHit.transform.parent.CompareTag("Wall")))
             {
-                CreateBulletHole(weaponAimInfo.m_hitInfo);
+                if(CanCreateBulletHole(weaponAimInfo))
+                {
+                    CreateBulletHole(weaponAimInfo);
+                }
                 AudioManager.instance.PlaySoundEffect3D(m_gunTemplate.m_objectHitSound, weaponAimInfo.m_hitInfo.point, m_gunTemplate.m_objectHitSoundVolume);
             }
         }
@@ -206,11 +209,34 @@ public class GunWeapon : Weapon
         m_totalAmmo += amount;
     }
 
-    private void CreateBulletHole(RaycastHit hitInfo)
+    private bool CanCreateBulletHole(WeaponAimInfo aimInfo)
+    {
+        int layerMask = (~LayerMask.GetMask("Player"));
+
+        float bulletHoleRadius = 0.05f;
+        Vector3[] rayOffsets = new Vector3[] { m_weaponHolder.transform.right * bulletHoleRadius, m_weaponHolder.transform.up * -bulletHoleRadius,
+                                               m_weaponHolder.transform.right * -bulletHoleRadius, m_weaponHolder.transform.up * bulletHoleRadius };
+        for (int i = 0; i < rayOffsets.Length; i++)
+        {
+            Physics.Raycast(aimInfo.m_originPoint + rayOffsets[i], aimInfo.m_rayDirection, out RaycastHit hit, aimInfo.m_maxDistance, layerMask);
+
+            //Test how far apart the two hit points are in their normal directions, used to ensure their depths are the same to prevent
+            //  two surfaces with the same normals but different depths from registering as the same face (e.g. sides of stairs)
+            float depthDifference = Vector3.Distance(Vector3.Scale(hit.point, hit.normal), Vector3.Scale(aimInfo.m_hitInfo.point, aimInfo.m_hitInfo.normal));
+
+            if ( (hit.transform.name != aimInfo.m_hitInfo.transform.name) || (hit.normal != aimInfo.m_hitInfo.normal) || (depthDifference > 0.05f) )
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void CreateBulletHole(WeaponAimInfo aimInfo)
     {
         GameObject goBulletHole = Object.Instantiate(GameUtilities.instance.prefabBulletHole);
-        goBulletHole.transform.position = hitInfo.point + (hitInfo.normal * 0.001f);
-        goBulletHole.transform.rotation = Quaternion.LookRotation(hitInfo.normal);
+        goBulletHole.transform.position = aimInfo.m_hitInfo.point + (aimInfo.m_hitInfo.normal * 0.001f);
+        goBulletHole.transform.rotation = Quaternion.LookRotation(aimInfo.m_hitInfo.normal);
         if (m_bulletHoles.Count >= MAX_BULLET_HOLES)
         {
             Object.Destroy(m_bulletHoles.Dequeue());

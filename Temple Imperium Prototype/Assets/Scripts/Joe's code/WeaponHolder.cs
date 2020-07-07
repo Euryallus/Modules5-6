@@ -416,12 +416,12 @@ public class WeaponHolder : MonoBehaviour
         if (Physics.Raycast(transformHead.position, transformHead.forward, out RaycastHit hit, maxDistance, layerMask))
         {
             //Hit: Return WeaponAimInfo with the raycast result
-            return new WeaponAimInfo(hit.point, true, hit, maxDistance);
+            return new WeaponAimInfo(transformHead.position, transformHead.forward, hit.point, true, hit, maxDistance);
         }
         else
         {
             //No hit: Return WeaponAimInfo using the maxDistance for the weapon
-            return new WeaponAimInfo((transformHead.position + (transformHead.forward * maxDistance)), false, new RaycastHit(), maxDistance);
+            return new WeaponAimInfo(transformHead.position, transformHead.forward, (transformHead.position + (transformHead.forward * maxDistance)), false, new RaycastHit(), maxDistance);
         }
     }
 
@@ -482,14 +482,18 @@ public class WeaponHolder : MonoBehaviour
 public struct WeaponAimInfo
 {
     //Properties
+    public Vector3 m_originPoint { get; private set; }
+    public Vector3 m_rayDirection { get; private set; }
     public Vector3 m_aimPoint { get; private set; }     //The position the weapon should aim towards
     public bool m_raycastHit { get; private set; }      //Whether anything was hit by the last raycast
     public RaycastHit m_hitInfo { get; private set; }   //Info from the last raycast if anything was hit
     public float m_maxDistance { get; private set; }    //The maximum distance to aim for if nothing was hit
 
     //Constructor
-    public WeaponAimInfo(Vector3 aimPoint, bool raycastHit, RaycastHit hitInfo, float maxDistance)
+    public WeaponAimInfo(Vector3 originPoint, Vector3 rayDirection, Vector3 aimPoint, bool raycastHit, RaycastHit hitInfo, float maxDistance)
     {
+        m_originPoint = originPoint;
+        m_rayDirection = rayDirection;
         m_aimPoint = aimPoint;
         m_raycastHit = raycastHit;
         m_hitInfo = hitInfo;

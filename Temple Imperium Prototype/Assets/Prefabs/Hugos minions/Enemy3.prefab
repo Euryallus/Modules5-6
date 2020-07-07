@@ -5172,7 +5172,7 @@ MonoBehaviour:
   viewDistance: 20
   transitionTime: 3
   enemySpeed: 2.5
-  enemyHealth: 40
+  enemyHealth: 63
   regenPerSecond: 0.5
   healthBar: {fileID: 2245337604960216129}
   enemyViewAngle: 130

@@ -408,8 +408,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewDistance: 20
   transitionTime: 2.5
-  enemySpeed: 3.5
-  enemyHealth: 25
+  enemySpeed: 5
+  enemyHealth: 50
   regenPerSecond: 0.5
   healthBar: {fileID: 0}
   enemyViewAngle: 150
