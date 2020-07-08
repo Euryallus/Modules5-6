@@ -7163,6 +7163,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4784296737966045384, guid: bcee7b751df6f1c4fb579081c38ccd0e,
+        type: 3}
+      propertyPath: locked
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcee7b751df6f1c4fb579081c38ccd0e, type: 3}
 --- !u!1001 &4953821194527312071
@@ -7963,6 +7968,7 @@ MonoBehaviour:
   damageReductionPurpleStarStone: 0.5
   patrolPoints:
   - {fileID: 5206509637295143146}
+  currentPatrolPoint: 0
   difficulty: []
   bulletSpawnRate: 2
   bulletBlueprint: {fileID: 5455800343749663860, guid: 686ed8badb4dcd7408efa577f7089a05,
@@ -8186,6 +8192,7 @@ MonoBehaviour:
   damageReductionPurpleStarStone: 0.5
   patrolPoints:
   - {fileID: 5206509638268319682}
+  currentPatrolPoint: 0
   difficulty: []
   bulletSpawnRate: 2
   bulletBlueprint: {fileID: 5455800343749663860, guid: 686ed8badb4dcd7408efa577f7089a05,
@@ -8297,6 +8304,7 @@ MonoBehaviour:
   damageReductionPurpleStarStone: 0.5
   patrolPoints:
   - {fileID: 5206509638366467529}
+  currentPatrolPoint: 0
   difficulty: []
   bulletSpawnRate: 2
   bulletBlueprint: {fileID: 5455800343749663860, guid: 686ed8badb4dcd7408efa577f7089a05,
