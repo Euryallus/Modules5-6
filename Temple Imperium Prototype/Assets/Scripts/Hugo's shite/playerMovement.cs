@@ -59,7 +59,7 @@ public class playerMovement : MonoBehaviour
         noteMenu = GameObject.FindGameObjectWithTag("noteDisplayManager");
         head = GameObject.FindGameObjectWithTag("head");
 
-        GameObject.FindGameObjectWithTag("navMesh").AddComponent<NavMeshSurface>().BuildNavMesh();
+        GameObject.FindGameObjectWithTag("navMesh").GetComponent<NavMeshSurface>().BuildNavMesh();
     }
 
 

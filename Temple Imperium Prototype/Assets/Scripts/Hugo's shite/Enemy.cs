@@ -73,6 +73,7 @@ public class Enemy : MonoBehaviour
     private GameObject currentTarget;
 
     protected int investigationPointNo = 3;
+    [SerializeField]
     protected int currentPatrolPoint = 0;
     int investigatePointer = 0;
 
@@ -275,7 +276,20 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        agent.SetDestination(patrolPoints[currentPatrolPoint].position);
+        if (agent.CalculatePath(patrolPoints[currentPatrolPoint].position, agent.path) == true)
+        {
+            agent.SetDestination(patrolPoints[currentPatrolPoint].position);
+        }
+        else
+        {
+            currentPatrolPoint += 1;
+            if (currentPatrolPoint == patrolPoints.Count)
+            {
+                currentPatrolPoint = 0;
+                agent.SetDestination(patrolPoints[currentPatrolPoint].position);
+            }
+        }
+
     }
 
     public virtual void Investigate()
