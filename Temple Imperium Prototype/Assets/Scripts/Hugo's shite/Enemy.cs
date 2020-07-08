@@ -276,6 +276,8 @@ public class Enemy : MonoBehaviour
             }
         }
 
+        // Below fix used https://forum.unity.com/threads/navmesh-calculatepath-not-working-correctly.464243/ for bug fixing
+        // prevents AI trying to "patrol" points it cannot reach yet due to doors / blocks
         NavMeshPath path = new NavMeshPath();
         agent.CalculatePath(patrolPoints[currentPatrolPoint].position, path);
 

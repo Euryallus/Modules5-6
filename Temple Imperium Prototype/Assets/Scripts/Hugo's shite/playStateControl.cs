@@ -157,8 +157,11 @@ public class playStateControl : MonoBehaviour
                     if(doors[wavePointer] != null)
                     {
                         doors[wavePointer].SetLocked(false);
-                        doors[wavePointer].gameObject.layer = 10;
+                        doors[wavePointer].transform.GetChild(0).GetChild(0).gameObject.layer = 10;
+                        doors[wavePointer].transform.GetChild(0).GetChild(1).gameObject.layer = 10;
                         GameObject.FindGameObjectWithTag("navMesh").GetComponent<NavMeshSurface>().BuildNavMesh();
+                        
+                        
                     }
                     StartCoroutine(waitForNextWave(waves[wavePointer].downtime));
                     nextWaveStarted = true;
