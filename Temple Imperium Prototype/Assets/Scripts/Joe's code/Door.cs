@@ -15,6 +15,10 @@ public class Door : MonoBehaviour
     private Animator animator;          //The animator used for visually opening/closing the door
     [SerializeField]
     private BoxCollider boxCollider;    //The collider used for blocking the player when the door is locked
+    [SerializeField]
+    private bool openForEnemies = true;
+
+    private int entityInDoorCount;
 
     public void SetLocked(bool locked)
     {
@@ -24,16 +28,15 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || (openForEnemies && other.CompareTag("Enemy")))
         {
+            entityInDoorCount++;
+
             //If the player enters the door's trigger radius, either open the door
             //  or show a 'door locked' popup if the door is currently locked
             if (!locked)
             {
-                //Disable the collider so the player can move through
-                boxCollider.enabled = false;
-                //Visually open the door
-                animator.SetBool("Open", true);
+                OpenDoor();
             }
             else
             {
@@ -46,12 +49,32 @@ public class Door : MonoBehaviour
     {
         //Ensure the door is closed and the locked popup is not visible
         //  when the player leaves the door's trigger radius
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || (openForEnemies && other.CompareTag("Enemy")))
         {
-            boxCollider.enabled = true;
-            animator.SetBool("Open", false);
+            entityInDoorCount--;
 
-            UIManager.instance.HideDoorLockedPopup();
+            if(entityInDoorCount <= 0)
+            {
+                CloseDoor();
+            }
         }
+    }
+
+    private void OpenDoor()
+    {
+        //Disable the collider so the player can move through
+        boxCollider.enabled = false;
+        //Visually open the door
+        animator.SetBool("Open", true);
+    }
+
+    private void CloseDoor()
+    {
+        entityInDoorCount = 0;
+
+        boxCollider.enabled = true;
+        animator.SetBool("Open", false);
+
+        UIManager.instance.HideDoorLockedPopup();
     }
 }
