@@ -38,7 +38,8 @@ public class Door : MonoBehaviour
             {
                 OpenDoor();
             }
-            else
+
+            if(locked && other.CompareTag("Player"))
             {
                 UIManager.instance.ShowDoorLockedPopup(boxCollider.transform.position);
             }
