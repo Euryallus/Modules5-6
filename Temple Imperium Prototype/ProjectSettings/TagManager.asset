@@ -24,6 +24,7 @@ TagManager:
   - Wall
   - healthFlash
   - deathMenu
+  - navMesh
   layers:
   - Default
   - TransparentFX
@@ -34,8 +35,8 @@ TagManager:
   - 
   - 
   - Player
-  - 
-  - 
+  - Ceiling
+  - triggers
   - 
   - 
   - 

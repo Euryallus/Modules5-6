@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 //
 // ## HUGO BAILEY
@@ -94,16 +95,10 @@ public class playStateControl : MonoBehaviour
         waveTimer = 0;
         spawners = GameObject.FindGameObjectsWithTag("Spawner");
 
-        
-            for (int i = 0; i < spawners.Length; i++)
-            {
-                spawners[i].GetComponent<spawnerScript>().startWave(waves[wavePointer]);
-            }
-        
-
-       
-
-
+        for (int i = 0; i < spawners.Length; i++)
+        {
+            spawners[i].GetComponent<spawnerScript>().startWave(waves[wavePointer]);
+        }
 
         current = waveState.waveActive;
 
@@ -162,6 +157,8 @@ public class playStateControl : MonoBehaviour
                     if(doors[wavePointer] != null)
                     {
                         doors[wavePointer].SetLocked(false);
+                        doors[wavePointer].gameObject.layer = 10;
+                        GameObject.FindGameObjectWithTag("navMesh").GetComponent<NavMeshSurface>().BuildNavMesh();
                     }
                     StartCoroutine(waitForNextWave(waves[wavePointer].downtime));
                     nextWaveStarted = true;

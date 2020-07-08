@@ -16,5 +16,6 @@ MonoBehaviour:
   enemy1Numbers: 4
   enemy2Numbers: 0
   enemy3Numbers: 0
+  bossNumbers: 0
   waveLength: 90
-  downtime: 10
+  downtime: 50
