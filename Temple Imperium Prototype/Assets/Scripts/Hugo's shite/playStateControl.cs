@@ -60,16 +60,21 @@ public class playStateControl : MonoBehaviour
         wavePointer = 0;
         initiateWave(waves[0]);
 
-        for (int i = 0; i < waves.Count; i++)
-        {
-            if(doors.Count < waves.Count)
-            {
-                if(doors[i] == null)
-                {
-                    doors.Insert(i, null);
-                }
-            }
-        }
+       //while(doors.Count < waves.Count + 1)
+       //{
+       //    doors.Insert(doors.Count, null);
+       //}
+
+        //for (int i = 0; i < waves.Count; i++)
+        //{
+        //    if(doors.Count < waves.Count)
+        //    {
+        //        if(doors[i] == null)
+        //        {
+        //            doors.Insert(i, null);
+        //        }
+        //    }
+        //}
     }
 
     private IEnumerator autoStart()
@@ -159,9 +164,10 @@ public class playStateControl : MonoBehaviour
                         doors[wavePointer].SetLocked(false);
                         doors[wavePointer].transform.GetChild(0).GetChild(0).gameObject.layer = 10;
                         doors[wavePointer].transform.GetChild(0).GetChild(1).gameObject.layer = 10;
+
                         GameObject.FindGameObjectWithTag("navMesh").GetComponent<NavMeshSurface>().BuildNavMesh();
-                        
-                        
+
+                        Debug.Log("REBUILT");
                     }
                     StartCoroutine(waitForNextWave(waves[wavePointer].downtime));
                     nextWaveStarted = true;
