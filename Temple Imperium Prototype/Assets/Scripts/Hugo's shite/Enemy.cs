@@ -276,11 +276,10 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if (agent.CalculatePath(patrolPoints[currentPatrolPoint].position, agent.path) == true)
-        {
-            agent.SetDestination(patrolPoints[currentPatrolPoint].position);
-        }
-        else
+        NavMeshPath path = new NavMeshPath();
+        agent.CalculatePath(patrolPoints[currentPatrolPoint].position, path);
+
+        if (path.status == NavMeshPathStatus.PathPartial)
         {
             currentPatrolPoint += 1;
             if (currentPatrolPoint == patrolPoints.Count)
@@ -289,7 +288,10 @@ public class Enemy : MonoBehaviour
                 agent.SetDestination(patrolPoints[currentPatrolPoint].position);
             }
         }
-
+        else
+        {
+            agent.SetDestination(patrolPoints[currentPatrolPoint].position);
+        }
     }
 
     public virtual void Investigate()
@@ -308,7 +310,10 @@ public class Enemy : MonoBehaviour
             {
                 Vector3 investigatePoint = transform.position + Random.insideUnitSphere * 10; //randomly generates point around players last known location (radius of 10)
 
-                while(agent.CalculatePath(investigatePoint, agent.path) != true || investigatePoint.y > 3) //checks point is accessable to NavMesh agent before 'committing' to it
+                 NavMeshPath path = new NavMeshPath();
+                agent.CalculatePath(investigatePoint, path);
+
+                while(path.status == NavMeshPathStatus.PathPartial || investigatePoint.y > 3) //checks point is accessable to NavMesh agent before 'committing' to it
                 {
                     investigatePoint = transform.position + Random.insideUnitSphere * 10;
                 }
