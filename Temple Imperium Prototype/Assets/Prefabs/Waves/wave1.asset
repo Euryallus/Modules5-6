@@ -18,4 +18,4 @@ MonoBehaviour:
   enemy3Numbers: 0
   bossNumbers: 0
   waveLength: 90
-  downtime: 50
+  downtime: 15

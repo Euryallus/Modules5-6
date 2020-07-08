@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 //
 // ## HUGO BAILEY
@@ -57,6 +58,8 @@ public class playerMovement : MonoBehaviour
 
         noteMenu = GameObject.FindGameObjectWithTag("noteDisplayManager");
         head = GameObject.FindGameObjectWithTag("head");
+
+        GameObject.FindGameObjectWithTag("navMesh").AddComponent<NavMeshSurface>().BuildNavMesh();
     }
 
 
