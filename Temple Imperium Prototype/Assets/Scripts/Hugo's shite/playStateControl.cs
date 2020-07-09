@@ -25,8 +25,8 @@ public class playStateControl : MonoBehaviour
         private Transform bossWaveBossSpawnLocation;
         [SerializeField]
         private Text waveDisplay;
-    [SerializeField]
-    private GameObject boss;
+        [SerializeField]
+        private GameObject boss;
 
     private int wavePointer = 0;
     

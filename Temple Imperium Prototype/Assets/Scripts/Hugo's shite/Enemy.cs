@@ -312,10 +312,10 @@ public class Enemy : MonoBehaviour
             {
                 Vector3 investigatePoint = transform.position + Random.insideUnitSphere * 10; //randomly generates point around players last known location (radius of 10)
 
-                 NavMeshPath path = new NavMeshPath();
+                NavMeshPath path = new NavMeshPath();
                 agent.CalculatePath(investigatePoint, path);
 
-                while(path.status == NavMeshPathStatus.PathPartial || investigatePoint.y > 3) //checks point is accessable to NavMesh agent before 'committing' to it
+                if(path.status == NavMeshPathStatus.PathPartial || investigatePoint.y > 3) //checks point is accessable to NavMesh agent before 'committing' to it
                 {
                     investigatePoint = transform.position + Random.insideUnitSphere * 10;
                 }
