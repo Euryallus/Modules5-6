@@ -16,9 +16,9 @@ MonoBehaviour:
   m_gameObject: {fileID: 6548061797265198493, guid: 5e8470e8a384b074e86e27fb6f650844,
     type: 3}
   m_visualOffset: {x: 0.3, y: -0.25, z: 0.4}
-  m_minAttackDamage: 7
-  m_maxAttackDamage: 9
-  m_attackInterval: 0.1
+  m_minAttackDamage: 13
+  m_maxAttackDamage: 16
+  m_attackInterval: 0.15
   m_attackSound: GunShot
   m_attackSoundVolume: 1
   m_aimDownSightOffset: {x: 0, y: -0.25, z: 0.6}

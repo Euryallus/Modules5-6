@@ -5171,14 +5171,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewDistance: 15
   transitionTime: 5
-  enemySpeed: 15
+  enemySpeed: 9
   enemyHealth: 17
   regenPerSecond: 0.25
   healthBar: {fileID: 0}
   enemyViewAngle: 170
-  fireDamage: 2
-  fireLength: 4
-  slowPercent: 0.6
+  fireDamage: 1
+  fireLength: 3
+  slowPercent: 0.4
   slowTime: 2
   purpleDamagePercent: 1.5
   healthRegenLength: 3
@@ -5190,6 +5190,7 @@ MonoBehaviour:
   damageReductionPurpleStarStone: 0.5
   patrolPoints:
   - {fileID: 0}
+  currentPatrolPoint: 0
   difficulty:
   - {fileID: 11400000, guid: de7b8d2a854618c419fd44cc3d333128, type: 2}
   - {fileID: 11400000, guid: cbbca1ae5b134384b8042d19453ab610, type: 2}
