@@ -46,6 +46,12 @@ public class mainMenu : MonoBehaviour
         Debug.Log("Current difficulty: " + difficultyDropDown.value);
     }
 
+    public void quitGame()
+    {
+        //Exits application in built application (doesn't function in Editor)
+        Application.Quit();
+    }
+
     //Added by Joe:
     public void LoadIntroScene()
     {
