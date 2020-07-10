@@ -6584,7 +6584,7 @@ PrefabInstance:
         type: 3}
       propertyPath: variant1
       value: 
-      objectReference: {fileID: 9209157375183940794, guid: 163737564737f2163737564702023747,
+      objectReference: {fileID: 9209157375183940794, guid: 8cd0d89eb70157a4882c16db93c0c1a1,
         type: 3}
     - target: {fileID: 848862573264564309, guid: 47139931c8aa91a4a88f84a13c818521,
         type: 3}
@@ -9261,7 +9261,7 @@ PrefabInstance:
     - target: {fileID: 9194026147998699988, guid: 7691a93d2abd6db4ab8a1786cc9434f9,
         type: 3}
       propertyPath: m_Alpha
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9194026147998699989, guid: 7691a93d2abd6db4ab8a1786cc9434f9,
         type: 3}
@@ -9301,7 +9301,7 @@ PrefabInstance:
     - target: {fileID: 9194026147998699989, guid: 7691a93d2abd6db4ab8a1786cc9434f9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 9194026147998699989, guid: 7691a93d2abd6db4ab8a1786cc9434f9,
         type: 3}
@@ -9957,7 +9957,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &567827783
 GameObject:
@@ -13348,7 +13348,7 @@ PrefabInstance:
         type: 3}
       propertyPath: variant1
       value: 
-      objectReference: {fileID: 9209157375183940794, guid: 163737564737f2163737564702023747,
+      objectReference: {fileID: 9209157375183940794, guid: 8cd0d89eb70157a4882c16db93c0c1a1,
         type: 3}
     - target: {fileID: 1644116698394090973, guid: 47139931c8aa91a4a88f84a13c818521,
         type: 3}
@@ -17861,7 +17861,7 @@ PrefabInstance:
     - target: {fileID: 2774793988642566460, guid: d65ada58e553b8b41b1e1a066b102df3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2774793988642566460, guid: d65ada58e553b8b41b1e1a066b102df3,
         type: 3}
@@ -36646,7 +36646,7 @@ PrefabInstance:
         type: 3}
       propertyPath: variant1
       value: 
-      objectReference: {fileID: 9209157375183940794, guid: 163737564737f2163737564702023747,
+      objectReference: {fileID: 9209157375183940794, guid: 8cd0d89eb70157a4882c16db93c0c1a1,
         type: 3}
     - target: {fileID: 1644116698394090973, guid: 47139931c8aa91a4a88f84a13c818521,
         type: 3}

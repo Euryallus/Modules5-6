@@ -196,11 +196,14 @@ public class playStateControl : MonoBehaviour
         // ## Checks how many enemies are present in scene & sets state to waveComplete depending
         //
 
-        remainingEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-        if(remainingEnemies.Length == 0)
+        if(waveTimer > 3f)
         {
-            current = waveState.waveComplete;
+            remainingEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+            if(remainingEnemies.Length == 0)
+            {
+                current = waveState.waveComplete;
+            }
         }
     }
 
@@ -208,25 +211,20 @@ public class playStateControl : MonoBehaviour
     {
         wavePointer += 1;
 
-        if (wavePointer == waves.Count)
+        if(wavePointer == waves.Count - 1)
         {
-            if(GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<GeneratorRepair>().GetGeneratorRepaired() == true)
-            {
-                current = waveState.gameWon;
-            }
-            else
+            if(GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<GeneratorRepair>().GetGeneratorRepaired() == false)
             {
                 current = waveState.gameLost;
             }
-            
         }
-        else //waits for 1/2 downtime, changes state to beforeWave
-        {   // waits another 1/2 downtime before starting wave
+        else
+        {
             yield return new WaitForSeconds(waitLength / 2);
             current = waveState.beforeWaveStart;
             yield return new WaitForSeconds(waitLength / 2);
 
-            if(wavePointer == waves.Count - 1 && waves[wavePointer].bossNumbers > 0)
+            if (wavePointer == waves.Count - 1 && waves[wavePointer].bossNumbers > 0)
             {
                 initiateBossFight();
             }
