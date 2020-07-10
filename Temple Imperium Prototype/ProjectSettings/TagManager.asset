@@ -25,6 +25,7 @@ TagManager:
   - healthFlash
   - deathMenu
   - navMesh
+  - failMenu
   layers:
   - Default
   - TransparentFX

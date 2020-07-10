@@ -29,6 +29,9 @@ public class Enemy : MonoBehaviour
         private GameObject healthBar;
         [SerializeField]
         protected float enemyViewAngle = 120f;
+
+    [SerializeField]
+    private Material damageMaterial;
         
     //altered per child class
     [Header("Star Stone effects")]
@@ -59,6 +62,8 @@ public class Enemy : MonoBehaviour
 
     protected starStoneManager generator;
     protected bool hasAttacked = false;
+
+    public bool hasHurt = false;
 
     //
     // ## BASE VARIABLES 
@@ -473,6 +478,12 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private IEnumerator hurtColour()
+    {
+        yield return new WaitForSeconds(0.2f);
+        hasHurt = false;
+    }
+
 
 
     //Added by Joe: //thank u Joe
@@ -480,7 +491,10 @@ public class Enemy : MonoBehaviour
     {
         float damageDone = hitPoints;
 
-        if(generator.returnActive() == starStoneManager.starStones.Purple)
+        hasHurt = true;
+        gameObject.GetComponent<MeshRenderer>().material = damageMaterial;
+        StartCoroutine(hurtColour());
+        if (generator.returnActive() == starStoneManager.starStones.Purple)
         {
             damageDone /= 1 + damageReductionPurpleStarStone;
         }

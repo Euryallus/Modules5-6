@@ -113,6 +113,16 @@ public class playerHealth : MonoBehaviour
         return isPlayerDead;
     }
 
+    public void stopMovement()
+    {
+        isPlayerDead = true;
+
+        gameObject.GetComponent<playerMovement>().enabled = false;
+        gameObject.GetComponent<WeaponHolder>().enabled = false;
+
+        Cursor.lockState = CursorLockMode.None;
+    }
+
     public bool isShieldActive() //returns true / false value for if shield is active
     {
         return shieldActive;
@@ -142,13 +152,9 @@ public class playerHealth : MonoBehaviour
             // ############################
             deathMenu.SetActive(true);
             deathMenu.GetComponent<Animator>().Play("deadFade", 0);
-            //Time.timeScale = 0;
-            isPlayerDead = true;
             GameObject.FindGameObjectWithTag("spawnerManager").GetComponent<playStateControl>().playerDied();
-            gameObject.GetComponent<playerMovement>().enabled = false;
-            gameObject.GetComponent<WeaponHolder>().enabled = false;
 
-            Cursor.lockState = CursorLockMode.None;
+            stopMovement();
 
             // ############################
         }

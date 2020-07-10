@@ -39,6 +39,8 @@ public class playStateControl : MonoBehaviour
     private GameObject[] spawners;
     private GameObject player;
 
+    private GameObject failMenu;
+
     public float timeBeforeGameStarts = 5f;
 
 
@@ -52,12 +54,16 @@ public class playStateControl : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        failMenu = GameObject.FindGameObjectWithTag("failMenu");
+        failMenu.SetActive(false);
         StartCoroutine(autoStart());
         
     }
     public void startGame() //begins game from the top
     {
         wavePointer = 0;
+
+
         initiateWave(waves[0]);
 
        //while(doors.Count < waves.Count + 1)
@@ -144,7 +150,11 @@ public class playStateControl : MonoBehaviour
                 break;
 
             case waveState.waveFail:
-                timeRemaining.text = "Wave failed!";
+                timeRemaining.text = "";
+                player.GetComponent<playerHealth>().stopMovement();
+
+                failMenu.SetActive(true);
+                failMenu.GetComponent<Animator>().Play("deadFade", 0);
                 waveDisplay.text = "";
                 break;
 

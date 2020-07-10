@@ -113,7 +113,11 @@ public class starStoneManager : MonoBehaviour
         {
             for (int j = 0; j < enemies.Length; j++)
             {
-                enemies[j].GetComponent<MeshRenderer>().material = enemyMaterials[(int)activeStone];
+                if(enemies[j].GetComponent<Enemy>().hasHurt == false)
+                {
+                    enemies[j].GetComponent<MeshRenderer>().material = enemyMaterials[(int)activeStone];
+                }
+                
             }
         }
         
