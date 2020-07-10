@@ -156,7 +156,7 @@ public class UIManager : MonoBehaviour
             //Show a popup that displays how much health was taken from an enemy
             Vector2 popupPos = Camera.main.WorldToScreenPoint(enemyPosition);
             GameObject goPopup = Instantiate(prefabEnemyHitPopup, popupPos, Quaternion.identity, goCanvas.transform);
-            goPopup.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "<b>HIT</b>\n-" + hitPoints;
+            goPopup.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = hitPoints.ToString();
         }
     }
 }
