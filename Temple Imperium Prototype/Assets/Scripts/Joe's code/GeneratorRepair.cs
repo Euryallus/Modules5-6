@@ -27,7 +27,7 @@ public class GeneratorRepair : MonoBehaviour
 
     private Queue<GeneratorPiece> collectedPieceQueue = new Queue<GeneratorPiece>();    //Collected generator pieces, using queue so items
                                                                                         //can be removed in the order they were added
-    private bool generatorReapired;         //Whether the generator is currently repaired
+    private bool generatorRepaired = false; //Whether the generator is currently repaired
     private int currentCollectionProgress;  //The number of pieces that have been collected
     private int currentRepairProgress;      //How many pieces have been added to the generator
     private GameObject goPlayer;            //The player whose position determines if they are close enough to the generator to repair it
@@ -35,7 +35,7 @@ public class GeneratorRepair : MonoBehaviour
     private bool canClickGenerator;         //Whether the player is in a valid position where the generator can be clicked
     private Slider repairProgressSlider;    //SLider showing how close the generator is to being repaired
 
-    public bool GetGeneratorRepaired() { return generatorReapired; }
+    public bool GetGeneratorRepaired() { return generatorRepaired; }
 
     void Start()
     {
@@ -92,16 +92,14 @@ public class GeneratorRepair : MonoBehaviour
             goPiecePreview.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = piece.GetPieceName();
             piece.goUIPreview = goPiecePreview;
 
-            //Either increase collection progress or set generatorReapired to true
-            //  if all pieces have been collected
+            //Increase collection progress unless all pieces were collected
             if (currentCollectionProgress < (piecesForRepair.Length - 1))
             {
                 currentCollectionProgress++;
             }
             else
             {
-                generatorReapired = true;
-                Debug.Log("ALL GENERATOR PIECES COLLECTED!");
+                Debug.Log("All generator pieces collected");
             }
 
             //Play the collection sound for audio feedback
@@ -156,6 +154,11 @@ public class GeneratorRepair : MonoBehaviour
                     goPiecesUIPanel.transform.parent.gameObject.SetActive(false);
                 }
                 AudioManager.instance.PlaySoundEffect2D(repairSound);
+            }
+            if(currentRepairProgress == piecesForRepair.Length)
+            {
+                Debug.Log("Generator repaired");
+                generatorRepaired = true;
             }
         }
     }
