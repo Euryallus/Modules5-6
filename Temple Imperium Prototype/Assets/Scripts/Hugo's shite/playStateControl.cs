@@ -220,7 +220,7 @@ public class playStateControl : MonoBehaviour
                 break;
         }
 
-        Debug.Log("MOVED TO " + player.transform.position);
+
     }
 
     public void checkRemainingEnemies()
