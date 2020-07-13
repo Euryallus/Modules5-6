@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 //
 // ## HUGO BAILEY
@@ -42,6 +43,10 @@ public class playStateControl : MonoBehaviour
     private GameObject failMenu;
 
     public float timeBeforeGameStarts = 5f;
+
+    [Header("UI stuff")]
+    [SerializeField]
+    CanvasGroup gameWonFade;
 
 
     protected enum waveState
@@ -164,8 +169,14 @@ public class playStateControl : MonoBehaviour
                 // ## if none come next, game is complete - if generator is fixed, the game is won
                 // ## if generator is still broken, game is lost
                 //
+                if (wavePointer == waves.Count)
+                {
+                    current = waveState.gameWon;
+                }
 
                 timeRemaining.text = "Wave complete!";
+
+                
 
                 if(nextWaveStarted == false)
                 {
@@ -187,7 +198,17 @@ public class playStateControl : MonoBehaviour
                 break;
 
             case waveState.gameWon:
-                timeRemaining.text = "Game won!";
+                timeRemaining.text = "";
+                player.GetComponent<playerHealth>().stopMovement();
+                if (gameWonFade.alpha < 1)
+                {
+                    gameWonFade.alpha += 0.5f * Time.deltaTime;
+                    if(gameWonFade.alpha >= 1)
+                    {
+                        SceneManager.LoadScene("OutroScene");
+
+                    }
+                }
                 waveDisplay.text = "";
                 break;
 
@@ -221,12 +242,9 @@ public class playStateControl : MonoBehaviour
     {
         wavePointer += 1;
 
-        if(wavePointer == waves.Count - 1)
+        if(wavePointer == waves.Count - 1 && GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<GeneratorRepair>().GetGeneratorRepaired() == false)
         {
-            if(GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<GeneratorRepair>().GetGeneratorRepaired() == false)
-            {
-                current = waveState.gameLost;
-            }
+                current = waveState.waveFail;
         }
         else
         {
@@ -234,7 +252,7 @@ public class playStateControl : MonoBehaviour
             current = waveState.beforeWaveStart;
             yield return new WaitForSeconds(waitLength / 2);
 
-            if (wavePointer == waves.Count - 1 && waves[wavePointer].bossNumbers > 0)
+            if (waves[wavePointer].bossNumbers > 0)
             {
                 initiateBossFight();
             }
@@ -242,7 +260,7 @@ public class playStateControl : MonoBehaviour
             {
                 initiateWave(waves[wavePointer]);
             }
-
+            
             nextWaveStarted = false;
         }
         
