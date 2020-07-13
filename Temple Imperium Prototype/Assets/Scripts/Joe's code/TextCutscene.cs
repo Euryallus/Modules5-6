@@ -17,7 +17,7 @@ public class TextCutscene : MonoBehaviour
     [SerializeField]
     private Transform[] textElementContainers;
     [SerializeField]
-    private string nextSceneName;
+    private string[] nextSceneNames;
     [SerializeField]
     private TextMeshProUGUI textContinuePrompt;     //Text telling the player how to continue with the story
     [SerializeField]
@@ -91,7 +91,14 @@ public class TextCutscene : MonoBehaviour
         else
         {
             //Done, continue to game
-            SceneManager.LoadScene(nextSceneName);
+            if(storyIndex < nextSceneNames.Length)
+            {
+                SceneManager.LoadScene(nextSceneNames[storyIndex]);
+            }
+            else
+            {
+                SceneManager.LoadScene(nextSceneNames[0]);
+            }
         }
     }
 
