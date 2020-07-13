@@ -38,6 +38,8 @@ public class playerHealth : MonoBehaviour
         private  ParticleSystem fireEffect;
         [SerializeField]
         public Text stateDisplay;
+    [SerializeField]
+    public Image shieldUI;
 
     private float maxHealth;
     private float secondsPassed = 0;
@@ -49,6 +51,7 @@ public class playerHealth : MonoBehaviour
     private GameObject deathMenu;
 
     private bool isPlayerDead = false;
+    private float shieldCooldown = 0;
 
     private void Start()
     {
@@ -69,6 +72,7 @@ public class playerHealth : MonoBehaviour
         {
             shieldActive = true;
             gameObject.GetComponent<playerMovement>().slowEffect(shieldSlowPercentage, shieldUpTime);
+            shieldCooldown = shieldUpTime;
             coroutine = shieldDown();
             StartCoroutine(coroutine);
             shield.SetActive(true);
@@ -99,12 +103,14 @@ public class playerHealth : MonoBehaviour
 
     public IEnumerator shieldDown() //cooldown for shield to disable again
     {
+        shieldUI.color = new Color(shieldUI.color.r, shieldUI.color.g, shieldUI.color.b, 0);
         yield return new WaitForSeconds(shieldUpTime); //waits for X seconds to end shield effect, then another X seconds for it to reset
         
         shield.SetActive(false);
+        
 
         yield return new WaitForSeconds(shieldRegenTime);
-
+        shieldUI.color = new Color(shieldUI.color.r, shieldUI.color.g, shieldUI.color.b, 1);
         shieldActive = false;
     }
 

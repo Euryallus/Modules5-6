@@ -205,7 +205,9 @@ public class playStateControl : MonoBehaviour
                     gameWonFade.alpha += 0.5f * Time.deltaTime;
                     if(gameWonFade.alpha >= 1)
                     {
-                        SceneManager.LoadScene("OutroScene");
+                        TextCutscene.storyIndex = 0;
+
+                        SceneManager.LoadScene("EndScene");
 
                     }
                 }
