@@ -53,4 +53,11 @@ public class pauseMenu : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    //Added by Joe:
+    //Loads the codex scene on button press
+    public void LoadCodexScene()
+    {
+        SceneManager.LoadScene("CodexScene");
+    }
 }

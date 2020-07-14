@@ -5,7 +5,7 @@ using UnityEngine;
 //  SaveLoadManager provides an easy interface for      \\
 //  saving/loading to/from PlayerPrefs in any scene     \\
 //------------------------------------------------------\\
-//      Written by Joe for proof of concept phase       \\
+//      Written by Joe for prototype phase              \\
 //------------------------------------------------------\\
 
 public class SaveLoadManager : MonoBehaviour
@@ -19,6 +19,10 @@ public class SaveLoadManager : MonoBehaviour
     };
     private readonly Dictionary<string, int> playerPrefsDefaultIntDict = new Dictionary<string, int>
     {
+        { "PlayerKilledEnemy1", 0 },
+        { "PlayerKilledEnemy2", 0 },
+        { "PlayerKilledEnemy3", 0 },
+        { "PlayerKilledBoss", 0 }
     };
     private readonly Dictionary<string, float> playerPrefsDefaultFloatDict = new Dictionary<string, float>
     {

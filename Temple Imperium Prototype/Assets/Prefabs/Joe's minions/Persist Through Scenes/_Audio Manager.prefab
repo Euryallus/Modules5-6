@@ -60,6 +60,11 @@ MonoBehaviour:
     - name: March of the Seals 2
       loop: 1
       audioClip: {fileID: 8300000, guid: e68f34ac39dd4d94c82f87952017a94d, type: 3}
+  - sceneName: CodexScene
+    musicTracks:
+    - name: March of the Seals 2
+      loop: 1
+      audioClip: {fileID: 8300000, guid: e68f34ac39dd4d94c82f87952017a94d, type: 3}
   soundEffects:
   - name: Wilhelm
     audioClip: {fileID: 8300000, guid: df96fd4101635ff46ab35fd9b0d45671, type: 3}

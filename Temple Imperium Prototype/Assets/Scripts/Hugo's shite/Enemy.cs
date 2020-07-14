@@ -549,19 +549,25 @@ public class Enemy : MonoBehaviour
         AudioManager.instance.PlaySoundEffect3D("Believe", transform.position, 1f, 0.95f, 1.05f);
         int pointsToAdd = 5;
 
+        //SaveLoadManager code added by Joe - sets PlayerKilledEnemy/boss to 1 (i.e. true)
+        //  so the fact that the player has killed a certain enemy type is saved. Used to show relevant info in the codex scene.
         switch (enemyType)
         {
             case 1:
                 pointsToAdd = 5;
+                SaveLoadManager.instance.SaveIntToPlayerPrefs("PlayerKilledEnemy1", 1);
                 break;
             case 2:
                 pointsToAdd = 10;
+                SaveLoadManager.instance.SaveIntToPlayerPrefs("PlayerKilledEnemy2", 1);
                 break;
             case 3:
                 pointsToAdd = 15;
+                SaveLoadManager.instance.SaveIntToPlayerPrefs("PlayerKilledEnemy3", 1);
                 break;
             case 4:
                 pointsToAdd = 30;
+                SaveLoadManager.instance.SaveIntToPlayerPrefs("PlayerKilledBoss", 1);
                 break;
         }
 
