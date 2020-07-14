@@ -22,7 +22,7 @@ public class EnemyVariant2 : Enemy
         [SerializeField]
         public float bulletSpeed = 5;
 
-    public EnemyVariant2() : base(20f, 150f, 2.5f, 3.5f)
+    public EnemyVariant2() : base(20f, 150f, 2.5f, 3.5f, 2)
     {
         // ## CLASS CONSTRUCTOR
         // ## Calls "Enemy" parent constructor with values assigned to variant 2

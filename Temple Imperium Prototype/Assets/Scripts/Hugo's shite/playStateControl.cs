@@ -47,29 +47,29 @@ public class playStateControl : MonoBehaviour
     private bool isEndlessMode = false;
 
     [Header("Horde mode alterations")]
-    [Header("Round 0 to 5 Enemy 1 values")]
-    [SerializeField]
-    private int Enemy1Min1 = 2;
-    private int Enemy1Max1 = 5;
+        [Header("Round 0 to 5 Enemy 1 values")]
+        [SerializeField]
+        private int Enemy1Min1 = 2;
+        private int Enemy1Max1 = 5;
 
-    [Header("Round 6 to 10 Enemy 1 & 2 values")]
-    [SerializeField]
-    private int Enemy1Min2 = 3;
-    private int Enemy1Max2 = 6;
+        [Header("Round 6 to 10 Enemy 1 & 2 values")]
+        [SerializeField]
+        private int Enemy1Min2 = 3;
+        private int Enemy1Max2 = 6;
 
-    private int Enemy2Min2 = 1;
-    private int Enemy2Max2 = 3;
+        private int Enemy2Min2 = 1;
+        private int Enemy2Max2 = 3;
 
-    [Header("Round 11 onwards Enemy values")]
-    [SerializeField]
-    private int Enemy1Min3 = 3;
-    private int Enemy1Max3 = 6;
+        [Header("Round 11 onwards Enemy values")]
+        [SerializeField]
+        private int Enemy1Min3 = 3;
+        private int Enemy1Max3 = 6;
 
-    private int Enemy2Min3 = 2;
-    private int Enemy2Max3 = 4;
+        private int Enemy2Min3 = 2;
+        private int Enemy2Max3 = 4;
 
-    private int Enemy3Min3 = 1;
-    private int Enemy3Max3 = 2;
+        private int Enemy3Min3 = 1;
+        private int Enemy3Max3 = 2;
 
     [Header("UI stuff")]
     [SerializeField]

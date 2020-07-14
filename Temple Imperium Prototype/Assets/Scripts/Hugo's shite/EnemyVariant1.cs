@@ -10,7 +10,7 @@ using UnityEngine.AI;
 //
 public class EnemyVariant1 : Enemy
 {
-    public EnemyVariant1() : base(15f, 170f, 5f, 5f)
+    public EnemyVariant1() : base(15f, 170f, 5f, 5f, 1)
     {
         // ## CLASS CONSTRUCTOR
         // ## Calls "Enemy" parent constructor with values assigned to variant 1

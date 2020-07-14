@@ -53,6 +53,11 @@ public class playerHealth : MonoBehaviour
     private bool isPlayerDead = false;
     private float shieldCooldown = 0;
 
+    private bool isEndlessMode;
+    private int endlessModeScore = 0;
+    [SerializeField]
+    private Text scoreUI;
+
     private void Start()
     {
         //assigns values & gameObjects accordingly, disables shield visual effect
@@ -64,6 +69,18 @@ public class playerHealth : MonoBehaviour
         healthFlash.GetComponent<Image>().enabled = false;
         deathMenu = GameObject.FindGameObjectWithTag("deathMenu");
         deathMenu.SetActive(false);
+
+        endlessModeScore = 0;
+
+        if (PlayerPrefs.GetInt("EndlessMode", 0) == 1)
+        {
+            isEndlessMode = true;
+        }
+        else
+        {
+            isEndlessMode = false;
+        }
+
     }
 
     private void Update()
@@ -157,7 +174,17 @@ public class playerHealth : MonoBehaviour
 
             // ############################
             deathMenu.SetActive(true);
+            if (isEndlessMode)
+            {
+                scoreUI.text = endlessModeScore.ToString();
+            }
+            else
+            {
+                scoreUI.text = "";
+            }
+
             deathMenu.GetComponent<Animator>().Play("deadFade", 0);
+
             GameObject.FindGameObjectWithTag("spawnerManager").GetComponent<playStateControl>().playerDied();
 
             stopMovement();
@@ -195,6 +222,11 @@ public class playerHealth : MonoBehaviour
 
             }
         }
+    }
+
+    public void addScore(int score)
+    {
+        endlessModeScore += score;
     }
 
     //Added by Joe:

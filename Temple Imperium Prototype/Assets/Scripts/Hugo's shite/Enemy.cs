@@ -65,6 +65,8 @@ public class Enemy : MonoBehaviour
 
     public bool hasHurt = false;
 
+    private int enemyType;
+
     //
     // ## BASE VARIABLES 
     //
@@ -110,7 +112,7 @@ public class Enemy : MonoBehaviour
     }
     protected State currentState;
 
-    public Enemy (float viewDist, float viewAngle, float transitionWait, float speed) 
+    public Enemy(float viewDist, float viewAngle, float transitionWait, float speed, int type) 
     {
         //
         // ## CLASS CONTRUCTOR
@@ -120,6 +122,8 @@ public class Enemy : MonoBehaviour
         enemyViewAngle = viewAngle;
         transitionTime = transitionWait;
         enemySpeed = speed;
+
+        enemyType = type;
     }
 
     private void Start()
@@ -543,6 +547,25 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         AudioManager.instance.PlaySoundEffect3D("Believe", transform.position, 1f, 0.95f, 1.05f);
+        int pointsToAdd = 5;
+
+        switch (enemyType)
+        {
+            case 1:
+                pointsToAdd = 5;
+                break;
+            case 2:
+                pointsToAdd = 10;
+                break;
+            case 3:
+                pointsToAdd = 15;
+                break;
+            case 4:
+                pointsToAdd = 30;
+                break;
+        }
+
+        player.GetComponent<playerHealth>().addScore(pointsToAdd);
         Destroy(gameObject);
     }
 

@@ -11,7 +11,7 @@ public class bossEnemy : Enemy
 
     [SerializeField]
     private float fireRate = 3;
-    public bossEnemy() : base(40f, 180, 4, 1.5f)
+    public bossEnemy() : base(40f, 180, 4, 1.5f, 4)
     {
 
     }

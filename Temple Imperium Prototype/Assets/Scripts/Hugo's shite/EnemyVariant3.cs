@@ -18,7 +18,7 @@ public class EnemyVariant3 : Enemy
     private GameObject missile;
     private bool firing = false;
     
-    public EnemyVariant3() : base(20f, 130f, 3f, 2f)
+    public EnemyVariant3() : base(20f, 130f, 3f, 2f, 3)
     {
         // ## CLASS CONSTRUCTOR
         // ## Calls "Enemy" parent constructor with values assigned to variant 3
