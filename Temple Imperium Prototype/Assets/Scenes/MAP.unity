@@ -8350,6 +8350,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door
       objectReference: {fileID: 0}
+    - target: {fileID: 4784296737966045382, guid: bcee7b751df6f1c4fb579081c38ccd0e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Door
+      objectReference: {fileID: 0}
     - target: {fileID: 4784296737966045383, guid: bcee7b751df6f1c4fb579081c38ccd0e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10339,6 +10344,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4784296737966045382, guid: bcee7b751df6f1c4fb579081c38ccd0e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Door
+      objectReference: {fileID: 0}
     - target: {fileID: 4784296737966045383, guid: bcee7b751df6f1c4fb579081c38ccd0e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11454,6 +11464,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Door (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4784296737966045382, guid: bcee7b751df6f1c4fb579081c38ccd0e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Door
       objectReference: {fileID: 0}
     - target: {fileID: 4784296737966045383, guid: bcee7b751df6f1c4fb579081c38ccd0e,
         type: 3}
@@ -17868,6 +17883,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4784296737966045382, guid: bcee7b751df6f1c4fb579081c38ccd0e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Door
       objectReference: {fileID: 0}
     - target: {fileID: 4784296737966045383, guid: bcee7b751df6f1c4fb579081c38ccd0e,
         type: 3}
@@ -34471,6 +34491,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Door (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4784296737966045382, guid: bcee7b751df6f1c4fb579081c38ccd0e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Door
       objectReference: {fileID: 0}
     - target: {fileID: 4784296737966045383, guid: bcee7b751df6f1c4fb579081c38ccd0e,
         type: 3}

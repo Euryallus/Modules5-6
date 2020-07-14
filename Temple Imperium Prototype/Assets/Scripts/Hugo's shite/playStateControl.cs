@@ -44,6 +44,33 @@ public class playStateControl : MonoBehaviour
 
     public float timeBeforeGameStarts = 5f;
 
+    private bool isEndlessMode = false;
+
+    [Header("Horde mode alterations")]
+    [Header("Round 0 to 5 Enemy 1 values")]
+    [SerializeField]
+    private int Enemy1Min1 = 2;
+    private int Enemy1Max1 = 5;
+
+    [Header("Round 6 to 10 Enemy 1 & 2 values")]
+    [SerializeField]
+    private int Enemy1Min2 = 3;
+    private int Enemy1Max2 = 6;
+
+    private int Enemy2Min2 = 1;
+    private int Enemy2Max2 = 3;
+
+    [Header("Round 11 onwards Enemy values")]
+    [SerializeField]
+    private int Enemy1Min3 = 3;
+    private int Enemy1Max3 = 6;
+
+    private int Enemy2Min3 = 2;
+    private int Enemy2Max3 = 4;
+
+    private int Enemy3Min3 = 1;
+    private int Enemy3Max3 = 2;
+
     [Header("UI stuff")]
     [SerializeField]
     CanvasGroup gameWonFade;
@@ -62,30 +89,38 @@ public class playStateControl : MonoBehaviour
         failMenu = GameObject.FindGameObjectWithTag("failMenu");
         failMenu.SetActive(false);
         StartCoroutine(autoStart());
+
+        if(PlayerPrefs.GetInt("EndlessMode", 0) == 1)
+        {
+            isEndlessMode = true;
+
+            GameObject[] doorTemp = GameObject.FindGameObjectsWithTag("Door");
+            for (int i = 0; i < doorTemp.Length; i++)
+            {
+                doorTemp[i].GetComponent<Door>().SetLocked(false);
+            }
+
+        }
+        else
+        {
+            isEndlessMode = false;
+        }
         
     }
     public void startGame() //begins game from the top
     {
         wavePointer = 0;
+        if (isEndlessMode)
+        {
+            waveData startWave = new waveData(0, 0.5f, Random.Range(3, 6), 0, 0, 90, 15);
+            initiateWave(startWave);
+        }
+        else
+        {
+            initiateWave(waves[0]);
+        }
 
-
-        initiateWave(waves[0]);
-
-       //while(doors.Count < waves.Count + 1)
-       //{
-       //    doors.Insert(doors.Count, null);
-       //}
-
-        //for (int i = 0; i < waves.Count; i++)
-        //{
-        //    if(doors.Count < waves.Count)
-        //    {
-        //        if(doors[i] == null)
-        //        {
-        //            doors.Insert(i, null);
-        //        }
-        //    }
-        //}
+        
     }
 
     private IEnumerator autoStart()
@@ -100,8 +135,8 @@ public class playStateControl : MonoBehaviour
         current = waveState.gameLost;
     }
 
-   public void initiateWave(waveData wave) 
-   {
+    public void initiateWave(waveData wave) 
+    {
         //
         // ## Calls spawn script from Spawners in scene
         // ## Sets current state to waveActive
@@ -113,12 +148,20 @@ public class playStateControl : MonoBehaviour
 
         for (int i = 0; i < spawners.Length; i++)
         {
-            spawners[i].GetComponent<spawnerScript>().startWave(waves[wavePointer]);
+            if (isEndlessMode)
+            {
+                spawners[i].GetComponent<spawnerScript>().startWave(wave);
+            }
+            else
+            {
+                spawners[i].GetComponent<spawnerScript>().startWave(waves[wavePointer]);
+            }
+            
         }
 
         current = waveState.waveActive;
 
-   }       
+    }       
 
     private void FixedUpdate()
     {
@@ -150,8 +193,15 @@ public class playStateControl : MonoBehaviour
 
                     timeRemaining.text = minutes + ":" + seconds;
                 }
-
-                waveDisplay.text = "Wave " + (wavePointer + 1).ToString() + " of " + waves.Count.ToString();
+                if (isEndlessMode)
+                {
+                    waveDisplay.text = "Wave " + (wavePointer + 1).ToString() + " of ??";
+                }
+                else
+                {
+                    waveDisplay.text = "Wave " + (wavePointer + 1).ToString() + " of " + waves.Count.ToString();
+                }
+                
                 break;
 
             case waveState.waveFail:
@@ -169,28 +219,31 @@ public class playStateControl : MonoBehaviour
                 // ## if none come next, game is complete - if generator is fixed, the game is won
                 // ## if generator is still broken, game is lost
                 //
-                if (wavePointer == waves.Count)
+                if (wavePointer == waves.Count && isEndlessMode == false)
                 {
                     current = waveState.gameWon;
                 }
 
                 timeRemaining.text = "Wave complete!";
 
-                
-
                 if(nextWaveStarted == false)
                 {
-                    if(doors[wavePointer] != null)
+                    if(isEndlessMode == false)
                     {
-                        doors[wavePointer].SetLocked(false);
-                        doors[wavePointer].transform.GetChild(0).GetChild(0).gameObject.layer = 10;
-                        doors[wavePointer].transform.GetChild(0).GetChild(1).gameObject.layer = 10;
+                        if(doors[wavePointer] != null)
+                        {
+                            doors[wavePointer].SetLocked(false);
+                            doors[wavePointer].transform.GetChild(0).GetChild(0).gameObject.layer = 10;
+                            doors[wavePointer].transform.GetChild(0).GetChild(1).gameObject.layer = 10;
 
-                        GameObject.FindGameObjectWithTag("navMesh").GetComponent<NavMeshSurface>().BuildNavMesh();
-
-                        Debug.Log("REBUILT");
+                            GameObject.FindGameObjectWithTag("navMesh").GetComponent<NavMeshSurface>().BuildNavMesh();
+                        }
+                        StartCoroutine(waitForNextWave(waves[wavePointer].downtime));
                     }
-                    StartCoroutine(waitForNextWave(waves[wavePointer].downtime));
+                    else
+                    {
+                        StartCoroutine(waitForNextWave(20));
+                    }
                     nextWaveStarted = true;
                 }
                 waveDisplay.text = "";
@@ -219,9 +272,8 @@ public class playStateControl : MonoBehaviour
                 waveDisplay.text = "";
                 break;
         }
-
-
     }
+
 
     public void checkRemainingEnemies()
     {
@@ -244,28 +296,68 @@ public class playStateControl : MonoBehaviour
     {
         wavePointer += 1;
 
-        if(wavePointer == waves.Count - 1 && GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<GeneratorRepair>().GetGeneratorRepaired() == false)
-        {
-                current = waveState.waveFail;
-        }
-        else
+        if (isEndlessMode)
         {
             yield return new WaitForSeconds(waitLength / 2);
             current = waveState.beforeWaveStart;
             yield return new WaitForSeconds(waitLength / 2);
 
-            if (waves[wavePointer].bossNumbers > 0)
+            int enemy1 = 1;
+            int enemy2 = 0;
+            int enemy3 = 0;
+            float waveTime = 90;
+
+
+            if(wavePointer > 0 && wavePointer < 6)
             {
-                initiateBossFight();
+                enemy1 = Random.Range(Enemy1Min1, Enemy1Max1 + 1);
+                enemy2 = 0;
+                enemy3 = 0;
+            }
+            else if(wavePointer > 5 && wavePointer < 11)
+            {
+                enemy1 = Random.Range(Enemy1Min2, Enemy1Max2 + 1);
+                enemy2 = Random.Range(Enemy2Min2, Enemy2Max2 + 1);
+                enemy3 = 0;
+                waveTime = 150;
             }
             else
             {
-                initiateWave(waves[wavePointer]);
+                enemy1 = Random.Range(Enemy1Min3, Enemy1Max3 + 1);
+                enemy2 = Random.Range(Enemy2Min3, Enemy2Max3 + 1);
+                enemy3 = Random.Range(Enemy3Min3, Enemy3Max3 + 1);
+                waveTime = 210;
             }
-            
+
+            waveData newWave = new waveData(wavePointer, 0.5f, enemy1, enemy2, enemy3, waveTime, 20);
+            initiateWave(newWave);
+
             nextWaveStarted = false;
         }
-        
+        else
+        {
+            if(wavePointer == waves.Count - 1 && GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<GeneratorRepair>().GetGeneratorRepaired() == false)
+            {
+                    current = waveState.waveFail;
+            }
+            else
+            {
+                yield return new WaitForSeconds(waitLength / 2);
+                current = waveState.beforeWaveStart;
+                yield return new WaitForSeconds(waitLength / 2);
+
+                if (waves[wavePointer].bossNumbers > 0)
+                {
+                    initiateBossFight();
+                }
+                else
+                {
+                    initiateWave(waves[wavePointer]);
+                }
+                
+                nextWaveStarted = false;
+            }
+        } 
     }
 
     private void initiateBossFight()

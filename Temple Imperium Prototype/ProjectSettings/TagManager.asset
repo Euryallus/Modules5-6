@@ -26,6 +26,7 @@ TagManager:
   - deathMenu
   - navMesh
   - failMenu
+  - Door
   layers:
   - Default
   - TransparentFX

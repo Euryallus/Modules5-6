@@ -15,9 +15,13 @@ public class mainMenu : MonoBehaviour
     [SerializeField]
     private Dropdown difficultyDropDown;
 
+    [SerializeField]
+    private Dropdown mode;
+
     private void Start()
     {
         difficultyDropDown.value = PlayerPrefs.GetInt("Difficulty", 1);
+        mode.value = PlayerPrefs.GetInt("EndlessMode", 0);
     }
     public void loadScene(string sceneToLoad) // Loads scene whos name has been passed as a parameter (e.g. "MAP" loads the map scene from Build)
     {
@@ -43,8 +47,13 @@ public class mainMenu : MonoBehaviour
     public void difficultyChange()
     {
         PlayerPrefs.SetInt("Difficulty", difficultyDropDown.value);
-        Debug.Log("Current difficulty: " + difficultyDropDown.value);
     }
+
+    public void modeChange()
+    {
+        PlayerPrefs.SetInt("EndlessMode", mode.value);
+    }
+    
 
     public void quitGame()
     {

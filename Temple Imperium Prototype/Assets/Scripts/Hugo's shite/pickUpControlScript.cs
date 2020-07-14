@@ -35,7 +35,7 @@ public class pickUpControlScript : MonoBehaviour
         if(Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, 3f)) 
         {
             hitObject = hit.transform.gameObject;
-            Debug.Log(hitObject.name);
+
 
             if (Input.GetKeyDown(KeyCode.E)) //if item is hit AND E is pressed;
             {
