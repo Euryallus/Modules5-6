@@ -34,8 +34,19 @@ public class GeneratorRepair : MonoBehaviour
     private bool mouseOverGenerator;        //Whether the player is mousing over the generator
     private bool canClickGenerator;         //Whether the player is in a valid position where the generator can be clicked
     private Slider repairProgressSlider;    //SLider showing how close the generator is to being repaired
+    private bool endlessMode;
 
-    public bool GetGeneratorRepaired() { return generatorRepaired; }
+    public bool GetGeneratorRepaired()
+    {
+        if (endlessMode)
+        {
+            return true;
+        }
+        else
+        {
+            return generatorRepaired;
+        }
+    }
 
     void Start()
     {
@@ -46,15 +57,30 @@ public class GeneratorRepair : MonoBehaviour
         //Hide the collected pieces UI since none are collected yet
         goPiecesUIPanel.transform.parent.gameObject.SetActive(false);
 
-        //Set repairIndex for each piece to determine their collection order
-        for (int i = 0; i < piecesForRepair.Length; i++)
+        endlessMode = (PlayerPrefs.GetInt("EndlessMode", 0) == 1);
+
+        if (endlessMode)
         {
-            piecesForRepair[i].repairIndex = i;
+            for (int i = 0; i < piecesForRepair.Length; i++)
+            {
+                Destroy( piecesForRepair[i].gameObject );
+            }
+        }
+        else
+        {
+            //Set repairIndex for each piece to determine their collection order
+            for (int i = 0; i < piecesForRepair.Length; i++)
+            {
+                piecesForRepair[i].repairIndex = i;
+            }
         }
     }
 
     public bool TryCollectPiece(GeneratorPiece piece, string collectionSoundName)
     {
+        if (endlessMode)
+            return false;
+
         //All pieces to be picked up should be added to this script
         if(!piecesForRepair.Contains(piece))
         {
@@ -165,7 +191,10 @@ public class GeneratorRepair : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        mouseOverGenerator = true;
+        if(!endlessMode)
+        {
+            mouseOverGenerator = true;
+        }
     }
     private void OnMouseExit()
     {
