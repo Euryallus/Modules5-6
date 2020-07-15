@@ -101,15 +101,10 @@ public class starStoneManager : MonoBehaviour
 
             UIHighlights[i].GetComponent<Image>().color = new Color(UIHighlights[i].GetComponent<Image>().color.r, UIHighlights[i].GetComponent<Image>().color.g, UIHighlights[i].GetComponent<Image>().color.b, activeCharge[i] / maxCharge);
 
-            UIElements[i].color = new Color(UIElements[i].color.r, UIElements[i].color.g, UIElements[i].color.b, activeCharge[i] / maxCharge);
-
-            
-
-            
-            
+            UIElements[i].color = new Color(UIElements[i].color.r, UIElements[i].color.g, UIElements[i].color.b, activeCharge[i] / maxCharge); 
         }
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if(enemies.Length > 0)
+        if(enemies.Length > 0 && GameObject.FindGameObjectWithTag("spawnerManager").GetComponent<playStateControl>().returnState() == playStateControl.waveState.waveActive)
         {
             for (int j = 0; j < enemies.Length; j++)
             {

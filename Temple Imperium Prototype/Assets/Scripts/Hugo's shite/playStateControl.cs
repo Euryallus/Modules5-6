@@ -28,6 +28,10 @@ public class playStateControl : MonoBehaviour
         private Text waveDisplay;
         [SerializeField]
         private GameObject boss;
+    [SerializeField]
+    private GameObject waveBossTemplate;
+    [SerializeField]
+    private int waveBossEveryXWaves = 5;
 
     private int wavePointer = 0;
     
@@ -76,7 +80,7 @@ public class playStateControl : MonoBehaviour
     CanvasGroup gameWonFade;
 
 
-    protected enum waveState
+    public enum waveState
     {
         beforeWaveStart, waveActive, waveFail, waveComplete, gameWon, gameLost
     }
@@ -119,8 +123,11 @@ public class playStateControl : MonoBehaviour
         {
             initiateWave(waves[0]);
         }
+    }
 
-        
+    public waveState returnState()
+    {
+        return current;
     }
 
     private IEnumerator autoStart()
@@ -146,18 +153,32 @@ public class playStateControl : MonoBehaviour
         waveTimer = 0;
         spawners = GameObject.FindGameObjectsWithTag("Spawner");
 
-        for (int i = 0; i < spawners.Length; i++)
+        if(wavePointer % waveBossEveryXWaves == 0 && isEndlessMode && wavePointer != 0)
         {
-            if (isEndlessMode)
+            for (int i = 0; i < wavePointer / waveBossEveryXWaves; i++)
             {
-                spawners[i].GetComponent<spawnerScript>().startWave(wave);
-            }
-            else
-            {
-                spawners[i].GetComponent<spawnerScript>().startWave(waves[wavePointer]);
+                GameObject waveBoss = Instantiate(waveBossTemplate);
+                waveBoss.transform.position = spawners[Random.Range(0, spawners.Length)].transform.position;
             }
             
         }
+        else
+        {
+            for (int i = 0; i < spawners.Length; i++)
+            {
+                if (isEndlessMode)
+                {
+                    spawners[i].GetComponent<spawnerScript>().startWave(wave);
+                }
+                else
+                {
+                    spawners[i].GetComponent<spawnerScript>().startWave(waves[wavePointer]);
+                }
+            
+            }
+        }
+
+        
 
         current = waveState.waveActive;
 
@@ -319,16 +340,20 @@ public class playStateControl : MonoBehaviour
                 enemy1 = Random.Range(Enemy1Min2, Enemy1Max2 + 1);
                 enemy2 = Random.Range(Enemy2Min2, Enemy2Max2 + 1);
                 enemy3 = 0;
-                waveTime = 150;
             }
             else
             {
-                enemy1 = Random.Range(Enemy1Min3, Enemy1Max3 + 1);
-                enemy2 = Random.Range(Enemy2Min3, Enemy2Max3 + 1);
-                enemy3 = Random.Range(Enemy3Min3, Enemy3Max3 + 1);
-                waveTime = 210;
+                int difficultyMod = ((wavePointer - 11) / 5);
+                if(difficultyMod == 0)
+                {
+                    difficultyMod = 1;
+                }
+                enemy1 = Random.Range(Enemy1Min3, Enemy1Max3 + 1) * difficultyMod;
+                enemy2 = Random.Range(Enemy2Min3, Enemy2Max3 + 1) * difficultyMod;
+                enemy3 = Random.Range(Enemy3Min3, Enemy3Max3 + 1) * difficultyMod;
             }
 
+            waveTime = (enemy1 + enemy2 + enemy3) * 10;
             waveData newWave = new waveData(wavePointer, 0.5f, enemy1, enemy2, enemy3, waveTime, 20);
             initiateWave(newWave);
 
