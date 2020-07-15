@@ -57,6 +57,8 @@ public class playerHealth : MonoBehaviour
     private int endlessModeScore = 0;
     [SerializeField]
     private Text scoreUI;
+    [SerializeField]
+    private Text scoreHUD;
 
     private void Start()
     {
@@ -115,6 +117,11 @@ public class playerHealth : MonoBehaviour
             {
                 healthFlash.GetComponent<Image>().enabled = false;
             }
+        }
+
+        if (isEndlessMode)
+        {
+            scoreHUD.text = "Score: " + endlessModeScore.ToString();
         }
     }
 

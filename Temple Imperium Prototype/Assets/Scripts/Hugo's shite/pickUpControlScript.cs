@@ -20,6 +20,9 @@ public class pickUpControlScript : MonoBehaviour
     private GameObject noteMenu;
     private starStoneManager generator;
 
+    [SerializeField]
+    private GameObject pickUpText;
+
     void Start()
     {
         //Assigns game objects and attached components using 'find object'
@@ -27,6 +30,7 @@ public class pickUpControlScript : MonoBehaviour
         display = GameObject.FindGameObjectWithTag("display");
         noteMenu = GameObject.FindGameObjectWithTag("noteDisplayManager");
         generator = GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<starStoneManager>();
+        pickUpText.SetActive(false);
     }
 
     void Update()
@@ -36,6 +40,14 @@ public class pickUpControlScript : MonoBehaviour
         {
             hitObject = hit.transform.gameObject;
 
+            if (hitObject.CompareTag("PickUp") && hitObject.GetComponent<item>() == true)
+            {
+                pickUpText.SetActive(true);
+            }
+            else
+            {
+                pickUpText.SetActive(false);
+            }
 
             if (Input.GetKeyDown(KeyCode.E)) //if item is hit AND E is pressed;
             {

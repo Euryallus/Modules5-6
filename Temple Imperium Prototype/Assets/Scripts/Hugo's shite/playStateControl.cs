@@ -110,8 +110,6 @@ public class playStateControl : MonoBehaviour
                 note.SetActive(false);
             }
 
-            
-
         }
         else
         {
