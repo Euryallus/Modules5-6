@@ -99,10 +99,18 @@ public class playStateControl : MonoBehaviour
             isEndlessMode = true;
 
             GameObject[] doorTemp = GameObject.FindGameObjectsWithTag("Door");
-            for (int i = 0; i < doorTemp.Length; i++)
+            foreach(GameObject door in doorTemp)
             {
-                doorTemp[i].GetComponent<Door>().SetLocked(false);
+                door.GetComponent<Door>().SetLocked(false);
             }
+
+            GameObject[] notes = GameObject.FindGameObjectsWithTag("PickUp");
+            foreach(GameObject note in notes)
+            {
+                note.SetActive(false);
+            }
+
+            
 
         }
         else
