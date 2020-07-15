@@ -18,6 +18,9 @@ public class mainMenu : MonoBehaviour
     [SerializeField]
     private Dropdown mode;
 
+    [SerializeField]
+    private Text highscoreText;
+
     private void Start()
     {
         difficultyDropDown.value = PlayerPrefs.GetInt("Difficulty", 1);
@@ -26,6 +29,19 @@ public class mainMenu : MonoBehaviour
     public void loadScene(string sceneToLoad) // Loads scene whos name has been passed as a parameter (e.g. "MAP" loads the map scene from Build)
     {
         SceneManager.LoadScene(sceneToLoad);
+    }
+
+    public void Update()
+    {
+        if(PlayerPrefs.GetInt("EndlessMode", 0) == 1 && PlayerPrefs.GetInt("Highscore", 0) != 0)
+        {
+            highscoreText.text = "Endless mode highscore: " + PlayerPrefs.GetInt("Highscore", 0).ToString();
+            
+        }
+        else
+        {
+            highscoreText.text = "";
+        }
     }
 
     public void optionsMenu(CanvasGroup options) // Activates or deactivates options based on whether it's been toggled on or not

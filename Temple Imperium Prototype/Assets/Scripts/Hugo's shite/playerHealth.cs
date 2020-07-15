@@ -58,6 +58,8 @@ public class playerHealth : MonoBehaviour
     [SerializeField]
     private Text scoreUI;
     [SerializeField]
+    private Text highScoreUI;
+    [SerializeField]
     private Text scoreHUD;
 
     private void Start()
@@ -183,11 +185,19 @@ public class playerHealth : MonoBehaviour
             deathMenu.SetActive(true);
             if (isEndlessMode)
             {
-                scoreUI.text = endlessModeScore.ToString();
+                scoreUI.text = "Score: " + endlessModeScore.ToString();
+
+                if(PlayerPrefs.GetInt("Highscore", 0) < endlessModeScore)
+                {
+                    PlayerPrefs.SetInt("Highscore", endlessModeScore);
+                }
+
+                highScoreUI.text = "Highscore: " + PlayerPrefs.GetInt("Highscore", endlessModeScore).ToString();
             }
             else
             {
                 scoreUI.text = "";
+                highScoreUI.text = "";
             }
 
             deathMenu.GetComponent<Animator>().Play("deadFade", 0);
