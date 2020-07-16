@@ -28,7 +28,7 @@ MonoBehaviour:
   m_continuousFire: 1
   m_totalStartAmmo: 350
   m_magazineSize: 41
-  m_reloadTime: 3
+  m_reloadTime: 1.8
   m_canUseAsMelee: 1
   m_meleeRange: 5
   m_minMeleeAttackDamage: 30
