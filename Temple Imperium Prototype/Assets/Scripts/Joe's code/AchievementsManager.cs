@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class AchievementsManager : MonoBehaviour
 {
@@ -13,6 +13,10 @@ public class AchievementsManager : MonoBehaviour
     private List<Achievement> achievements;
     [SerializeField]
     private GameObject prefabAchievementPopup;
+    [SerializeField]
+    private string achievementPopupSoundName;
+    [SerializeField]
+    private Transform transformAchievementCanvas;
 
     private Dictionary<string, Achievement> achievementsDict;
 
@@ -52,6 +56,8 @@ public class AchievementsManager : MonoBehaviour
     {
         if (achievementsDict.ContainsKey(achievementId))
         {
+            StartCoroutine(ShowAchievementPopupAfterDelay(achievementId));
+
             PlayerPrefs.SetInt("Achievements_" + achievementId, 1);
         }
         else
@@ -72,6 +78,15 @@ public class AchievementsManager : MonoBehaviour
             Debug.LogError("Trying to get achievement with unknown id: " + achievementId);
             return false;
         }
+    }
+
+    private IEnumerator ShowAchievementPopupAfterDelay(string achievementId)
+    {
+        yield return new WaitForSeconds(1f);
+        AudioManager.instance.PlaySoundEffect2D(achievementPopupSoundName);
+
+        GameObject goPopup = Instantiate(prefabAchievementPopup, transformAchievementCanvas);
+        goPopup.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = achievementsDict[achievementId].uiName;
     }
 }
 

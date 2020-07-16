@@ -285,10 +285,9 @@ public class playStateControl : MonoBehaviour
                     gameWonFade.alpha += 0.5f * Time.deltaTime;
                     if(gameWonFade.alpha >= 1)
                     {
+                        AchievementsManager.instance.SetAchievementCompleted("CompleteMainGame"); //Added by Joe - marks the 'normal mode completed' achievement as completed
                         TextCutscene.storyIndex = 0;
-
                         SceneManager.LoadScene("EndScene");
-                        AchievementsManager.instance.SetAchievementCompleted("CompleteMainGame");
                     }
                 }
                 waveDisplay.text = "";
