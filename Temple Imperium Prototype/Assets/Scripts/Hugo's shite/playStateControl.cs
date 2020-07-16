@@ -288,7 +288,7 @@ public class playStateControl : MonoBehaviour
                         TextCutscene.storyIndex = 0;
 
                         SceneManager.LoadScene("EndScene");
-
+                        AchievementsManager.instance.SetAchievementCompleted("CompleteMainGame");
                     }
                 }
                 waveDisplay.text = "";
