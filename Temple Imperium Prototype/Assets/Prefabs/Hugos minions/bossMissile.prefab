@@ -7046,10 +7046,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosion: {fileID: 1033105548700199340, guid: bdfd7eaf0a077f94d8d97b529fd5362a,
     type: 3}
-  missileSpeed: 5
-  missileDamage: 15
-  fireLength: 4
+  missileSpeed: 10
+  missileDamage: 25
+  fireLength: 6
   fireDamage: 2
-  slowPercent: 0.6
-  slowTime: 2
-  purpleDamagePercent: 1.6
+  slowPercent: 0.8
+  slowTime: 4
+  purpleDamagePercent: 6
