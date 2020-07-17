@@ -5209,8 +5209,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewDistance: 10
   transitionTime: 4
-  enemySpeed: 1.5
-  enemyHealth: 500
+  enemySpeed: 1.8
+  enemyHealth: 1156
   regenPerSecond: 0.5
   healthBar: {fileID: 1044765233735901498}
   enemyViewAngle: 180
@@ -5220,8 +5220,8 @@ MonoBehaviour:
   slowPercent: 0.6
   slowTime: 2
   purpleDamagePercent: 1.5
-  healthRegenLength: 3
-  healthRegenAmountPerCall: 2
+  healthRegenLength: 6
+  healthRegenAmountPerCall: 4
   timeBetweenHealthRegen: 0.5
   meleeDistance: 4
   meleeHitDamage: 5
