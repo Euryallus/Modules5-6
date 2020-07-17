@@ -570,6 +570,9 @@ public class Enemy : MonoBehaviour
                 SaveLoadManager.instance.SaveIntToPlayerPrefs("PlayerKilledBoss", 1);
                 break;
         }
+        //Increase the saved number of enemies killed - this will trigger an achievement if 50/100 have been killed
+        int enemiesKilled = SaveLoadManager.instance.LoadIntFromPlayerPrefs("Counter_EnemiesKilled");
+        SaveLoadManager.instance.SaveIntToPlayerPrefs("Counter_EnemiesKilled", enemiesKilled + 1);
 
         player.GetComponent<playerHealth>().addScore(pointsToAdd);
         Destroy(gameObject);

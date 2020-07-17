@@ -61,13 +61,13 @@ public class AchievementsManager : MonoBehaviour
                 StartCoroutine(ShowAchievementPopupAfterDelay(achievementId));
 
                 PlayerPrefs.SetInt("Achievements_" + achievementId, 1);
+                PlayerPrefs.Save();
             }
         }
         else
         {
             Debug.LogError("Trying to set achievement with unknown id: " + achievementId);
         }
-        PlayerPrefs.Save();
     }
 
     public bool GetAchievementCompleted(string achievementId)
