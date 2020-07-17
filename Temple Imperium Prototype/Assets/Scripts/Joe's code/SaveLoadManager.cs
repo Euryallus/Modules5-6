@@ -60,7 +60,7 @@ public class SaveLoadManager : MonoBehaviour
         PlayerPrefs.SetInt(key, val);
         PlayerPrefs.Save();
 
-        PlayerPrefSaveEvents(key, val);
+        PlayerPrefAchievementEvents(key, val);
     }
     public void SaveFloatToPlayerPrefs(string key, float val)
     {
@@ -68,7 +68,7 @@ public class SaveLoadManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    private void PlayerPrefSaveEvents(string key, int val)
+    private void PlayerPrefAchievementEvents(string key, int val)
     {
         switch (key)
         {
