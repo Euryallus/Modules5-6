@@ -46,6 +46,7 @@ public class playStateControl : MonoBehaviour
 
     private GameObject failMenu;
 
+    [SerializeField]
     public float timeBeforeGameStarts = 5f;
 
     private bool isEndlessMode = false;
@@ -362,6 +363,12 @@ public class playStateControl : MonoBehaviour
             waveTime = (enemy1 + enemy2 + enemy3) * 10;
             waveData newWave = new waveData(wavePointer, 0.5f, enemy1, enemy2, enemy3, waveTime, 20);
             initiateWave(newWave);
+
+            int currentScore = player.GetComponent<playerHealth>().getScore();
+            if (PlayerPrefs.GetInt("Highscore", 0) < currentScore)
+            {
+                PlayerPrefs.SetInt("Highscore", currentScore);
+            }
 
             nextWaveStarted = false;
         }

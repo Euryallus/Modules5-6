@@ -210,6 +210,11 @@ public class playerHealth : MonoBehaviour
         }
     }
 
+    public int getScore()
+    {
+        return endlessModeScore;
+    }
+
     public void setOnFire(float fireEffectTime, int fireDamageTaken, float timeBetweenDamage) //Similar to enemies onFire effect, takes damage every few seconds for X seconds to mimic burning
     {
         if(onFire == false)

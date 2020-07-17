@@ -33,7 +33,7 @@ public class EnemyVariant1 : Enemy
 
         }
 
-        if(playerDist >= 3f) 
+        if(playerDist >= 2f) 
         {
             //if Player is more than X m away, move towards player
             agent.SetDestination(lastKnownPos);
