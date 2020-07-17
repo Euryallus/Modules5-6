@@ -147,6 +147,26 @@ MonoBehaviour:
     m_uiName: Complete Normal Mode
     m_uiDescription: Win the game in normal mode.
     m_uiSprite: {fileID: 21300000, guid: 6d18a24fdf33131499e5d27afef9b94b, type: 3}
+  - m_id: CompleteWave5
+    m_uiName: Complete Wave 5
+    m_uiDescription: Complete 5 waves in Endless mode
+    m_uiSprite: {fileID: 21300000, guid: 6d18a24fdf33131499e5d27afef9b94b, type: 3}
+  - m_id: CompleteWave10
+    m_uiName: Complete Wave 10
+    m_uiDescription: Complete 10 waves in Endless mode
+    m_uiSprite: {fileID: 21300000, guid: 6d18a24fdf33131499e5d27afef9b94b, type: 3}
+  - m_id: CompleteWave20
+    m_uiName: Complete Wave 20
+    m_uiDescription: Complete 20 waves in Endless mode
+    m_uiSprite: {fileID: 21300000, guid: 6d18a24fdf33131499e5d27afef9b94b, type: 3}
+  - m_id: CompleteWave50
+    m_uiName: Complete Wave 50
+    m_uiDescription: Complete 50 waves in Endless mode
+    m_uiSprite: {fileID: 21300000, guid: 6d18a24fdf33131499e5d27afef9b94b, type: 3}
+  - m_id: CompleteWave100
+    m_uiName: Complete Wave 100
+    m_uiDescription: Complete 100 waves in Endless mode
+    m_uiSprite: {fileID: 21300000, guid: 6d18a24fdf33131499e5d27afef9b94b, type: 3}
   prefabAchievementPopup: {fileID: 155914239935550717, guid: 078cfab4ad311c54aacbde096ade2c1b,
     type: 3}
   achievementPopupSoundName: Popup

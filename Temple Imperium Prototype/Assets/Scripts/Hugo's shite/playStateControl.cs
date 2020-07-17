@@ -166,14 +166,15 @@ public class playStateControl : MonoBehaviour
         waveTimer = 0;
         spawners = GameObject.FindGameObjectsWithTag("Spawner");
 
-        if(wavePointer % waveBossEveryXWaves == 0 && isEndlessMode && wavePointer != 0)
+        if((wavePointer-1) % waveBossEveryXWaves == 0 && isEndlessMode && wavePointer != 0)
         {
-            for (int i = 0; i < wavePointer / waveBossEveryXWaves; i++)
+            for (int i = 0; i < (wavePointer-1) / waveBossEveryXWaves; i++)
             {
                 GameObject waveBoss = Instantiate(waveBossTemplate);
-                waveBoss.transform.position = spawners[Random.Range(0, spawners.Length)].transform.position;
+                waveBoss.transform.position = spawners[Random.Range(0, spawners.Length)].transform.position; 
             }
-            
+
+            waveLength = (wavePointer / waveBossEveryXWaves) * 30;
         }
         else
         {
@@ -329,6 +330,26 @@ public class playStateControl : MonoBehaviour
     {
         wavePointer += 1;
 
+        switch (wavePointer)
+        {
+            case 5:
+                AchievementsManager.instance.SetAchievementCompleted("CompleteWave5");
+                break;
+            case 10:
+                AchievementsManager.instance.SetAchievementCompleted("CompleteWave10");
+                break;
+            case 20:
+                AchievementsManager.instance.SetAchievementCompleted("CompleteWave20");
+                break;
+            case 50:
+                AchievementsManager.instance.SetAchievementCompleted("CompleteWave50");
+                break;
+            case 100:
+                AchievementsManager.instance.SetAchievementCompleted("CompleteWave100");
+                break;
+
+        }
+
         if (isEndlessMode)
         {
             yield return new WaitForSeconds(waitLength / 2);
@@ -365,7 +386,7 @@ public class playStateControl : MonoBehaviour
                 enemy3 = Random.Range(Enemy3Min3, Enemy3Max3 + 1) * difficultyMod;
             }
 
-            waveTime = (enemy1 + enemy2 + enemy3) * 10;
+            waveTime = (enemy1 + enemy2 + enemy3) * 15;
             waveData newWave = new waveData(wavePointer, 0.5f, enemy1, enemy2, enemy3, waveTime, 20);
             initiateWave(newWave);
 
@@ -376,6 +397,8 @@ public class playStateControl : MonoBehaviour
             }
 
             nextWaveStarted = false;
+
+            
         }
         else
         {
