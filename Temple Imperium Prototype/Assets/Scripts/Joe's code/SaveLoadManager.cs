@@ -22,7 +22,9 @@ public class SaveLoadManager : MonoBehaviour
         { "PlayerKilledEnemy1", 0 },
         { "PlayerKilledEnemy2", 0 },
         { "PlayerKilledEnemy3", 0 },
-        { "PlayerKilledBoss", 0 }
+        { "PlayerKilledBoss", 0 },
+
+        { "Counter_EnemiesKilled", 0 }
     };
     private readonly Dictionary<string, float> playerPrefsDefaultFloatDict = new Dictionary<string, float>
     {
@@ -57,11 +59,26 @@ public class SaveLoadManager : MonoBehaviour
     {
         PlayerPrefs.SetInt(key, val);
         PlayerPrefs.Save();
+
+        PlayerPrefSaveEvents(key, val);
     }
     public void SaveFloatToPlayerPrefs(string key, float val)
     {
         PlayerPrefs.SetFloat(key, val);
         PlayerPrefs.Save();
+    }
+
+    private void PlayerPrefSaveEvents(string key, int val)
+    {
+        switch (key)
+        {
+            case "Counter_EnemiesKilled":
+                if(val == 50)       { AchievementsManager.instance.SetAchievementCompleted("KillEnemies_50"); }
+                else if(val == 100) { AchievementsManager.instance.SetAchievementCompleted("KillEnemies_100"); }
+                break;
+            default:
+                break;
+        }
     }
 
     //Loading from PlayerPrefs for each main data type - uses default values if
