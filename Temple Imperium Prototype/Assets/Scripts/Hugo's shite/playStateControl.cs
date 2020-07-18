@@ -28,10 +28,16 @@ public class playStateControl : MonoBehaviour
         private Text waveDisplay;
         [SerializeField]
         private GameObject boss;
+        [SerializeField]
+        private GameObject waveBossTemplate;
+        [SerializeField]
+        private int waveBossEveryXWaves = 5;
+
+    [Header("Ammo and Health boxes")]
     [SerializeField]
-    private GameObject waveBossTemplate;
+    private GameObject healthBox;
     [SerializeField]
-    private int waveBossEveryXWaves = 5;
+    private GameObject ammoBox;
 
     private int wavePointer = 0;
     
@@ -45,6 +51,9 @@ public class playStateControl : MonoBehaviour
     private GameObject player;
 
     private GameObject failMenu;
+
+    private List<Vector3> ammoBoxPositions = new List<Vector3>();
+    private List<Vector3> healthBoxPositions = new List<Vector3>();
 
     [SerializeField]
     public float timeBeforeGameStarts = 5f;
@@ -117,11 +126,29 @@ public class playStateControl : MonoBehaviour
                 note.SetActive(false);
             }
 
+            GameObject[] ammo = GameObject.FindGameObjectsWithTag("ammoBox");
+            
+            GameObject[] health = GameObject.FindGameObjectsWithTag("healthBox");
+
+            foreach(GameObject ammoBox in ammo)
+            {
+                ammoBoxPositions.Add(ammoBox.transform.position);
+                Debug.Log(ammoBox.transform.position);
+            }
+
+            foreach(GameObject healthBox in health)
+            {
+                healthBoxPositions.Add(healthBox.transform.position);
+                Debug.Log(healthBox.transform.position);
+            }
+
         }
         else
         {
             isEndlessMode = false;
         }
+
+
         
     }
     public void startGame() //begins game from the top
@@ -129,7 +156,7 @@ public class playStateControl : MonoBehaviour
         wavePointer = 0;
         if (isEndlessMode)
         {
-            waveData startWave = new waveData(0, 0.5f, Random.Range(3, 6), 0, 0, 90, 15);
+            waveData startWave = new waveData(0, 0.5f, Random.Range(3, 6), 0, 0, 90, 5);
             initiateWave(startWave);
         }
         else
@@ -166,15 +193,36 @@ public class playStateControl : MonoBehaviour
         waveTimer = 0;
         spawners = GameObject.FindGameObjectsWithTag("Spawner");
 
-        if((wavePointer-1) % waveBossEveryXWaves == 0 && isEndlessMode && wavePointer != 0)
+        if(wavePointer % waveBossEveryXWaves == 0 && isEndlessMode && wavePointer != 0)
         {
-            for (int i = 0; i < (wavePointer-1) / waveBossEveryXWaves; i++)
+            for (int i = 0; i < (wavePointer) / waveBossEveryXWaves; i++)
             {
                 GameObject waveBoss = Instantiate(waveBossTemplate);
                 waveBoss.transform.position = spawners[Random.Range(0, spawners.Length)].transform.position; 
             }
 
             waveLength = (wavePointer / waveBossEveryXWaves) * 30;
+
+            GameObject[] ammoTally = GameObject.FindGameObjectsWithTag("ammoBox");
+            if(ammoTally.Length == 0)
+            {
+                Debug.LogWarning("SPAWN BOX");
+                foreach(Vector3 ammo in ammoBoxPositions)
+                {
+                    GameObject box = Instantiate(ammoBox);
+                    box.transform.position = ammo;
+                }
+            }
+
+            GameObject[] healthTally = GameObject.FindGameObjectsWithTag("healthBox");
+            if (healthTally.Length == 0)
+            {
+                foreach (Vector3 health in healthBoxPositions)
+                {
+                    GameObject box = Instantiate(healthBox);
+                    box.transform.position = health;
+                }
+            }
         }
         else
         {
@@ -387,7 +435,7 @@ public class playStateControl : MonoBehaviour
             }
 
             waveTime = (enemy1 + enemy2 + enemy3) * 15;
-            waveData newWave = new waveData(wavePointer, 0.5f, enemy1, enemy2, enemy3, waveTime, 20);
+            waveData newWave = new waveData(wavePointer, 0.5f, enemy1, enemy2, enemy3, waveTime, 5);
             initiateWave(newWave);
 
             int currentScore = player.GetComponent<playerHealth>().getScore();
