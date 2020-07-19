@@ -5219,7 +5219,7 @@ MonoBehaviour:
   fireLength: 4
   slowPercent: 0.6
   slowTime: 2
-  purpleDamagePercent: 1.5
+  purpleDamagePercent: 0
   healthRegenLength: 6
   healthRegenAmountPerCall: 4
   timeBetweenHealthRegen: 0.5

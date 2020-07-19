@@ -7048,8 +7048,8 @@ MonoBehaviour:
     type: 3}
   missileSpeed: 10
   missileDamage: 25
-  fireLength: 6
-  fireDamage: 2
+  fireLength: 3.75
+  fireDamage: 1
   slowPercent: 0.8
   slowTime: 4
-  purpleDamagePercent: 6
+  purpleDamagePercent: 1.25
