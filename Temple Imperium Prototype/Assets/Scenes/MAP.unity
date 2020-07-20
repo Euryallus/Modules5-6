@@ -40836,6 +40836,11 @@ PrefabInstance:
       propertyPath: piecesForRepair.Array.data[7]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 758385271895998782, guid: 9f9f405ed55731c40b537add85e431d2,
+        type: 3}
+      propertyPath: repairSound
+      value: GeneratorHit
+      objectReference: {fileID: 0}
     - target: {fileID: 1280549108463089026, guid: 9f9f405ed55731c40b537add85e431d2,
         type: 3}
       propertyPath: UIHighlights.Array.size
