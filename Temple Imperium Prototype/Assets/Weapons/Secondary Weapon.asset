@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f68bc51fb928cdc4e9831fc27b6f1226, type: 3}
   m_Name: Secondary Weapon
   m_EditorClassIdentifier: 
+  m_weaponID: Secondary
   m_weaponName: Secondary Weapon
   m_gameObject: {fileID: 1828699209427079622, guid: e50f2b67a6dd90d4f8687e71b1cc82ac,
     type: 3}

@@ -341,9 +341,7 @@ public class playStateControl : MonoBehaviour
                     gameWonFade.alpha += 0.5f * Time.deltaTime;
                     if(gameWonFade.alpha >= 1)
                     {
-                        AchievementsManager.instance.SetAchievementCompleted("CompleteMainGame"); //Added by Joe - marks the 'normal mode completed' achievement as completed
-                        TextCutscene.storyIndex = 0;
-                        SceneManager.LoadScene("EndScene");
+                        MainGameCompleted();
                     }
                 }
                 waveDisplay.text = "";
@@ -354,6 +352,28 @@ public class playStateControl : MonoBehaviour
                 waveDisplay.text = "";
                 break;
         }
+    }
+
+    //Added by Joe: called when the player wins the main gamemode
+    private void MainGameCompleted()
+    {
+        //Mark the 'normal mode completed' achievement as completed
+        AchievementsManager.instance.SetAchievementCompleted("CompleteMainGame");
+
+        //The game was won using only the primary weapon - set achievement as completed
+        if(WeaponHolder.playerUsedWeaponTypes.Count == 1 && WeaponHolder.playerUsedWeaponTypes[0] == "Primary")
+        {
+            AchievementsManager.instance.SetAchievementCompleted("CompleteWithWeapon_Primary");
+        }
+        //The game was won using only the prototype weapon - set achievement as completed
+        if (WeaponHolder.playerUsedWeaponTypes.Count == 1 && WeaponHolder.playerUsedWeaponTypes[0] == "Prototype")
+        {
+            AchievementsManager.instance.SetAchievementCompleted("CompleteWithWeapon_Prototype");
+        }
+
+        //Load the end cutscene, setting storyIndex to 0 to ensure the 'game won' outcome is shown
+        TextCutscene.storyIndex = 0;
+        SceneManager.LoadScene("EndScene");
     }
 
 

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f44b959b24998542b8d26811462f5e5, type: 3}
   m_Name: Melee Weapon
   m_EditorClassIdentifier: 
+  m_weaponID: Melee
   m_weaponName: Melee Weapon
   m_gameObject: {fileID: 6796507442374423286, guid: e4b5074af7e86bc4abaea71e856ef91d,
     type: 3}

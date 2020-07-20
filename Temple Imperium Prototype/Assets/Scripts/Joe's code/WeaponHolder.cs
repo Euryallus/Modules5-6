@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 //------------------------------------------------------\\
@@ -32,6 +33,7 @@ public class WeaponHolder : MonoBehaviour
 
     public starStoneManager generatorStates { get; private set; }//Used to keep track of the active StarStone
     public Weapon activeWeapon { get; private set; }            //The weapon that is currently being held
+    public static List<string> playerUsedWeaponTypes { get; set; }
     private bool emptyHand;                                     //If true, no weapon is displayed
     private Weapon[] availableWeapons;                          //All posible weapons that can be switched between
     private GameObject goWeapon;                                //The held weapon GameObject
@@ -43,6 +45,8 @@ public class WeaponHolder : MonoBehaviour
 
     private void Start()
     {
+        playerUsedWeaponTypes = new List<string>();
+
         //Find generatorStates script and set defaults
         generatorStates = GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<starStoneManager>();
         targetCameraFOV = defaultCameraFOV;
@@ -364,6 +368,11 @@ public class WeaponHolder : MonoBehaviour
         //Attacks if a weapon is being held at is ready to be used
         if (!emptyHand && activeWeapon.ReadyToAttack())
         {
+            string weaponID = activeWeapon.m_template.GetWeaponID();
+            if (playerControlsWeapons && !playerUsedWeaponTypes.Contains(weaponID))
+            {
+                playerUsedWeaponTypes.Add(weaponID);
+            }
             activeWeapon.Attack(weaponAimInfo, goWeapon, prefabFireLight, transformHead, buttonDown);
         }
     }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8753b4aeac5a66441804e8124420cdb0, type: 3}
   m_Name: Prototype Weapon
   m_EditorClassIdentifier: 
+  m_weaponID: Prototype
   m_weaponName: Prototype Weapon
   m_gameObject: {fileID: 9204433137389923706, guid: 9de648685d640d942b0681e709c04f7d,
     type: 3}

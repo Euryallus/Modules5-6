@@ -4,7 +4,7 @@
 //  Template with shared weapon properties that acts    \\
 //  as a base class for all other weapon templates      \\
 //------------------------------------------------------\\
-//      Written by Joe for proof of concept phase       \\
+//      Written by Joe for prototype phase              \\
 //------------------------------------------------------\\
 
 public class WeaponTemplate : ScriptableObject
@@ -16,6 +16,10 @@ public class WeaponTemplate : ScriptableObject
     //See tooltips for comments on each of the following properties:
 
     [Header("Weapon Properties (See tooltips for more info)")]
+
+    [SerializeField]
+    [Tooltip("Unique ID used to identify this weapon in code: Do not change after setting an initial value.")]
+    private string m_weaponID;
 
     [SerializeField]
     [Tooltip("Name used to identify this weapon in-game")]
@@ -58,6 +62,10 @@ public class WeaponTemplate : ScriptableObject
     //Getters
     //=======
 
+    public string GetWeaponID()
+    {
+        return m_weaponID;
+    }
     public string GetWeaponName()
     {
         return m_weaponName;

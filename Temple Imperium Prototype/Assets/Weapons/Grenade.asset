@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73cb881461fa9b345a209e14d2a19904, type: 3}
   m_Name: Grenade
   m_EditorClassIdentifier: 
+  m_weaponID: Grenade
   m_weaponName: Mr Grenade
   m_gameObject: {fileID: 428395080803917149, guid: 8fd1e359f1ca92943b31ba673bdb6669,
     type: 3}
