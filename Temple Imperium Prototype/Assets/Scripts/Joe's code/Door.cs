@@ -58,6 +58,11 @@ public class Door : MonoBehaviour
             {
                 CloseDoor();
             }
+
+            if (other.CompareTag("Player"))
+            {
+                UIManager.instance.HideDoorLockedPopup();
+            }
         }
     }
 
@@ -75,7 +80,5 @@ public class Door : MonoBehaviour
 
         boxCollider.enabled = true;
         animator.SetBool("Open", false);
-
-        UIManager.instance.HideDoorLockedPopup();
     }
 }
