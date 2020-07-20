@@ -56,7 +56,7 @@ public class AchievementsManager : MonoBehaviour
     {
         if (achievementsDict.ContainsKey(achievementId))
         {
-            if(PlayerPrefs.GetInt(achievementId, 0) == 0)
+            if(PlayerPrefs.GetInt("Achievements_" + achievementId, 0) == 0)
             {
                 StartCoroutine(ShowAchievementPopupAfterDelay(achievementId));
 
