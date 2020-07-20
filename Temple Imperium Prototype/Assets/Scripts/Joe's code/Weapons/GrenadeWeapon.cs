@@ -138,6 +138,8 @@ public class ThrownGrenade
         Collider[] collidersInExplosionRad = Physics.OverlapSphere(impactPos, explosionRadius);
         Collider[] collidersInFragRad = Physics.OverlapSphere(impactPos, fragmentRadius);
 
+        int enemiesKilled = 0;  //Used to count the number of enemies killed with this grenade
+
         for (int i = 0; i < collidersInFragRad.Length; i++)
         {
             Rigidbody rigidbody = collidersInFragRad[i].GetComponent<Rigidbody>();
@@ -149,8 +151,13 @@ public class ThrownGrenade
                     //Apply explosion damage to any hit enemies
                     if (rigidbody.gameObject.CompareTag("Enemy"))
                     {
+                        Enemy hitEnemy = rigidbody.gameObject.GetComponent<Enemy>();
                         int damageAmount = Random.Range(m_grenadeParent.m_template.GetMinAttackDamage(), m_grenadeParent.m_template.GetMaxAttackDamage() + 1);
-                        rigidbody.gameObject.GetComponent<Enemy>().Damage(damageAmount);
+                        if (hitEnemy.enemyHealth <= damageAmount)
+                        {
+                            enemiesKilled++;
+                        }
+                        hitEnemy.Damage(damageAmount);
                         UIManager.instance.ShowEnemyHitPopup(damageAmount, rigidbody.gameObject.transform.position);
                     }
                     //Add ad explosion force to any hit rigidbodies
@@ -162,8 +169,13 @@ public class ThrownGrenade
                     //Apply frag damage to any hit enemies
                     if (rigidbody.gameObject.CompareTag("Enemy"))
                     {
+                        Enemy hitEnemy = rigidbody.gameObject.GetComponent<Enemy>();
                         int damageAmount = m_grenadeParent.m_grenadeTemplate.GetFragDamage();
-                        rigidbody.gameObject.GetComponent<Enemy>().Damage(damageAmount);
+                        if (hitEnemy.enemyHealth <= damageAmount)
+                        {
+                            enemiesKilled++;
+                        }
+                        hitEnemy.Damage(damageAmount);
                         UIManager.instance.ShowEnemyHitPopup(damageAmount, rigidbody.gameObject.transform.position);
                     }
                 }
@@ -174,6 +186,12 @@ public class ThrownGrenade
                     collidersInFragRad[i].gameObject.GetComponent<ExplodeOnImpact>().Explode();
                 }
             }
+        }
+
+        //Kill 5 enemies with one grenade achievement
+        if(enemiesKilled >= 5)
+        {
+            AchievementsManager.instance.SetAchievementCompleted("KillEnemies_Grenade");
         }
 
         //Play the attack/explosion sound

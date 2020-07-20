@@ -175,6 +175,10 @@ MonoBehaviour:
     m_uiName: Kill 100 Enemies
     m_uiDescription: Kill 100 enemies.
     m_uiSprite: {fileID: 21300000, guid: 6d18a24fdf33131499e5d27afef9b94b, type: 3}
+  - m_id: KillEnemies_Grenade
+    m_uiName: Grenade Go Boom
+    m_uiDescription: Kill 5 enemies with one grenade.
+    m_uiSprite: {fileID: 21300000, guid: 6d18a24fdf33131499e5d27afef9b94b, type: 3}
   prefabAchievementPopup: {fileID: 155914239935550717, guid: 078cfab4ad311c54aacbde096ade2c1b,
     type: 3}
   achievementPopupSoundName: Popup
