@@ -476,7 +476,7 @@ public class Enemy : MonoBehaviour
                 }
 
                 hitObj.GetComponent<playerHealth>().takeDamage(damageToDo); // Player takes appropriate damage
-
+                AudioManager.instance.PlaySoundEffect3D("EnemyMeleeHit", transform.position);
                 hitCount = 0; //resets hit timer 
             }
         }

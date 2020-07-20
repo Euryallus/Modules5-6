@@ -59,6 +59,7 @@ public class EnemyVariant3 : Enemy
             missile = Instantiate(missileBlueprint); //instantiates missile from prefab, assigns it's parent and position
             missile.GetComponent<missileTemp>().setParent(gameObject);
             missile.transform.position = transform.position + transform.forward * 1.5f;
+            AudioManager.instance.PlaySoundEffect3D("Enemy3Shoot", missile.transform.position);
 
             yield return new WaitForSeconds(fireRate);
         }

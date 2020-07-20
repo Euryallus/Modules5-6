@@ -48,6 +48,7 @@ public class EnemyVariant2 : Enemy
                 {
                     bulletSpawnCount = 0;
                     bullet = Instantiate(bulletBlueprint);
+                    AudioManager.instance.PlaySoundEffect3D("Enemy2Shoot", gameObject.transform.position + (playerVector.normalized));
                     bullet.GetComponent<bulletTemp>().setParent(gameObject);
                     bullet.GetComponent<Rigidbody>().velocity = (playerVector.normalized * bulletSpeed);
                     bullet.transform.position = gameObject.transform.position + (playerVector.normalized);
