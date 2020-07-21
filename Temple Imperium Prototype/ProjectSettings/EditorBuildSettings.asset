@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AchievementsScene.unity
     guid: e41ac4b68ef375f4d85789d87a5dc9b8
+  - enabled: 1
+    path: Assets/Scenes/MapLoadScene.unity
+    guid: 7b46c8507c8e0f94bbc96681a19ca4cf
   m_configObjects: {}
