@@ -67,7 +67,6 @@ public class UIManager : MonoBehaviour
         if (doorLockedPopup != null)
         {
             Vector3 popupScreenPos = Camera.main.WorldToScreenPoint(doorLockedPopupPosition);
-            Debug.Log(popupScreenPos.z);
             if (popupScreenPos.z > 0f)
             {
                 //If popupScreenPos.z > 0, the player is facing the door, so position the popup on screen based on the door's position

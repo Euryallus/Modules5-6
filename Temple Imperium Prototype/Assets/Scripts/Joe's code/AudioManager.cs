@@ -71,6 +71,8 @@ public class AudioManager : MonoBehaviour
 
     private void OnSceneLoad(Scene scene, LoadSceneMode loadSceneMode)
     {
+        StopAllLoopingSoundEffects();
+
         currentSceneMusicTracks = new List<MusicTrack>();
         for (int i = 0; i < sceneMusicTracks.Length; i++)
         {
@@ -201,6 +203,17 @@ public class AudioManager : MonoBehaviour
         if (goLoopSource != null)
         {
             Destroy(goLoopSource);
+        }
+    }
+
+    public void StopAllLoopingSoundEffects()
+    {
+        foreach(Transform child in transform)
+        {
+            if (child.gameObject.name.Contains("LoopSound"))
+            {
+                Destroy(child.gameObject);
+            }
         }
     }
 

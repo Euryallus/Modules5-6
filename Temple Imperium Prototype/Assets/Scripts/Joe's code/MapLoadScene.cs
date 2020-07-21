@@ -16,7 +16,8 @@ public class MapLoadScene : MonoBehaviour
 
     private IEnumerator LoadMapAsync()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.5f);  //Give the player a chance to see the cool spinny thing
+
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync("MAP");
 
         while (!loadOperation.isDone)

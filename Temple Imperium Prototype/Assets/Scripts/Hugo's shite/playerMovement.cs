@@ -46,6 +46,7 @@ public class playerMovement : MonoBehaviour
     private bool isCrouching = false;
     private bool hasJumped = false;
     private bool isSlowed = false;
+    private bool playingFootstepSound = false;
 
     void Start()
     {
@@ -189,6 +190,20 @@ public class playerMovement : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.I)) //when I is released, hide display menu
         {
             noteMenu.GetComponent<CanvasGroup>().alpha = 0;
+        }
+
+        if(Mathf.Abs(inputX) > 0.3f || Mathf.Abs(inputY) > 0.3f)
+        {
+            if (!playingFootstepSound)
+            {
+                playingFootstepSound = true;
+                AudioManager.instance.PlayLoopingSoundEffect("Footsteps Loop", false, Vector3.zero, "playerFootsteps", 0.8f);
+            }
+        }
+        else if (playingFootstepSound)
+        {
+            playingFootstepSound = false;
+            AudioManager.instance.StopLoopingSoundEffect("playerFootsteps");
         }
     }
 
