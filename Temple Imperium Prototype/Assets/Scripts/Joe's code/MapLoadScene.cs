@@ -16,7 +16,7 @@ public class MapLoadScene : MonoBehaviour
 
     private IEnumerator LoadMapAsync()
     {
-        yield return null;
+        yield return new WaitForSeconds(1.5f);
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync("MAP");
 
         while (!loadOperation.isDone)
