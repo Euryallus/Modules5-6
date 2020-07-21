@@ -47,6 +47,7 @@ public class playerMovement : MonoBehaviour
     private bool hasJumped = false;
     private bool isSlowed = false;
     private bool playingFootstepSound = false;
+    private float footstepTimer = 0f;
 
     void Start()
     {
@@ -68,6 +69,8 @@ public class playerMovement : MonoBehaviour
     {
         moveCamera();
         movePlayer();
+
+        UpdateFootstepSounds();
     }
 
     void moveCamera()
@@ -191,19 +194,38 @@ public class playerMovement : MonoBehaviour
         {
             noteMenu.GetComponent<CanvasGroup>().alpha = 0;
         }
+    }
 
-        if(Mathf.Abs(inputX) > 0.3f || Mathf.Abs(inputY) > 0.3f)
+    //Added by Joe, handles footstep sounds based on player speed:
+    private void UpdateFootstepSounds()
+    {
+        //Allow footstep sounds to play if the player is moving in any direction, using a threshold
+        //  of 0.3 to prevent sounds playing for tiny movements
+        if (Mathf.Abs(inputX) > 0.3f || Mathf.Abs(inputY) > 0.3f)
         {
             if (!playingFootstepSound)
             {
                 playingFootstepSound = true;
-                AudioManager.instance.PlayLoopingSoundEffect("Footsteps Loop", false, Vector3.zero, "playerFootsteps", 0.8f);
             }
         }
-        else if (playingFootstepSound)
+        //If the player is not moving, do not allow footstep sounds to play
+        else
         {
             playingFootstepSound = false;
-            AudioManager.instance.StopLoopingSoundEffect("playerFootsteps");
+            footstepTimer = 0f;
+        }
+
+        //Play a random footstep sound every time the footstep timer reaches 0
+        if (playingFootstepSound)
+        {
+            footstepTimer -= Time.deltaTime;
+            if(footstepTimer <= 0f)
+            {
+                AudioManager.instance.PlaySoundEffect2D("Footstep" + Random.Range(1, 6), 0.8f, 0.5f, 1.05f);
+                //After playing a sound, reset  the timer based on player speed so the next sound
+                //  is triggered after a set time based on how quickly the player is moving
+                footstepTimer = 2f / playerSpeed;
+            }
         }
     }
 
