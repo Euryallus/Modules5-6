@@ -2088,6 +2088,7 @@ GameObject:
   - component: {fileID: 899894655}
   - component: {fileID: 899894654}
   - component: {fileID: 899894653}
+  - component: {fileID: 899894657}
   m_Layer: 5
   m_Name: Menu Button
   m_TagString: Untagged
@@ -2219,6 +2220,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899894651}
   m_CullTransparentMesh: 0
+--- !u!114 &899894657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899894651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fb7191b37f05e6439e5260e472fdc68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundName: Click
+  volume: 1
 --- !u!224 &946575594 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8690540435492349939, guid: a0e0d9f2a85e31c4d96b1f62575520d5,
