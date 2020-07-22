@@ -60,7 +60,8 @@ public class TextCutscene : MonoBehaviour
         textContinuePrompt.gameObject.SetActive(false);
 
         //Start animating the first text element
-        StartAnimatingText(textElements[storyIndex][textElementIndex]);
+        textElementIndex = -1;
+        ContinueStory();
     }
 
     private void Update()
@@ -82,11 +83,24 @@ public class TextCutscene : MonoBehaviour
 
     private void ContinueStory()
     {
+        //Stop voice lines continuing to play into the next part of the cutscene
+        AudioManager.instance.StopAllSoundEffects();
+
         if (textElementIndex < textElements[storyIndex].Length - 1)
         {
             //Start animating the next text element
             textElementIndex++;
-            StartAnimatingText(textElements[storyIndex][textElementIndex]);
+            TextMeshProUGUI textElement = textElements[storyIndex][textElementIndex];
+            StartAnimatingText(textElement);
+
+            if (textElement.gameObject.name.Contains("Sound_"))
+            {
+                string voiceSoundName = textElement.gameObject.name.Substring(textElement.gameObject.name.IndexOf("Sound_") + 6);
+                if (!string.IsNullOrWhiteSpace(voiceSoundName))
+                {
+                    AudioManager.instance.PlaySoundEffect2D(voiceSoundName);
+                }
+            }
         }
         else
         {

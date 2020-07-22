@@ -131,6 +131,12 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 8311019c9af1b0945ba5a197242a34dc, type: 3}
   - name: Footstep5
     audioClip: {fileID: 8300000, guid: 891d5932321d5944c8a566e3f7f691a3, type: 3}
+  - name: TestVoiceLine
+    audioClip: {fileID: 8300000, guid: 33d130866f90c9b43b9bda08170740cf, type: 3}
+  - name: Click
+    audioClip: {fileID: 8300000, guid: f9a51a4a1b7d46e4ca800d2189ffa8bc, type: 3}
+  - name: Click_PageFlip
+    audioClip: {fileID: 8300000, guid: 03d992f09e59ed94987e07d93cbd42f0, type: 3}
   prefabSoundSource: {fileID: 2738532834754265132, guid: c053cf90b98ebd8438265eff97f52cff,
     type: 3}
   audioSourceMusic: {fileID: 6062936345867866367}

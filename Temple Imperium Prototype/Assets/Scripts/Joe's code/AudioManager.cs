@@ -217,6 +217,14 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void StopAllSoundEffects()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
     #endregion
 
     //Used to remove inactive sound sources every few frames
