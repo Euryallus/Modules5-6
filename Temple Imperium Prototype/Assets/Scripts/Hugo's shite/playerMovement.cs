@@ -201,14 +201,14 @@ public class playerMovement : MonoBehaviour
     {
         //Allow footstep sounds to play if the player is moving in any direction, using a threshold
         //  of 0.3 to prevent sounds playing for tiny movements
-        if (Mathf.Abs(inputX) > 0.3f || Mathf.Abs(inputY) > 0.3f)
+        if (Mathf.Abs(inputX) > 0.3f || Mathf.Abs(inputY) > 0.3f && !canClimb && !hasJumped)
         {
             if (!playingFootstepSound)
             {
                 playingFootstepSound = true;
             }
         }
-        //If the player is not moving, do not allow footstep sounds to play
+        //If the player is not walking, or they are climbing/jumping, do not allow footstep sounds to play
         else
         {
             playingFootstepSound = false;
