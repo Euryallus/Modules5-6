@@ -107,7 +107,7 @@ public class WeaponHolder : MonoBehaviour
         lastFrameStarStone = generatorStates.returnActive();
 
         //Player specific updates
-        if (playerControlsWeapons)
+        if (playerControlsWeapons && !pauseMenu.GetPauseMenuShowing())
         {
             CheckForWeaponSwitchInput();
             CheckForAttackInput();

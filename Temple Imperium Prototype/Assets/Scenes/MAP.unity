@@ -13157,6 +13157,36 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3133163898239444641, guid: 7691a93d2abd6db4ab8a1786cc9434f9,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3133163898239444641, guid: 7691a93d2abd6db4ab8a1786cc9434f9,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3133163898239444641, guid: 7691a93d2abd6db4ab8a1786cc9434f9,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3133163898239444641, guid: 7691a93d2abd6db4ab8a1786cc9434f9,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 465248352}
+    - target: {fileID: 3133163898239444641, guid: 7691a93d2abd6db4ab8a1786cc9434f9,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnVolumeSliderValueChanged
+      objectReference: {fileID: 0}
+    - target: {fileID: 3133163898239444641, guid: 7691a93d2abd6db4ab8a1786cc9434f9,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3519534251900591300, guid: 7691a93d2abd6db4ab8a1786cc9434f9,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -13166,6 +13196,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8114663378461665881, guid: 7691a93d2abd6db4ab8a1786cc9434f9,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8114663378461665881, guid: 7691a93d2abd6db4ab8a1786cc9434f9,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8114663378461665881, guid: 7691a93d2abd6db4ab8a1786cc9434f9,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8114663378461665881, guid: 7691a93d2abd6db4ab8a1786cc9434f9,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 465248352}
+    - target: {fileID: 8114663378461665881, guid: 7691a93d2abd6db4ab8a1786cc9434f9,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMusicSliderValueChanged
+      objectReference: {fileID: 0}
+    - target: {fileID: 8114663378461665881, guid: 7691a93d2abd6db4ab8a1786cc9434f9,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 9194026147998699985, guid: 7691a93d2abd6db4ab8a1786cc9434f9,
         type: 3}
@@ -13379,6 +13439,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundName: Click
   volume: 1
+--- !u!114 &465248352 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1327531685711178289, guid: 7691a93d2abd6db4ab8a1786cc9434f9,
+    type: 3}
+  m_PrefabInstance: {fileID: 465248345}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3100fa87142f4a45832155f1d676bda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &478322313
 GameObject:
   m_ObjectHideFlags: 0

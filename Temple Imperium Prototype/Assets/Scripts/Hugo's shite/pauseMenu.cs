@@ -12,8 +12,15 @@ using UnityEngine.SceneManagement;
 public class pauseMenu : MonoBehaviour
 {
     private CanvasGroup group;
-    private bool showingPause = false;
+    private static bool showingPause = false;
     private GameObject player;
+
+    //Added by Joe, allows other scripts to check if the pause menu is being shown
+    //  e.g. used to prevent weapon inputs when paused
+    public static bool GetPauseMenuShowing()
+    {
+        return showingPause;
+    }
 
     private void Start()
     {
