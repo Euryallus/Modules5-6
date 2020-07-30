@@ -13828,6 +13828,83 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 515915614}
   m_CullTransparentMesh: 0
+--- !u!1001 &518049243
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 962052935, guid: 3d3b7f8cc518a5a4983c3c2f51930454, type: 3}
+      propertyPath: itemName
+      value: Imperials
+      objectReference: {fileID: 0}
+    - target: {fileID: 962052935, guid: 3d3b7f8cc518a5a4983c3c2f51930454, type: 3}
+      propertyPath: description
+      value: The imperials... Corrupt... Don't help the...
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560996224377080209, guid: 3d3b7f8cc518a5a4983c3c2f51930454,
+        type: 3}
+      propertyPath: m_Name
+      value: itemPickUp (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560996224377080212, guid: 3d3b7f8cc518a5a4983c3c2f51930454,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 29.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560996224377080212, guid: 3d3b7f8cc518a5a4983c3c2f51930454,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.825
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560996224377080212, guid: 3d3b7f8cc518a5a4983c3c2f51930454,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 14.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560996224377080212, guid: 3d3b7f8cc518a5a4983c3c2f51930454,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560996224377080212, guid: 3d3b7f8cc518a5a4983c3c2f51930454,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.92387867
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560996224377080212, guid: 3d3b7f8cc518a5a4983c3c2f51930454,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560996224377080212, guid: 3d3b7f8cc518a5a4983c3c2f51930454,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.38268548
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560996224377080212, guid: 3d3b7f8cc518a5a4983c3c2f51930454,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 66
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560996224377080212, guid: 3d3b7f8cc518a5a4983c3c2f51930454,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560996224377080212, guid: 3d3b7f8cc518a5a4983c3c2f51930454,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -135
+      objectReference: {fileID: 0}
+    - target: {fileID: 5560996224377080212, guid: 3d3b7f8cc518a5a4983c3c2f51930454,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3d3b7f8cc518a5a4983c3c2f51930454, type: 3}
 --- !u!1 &523746970
 GameObject:
   m_ObjectHideFlags: 0
@@ -15866,12 +15943,12 @@ PrefabInstance:
     - target: {fileID: 3946322666855086247, guid: 4bc8d1054fe4c3c4298a1bcbb5ca77e4,
         type: 3}
       propertyPath: waves.Array.size
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3946322666855086247, guid: 4bc8d1054fe4c3c4298a1bcbb5ca77e4,
         type: 3}
       propertyPath: doors.Array.size
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3946322666855086247, guid: 4bc8d1054fe4c3c4298a1bcbb5ca77e4,
         type: 3}
@@ -15899,7 +15976,7 @@ PrefabInstance:
         type: 3}
       propertyPath: waves.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: d6a5faf59b3e04c4f9496aead87b89cc,
+      objectReference: {fileID: 11400000, guid: 2cf0d1852e501b54c81c1b0f26f5bb2b,
         type: 2}
     - target: {fileID: 3946322666855086247, guid: 4bc8d1054fe4c3c4298a1bcbb5ca77e4,
         type: 3}
@@ -20811,6 +20888,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 962052935, guid: 3d3b7f8cc518a5a4983c3c2f51930454, type: 3}
+      propertyPath: itemName
+      value: Coming to life
+      objectReference: {fileID: 0}
+    - target: {fileID: 962052935, guid: 3d3b7f8cc518a5a4983c3c2f51930454, type: 3}
+      propertyPath: description
+      value: 'Kill them quick... '
+      objectReference: {fileID: 0}
     - target: {fileID: 5560996224377080209, guid: 3d3b7f8cc518a5a4983c3c2f51930454,
         type: 3}
       propertyPath: m_Name
