@@ -9,6 +9,13 @@ using UnityEngine.UI;
 // ## Purpose: Control active Star Stone and manage charge & rotations
 //
 
+// ##
+// ## NOTE:
+// ## THIS IS NOT IN USE ANYMORE!
+// ## This script was replaced by StarStoneManager.cs
+// ## This script is complete garbage and doesn't run well AT ALL but I left it here to show the process I went through
+// ##
+
 public class generatorStates : MonoBehaviour
 {
     private GameObject[] enemies;

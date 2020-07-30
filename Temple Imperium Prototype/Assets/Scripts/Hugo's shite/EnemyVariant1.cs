@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 //
 // ## HUGO BAILEY
-// ## Written: Proof of Concept phase
+// ## Written: Proof of Concept phase & edited prototype phase
 // ## Purpose: Class for Enemy #1 behaviours, child class of Enemy
 //
 public class EnemyVariant1 : Enemy

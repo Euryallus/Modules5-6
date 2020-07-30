@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 //
 // ## HUGO BAILEY
-// ## Written: Proof of Concept phase
+// ## Written: Proof of Concept phase & edited prototype phase
 // ## Purpose: Controls all methods needed to run the main menu (attached to Buttons)
 //
 
@@ -33,6 +33,7 @@ public class mainMenu : MonoBehaviour
 
     public void Update()
     {
+        //Updates Endless mode highscore only if endless mode is selected
         if(PlayerPrefs.GetInt("EndlessMode", 0) == 1 && PlayerPrefs.GetInt("Highscore", 0) != 0)
         {
             highscoreText.text = "Endless mode highscore: " + PlayerPrefs.GetInt("Highscore", 0).ToString();
@@ -40,6 +41,7 @@ public class mainMenu : MonoBehaviour
         }
         else
         {
+            //hides highscore if endless mode is not active
             highscoreText.text = "";
         }
     }
@@ -63,10 +65,12 @@ public class mainMenu : MonoBehaviour
     public void difficultyChange()
     {
         PlayerPrefs.SetInt("Difficulty", difficultyDropDown.value);
+        //alters difficulty value (0, 1, 2) based on value selected via dropdown
     }
 
     public void modeChange()
     {
+        //alters mode selected from dropdown value
         PlayerPrefs.SetInt("EndlessMode", mode.value);
     }
     

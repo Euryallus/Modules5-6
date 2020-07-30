@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 //
 // ## HUGO BAILEY
-// ## Written: Proof of Concept phase
+// ## Written: Proof of Concept phase & edited prototype phase
 // ## Purpose: Base class for game enemies, includes basic behaviour for all states (patrol, investigate, engage)
 //
 
@@ -71,7 +71,7 @@ public class Enemy : MonoBehaviour
     // ## BASE VARIABLES 
     //
 
-    public new List<Transform> patrolPoints = new List<Transform>();
+    public List<Transform> patrolPoints = new List<Transform>();
     protected List<Vector3> investigatePoints = new List<Vector3>();
 
     protected NavMeshAgent agent;
@@ -158,11 +158,10 @@ public class Enemy : MonoBehaviour
             checkForPlayer();
         }
 
-
-
         // 
         // ## SWITCH STATEMENT
         // ## Runs different Update functions for each different "state" in the AI's Finite State Machine
+        // ## Switch statements are industry standard, and are generally considered more effective than if / elseif statements when large variation is involved
         //
 
         switch (currentState)
@@ -176,7 +175,6 @@ public class Enemy : MonoBehaviour
                 {
                     gameObject.GetComponent<NavMeshAgent>().enabled = false;
                 }
-                //agent.SetDestination(transform.position);
 
                 break;
 

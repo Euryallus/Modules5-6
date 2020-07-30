@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 //
 // ## HUGO BAILEY
-// ## Written: Proof of Concept phase
+// ## Written: Proof of Concept phase & edited prototype phase
 // ## Purpose: Manages player's health & associated effects
 //
 
@@ -55,6 +55,8 @@ public class playerHealth : MonoBehaviour
 
     private bool isEndlessMode;
     private int endlessModeScore = 0;
+
+    [Header("UI elements")]
     [SerializeField]
     private Text scoreUI;
     [SerializeField]
@@ -69,6 +71,7 @@ public class playerHealth : MonoBehaviour
         shield = gameObject.transform.GetChild(1).gameObject;
         shield.SetActive(false);
 
+        // finds and disables death screen & low health flash
         healthFlash = GameObject.FindGameObjectWithTag("healthFlash");
         healthFlash.GetComponent<Image>().enabled = false;
         deathMenu = GameObject.FindGameObjectWithTag("deathMenu");

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 //
 // ## HUGO BAILEY
-// ## Written: Proof of Concept phase
+// ## Written: Proof of Concept phase & edited prototype phase
 // ## Purpose: Manages player's health & associated effects
 //
 

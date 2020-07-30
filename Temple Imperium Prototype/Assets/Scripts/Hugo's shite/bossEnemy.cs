@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//
+// ## HUGO BAILEY
+// ## Written: Prototype phase
+// ## Purpose: Boss enemy variant
+//
 public class bossEnemy : Enemy
 {
     private bool firing = false;
@@ -13,19 +18,18 @@ public class bossEnemy : Enemy
     private float fireRate = 3;
     public bossEnemy() : base(40f, 180, 4, 1.5f, 4)
     {
-
+        // ## CLASS CONSTRUCTOR
+        // ## Calls "Enemy" parent constructor with values assigned to the boss
     }
 
     public override void Patrol()
     {
         agent.SetDestination(player.transform.position);
-        //base.Patrol();
     }
 
     public override void Investigate()
     {
         currentState = State.Patrol;
-        //base.Investigate();
     }
 
     public override void Engage()

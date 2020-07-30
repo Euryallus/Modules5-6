@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 //
 // ## HUGO BAILEY
-// ## Written: Proof of Concept phase
+// ## Written: Proof of Concept phase & edited prototype phase
 // ## Purpose: Manages wave UI and handles wave state (before, during, won, failed, etc.)
 //
 

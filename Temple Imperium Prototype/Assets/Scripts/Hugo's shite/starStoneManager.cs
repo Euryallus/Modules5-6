@@ -13,6 +13,8 @@ public class starStoneManager : MonoBehaviour
     [Header("UI textures")]
     [SerializeField]
     [Tooltip("IN ORDER: BLUE, PINK, ORANGE, PURPLE, DEFAULT")]
+
+    //Index of item in list all depends on Enum value (e.g. Blue has index 0, so blue texture must be at enemyMaterials[0])
     private List<Texture> UIMaterials = new List<Texture>();
     [SerializeField]
     private List<Image> UIElements = new List<Image>();
@@ -32,13 +34,14 @@ public class starStoneManager : MonoBehaviour
 
     private void Start()
     {
+        //sets charge of all star stones to max charge (stored as maxCharge)
         for (int i = 0; i < activeCharge.Count; i++)
         {
             activeCharge[i] = maxCharge;
         }
     }
 
-    public enum starStones
+    public enum starStones //possible star stone states
     {
         Blue,
         Pink,
@@ -47,40 +50,42 @@ public class starStoneManager : MonoBehaviour
         None
     }
 
-    protected starStones activeStone = starStones.None;
+    protected starStones activeStone = starStones.None; //initialised to None
 
-    public starStones returnActive()
+    public starStones returnActive() //returns active star stone (used in prototype weapon script and enemy damage)
     {
         return activeStone;
     }
 
-    public void activateStone(starStones stone)
+    public void activateStone(starStones stone) //sets active star stone to stone passed in parameters (used in pickUpControlScript)
     {
         if(activeStone == starStones.None)
         {
-            //GameObject.FindGameObjectWithTag("spawnerManager").GetComponent<playStateControl>().startGame();
-            starStoneHUD.alpha = 1;
+            starStoneHUD.alpha = 1; //disables HUD if no stone is selected (default)
         }
 
+        //sets active stone to stone passed
         activeStone = stone;
+        //sets texture to be altered to the active stone's colour
         currentTexture = UIMaterials[(int)activeStone];
+        // e.g. if Pink is active, display only the pink material
 
     }
 
     public void FixedUpdate()
     {
-        for (int i = 0; i < activeCharge.Count; i++)
+        for (int i = 0; i < activeCharge.Count; i++) //cycles all star stone charges 
         {
-            if(i == (int)activeStone)
+            if(i == (int)activeStone) //if the currently inspected stone is the one that's active
             {
                 if (activeCharge[(int)activeStone] > 0)
                 {
-                    activeCharge[(int)activeStone] -= Time.deltaTime;
+                    activeCharge[(int)activeStone] -= Time.deltaTime; //reduce it's charge if it's not below or = to 0
                 }
                 else
                 {
-                    int nextStone = (int)activeStone + 1;
-                    if(nextStone == 4)
+                    int nextStone = (int)activeStone + 1; //if charge on the active stone is 0, cycle to the next one in the list
+                    if(nextStone == 4) //circular list implementation
                     {
                         nextStone = 0;
                     }
@@ -88,24 +93,29 @@ public class starStoneManager : MonoBehaviour
                     activeStone = (starStones)nextStone;
                 }
 
-                UIHighlights[i].SetActive(true);
+                UIHighlights[i].SetActive(true); //highlight the UI element that corrosponds to the active stone
             }
             else
             {
-                UIHighlights[i].SetActive(false);
+                UIHighlights[i].SetActive(false); //don't highlight the UI element for a stone that's disabled
                 if (activeCharge[i] < maxCharge)
                 {
-                    activeCharge[i] += Time.deltaTime;
+                    activeCharge[i] += Time.deltaTime; //increase the charge of the unused stone (to max of maxCharge)
                 }
             }
 
+            //alter alpha of stone's UI element to match current charge
             UIHighlights[i].GetComponent<Image>().color = new Color(UIHighlights[i].GetComponent<Image>().color.r, UIHighlights[i].GetComponent<Image>().color.g, UIHighlights[i].GetComponent<Image>().color.b, activeCharge[i] / maxCharge);
 
+            //
             UIElements[i].color = new Color(UIElements[i].color.r, UIElements[i].color.g, UIElements[i].color.b, activeCharge[i] / maxCharge); 
         }
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy"); //creates list of all alive enemies
+
         if(enemies.Length > 0 && GameObject.FindGameObjectWithTag("spawnerManager").GetComponent<playStateControl>().returnState() == playStateControl.waveState.waveActive)
         {
+            // if the game is running & enemies are alive, alter their material to match which stone is active
             for (int j = 0; j < enemies.Length; j++)
             {
                 if(enemies[j].GetComponent<Enemy>().hasHurt == false)
