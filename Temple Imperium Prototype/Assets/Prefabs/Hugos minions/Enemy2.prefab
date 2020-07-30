@@ -413,6 +413,7 @@ MonoBehaviour:
   regenPerSecond: 0.5
   healthBar: {fileID: 0}
   enemyViewAngle: 150
+  deathSoundName: EnemyDSFX
   damageMaterial: {fileID: 2100000, guid: 1ca47d99f076fb647abb10ace632be7f, type: 2}
   fireDamage: 1
   fireLength: 3
