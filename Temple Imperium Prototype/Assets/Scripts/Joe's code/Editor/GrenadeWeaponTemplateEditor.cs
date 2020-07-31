@@ -2,6 +2,14 @@
 using UnityEditor;
 using UnityEngine;
 
+//------------------------------------------------------\\
+//  Custom editor to enhance the inspector interface    \\
+//  for creating a grenade.                             \\
+//------------------------------------------------------\\
+//      Written by Joe for proof of concept phase       \\
+//      and modified/optimised for prototype phase      \\
+//------------------------------------------------------\\
+
 [CustomEditor(typeof(GrenadeWeaponTemplate))]
 public class GrenadeWeaponTemplateEditor : WeaponTemplateEditor
 {
@@ -23,7 +31,7 @@ public class GrenadeWeaponTemplateEditor : WeaponTemplateEditor
         if (!string.IsNullOrEmpty(targetTemplate.m_throwSound))
             throwSoundIndex = Array.IndexOf(soundEffectOptions, targetTemplate.m_throwSound);
 
-        //Throw Sound
+        //Throw sound selection
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Throw sound: ", EditorStyles.label, GUILayout.MaxWidth(100f));
         throwSoundIndex = EditorGUILayout.Popup(throwSoundIndex, soundEffectOptions);

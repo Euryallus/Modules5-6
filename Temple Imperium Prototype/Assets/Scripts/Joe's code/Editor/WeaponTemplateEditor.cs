@@ -8,6 +8,7 @@ using UnityEngine;
 //  other template editors.                             \\
 //------------------------------------------------------\\
 //      Written by Joe for proof of concept phase       \\
+//      and modified/optimised for prototype phase      \\
 //------------------------------------------------------\\
 
 [CustomEditor(typeof(WeaponTemplate))]
@@ -29,6 +30,8 @@ public class WeaponTemplateEditor : Editor
 
         GameObject goAudioManager = GameObject.Find("_Audio Manager");
 
+        //Ensure that an audio manager is present in the current scene,
+        //  if not audio dropdowns cannot be displayed, so show some error text instead
         if (goAudioManager != null)
         {
             SoundEffect[] availableSounds = goAudioManager.GetComponent<AudioManager>().GetSoundEffects();
@@ -42,7 +45,7 @@ public class WeaponTemplateEditor : Editor
             if (!string.IsNullOrEmpty(targetTemplate.m_attackSound))
                 attackSoundIndex = Array.IndexOf(soundEffectOptions, targetTemplate.m_attackSound);
 
-            //Attack Sound
+            //Attack sound selection
             GUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Attack sound: ", EditorStyles.label, GUILayout.MaxWidth(100f));
             attackSoundIndex = EditorGUILayout.Popup(attackSoundIndex, soundEffectOptions);
@@ -52,6 +55,7 @@ public class WeaponTemplateEditor : Editor
         }
         else
         {
+            //Error text when no audio manager is found
             GUIStyle styleError = new GUIStyle();
             styleError.normal.textColor = Color.red;
             EditorGUILayout.LabelField("No _Audio Manager found in scene.", styleError);

@@ -2,17 +2,26 @@
 using UnityEditor;
 using UnityEngine;
 
+//------------------------------------------------------\\
+//  Custom editor to enhance the inspector interface    \\
+//  for creating a weapon. Acts as a base class for     \\
+//  other template editors.                             \\
+//------------------------------------------------------\\
+//      Written by Joe for proof of concept phase       \\
+//------------------------------------------------------\\
+
 [CustomEditor(typeof(WeaponTemplate))]
 public class WeaponTemplateEditor : Editor
 {
-    int attackSoundIndex;
-    public string[] soundEffectOptions;
+    int attackSoundIndex;               //Index for the dropdown menu used to select the attack sound
+    public string[] soundEffectOptions; //All possible sound effect names that can be selected
 
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
         WeaponTemplate targetTemplate = (WeaponTemplate)target;
 
+        //Draw the default ScriptableObject GUI first
         base.OnInspectorGUI();
 
         EditorGUILayout.Space();
@@ -37,6 +46,7 @@ public class WeaponTemplateEditor : Editor
         GUILayout.EndHorizontal();
         targetTemplate.m_attackSound = soundEffectOptions[attackSoundIndex];
 
+        //Apply any properties that have been changed
         EditorUtility.SetDirty(target);
         serializedObject.ApplyModifiedProperties();
     }

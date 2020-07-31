@@ -1,65 +1,58 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-public enum TempStarStoneState
-{
-    None,
-    Power_Purple,
-    Heat_Orange,
-    Ice_Blue,
-    Heal_Pink
-}
+//------------------------------------------------------\\
+//  Can be applied to a player or enemy to allow them   \\
+//  to hold and fire/attack with weapons                \\
+//------------------------------------------------------\\
+//      Written by Joe for proof of concept phase       \\
+//------------------------------------------------------\\
 
 public class WeaponHolder : MonoBehaviour
 {
     //Set in inspector:
     [Header("Generic Weapon Holder Properties")]
+    [SerializeField]
+    private bool playerControlsWeapons;                 //Can the player control weapon firing/switching? Should be true for the player, false for other entities like enemies
+    [SerializeField]
+    private WeaponTemplate[] availableWeaponTemplates;  //All weapon types that this weapon holder will contain
+    [SerializeField]
+    private Transform transformHead;                    //Head of the entity used for positioning weapons
+    [SerializeField]
+    private GameObject prefabFireLight;                 //Light that is spawned for a short time when a gun is fired
 
+    [Header("Player Specific Properties")]  //These properties only need to be set if the playerControlsWeapons is true
     [SerializeField]
-    private bool playerControlsWeapons;  //Can the player control weapon firing/switching? Should be true for the player, false for enemies
+    private Camera playerCamera;            //The first person camera attatched to the player
     [SerializeField]
-    private WeaponTemplate[] availableWeaponTemplates;
+    private float defaultCameraFOV = 90f;   //The first person camera's default field of view
     [SerializeField]
-    private Transform transformHead;
-    [SerializeField]
-    private GameObject prefabFireLight;
+    private float adsCameraFOV = 60f;       //The first person camera's field of view when aiming down sights
 
-    [Header("Player Specific Properties")]
-
-    [SerializeField]
-    private Camera playerCamera;
-    [SerializeField]
-    private float defaultCameraFOV = 90f;
-    [SerializeField]
-    private float adsCameraFOV = 60f;
-
-    //public int ammo { get; set; } = 100;
-    public generatorStates generatorStates { get; private set; }
-    public Weapon activeWeapon { get; private set; }
-    private bool emptyHand;
-    private Weapon[] availableWeapons;
-    private GameObject goWeapon;
-    private WeaponAimInfo weaponAimInfo;
-    private Quaternion targetWeaponRotation;
-    private float targetCameraFOV;
-    private bool aimDownSights;
+    public starStoneManager generatorStates { get; private set; }//Used to keep track of the active StarStone
+    public Weapon activeWeapon { get; private set; }            //The weapon that is currently being held
+    private bool emptyHand;                                     //If true, no weapon is displayed
+    private Weapon[] availableWeapons;                          //All posible weapons that can be switched between
+    private GameObject goWeapon;                                //The held weapon GameObject
+    private WeaponAimInfo weaponAimInfo;                        //Contains data regarding where the entity is aiming/what they are aiming at
+    private Quaternion targetWeaponRotation;                    //Rotation of the held weapon to lerp towards
+    private float targetCameraFOV;                              //First person camera field of view to lerp towards
+    private bool aimDownSights;                                 //Is the entity currently aiming down sights
 
     private void Start()
     {
-        generatorStates = GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<generatorStates>();
-
+        //Find generatorStates script and set defaults
+        generatorStates = GameObject.FindGameObjectWithTag("GeneratorManager").GetComponent<starStoneManager>();
         targetCameraFOV = defaultCameraFOV;
-
         SetupAvailableWeapons();
-
         SwitchActiveWeapon(0, true);
     }
 
     private void SetupAvailableWeapons()
     {
+        //Add all available weapons based on the weapon templates that were set in the inspector.
+        //  Each weapon template has a corresponding weapon class, any unrecognised templates wil throw an error
         availableWeapons = new Weapon[availableWeaponTemplates.Length];
         for (int i = 0; i < availableWeaponTemplates.Length; i++)
         {
@@ -86,23 +79,23 @@ public class WeaponHolder : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
+        //Aim info to use for this frame
         weaponAimInfo = GetWeaponAimInfo();
 
-        //Call Update on all weapons
+        //Call Update on all weapons each frame
         for (int i = 0; i < availableWeapons.Length; i++)
         {
             availableWeapons[i].Update();
         }
-
-        //Call HeldUpdate on the weapon that is currently being held
+        //Call HeldUpdate only on the weapon that is currently being held
         if (activeWeapon != null)
         {
             activeWeapon.HeldUpdate();
         }
 
+        //Player specific updates
         if (playerControlsWeapons)
         {
             CheckForWeaponSwitchInput();
@@ -111,22 +104,21 @@ public class WeaponHolder : MonoBehaviour
             UpdateCamera();
         }
 
+        //Hide the active weapon if the entity should have an empty hand
         if (emptyHand)
         {
             goWeapon.SetActive(false);
         }
 
-        //Aiming down sights
+        //Aiming down sights is activated by pressing the right mouse button with a gun or prototype weapon
         if ((activeWeapon is GunWeapon || activeWeapon is PrototypeWeapon) && Input.GetButton("Fire2"))
         {
             aimDownSights = true;
         }
-        else
-        {
-            aimDownSights = false;
-        }
+        else { aimDownSights = false; }
 
-        if(activeWeapon is GunWeapon activeGun && Input.GetKeyDown(KeyCode.L))
+        //Turn the primary weapon torch on/off if the L key is pressed
+        if (activeWeapon is GunWeapon activeGun && Input.GetKeyDown(KeyCode.L))
         {
             bool torchOn = activeGun.ToggleTorchOn();
             EnableWeaponTorchGameObject(torchOn);
@@ -135,8 +127,8 @@ public class WeaponHolder : MonoBehaviour
 
     private void UpdateCamera()
     {
-        //Aiming down sights
-        if(aimDownSights)
+        //Change camera FOV depending on if the player is aiming down sights
+        if (aimDownSights)
         {
             targetCameraFOV = adsCameraFOV;
         }
@@ -144,22 +136,25 @@ public class WeaponHolder : MonoBehaviour
         {
             targetCameraFOV = defaultCameraFOV;
         }
+        //Lerp to the target FOV for the current one to create smooth motion
         playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, targetCameraFOV, Time.deltaTime * 20f);
     }
 
     public void SetEmptyHand(bool empty)
     {
+        //Toggles whether the entity has an empty hand
         emptyHand = empty;
-
-        if(!empty)
+        if (!empty)
         {
-            if(activeWeapon != null)
+            //Holding weapon - switch back to the active weapon
+            if (activeWeapon != null)
             {
                 SwitchActiveWeapon(Array.IndexOf(availableWeapons, activeWeapon), true);
             }
         }
         else
         {
+            //Empty hand - ensure weapon usage is disabled
             TryEndingWeaponUsage();
         }
     }
@@ -208,7 +203,9 @@ public class WeaponHolder : MonoBehaviour
     #region Weapon Switching
     private void CheckForWeaponSwitchInput()
     {
-        if(Input.GetAxis("Mouse ScrollWheel") > 0f)
+        //Move through all available weapons when scrolling,
+        //  scroll direction determines if switching forwards/backwards
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
             CycleThroughAvailableWeapons(true);
         }
@@ -217,6 +214,7 @@ public class WeaponHolder : MonoBehaviour
             CycleThroughAvailableWeapons(false);
         }
 
+        //Switch to the weapon corresponding to any pressed number key
         for (int i = 0; i < availableWeapons.Length; i++)
         {
             if (Input.GetKeyDown((i + 1).ToString()))
@@ -227,15 +225,18 @@ public class WeaponHolder : MonoBehaviour
     }
     private void CycleThroughAvailableWeapons(bool forwards)
     {
+        //Find the index of the current weapon, or default to 0 if not holding a weapon
         int currentWeaponIndex = 0;
-        if(activeWeapon != null)
+        if (activeWeapon != null)
         {
             currentWeaponIndex = Array.IndexOf(availableWeapons, activeWeapon);
         }
 
         int nextWeaponIndex;
+        //Set the next weapon index to either the next or previous weapon
         if (forwards)
         {
+            //Resets back to 0 if at the last weapon in the list
             nextWeaponIndex = 0;
             if (currentWeaponIndex < (availableWeapons.Length - 1))
             {
@@ -244,19 +245,22 @@ public class WeaponHolder : MonoBehaviour
         }
         else
         {
+            //Resets to the final weapon if at the first weapon in the list
             nextWeaponIndex = (availableWeapons.Length - 1);
-            if(currentWeaponIndex > 0)
+            if (currentWeaponIndex > 0)
             {
                 nextWeaponIndex = currentWeaponIndex - 1;
             }
         }
 
+        //Swich based on the index thet was determined
         SwitchActiveWeapon(nextWeaponIndex);
     }
     public void SwitchActiveWeapon(int weaponIndex, bool forceSwitch = false)
     {
+        //Ensure the given index is a valid index for the availableWeapons array
         Weapon weapon;
-        if(weaponIndex >= 0 && weaponIndex < availableWeapons.Length)
+        if (weaponIndex >= 0 && weaponIndex < availableWeapons.Length)
         {
             weapon = availableWeapons[weaponIndex];
         }
@@ -270,23 +274,30 @@ public class WeaponHolder : MonoBehaviour
         //  or a switch is being forced (used for setting up a weapon in the inspector before playing)
         if ((activeWeapon != weapon) || forceSwitch)
         {
+            //Remove the GameObject for the previously held weapon
             if (goWeapon != null)
             {
                 Destroy(goWeapon);
             }
             if (weapon != null)
             {
-                if(activeWeapon != null)
+                //Trigger any SwitchingToOtherWeapon events on the active weapon
+                if (activeWeapon != null)
                 {
                     activeWeapon.SwitchingToOtherWeapon();
                 }
+
+                //Set the new active weapon and create its GameObject as determined by the template
                 activeWeapon = weapon;
                 goWeapon = Instantiate(activeWeapon.m_template.GetGameObject(), transformHead);
                 goWeapon.transform.localPosition += activeWeapon.m_template.GetVisualOffset();
                 SetHeldWeaponHidden(weapon.m_hideHeldWeapon);
+
+                //Trigger SwitchingToThisWeapon events on the new weapon
                 weapon.SwitchingToThisWeapon();
-                
-                if(weapon is GunWeapon gun)
+
+                //Toggle the torch if switching to a gun that has one
+                if (weapon is GunWeapon gun)
                 {
                     EnableWeaponTorchGameObject(gun.m_torchOn);
                 }
@@ -299,6 +310,7 @@ public class WeaponHolder : MonoBehaviour
     }
     private void EnableWeaponTorchGameObject(bool torchOn)
     {
+        //Enables/disabled the torch GameObject
         Transform transformTorch = goWeapon.transform.Find("Torch");
         if (transformTorch != null)
         {
@@ -321,7 +333,7 @@ public class WeaponHolder : MonoBehaviour
         {
             TryUsingWeaponAlternate();
         }
-
+        //For weapons with a continuous attack, end weapon usage on mouse up
         if (Input.GetButtonUp("Fire1"))
         {
             TryEndingWeaponUsage();
@@ -329,6 +341,7 @@ public class WeaponHolder : MonoBehaviour
     }
     public void TryUsingWeapon(bool buttonDown)
     {
+        //Attacks if a weapon is being held at is ready to be used
         if (!emptyHand && activeWeapon.ReadyToAttack())
         {
             activeWeapon.Attack(weaponAimInfo, goWeapon, prefabFireLight, transformHead, buttonDown);
@@ -336,6 +349,7 @@ public class WeaponHolder : MonoBehaviour
     }
     public void TryUsingWeaponAlternate()
     {
+        //Secondary attack if a weapon is being held at its alternate attack is ready to be used
         if (!emptyHand && activeWeapon.ReadyToAttackAlternate())
         {
             activeWeapon.AlternateAttack(weaponAimInfo, goWeapon, transformHead);
@@ -343,7 +357,8 @@ public class WeaponHolder : MonoBehaviour
     }
     public void TryEndingWeaponUsage()
     {
-        if(activeWeapon is PrototypeWeapon activeProto)
+        //Stops the attack for weapons that stay active once triggered
+        if (activeWeapon is PrototypeWeapon activeProto)
         {
             activeProto.StopAttack();
         }
@@ -352,9 +367,10 @@ public class WeaponHolder : MonoBehaviour
 
     public void PickupAmmo(int amount, GunWeaponTemplate gunType)
     {
+        //Finds a weapon with the specified template and adds a set amount of ammo
         for (int i = 0; i < availableWeapons.Length; i++)
         {
-            if(availableWeapons[i].m_template == gunType)
+            if (availableWeapons[i].m_template == gunType)
             {
                 ((GunWeapon)availableWeapons[i]).AddAmmo(amount);
                 return;
@@ -364,6 +380,8 @@ public class WeaponHolder : MonoBehaviour
 
     private WeaponAimInfo GetWeaponAimInfo()
     {
+        //Find the maximum distance the active weapon can fire/attack based on its range,
+        //  or use a default of 10 for weapons that do not specify a range
         float maxDistance = 10f;
         if (activeWeapon is GunWeapon activeGun)
         {
@@ -378,21 +396,28 @@ public class WeaponHolder : MonoBehaviour
             maxDistance = activeProto.m_prototypeTemplate.GetRange();
         }
 
-        if (Physics.Raycast(transformHead.position, transformHead.forward, out RaycastHit hit, maxDistance, ~LayerMask.GetMask("Player")))
+        //Check if the weapon is aiming at an object using a raycast, ignoring the player
+        //  if they are holding the weapon to prevent them from hitting themselves
+        LayerMask layerMask = 0;
+        if (playerControlsWeapons) { layerMask = (~LayerMask.GetMask("Player")); }
+        if (Physics.Raycast(transformHead.position, transformHead.forward, out RaycastHit hit, maxDistance, layerMask))
         {
+            //Hit: Return WeaponAimInfo with the raycast result
             return new WeaponAimInfo(hit.point, true, hit, maxDistance);
         }
         else
         {
+            //No hit: Return WeaponAimInfo using the maxDistance for the weapon
             return new WeaponAimInfo((transformHead.position + (transformHead.forward * maxDistance)), false, new RaycastHit(), maxDistance);
         }
     }
 
+    //Destroys a weapon GameObject after a set amount of time,
+    //  useful for GO's used for effects that should last for a set amount of time and then disappear
     public void DestroyWeaponGameObjectAfterTime(GameObject goWeapon, float time)
     {
         StartCoroutine(DestroyWeaponGameObjectAfterTimeCoroutine(goWeapon, time));
     }
-
     private IEnumerator DestroyWeaponGameObjectAfterTimeCoroutine(GameObject goWeapon, float time)
     {
         yield return new WaitForSeconds(time);
@@ -402,14 +427,16 @@ public class WeaponHolder : MonoBehaviour
         }
     }
 
+
     public PrototypeWeapon GetPrototypeWeapon()
     {
-        for (int i = 0; i < availableWeapons.Length ; i++)
+        //Returns a prototype weapon if one can be found in the entities available weapons,
+        //  or throws an error is none are available
+        for (int i = 0; i < availableWeapons.Length; i++)
         {
             if (availableWeapons[i] is PrototypeWeapon protoWeapon)
                 return protoWeapon;
         }
-
         Debug.LogError("Trying to get prototype weapon on entity that is not holding one (" + gameObject.name + ")");
         return null;
     }
@@ -417,11 +444,9 @@ public class WeaponHolder : MonoBehaviour
     private void OnDrawGizmos()
     {
         //Debug visualisation for weapon aiming
-
         if (playerControlsWeapons)
         {
             Vector3 focusPoint = weaponAimInfo.m_aimPoint;
-
             if (weaponAimInfo.m_raycastHit)
             {
                 Gizmos.color = Color.red;
@@ -433,7 +458,6 @@ public class WeaponHolder : MonoBehaviour
                 Gizmos.color = Color.yellow;
                 Gizmos.DrawRay(transformHead.position, transformHead.forward * weaponAimInfo.m_maxDistance);
             }
-
             Gizmos.color = Color.white;
             Gizmos.DrawLine(transformHead.position, new Vector3(focusPoint.x, transformHead.position.y, focusPoint.z));
             Gizmos.color = new Color(1f, 1f, 1f, 0.5f);
@@ -444,10 +468,13 @@ public class WeaponHolder : MonoBehaviour
 
 public struct WeaponAimInfo
 {
-    public Vector3 m_aimPoint { get; private set; }
-    public bool m_raycastHit { get; private set; }
-    public RaycastHit m_hitInfo { get; private set; }
-    public float m_maxDistance { get; private set; }
+    //Properties
+    public Vector3 m_aimPoint { get; private set; }     //The position the weapon should aim towards
+    public bool m_raycastHit { get; private set; }      //Whether anything was hit by the last raycast
+    public RaycastHit m_hitInfo { get; private set; }   //Info from the last raycast if anything was hit
+    public float m_maxDistance { get; private set; }    //The maximum distance to aim for if nothing was hit
+
+    //Constructor
     public WeaponAimInfo(Vector3 aimPoint, bool raycastHit, RaycastHit hitInfo, float maxDistance)
     {
         m_aimPoint = aimPoint;

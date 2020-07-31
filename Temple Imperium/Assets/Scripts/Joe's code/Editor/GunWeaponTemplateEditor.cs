@@ -5,6 +5,7 @@ using UnityEngine;
 [CustomEditor(typeof(GunWeaponTemplate))]
 public class GunWeaponTemplateEditor : WeaponTemplateEditor
 {
+    //Index for the dropdown menu used to select the melee sound
     int meleeSoundIndex;
 
     public override void OnInspectorGUI()
@@ -12,6 +13,7 @@ public class GunWeaponTemplateEditor : WeaponTemplateEditor
         serializedObject.Update();
         GunWeaponTemplate targetTemplate = (GunWeaponTemplate)target;
 
+        //Draw the default weapon editor GUI 
         base.OnInspectorGUI();
 
         //Set the sound array index to the index of the chosen sound (prevents them from resetting)
@@ -26,6 +28,7 @@ public class GunWeaponTemplateEditor : WeaponTemplateEditor
         GUILayout.EndHorizontal();
         targetTemplate.m_meleeSound = soundEffectOptions[meleeSoundIndex];
 
+        //Apply any properties that have been changed
         EditorUtility.SetDirty(target);
         serializedObject.ApplyModifiedProperties();
     }

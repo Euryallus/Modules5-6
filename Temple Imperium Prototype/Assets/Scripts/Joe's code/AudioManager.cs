@@ -13,6 +13,8 @@ using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
+    //A single static instance of this class will exist in every scene
+    //  so it can easily be used by other scripts at any time
     public static AudioManager instance;
 
     //Set in inspector:

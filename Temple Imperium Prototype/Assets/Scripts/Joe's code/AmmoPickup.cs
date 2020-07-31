@@ -5,7 +5,8 @@
 //  it to be picked up by a player, and supply them     \\
 //  with a set amount of ammo for a certain gun.        \\
 //------------------------------------------------------\\
-//      Written by Joe for prototype phase              \\
+//      Written by Joe for proof of concept phase       \\
+//      and modified/optimised for prototype phase      \\
 //------------------------------------------------------\\
 
 public class AmmoPickup : MonoBehaviour

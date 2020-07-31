@@ -7,6 +7,7 @@ using UnityEngine;
 //  for creating a prototype weapon.                    \\
 //------------------------------------------------------\\
 //      Written by Joe for proof of concept phase       \\
+//      and modified/optimised for prototype phase      \\
 //------------------------------------------------------\\
 
 [CustomEditor(typeof(PrototypeWeaponTemplate))]

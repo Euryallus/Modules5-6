@@ -1,5 +1,13 @@
 ﻿using UnityEngine;
 
+//------------------------------------------------------\\
+//  Template that defines a type of prototype weapon    \\
+//  that canbe edited in the inspector by creating a    \\
+//  ScriptableObject and adjusting its properties       \\
+//------------------------------------------------------\\
+//      Written by Joe for proof of concept phase       \\
+//------------------------------------------------------\\
+
 [CreateAssetMenu(fileName = "Prototype Weapon Template", menuName = "Weapon Template/Prototype Weapon")]
 public class PrototypeWeaponTemplate : WeaponTemplate
 {
@@ -76,6 +84,8 @@ public class PrototypeWeaponTemplate : WeaponTemplate
     [SerializeField]
     [Tooltip("Amount of health to restore to the entity holding the weapon when they deal damage")]
     private int m_healthRestoreAmount;
+
+    //Set in custom editor:
 
     //Name of sound effect to be looped while this weapon is firing
     [SerializeField] [HideInInspector]

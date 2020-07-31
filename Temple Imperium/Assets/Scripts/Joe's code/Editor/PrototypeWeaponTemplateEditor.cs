@@ -2,9 +2,17 @@
 using UnityEditor;
 using UnityEngine;
 
+//------------------------------------------------------\\
+//  Custom editor to enhance the inspector interface    \\
+//  for creating a prototype weapon.                    \\
+//------------------------------------------------------\\
+//      Written by Joe for proof of concept phase       \\
+//------------------------------------------------------\\
+
 [CustomEditor(typeof(PrototypeWeaponTemplate))]
 public class PrototypeWeaponTemplateEditor : WeaponTemplateEditor
 {
+    //Indexes for the dropdown menus used to select sounds
     int firingSoundIndex;
     int disableSoundIndex;
     int powerSoundIndex;
@@ -14,6 +22,7 @@ public class PrototypeWeaponTemplateEditor : WeaponTemplateEditor
         serializedObject.Update();
         PrototypeWeaponTemplate targetTemplate = (PrototypeWeaponTemplate)target;
 
+        //Draw the default weapon editor GUI first
         base.OnInspectorGUI();
 
         //Set the sound array indexes to the index of the chosen sound (prevents them from resetting)
@@ -48,6 +57,7 @@ public class PrototypeWeaponTemplateEditor : WeaponTemplateEditor
         GUILayout.EndHorizontal();
         targetTemplate.m_powerSound = soundEffectOptions[powerSoundIndex];
 
+        //Apply any properties that have been changed
         EditorUtility.SetDirty(target);
         serializedObject.ApplyModifiedProperties();
     }

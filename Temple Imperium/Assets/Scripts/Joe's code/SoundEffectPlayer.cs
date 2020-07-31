@@ -3,21 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//------------------------------------------------------\\
+//  SaveLoadManager provides an easy interface for      \\
+//  sounds of various types to be played from any scene \\
+//------------------------------------------------------\\
+//      Written by Joe for proof of concept phase       \\
+//------------------------------------------------------\\
+
 public class SoundEffectPlayer : MonoBehaviour
 {
     public static SoundEffectPlayer instance;
 
     [Header("Add sound effects:")]
     [Header("Please make changes on the prefab object.")]
-
     //Set in inspector:
     [SerializeField]
-    private SoundEffect[] soundEffects;
+    private SoundEffect[] soundEffects;     //All available sound effects
     [SerializeField]
-    private GameObject prefabSoundSource;
+    private GameObject prefabSoundSource;   //Sound source to be instantiated when a sound is played
 
-    private Dictionary<string, AudioClip> soundEffectsDict;
-    private bool ready = false;
+    private Dictionary<string, AudioClip> soundEffectsDict; //Dictionary so audio clips can be accessed based on their name
+
+    public SoundEffect[] GetSoundEffects() { return soundEffects; }
 
     private void Awake()
     {
@@ -35,22 +42,16 @@ public class SoundEffectPlayer : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         SetupSoundEffectsDict();
-        ready = true;
-
+        //Start the sound effect cleanup coroutine that will loop for the duration of the game
         StartCoroutine(SoundSourceCleanupCoroutine());
-    }
-
-    public SoundEffect[] GetSoundEffects()
-    {
-        return soundEffects;
     }
 
     public void SetupSoundEffectsDict()
     {
+        //Add all sounds to the sound effects dictionary, using their name as a key
         soundEffectsDict = new Dictionary<string, AudioClip>();
         for (int i = 0; i < soundEffects.Length; i++)
         {
@@ -62,11 +63,7 @@ public class SoundEffectPlayer : MonoBehaviour
 
     public void PlayGenericSoundEffect(string name, bool use3dSpace, Vector3 sourcePosition, float volume = 1f, float minPitch = 1f, float maxPitch = 1f, bool looping = false, string loopId = "")
     {
-        if (!ready)
-        {
-            Debug.LogWarning("Trying to play sound effect: " + name + " - not ready.");
-        }
-
+        //Check that the specified sound exists and throw an error if now
         if (!soundEffectsDict.ContainsKey(name))
         {
             Debug.LogError("Trying to play sound with invalid name: " + name);
@@ -76,24 +73,29 @@ public class SoundEffectPlayer : MonoBehaviour
         //Ensure maxPitch is not lower than minPitch
         maxPitch = Mathf.Clamp(maxPitch, minPitch, Mathf.Infinity);
 
+        //Create the sound source GameObject
         GameObject goSource = Instantiate(prefabSoundSource, sourcePosition, Quaternion.identity, transform);
         goSource.name = "Sound_" + name;
 
+        //Set audioSource values based on given parameters
         AudioSource audioSource = goSource.GetComponent<AudioSource>();
         audioSource.clip = soundEffectsDict[name];
         audioSource.pitch = UnityEngine.Random.Range(minPitch, maxPitch);
-
+        //Multiply volume by the value set in the options menu
         audioSource.volume = volume * SaveLoadManager.instance.LoadFloatFromPlayerPrefs("Options_Volume_Sound");
 
         if (use3dSpace)
         {
+            //Enable spatialBlend if playing sound in 3D space, so it will sound like it originates from sourcePosition
             audioSource.spatialBlend = 1f;
         }
         if (looping)
         {
+            //If looping, set the audioSource to loop and give it an identifiable name so it can later be stopped/deleted
             goSource.name = "LoopSound_" + loopId;
             audioSource.loop = true;
         }
+        //Play the sound
         audioSource.Play();
     }
 
@@ -144,6 +146,7 @@ public class SoundEffectPlayer : MonoBehaviour
 
     #endregion
 
+    //Used to remove inactive sound sources every few frames
     private IEnumerator SoundSourceCleanupCoroutine()
     {
         //Wait for 10 frames between each cleanup
@@ -160,6 +163,7 @@ public class SoundEffectPlayer : MonoBehaviour
     }
     private void CleanupSoundEffectSources()
     {
+        //Find and destroy any sources that are not playing
         foreach (Transform child in transform)
         {
             if (!child.GetComponent<AudioSource>().isPlaying)
@@ -170,10 +174,12 @@ public class SoundEffectPlayer : MonoBehaviour
     }
 }
 
+//Used to define sound effects in the editor, each SoundEffect has
+//  - a name used to identify it
+//  - an audioClip, the actual sound to be played
 [Serializable]
 public struct SoundEffect
 {
     public string name;
     public AudioClip audioClip;
 }
-

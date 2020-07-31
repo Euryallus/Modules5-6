@@ -2,6 +2,14 @@
 using UnityEditor;
 using UnityEngine;
 
+//------------------------------------------------------\\
+//  Custom editor to enhance the inspector interface    \\
+//  for creating a gun.                                 \\
+//------------------------------------------------------\\
+//      Written by Joe for proof of concept phase       \\
+//      and modified/optimised for prototype phase      \\
+//------------------------------------------------------\\
+
 [CustomEditor(typeof(GunWeaponTemplate))]
 public class GunWeaponTemplateEditor : WeaponTemplateEditor
 {
@@ -29,7 +37,7 @@ public class GunWeaponTemplateEditor : WeaponTemplateEditor
         if (!string.IsNullOrEmpty(targetTemplate.m_objectHitSound))
             objectHitSoundIndex = Array.IndexOf(soundEffectOptions, targetTemplate.m_objectHitSound);
 
-        //Melee attack sound
+        //Melee attack sound selection
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Melee sound: ", EditorStyles.label, GUILayout.MaxWidth(100f));
         meleeSoundIndex = EditorGUILayout.Popup(meleeSoundIndex, soundEffectOptions);
@@ -37,7 +45,7 @@ public class GunWeaponTemplateEditor : WeaponTemplateEditor
         GUILayout.EndHorizontal();
         targetTemplate.m_meleeSound = soundEffectOptions[meleeSoundIndex];
 
-        //Reload sound
+        //Reload sound selection
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Reload sound: ", EditorStyles.label, GUILayout.MaxWidth(100f));
         reloadSoundIndex = EditorGUILayout.Popup(reloadSoundIndex, soundEffectOptions);
@@ -45,7 +53,7 @@ public class GunWeaponTemplateEditor : WeaponTemplateEditor
         GUILayout.EndHorizontal();
         targetTemplate.m_reloadSound = soundEffectOptions[reloadSoundIndex];
 
-        //Object hit sound
+        //Object hit sound selection
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Object hit sound: ", EditorStyles.label, GUILayout.MaxWidth(100f));
         objectHitSoundIndex = EditorGUILayout.Popup(objectHitSoundIndex, soundEffectOptions);
