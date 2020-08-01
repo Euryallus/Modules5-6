@@ -24,6 +24,7 @@ public class pauseMenu : MonoBehaviour
 
     private void Start()
     {
+        showingPause = false;
         group = gameObject.GetComponent<CanvasGroup>(); //assigns canvas group component for later use
         player = GameObject.FindGameObjectWithTag("Player");
     }
