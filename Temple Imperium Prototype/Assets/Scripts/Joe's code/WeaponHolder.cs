@@ -41,7 +41,7 @@ public class WeaponHolder : MonoBehaviour
     private Quaternion targetWeaponRotation;                    //Rotation of the held weapon to lerp towards
     private float targetCameraFOV;                              //First person camera field of view to lerp towards
     private bool aimDownSights;                                 //Is the entity currently aiming down sights
-    private starStoneManager.starStones lastFrameStarStone;
+    private starStoneManager.starStones lastFrameStarStone;     //The StarStone that was active on the previous frame, used to check for changes in the active StarStone
 
     private void Start()
     {
@@ -123,7 +123,7 @@ public class WeaponHolder : MonoBehaviour
         }
 
         //Aiming down sights is activated by pressing the right mouse button with a gun or prototype weapon
-        if ((activeWeapon is GunWeapon || activeWeapon is PrototypeWeapon) && Input.GetButton("Fire2"))
+        if ( Input.GetButton("Fire2") && (activeWeapon is GunWeapon || activeWeapon is PrototypeWeapon) )
         {
             aimDownSights = true;
         }
@@ -178,6 +178,7 @@ public class WeaponHolder : MonoBehaviour
             bool rotationChanged = false;
             Vector3 targetWeaponPos;
 
+            //For weapons with ADS, adjust weapon position when 'Fire2' (right mouse button) is pressed
             if ((activeWeapon is GunWeapon activeGun) && Input.GetButton("Fire2"))
             {
                 targetWeaponPos = activeGun.m_gunTemplate.GetAimDownSightOffset();
@@ -192,10 +193,11 @@ public class WeaponHolder : MonoBehaviour
             }
             else
             {
+                //Set the weapon to its default position
                 targetWeaponPos = activeWeapon.m_template.GetVisualOffset();
 
                 //Rotate weapon to aim weapon at target
-                //  - unless distance to target is very low, to avoid weapons trying to aim backwards
+                //  unless distance to target is very low, to avoid weapons trying to aim backwards (see comments below for more info)
                 if (weaponAimInfo.m_hitInfo.distance > 1.2f)
                 {
                     Vector3 weaponLookDirection = weaponAimInfo.m_aimPoint - goWeapon.transform.Find("AimPoint").position;
@@ -204,7 +206,11 @@ public class WeaponHolder : MonoBehaviour
                 }
             }
 
+            //Lerp towards the target weapon position so weapons move smoothly
             goWeapon.transform.localPosition = Vector3.Lerp(goWeapon.transform.localPosition, targetWeaponPos, Time.deltaTime * 20f);
+            //If rotation was changed, also lerp towards the target weapon rotation
+            //  If the weapon is intersecting another object, it may try to rotate towards the player as it is technically aiming behind itself.
+            //  To prevent this, rotationChanged is only set to true when distance to target is above a certain threshold, and weapon rotation is only updated when rotationChanged == true
             if (rotationChanged)
             {
                 goWeapon.transform.rotation = Quaternion.Lerp(goWeapon.transform.rotation, targetWeaponRotation, Time.deltaTime * 20f);
@@ -456,7 +462,6 @@ public class WeaponHolder : MonoBehaviour
         }
     }
 
-
     public PrototypeWeapon GetPrototypeWeapon()
     {
         //Returns a prototype weapon if one can be found in the entities available weapons,
@@ -473,33 +478,35 @@ public class WeaponHolder : MonoBehaviour
     private void OnDrawGizmos()
     {
         //Debug visualisation for weapon aiming
-        if (playerControlsWeapons)
-        {
-            Vector3 focusPoint = weaponAimInfo.m_aimPoint;
-            if (weaponAimInfo.m_raycastHit)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawRay(transformHead.position, transformHead.forward * weaponAimInfo.m_hitInfo.distance);
-                Gizmos.DrawSphere(weaponAimInfo.m_hitInfo.point, 0.1f);
-            }
-            else
-            {
-                Gizmos.color = Color.yellow;
-                Gizmos.DrawRay(transformHead.position, transformHead.forward * weaponAimInfo.m_maxDistance);
-            }
-            Gizmos.color = Color.white;
-            Gizmos.DrawLine(transformHead.position, new Vector3(focusPoint.x, transformHead.position.y, focusPoint.z));
-            Gizmos.color = new Color(1f, 1f, 1f, 0.5f);
-            Gizmos.DrawLine(focusPoint, new Vector3(focusPoint.x, transformHead.position.y, focusPoint.z));
-        }
+        //  (commented to improve performance, uncomment if needed)
+
+        //if (playerControlsWeapons)
+        //{
+        //    Vector3 focusPoint = weaponAimInfo.m_aimPoint;
+        //    if (weaponAimInfo.m_raycastHit)
+        //    {
+        //        Gizmos.color = Color.red;
+        //        Gizmos.DrawRay(transformHead.position, transformHead.forward * weaponAimInfo.m_hitInfo.distance);
+        //        Gizmos.DrawSphere(weaponAimInfo.m_hitInfo.point, 0.1f);
+        //    }
+        //    else
+        //    {
+        //        Gizmos.color = Color.yellow;
+        //        Gizmos.DrawRay(transformHead.position, transformHead.forward * weaponAimInfo.m_maxDistance);
+        //    }
+        //    Gizmos.color = Color.white;
+        //    Gizmos.DrawLine(transformHead.position, new Vector3(focusPoint.x, transformHead.position.y, focusPoint.z));
+        //    Gizmos.color = new Color(1f, 1f, 1f, 0.5f);
+        //    Gizmos.DrawLine(focusPoint, new Vector3(focusPoint.x, transformHead.position.y, focusPoint.z));
+        //}
     }
 }
 
 public struct WeaponAimInfo
 {
     //Properties
-    public Vector3 m_originPoint { get; private set; }
-    public Vector3 m_rayDirection { get; private set; }
+    public Vector3 m_originPoint { get; private set; }  //The origin of the ray used for aiming checks
+    public Vector3 m_rayDirection { get; private set; } //The direction of the ray used for aiming checks
     public Vector3 m_aimPoint { get; private set; }     //The position the weapon should aim towards
     public bool m_raycastHit { get; private set; }      //Whether anything was hit by the last raycast
     public RaycastHit m_hitInfo { get; private set; }   //Info from the last raycast if anything was hit

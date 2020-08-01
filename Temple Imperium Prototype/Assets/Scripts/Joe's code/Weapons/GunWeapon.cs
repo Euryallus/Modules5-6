@@ -6,6 +6,7 @@ using UnityEngine;
 //  a WeaponHolder that holds a GunWeaponTemplate.      \\
 //------------------------------------------------------\\
 //      Written by Joe for proof of concept phase       \\
+//      and modified/optimised for prototype phase      \\
 //------------------------------------------------------\\
 
 public class GunWeapon : Weapon
@@ -211,8 +212,10 @@ public class GunWeapon : Weapon
 
     private bool CanCreateBulletHole(WeaponAimInfo aimInfo)
     {
+        //Ignore the player when shooting rays
         int layerMask = (~LayerMask.GetMask("Player"));
 
+        //rayOffsets are used to check that the edges of the bullet hole graphic will not appear to be floating outside of an object's geometry
         const float bulletHoleRadius = 0.05f;
         Vector3[] rayOffsets = new Vector3[] { m_weaponHolder.transform.right * bulletHoleRadius, m_weaponHolder.transform.up * -bulletHoleRadius,
                                                m_weaponHolder.transform.right * -bulletHoleRadius, m_weaponHolder.transform.up * bulletHoleRadius };
@@ -224,23 +227,31 @@ public class GunWeapon : Weapon
             //  two surfaces with the same normals but different depths from registering as the same face (e.g. sides of stairs)
             float depthDifference = Vector3.Distance(Vector3.Scale(hit.point, hit.normal), Vector3.Scale(aimInfo.m_hitInfo.point, aimInfo.m_hitInfo.normal));
 
+            //If any offset raycasts hit a different object to the original ray, OR have a different normal, OR are outside of the depth threshold,
+            //  the graphic will not display correctly so the bullet hole will not be created
             if ( (hit.transform.name != aimInfo.m_hitInfo.transform.name) || (hit.normal != aimInfo.m_hitInfo.normal) || (depthDifference > 0.05f) )
             {
                 return false;
             }
         }
+        //All tests passed, the bullet hole can be created
         return true;
     }
 
     private void CreateBulletHole(WeaponAimInfo aimInfo)
     {
+        //Instantiate the bullet hole sprite and position it based on where the raycast hit
         GameObject goBulletHole = Object.Instantiate(GameUtilities.instance.prefabBulletHole);
         goBulletHole.transform.position = aimInfo.m_hitInfo.point + (aimInfo.m_hitInfo.normal * 0.001f);
         goBulletHole.transform.rotation = Quaternion.LookRotation(aimInfo.m_hitInfo.normal);
+
+        //If the maximum allowed number of bullet holes was reached,
+        //  destroy the one that was created the least recently and remove it from the queue
         if (m_bulletHoles.Count >= MAX_BULLET_HOLES)
         {
             Object.Destroy(m_bulletHoles.Dequeue());
         }
+        //Add the newly created bullet hole to the queue
         m_bulletHoles.Enqueue(goBulletHole);
     }
 }

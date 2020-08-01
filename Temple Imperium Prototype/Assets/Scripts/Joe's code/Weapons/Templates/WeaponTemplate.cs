@@ -4,7 +4,8 @@
 //  Template with shared weapon properties that acts    \\
 //  as a base class for all other weapon templates      \\
 //------------------------------------------------------\\
-//      Written by Joe for prototype phase              \\
+//      Written by Joe for proof of concept phase       \\
+//      and modified/optimised for prototype phase      \\
 //------------------------------------------------------\\
 
 public class WeaponTemplate : ScriptableObject

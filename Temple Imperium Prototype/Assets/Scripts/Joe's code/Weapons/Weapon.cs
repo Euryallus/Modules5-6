@@ -1,5 +1,12 @@
 ﻿using UnityEngine;
 
+//------------------------------------------------------\\
+//  The base class for all weapons                      \\
+//------------------------------------------------------\\
+//      Written by Joe for proof of concept phase       \\
+//      and modified/optimised for prototype phase      \\
+//------------------------------------------------------\\
+
 public abstract class Weapon
 {
     public WeaponHolder m_weaponHolder { get; private set; }            //The weapon holder on the entity that is holding this weapon
@@ -44,6 +51,7 @@ public abstract class Weapon
 
     protected void SetHideHeldWeapon(bool hideHeldWeapon)
     {
+        //Show/hide this weapon in the entity's hand
         m_hideHeldWeapon = hideHeldWeapon;
         m_weaponHolder.SetHeldWeaponHidden(hideHeldWeapon);
     }

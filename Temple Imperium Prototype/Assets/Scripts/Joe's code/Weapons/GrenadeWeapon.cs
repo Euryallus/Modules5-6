@@ -7,6 +7,7 @@ using UnityEngine;
 //  a WeaponHolder that holds a GrenadeWeaponTemplate.  \\
 //------------------------------------------------------\\
 //      Written by Joe for proof of concept phase       \\
+//      and modified/optimised for prototype phase      \\
 //------------------------------------------------------\\
 
 public class GrenadeWeapon : Weapon

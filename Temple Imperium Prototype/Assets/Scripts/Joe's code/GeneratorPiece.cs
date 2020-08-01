@@ -5,6 +5,7 @@
 //  used to repair the generator                        \\
 //------------------------------------------------------\\
 //      Written by Joe for proof of concept phase       \\
+//      and modified/optimised for prototype phase      \\
 //------------------------------------------------------\\
 
 public class GeneratorPiece : MonoBehaviour

@@ -8,29 +8,34 @@ using System.Collections.Generic;
 //  Used for the intro scene which shows some animated  \\
 //  text to introcuce the game's story                  \\
 //------------------------------------------------------\\
-//      Written by Joe for prototype phase              \\
+//   Written by Joe for prototype phase, replaced/      \\
+//   partially adapted from IntroScene which            \\  
+//   existed during the proof of concept phase          \\
 //------------------------------------------------------\\
 
 public class TextCutscene : MonoBehaviour
 {
     //Set in inspector:
     [SerializeField]
-    private Transform[] textElementContainers;
+    private Transform[] textElementContainers;      //Parent transform for each array of text elements
     [SerializeField]
-    private string[] nextSceneNames;
+    private string[] nextSceneNames;                //Name of the scene to load after each cutscene outcome ends
     [SerializeField]
     private TextMeshProUGUI textContinuePrompt;     //Text telling the player how to continue with the story
     [SerializeField]
     private float animationSpeed;                   //How quickly text is animated
 
-    private List<TextMeshProUGUI[]> textElements;
+    private List<TextMeshProUGUI[]> textElements;   //All text elements that may be shown in the cutscene.
+                                                    //  The list represents each possible outcome/group of elements,
+                                                    //  while the array contains each text element for the specific outcome
+
     private TextMeshProUGUI activeTextElement;  //Text element currently being shown/animated
     private int textElementIndex;               //Index of the current text element in the textElements array
     private string fullText;                    //Full text to be shown for the active text element
     private bool animatingText;                 //True = text is currently animating in, false = done animating
     private Coroutine animatingTextCoroutine;   //Coroutine used for text animation
 
-    public static int storyIndex = 0;
+    public static int storyIndex = 0;           //Index for the textElements list, used to determine which outcome is shown
 
     private void Start()
     {
@@ -47,6 +52,8 @@ public class TextCutscene : MonoBehaviour
         for (int i = 0; i < textElementContainers.Length; i++)
         {
             TextMeshProUGUI[] addedTextElements = new TextMeshProUGUI[textElementContainers[i].childCount];
+            //Add all text elements within the current container (each container represents a different outcome)
+            //  to the addedTextElements array
             for (int j = 0; j < textElementContainers[i].childCount; j++)
             {
                 addedTextElements[j] = textElementContainers[i].GetChild(j).GetComponent<TextMeshProUGUI>();
@@ -56,7 +63,7 @@ public class TextCutscene : MonoBehaviour
             textElements.Add(addedTextElements);
         }
 
-
+        //Hide the continue prompt by default
         textContinuePrompt.gameObject.SetActive(false);
 
         //Start animating the first text element
@@ -104,13 +111,14 @@ public class TextCutscene : MonoBehaviour
         }
         else
         {
-            //Done, continue to game
+            //Done, continue to the next scene that was set based on storyIndex
             if(storyIndex < nextSceneNames.Length)
             {
                 SceneManager.LoadScene(nextSceneNames[storyIndex]);
             }
             else
             {
+                //If an invalid story index was set, default to the first element of the nextSceneNames array
                 SceneManager.LoadScene(nextSceneNames[0]);
             }
         }

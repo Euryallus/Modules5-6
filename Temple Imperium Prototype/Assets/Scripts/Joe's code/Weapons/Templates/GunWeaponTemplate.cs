@@ -5,7 +5,8 @@
 //  be edited in the inspector by creating a            \\
 //  ScriptableObject and adjusting its properties       \\
 //------------------------------------------------------\\
-//      Written by Joe for prototype phase              \\
+//      Written by Joe for proof of concept phase       \\
+//      and modified/optimised for prototype phase      \\
 //------------------------------------------------------\\
 
 [CreateAssetMenu(fileName = "Gun Template", menuName = "Weapon Template/Gun")]

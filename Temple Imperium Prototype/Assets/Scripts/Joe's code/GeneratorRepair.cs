@@ -1,9 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Linq;
 using UnityEngine.UI;
+
+//------------------------------------------------------\\
+//  Manages the game mechanic of repairing the generator\\
+//  by clicking on it with collected GeneratorPieces    \\
+//------------------------------------------------------\\
+//      Written by Joe for proof of concept phase       \\
+//      and modified/optimised for prototype phase      \\
+//------------------------------------------------------\\
 
 public class GeneratorRepair : MonoBehaviour
 {
@@ -38,14 +45,13 @@ public class GeneratorRepair : MonoBehaviour
 
     public bool GetGeneratorRepaired()
     {
+        //In endless mode, the generator does not need to be repaired. As such, GetGeneratorRepaired
+        //   always returns true so the player is not incorrectly penalised
         if (endlessMode)
         {
             return true;
         }
-        else
-        {
-            return generatorRepaired;
-        }
+        else { return generatorRepaired; }
     }
 
     void Start()
@@ -57,10 +63,13 @@ public class GeneratorRepair : MonoBehaviour
         //Hide the collected pieces UI since none are collected yet
         goPiecesUIPanel.transform.parent.gameObject.SetActive(false);
 
+        //Check if playing in endless mode
         endlessMode = (PlayerPrefs.GetInt("EndlessMode", 0) == 1);
 
         if (endlessMode)
         {
+            //Remove all generator pieces if in endless mode to avoid
+            //  confusion since the player does not need to collet them
             for (int i = 0; i < piecesForRepair.Length; i++)
             {
                 Destroy( piecesForRepair[i].gameObject );
@@ -183,6 +192,7 @@ public class GeneratorRepair : MonoBehaviour
             }
             if(currentRepairProgress == piecesForRepair.Length)
             {
+                //If all pieces were added to the generator, mark it as repaired
                 Debug.Log("Generator repaired");
                 generatorRepaired = true;
             }

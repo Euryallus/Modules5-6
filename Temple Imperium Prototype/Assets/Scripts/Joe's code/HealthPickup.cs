@@ -3,7 +3,8 @@
 //------------------------------------------------------\\
 //  Increases player health when picked up              \\
 //------------------------------------------------------\\
-//      Written by Joe for prototype phase              \\
+//      Written by Joe for proof of concept phase       \\
+//      and modified/optimised for prototype phase      \\
 //------------------------------------------------------\\
 
 public class HealthPickup : MonoBehaviour

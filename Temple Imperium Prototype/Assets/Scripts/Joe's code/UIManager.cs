@@ -6,10 +6,13 @@ using UnityEngine.UI;
 //  Handles UI elements in the main game scene          \\
 //------------------------------------------------------\\
 //      Written by Joe for proof of concept phase       \\
+//      and modified/optimised for prototype phase      \\
 //------------------------------------------------------\\
 
 public class UIManager : MonoBehaviour
 {
+    //A single static instance of this class always exists
+    //  so it can easily be used by other scripts at any time
     public static UIManager instance;
 
     //Set in inspector:
@@ -33,7 +36,6 @@ public class UIManager : MonoBehaviour
         {
             //Set this class as the static instance so it can easily be accessed from any script
             instance = this;
-            //DontDestroyOnLoad(gameObject);
         }
         //If there is an existing instance that is not this, destroy the GameObject this script is connected to
         else if (instance != this)

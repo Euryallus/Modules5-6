@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 
 //------------------------------------------------------\\
-//  Used for doors that can be locked/unlocked.         \\
+//  Used for doors that can be locked/unlocked based    \\
+//  on the current wave                                 \\
 //------------------------------------------------------\\
 //      Written by Joe for proof of concept phase       \\
+//      and modified/optimised for prototype phase      \\
 //------------------------------------------------------\\
 
 public class Door : MonoBehaviour
@@ -16,9 +18,10 @@ public class Door : MonoBehaviour
     [SerializeField]
     private BoxCollider boxCollider;    //The collider used for blocking the player when the door is locked
     [SerializeField]
-    private bool openForEnemies = true;
+    private bool openForEnemies = true; //If true, door opening can be triggered by enemies as well as the player
 
-    private int entityInDoorCount;
+    private int entityInDoorCount;      //The number of entities within the door's trigger radius, used to ensure
+                                        //  that doors only close when there are no entities still using them
 
     public void SetLocked(bool locked)
     {
@@ -30,6 +33,8 @@ public class Door : MonoBehaviour
     {
         if (other.CompareTag("Player") || (openForEnemies && other.CompareTag("Enemy")))
         {
+            //If a player (or enemy if the door is also open for enemies) enters the trigger radius,
+            //  increase the counter of entities using the door
             entityInDoorCount++;
 
             //If the player enters the door's trigger radius, either open the door
@@ -39,6 +44,8 @@ public class Door : MonoBehaviour
                 OpenDoor();
             }
 
+            //If the door is locked and the player tries to use it
+            //  display a UI popup notifying them of this
             if(locked && other.CompareTag("Player"))
             {
                 UIManager.instance.ShowDoorLockedPopup(boxCollider.transform.position);
@@ -52,13 +59,17 @@ public class Door : MonoBehaviour
         //  when the player leaves the door's trigger radius
         if (other.CompareTag("Player") || (openForEnemies && other.CompareTag("Enemy")))
         {
+            //Decrease the counter of entities using the door
             entityInDoorCount--;
 
+            //Close the door if no entities are now using it
             if(entityInDoorCount <= 0)
             {
                 CloseDoor();
             }
 
+            //Ensure the door locked UI popup is hidden once
+            //  the player moves away from the door
             if (other.CompareTag("Player"))
             {
                 UIManager.instance.HideDoorLockedPopup();
@@ -68,7 +79,7 @@ public class Door : MonoBehaviour
 
     private void OpenDoor()
     {
-        //Disable the collider so the player can move through
+        //Disable the collider entities can move through
         boxCollider.enabled = false;
         //Visually open the door
         animator.SetBool("Open", true);
@@ -76,9 +87,14 @@ public class Door : MonoBehaviour
 
     private void CloseDoor()
     {
+        //There should always be 0 entities using a door when it closes,
+        //  if this is somehow not the case, the counter is reset to prevent
+        //  further problems/unintended behaviour
         entityInDoorCount = 0;
 
+        //Enable the collider entities cannot move through
         boxCollider.enabled = true;
+        //Visually close the door
         animator.SetBool("Open", false);
     }
 }

@@ -5,7 +5,8 @@ using UnityEngine;
 //  SaveLoadManager provides an easy interface for      \\
 //  saving/loading to/from PlayerPrefs in any scene     \\
 //------------------------------------------------------\\
-//      Written by Joe for prototype phase              \\
+//      Written by Joe for proof of concept phase       \\
+//      and modified/optimised for prototype phase      \\
 //------------------------------------------------------\\
 
 public class SaveLoadManager : MonoBehaviour
@@ -60,6 +61,7 @@ public class SaveLoadManager : MonoBehaviour
         PlayerPrefs.SetInt(key, val);
         PlayerPrefs.Save();
 
+        //Trigger any related achievement events
         PlayerPrefAchievementEvents(key, val);
     }
     public void SaveFloatToPlayerPrefs(string key, float val)
@@ -70,8 +72,10 @@ public class SaveLoadManager : MonoBehaviour
 
     private void PlayerPrefAchievementEvents(string key, int val)
     {
+        //Triggers certain achievements based on the PlayerPref that was saved
         switch (key)
         {
+            //Kill x number of enemies achievement
             case "Counter_EnemiesKilled":
                 if(val == 50)       { AchievementsManager.instance.SetAchievementCompleted("KillEnemies_50"); }
                 else if(val == 100) { AchievementsManager.instance.SetAchievementCompleted("KillEnemies_100"); }
