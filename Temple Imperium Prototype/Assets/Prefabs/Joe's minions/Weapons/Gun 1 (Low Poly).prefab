@@ -49,7 +49,7 @@ Transform:
   - {fileID: 528872627023677190}
   - {fileID: 1358134173880239993}
   m_Father: {fileID: 6548061797265198492}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6317242354230178228
 GameObject:
@@ -170,6 +170,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 6931215353535304474}
   - {fileID: 301083466651945755}
   - {fileID: 6332144196761873116}
   - {fileID: 8502529227600052542}
@@ -204,8 +205,93 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6548061797265198492}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2687007864373721088
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6548061797265198492}
+    m_Modifications:
+    - target: {fileID: -4216859302048453862, guid: 4966fa5022302504b8433a2808033d5f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4966fa5022302504b8433a2808033d5f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.157
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4966fa5022302504b8433a2808033d5f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.08999999
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4966fa5022302504b8433a2808033d5f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4966fa5022302504b8433a2808033d5f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4966fa5022302504b8433a2808033d5f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4966fa5022302504b8433a2808033d5f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4966fa5022302504b8433a2808033d5f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4966fa5022302504b8433a2808033d5f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4966fa5022302504b8433a2808033d5f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4216859302048453862, guid: 4966fa5022302504b8433a2808033d5f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 4966fa5022302504b8433a2808033d5f,
+        type: 3}
+      propertyPath: m_Name
+      value: Farquhar Hill Rifle Mid Poly
+      objectReference: {fileID: 0}
+    - target: {fileID: 3418196918508572187, guid: 4966fa5022302504b8433a2808033d5f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b3f25057883b07d46aa28247c1a48068, type: 2}
+    - target: {fileID: 3418196918508572187, guid: 4966fa5022302504b8433a2808033d5f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: b3f25057883b07d46aa28247c1a48068, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4966fa5022302504b8433a2808033d5f, type: 3}
+--- !u!4 &6931215353535304474 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 4966fa5022302504b8433a2808033d5f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2687007864373721088}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4708263957978275841
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -251,7 +337,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 789658358fcd5fe4293c96accad6099b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 789658358fcd5fe4293c96accad6099b,
         type: 3}
@@ -272,6 +358,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 789658358fcd5fe4293c96accad6099b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 789658358fcd5fe4293c96accad6099b, type: 3}
