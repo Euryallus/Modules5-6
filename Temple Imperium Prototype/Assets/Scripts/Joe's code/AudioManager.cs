@@ -8,7 +8,9 @@ using UnityEngine.SceneManagement;
 //  AudioManager provides an easy interface for         \\
 //  sounds of various types to be played from any scene \\
 //------------------------------------------------------\\
-//      Written by Joe for prototype phase              \\
+//   Written by Joe for prototype phase, replaced/      \\
+//   partially adapted from SoundEffectManager which    \\  
+//   existed during the proof of concept phase          \\
 //------------------------------------------------------\\
 
 public class AudioManager : MonoBehaviour
@@ -28,7 +30,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     private GameObject prefabSoundSource;   //Sound source to be instantiated when a sound is played
     [SerializeField]
-    private AudioSource audioSourceMusic;
+    private AudioSource audioSourceMusic;   //Audio source used for background music
 
     private Dictionary<string, AudioClip> soundEffectsDict; //Dictionary so audio clips can be accessed based on their name
 
@@ -58,28 +60,42 @@ public class AudioManager : MonoBehaviour
         //Start the sound effect cleanup coroutine that will loop for the duration of the game
         StartCoroutine(SoundSourceCleanupCoroutine());
 
+        //Add the OnSceneLoad function to the scene load event, so that it will be
+        //  called each time a new scene loads
         SceneManager.sceneLoaded += OnSceneLoad;
+        //Trigger the OnSceneLoad function for the starting scene
         OnSceneLoad(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
 
     private void Update()
     {
+        //Play a random music track if nothing is playing, or the previous track finishes playing
         if (!audioSourceMusic.isPlaying && currentSceneMusicTracks.Count > 0)
         {
             PlayRandomSceneMusicTrack();
         }
+        //Ensuer the audio source playing bg music is always set to the volume that the player set in the options menu
         audioSourceMusic.volume = SaveLoadManager.instance.LoadFloatFromPlayerPrefs("Options_Volume_Music");
     }
 
+
+    //Called every time a new scene is loaded
     private void OnSceneLoad(Scene scene, LoadSceneMode loadSceneMode)
     {
+        //Stop any looping sound effects, prevents looping sounds from persisting through scenes
+        //  and playing endlessley if they were not stopped before the scene change
         StopAllLoopingSoundEffects();
 
+        //currentSceneMusicTracks is a list of all tracks that can be played in the loaded scene,
+        //  setting as a new list so that tracks from the previous scene do not carry over
         currentSceneMusicTracks = new List<MusicTrack>();
+
         for (int i = 0; i < sceneMusicTracks.Length; i++)
         {
+            //Find all music tracks that were set in the inspector to play in the current scene
             if (sceneMusicTracks[i].sceneName == scene.name)
             {
+                //Add all music tracks for the current scene to the list
                 for (int j = 0; j < sceneMusicTracks[i].musicTracks.Count; j++)
                 {
                     currentSceneMusicTracks.Add(sceneMusicTracks[i].musicTracks[j]);
@@ -87,6 +103,8 @@ public class AudioManager : MonoBehaviour
             }
         }
 
+        //Stop any existing music and randomly select one of the tracks
+        //  that was added to the currentSceneMusicTracks list above
         if (audioSourceMusic.isPlaying)
         {
             audioSourceMusic.Stop();
@@ -94,20 +112,6 @@ public class AudioManager : MonoBehaviour
         PlayRandomSceneMusicTrack();
 
         Debug.Log("AudioManager - " + scene.name + ". Available tracks: " + currentSceneMusicTracks.Count);
-    }
-
-    private void PlayRandomSceneMusicTrack()
-    {
-        if (currentSceneMusicTracks.Count == 0)
-            return;
-
-        int randTrackIndex = UnityEngine.Random.Range(0, currentSceneMusicTracks.Count);
-        MusicTrack chosenTrack = currentSceneMusicTracks[randTrackIndex];
-        audioSourceMusic.clip = chosenTrack.audioClip;
-        audioSourceMusic.loop = chosenTrack.loop;
-        audioSourceMusic.Play();
-
-        Debug.Log("AudioManager - Playing music track: " + chosenTrack.name);
     }
 
     public void SetupSoundEffectsDict()
@@ -120,7 +124,25 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    #region Playing/Stopping Sounds
+    private void PlayRandomSceneMusicTrack()
+    {
+        //No need to select a random track if no tracks were defined for the current scene
+        if (currentSceneMusicTracks.Count == 0)
+            return;
+
+        //Randomly select an audio clip from currentSceneMusicTracks
+        int randTrackIndex = UnityEngine.Random.Range(0, currentSceneMusicTracks.Count);
+        MusicTrack chosenTrack = currentSceneMusicTracks[randTrackIndex];
+
+        //Play the clip, setting looping to true/false as defined in the inspector
+        audioSourceMusic.clip = chosenTrack.audioClip;
+        audioSourceMusic.loop = chosenTrack.loop;
+        audioSourceMusic.Play();
+
+        Debug.Log("AudioManager - Playing music track: " + chosenTrack.name);
+    }
+
+    #region Playing/Stopping Sound Effects
 
     public void PlayGenericSoundEffect(string name, bool use3dSpace, Vector3 sourcePosition, float volume = 1f, float minPitch = 1f, float maxPitch = 1f, bool looping = false, string loopId = "")
     {
@@ -208,10 +230,12 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    /// <summary> Stops any looping sound effects that are currently playing. </summary>
     public void StopAllLoopingSoundEffects()
     {
         foreach(Transform child in transform)
         {
+            //Destroy all sound source GameObjects marked as looping sounds
             if (child.gameObject.name.Contains("LoopSound"))
             {
                 Destroy(child.gameObject);
@@ -219,10 +243,12 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    /// <summary> Stops all sound effects that are currently playing. </summary>
     public void StopAllSoundEffects()
     {
         foreach (Transform child in transform)
         {
+            //Destroy all sound source GameObjects
             Destroy(child.gameObject);
         }
     }
@@ -232,7 +258,8 @@ public class AudioManager : MonoBehaviour
     //Used to remove inactive sound sources every few frames
     private IEnumerator SoundSourceCleanupCoroutine()
     {
-        //Wait for 10 frames between each cleanup
+        //It is unnecessary/performance intensive to remove inactive sources
+        //  every frame, so 10 frames pass between each cleanup
         for (int i = 0; i < 10; i++)
         {
             yield return null;
@@ -266,12 +293,21 @@ public struct SoundEffect
     public string name;
     public AudioClip audioClip;
 }
+
+//Used to define a group of music tracks the editor, each SceneMusicTracks struct has
+//  - a sceneName, the name of the scene that the contained MusicTracks can play in
+//  - a list of MusicTracks to be played randomly in the scene
 [Serializable]
 public struct SceneMusicTracks
 {
     public string sceneName;
     public List<MusicTrack> musicTracks;
 }
+
+//Used to define a single music track in the editor, each MusicTrach has
+//  - a name used to identify the track
+//  - loop; a bool used to define whether the track should loop forever, or stop/move onto a different track when done
+//  - the AudioClip to be played
 [Serializable]
 public struct MusicTrack
 {

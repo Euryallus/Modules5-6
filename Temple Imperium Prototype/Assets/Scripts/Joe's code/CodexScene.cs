@@ -1,8 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+
+//------------------------------------------------------\\
+//  CodexScene displays UI with information about       \\
+//  all weapon and enemy types in the game              \\
+//------------------------------------------------------\\
+//      Written by Joe for prototype phase              \\
+//------------------------------------------------------\\
 
 public class CodexScene : MonoBehaviour
 {
@@ -39,12 +45,6 @@ public class CodexScene : MonoBehaviour
         {
             textBossButton.text = "???";
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void ShowInfoGameObjectAtIndex(int index)
