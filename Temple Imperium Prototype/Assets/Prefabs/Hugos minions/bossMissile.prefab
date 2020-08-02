@@ -7052,4 +7052,4 @@ MonoBehaviour:
   fireDamage: 1
   slowPercent: 0.8
   slowTime: 4
-  purpleDamagePercent: 1.25
+  purpleDamagePercent: 1.1
