@@ -42,6 +42,7 @@ public class pauseMenu : MonoBehaviour
             group.blocksRaycasts = showingPause ? true : false;
 
             Cursor.lockState = showingPause? CursorLockMode.Confined : CursorLockMode.Locked;
+            Cursor.visible = showingPause;
         }
     }
 

@@ -49,27 +49,38 @@ MonoBehaviour:
     musicTracks:
     - name: Seal Music
       loop: 1
+      oneShot: 0
       audioClip: {fileID: 8300000, guid: 133a1434fbc6a3349a05a8a77aa4d759, type: 3}
   - sceneName: IntroScene
     musicTracks:
     - name: March of the Seals 2
       loop: 1
+      oneShot: 0
       audioClip: {fileID: 8300000, guid: e68f34ac39dd4d94c82f87952017a94d, type: 3}
   - sceneName: CreditsScene
     musicTracks:
     - name: March of the Seals 2
       loop: 1
+      oneShot: 0
       audioClip: {fileID: 8300000, guid: e68f34ac39dd4d94c82f87952017a94d, type: 3}
   - sceneName: CodexScene
     musicTracks:
     - name: March of the Seals 2
       loop: 1
+      oneShot: 0
       audioClip: {fileID: 8300000, guid: e68f34ac39dd4d94c82f87952017a94d, type: 3}
   - sceneName: AchievementsScene
     musicTracks:
     - name: March of the Seals 2
       loop: 1
+      oneShot: 0
       audioClip: {fileID: 8300000, guid: e68f34ac39dd4d94c82f87952017a94d, type: 3}
+  - sceneName: MAP
+    musicTracks:
+    - name: March of the Seals 3
+      loop: 0
+      oneShot: 1
+      audioClip: {fileID: 8300000, guid: 188a8aa215065a24398d91d2d9151371, type: 3}
   soundEffects:
   - name: Wilhelm
     audioClip: {fileID: 8300000, guid: df96fd4101635ff46ab35fd9b0d45671, type: 3}

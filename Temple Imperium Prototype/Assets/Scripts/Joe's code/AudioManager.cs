@@ -38,6 +38,8 @@ public class AudioManager : MonoBehaviour
 
     private List<MusicTrack> currentSceneMusicTracks = new List<MusicTrack>();
 
+    private bool disableMusicForCurrentScene;   //When true, no music will play in the loaded scene
+
     private void Awake()
     {
         //Ensure that an instance of the AudioManager class does not already exist
@@ -86,6 +88,9 @@ public class AudioManager : MonoBehaviour
         //  and playing endlessley if they were not stopped before the scene change
         StopAllLoopingSoundEffects();
 
+        //Enable music for the loaded scene
+        disableMusicForCurrentScene = false;
+
         //currentSceneMusicTracks is a list of all tracks that can be played in the loaded scene,
         //  setting as a new list so that tracks from the previous scene do not carry over
         currentSceneMusicTracks = new List<MusicTrack>();
@@ -126,8 +131,8 @@ public class AudioManager : MonoBehaviour
 
     private void PlayRandomSceneMusicTrack()
     {
-        //No need to select a random track if no tracks were defined for the current scene
-        if (currentSceneMusicTracks.Count == 0)
+        //No need to select a random track if no tracks were defined for the current scene, or music is disabled
+        if (currentSceneMusicTracks.Count == 0 || disableMusicForCurrentScene)
             return;
 
         //Randomly select an audio clip from currentSceneMusicTracks
@@ -138,6 +143,12 @@ public class AudioManager : MonoBehaviour
         audioSourceMusic.clip = chosenTrack.audioClip;
         audioSourceMusic.loop = chosenTrack.loop;
         audioSourceMusic.Play();
+
+        //Disable all future music for this scene if oneShot was set to true
+        if (chosenTrack.oneShot)
+        {
+            disableMusicForCurrentScene = true;
+        }
 
         Debug.Log("AudioManager - Playing music track: " + chosenTrack.name);
     }
@@ -307,11 +318,13 @@ public struct SceneMusicTracks
 //Used to define a single music track in the editor, each MusicTrach has
 //  - a name used to identify the track
 //  - loop; a bool used to define whether the track should loop forever, or stop/move onto a different track when done
+//  - oneShot; a bool that, when set to true, stops and other music from playing after this track
 //  - the AudioClip to be played
 [Serializable]
 public struct MusicTrack
 {
     public string name;
     public bool loop;
+    public bool oneShot;
     public AudioClip audioClip;
 }
