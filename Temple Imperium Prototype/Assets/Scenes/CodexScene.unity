@@ -343,17 +343,17 @@ PrefabInstance:
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 12
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
@@ -368,7 +368,7 @@ PrefabInstance:
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_text
-      value: Enemy Type 3
+      value: Gamma
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
@@ -707,20 +707,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1205347550, guid: f82dd1628382cf0448a78c3e8e2290f1, type: 3}
       propertyPath: m_text
-      value: 'Fun fact: If you throw it at your friend, they probably won''t like
-        you very much anymore'
+      value: The trusted Frag Grenade. Use to get out of any difficult situations
       objectReference: {fileID: 0}
     - target: {fileID: 1205347550, guid: f82dd1628382cf0448a78c3e8e2290f1, type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 88
+      value: 68
       objectReference: {fileID: 0}
     - target: {fileID: 1205347550, guid: f82dd1628382cf0448a78c3e8e2290f1, type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 16
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1205347550, guid: f82dd1628382cf0448a78c3e8e2290f1, type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 17
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1205347550, guid: f82dd1628382cf0448a78c3e8e2290f1, type: 3}
       propertyPath: m_textInfo.lineCount
@@ -765,22 +764,22 @@ PrefabInstance:
     - target: {fileID: 7559761372117221543, guid: f82dd1628382cf0448a78c3e8e2290f1,
         type: 3}
       propertyPath: m_text
-      value: Grenade
+      value: Frag Grenade
       objectReference: {fileID: 0}
     - target: {fileID: 7559761372117221543, guid: f82dd1628382cf0448a78c3e8e2290f1,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 7
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7559761372117221543, guid: f82dd1628382cf0448a78c3e8e2290f1,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7559761372117221543, guid: f82dd1628382cf0448a78c3e8e2290f1,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7559761372117221543, guid: f82dd1628382cf0448a78c3e8e2290f1,
         type: 3}
@@ -911,8 +910,18 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: ec5a678332866864495f05fbc0dacca4,
+      objectReference: {fileID: 21300000, guid: 59ce8334249fd7f4f94aa5dcb4b0c535,
         type: 3}
+    - target: {fileID: 7559761373183676487, guid: f82dd1628382cf0448a78c3e8e2290f1,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1018.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559761373183676487, guid: f82dd1628382cf0448a78c3e8e2290f1,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 569.7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f82dd1628382cf0448a78c3e8e2290f1, type: 3}
 --- !u!224 &205409809 stripped
@@ -1047,8 +1056,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1205347550, guid: f82dd1628382cf0448a78c3e8e2290f1, type: 3}
       propertyPath: m_text
-      value: 'Fun fact: It looks nothing like a gun. It''s just a cube. I fooled
-        you.'
+      value: 'The FE M1924 is the best backup a soldier could need. '
       objectReference: {fileID: 0}
     - target: {fileID: 1205347550, guid: f82dd1628382cf0448a78c3e8e2290f1, type: 3}
       propertyPath: m_textInfo.characterCount
@@ -1100,7 +1108,7 @@ PrefabInstance:
     - target: {fileID: 7559761372117221543, guid: f82dd1628382cf0448a78c3e8e2290f1,
         type: 3}
       propertyPath: m_text
-      value: Secondary Weapon
+      value: FE M1924
       objectReference: {fileID: 0}
     - target: {fileID: 7559761372117221543, guid: f82dd1628382cf0448a78c3e8e2290f1,
         type: 3}
@@ -2936,7 +2944,7 @@ PrefabInstance:
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 15
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
@@ -2961,7 +2969,12 @@ PrefabInstance:
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_text
-      value: Secondary Weapon
+      value: FE M1924
+      objectReference: {fileID: 0}
+    - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
+        type: 3}
+      propertyPath: m_firstOverflowCharacterIndex
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3073454025470319784, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
@@ -3126,17 +3139,17 @@ PrefabInstance:
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 12
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
@@ -3151,7 +3164,7 @@ PrefabInstance:
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_text
-      value: Enemy Type 2
+      value: Beta
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
@@ -3413,7 +3426,7 @@ PrefabInstance:
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
@@ -3438,7 +3451,7 @@ PrefabInstance:
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_text
-      value: Boss
+      value: Delta
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
@@ -3913,7 +3926,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1205347550, guid: f82dd1628382cf0448a78c3e8e2290f1, type: 3}
       propertyPath: m_text
-      value: 'Fun fact: Beam go pew pew'
+      value: The pride and joy of the Imperial Army. This secret weapon harnesses
+        the power of the Star Stones to give the user the ability to wield the strongest
+        elements known to man.
       objectReference: {fileID: 0}
     - target: {fileID: 1205347550, guid: f82dd1628382cf0448a78c3e8e2290f1, type: 3}
       propertyPath: m_textInfo.characterCount
@@ -3960,7 +3975,7 @@ PrefabInstance:
     - target: {fileID: 7559761372117221543, guid: f82dd1628382cf0448a78c3e8e2290f1,
         type: 3}
       propertyPath: m_text
-      value: Prototype Weapon
+      value: Epsilon Lupi
       objectReference: {fileID: 0}
     - target: {fileID: 7559761372117221543, guid: f82dd1628382cf0448a78c3e8e2290f1,
         type: 3}
@@ -4106,8 +4121,18 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 461b4d350a37cd8429090553ae8aa3ac,
+      objectReference: {fileID: 21300000, guid: d87809775f456e149af3f8d5d168a364,
         type: 3}
+    - target: {fileID: 7559761373183676487, guid: f82dd1628382cf0448a78c3e8e2290f1,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 949.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559761373183676487, guid: f82dd1628382cf0448a78c3e8e2290f1,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 530
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f82dd1628382cf0448a78c3e8e2290f1, type: 3}
 --- !u!224 &1611390873 stripped
@@ -4132,7 +4157,7 @@ PrefabInstance:
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 16
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
@@ -4157,7 +4182,7 @@ PrefabInstance:
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_text
-      value: Prototype Weapon
+      value: Epsilon Lupi
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
@@ -4327,17 +4352,17 @@ PrefabInstance:
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_text
-      value: Enemy Type 1
+      value: Alpha
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 12
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
@@ -4357,7 +4382,7 @@ PrefabInstance:
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3073454025470319784, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
@@ -4758,17 +4783,17 @@ PrefabInstance:
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 7
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
@@ -4783,7 +4808,7 @@ PrefabInstance:
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_text
-      value: Grenade
+      value: Frag Grenade
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
@@ -5108,12 +5133,32 @@ PrefabInstance:
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_text
-      value: Primary Weapon
+      value: Ucal 985
       objectReference: {fileID: 0}
     - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 14
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
+        type: 3}
+      propertyPath: m_firstOverflowCharacterIndex
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3073454023609601997, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3073454025470319784, guid: a03a7fc86b8f53c4bb645cd02ccb47e2,
         type: 3}
@@ -5585,19 +5630,32 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1205347550, guid: f82dd1628382cf0448a78c3e8e2290f1, type: 3}
       propertyPath: m_text
-      value: 'Fun fact: It''s a gun'
+      value: The Ucal 985 is the bread and butter of what the primary weapon should
+        be. Consistent, destructive and can be used in all situations
       objectReference: {fileID: 0}
     - target: {fileID: 1205347550, guid: f82dd1628382cf0448a78c3e8e2290f1, type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 20
+      value: 132
       objectReference: {fileID: 0}
     - target: {fileID: 1205347550, guid: f82dd1628382cf0448a78c3e8e2290f1, type: 3}
       propertyPath: m_textInfo.spaceCount
-      value: 4
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 1205347550, guid: f82dd1628382cf0448a78c3e8e2290f1, type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 5
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205347550, guid: f82dd1628382cf0448a78c3e8e2290f1, type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205347550, guid: f82dd1628382cf0448a78c3e8e2290f1, type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205347550, guid: f82dd1628382cf0448a78c3e8e2290f1, type: 3}
+      propertyPath: m_firstOverflowCharacterIndex
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7559761372117221540, guid: f82dd1628382cf0448a78c3e8e2290f1,
         type: 3}
@@ -5617,7 +5675,7 @@ PrefabInstance:
     - target: {fileID: 7559761372117221543, guid: f82dd1628382cf0448a78c3e8e2290f1,
         type: 3}
       propertyPath: m_text
-      value: Primary Weapon
+      value: Ucal 985
       objectReference: {fileID: 0}
     - target: {fileID: 7559761372117221543, guid: f82dd1628382cf0448a78c3e8e2290f1,
         type: 3}
@@ -5753,7 +5811,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: ff92f633550b6a846928a1dead0b6ef8,
+      objectReference: {fileID: 21300000, guid: f4cb10499fb03464eb72284430ee2ba7,
         type: 3}
+    - target: {fileID: 7559761373183676487, guid: f82dd1628382cf0448a78c3e8e2290f1,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1028.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559761373183676487, guid: f82dd1628382cf0448a78c3e8e2290f1,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 569.63
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f82dd1628382cf0448a78c3e8e2290f1, type: 3}
