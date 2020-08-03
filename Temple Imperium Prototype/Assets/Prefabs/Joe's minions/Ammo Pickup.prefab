@@ -108,4 +108,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammo: 25
   gunType: {fileID: 11400000, guid: bcc9d427d04d6ba4aad4d77e70dcaaf9, type: 2}
-  pickupSound: Mario Powerup
+  pickupSound: EnemyDSFX
