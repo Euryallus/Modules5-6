@@ -46,20 +46,9 @@ public class mainMenu : MonoBehaviour
         }
     }
 
-    public void optionsMenu(CanvasGroup options) // Activates or deactivates options based on whether it's been toggled on or not
+    public void optionsMenu(GameObject options) // Activates or deactivates options based on whether it's been toggled on or not
     {
-        if(options.alpha == 1)
-        {
-            options.alpha = 0; // sets menu to transparent, displables raycast target and interactivity
-            options.interactable = false;
-            options.blocksRaycasts = false;
-        }
-        else
-        {
-            options.alpha = 1; // opposite to comment above
-            options.interactable = true;
-            options.blocksRaycasts = true;
-        }
+        options.SetActive(!options.activeSelf);
     }
 
     public void difficultyChange()
