@@ -20,16 +20,15 @@ public class MapLoadScene : MonoBehaviour
     {
         //Start loading/reset load text
         textLoading.text = "Please familiarise yourself with the controls.";
-        StartCoroutine(LoadMapAsync());
     }
 
     private IEnumerator LoadMapAsync()
     {
+        textLoading.text = "Loading (0%)";
+
         //Wait for a short amount of time so the loading screen
         //  does not flash in/out too quickly on fast computers
-        yield return new WaitForSeconds(10f);
-
-        textLoading.text = "Loading (0%)";
+        yield return new WaitForSeconds(1.5f);
 
         //Start the asnychronous loading operation
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync("MAP");
@@ -41,5 +40,10 @@ public class MapLoadScene : MonoBehaviour
             yield return null;
         }
         yield return null;
+    }
+
+    public void ButtonReadyToLoad()
+    {
+        StartCoroutine(LoadMapAsync());
     }
 }
