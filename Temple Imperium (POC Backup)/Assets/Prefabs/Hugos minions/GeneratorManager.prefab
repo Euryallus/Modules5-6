@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2859237378724621552
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2859237378724621558}
+  - component: {fileID: 758385271895998782}
+  - component: {fileID: 4850311114058803314}
+  - component: {fileID: 1280549108463089026}
+  m_Layer: 0
+  m_Name: GeneratorManager
+  m_TagString: GeneratorManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2859237378724621558
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2859237378724621552}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &758385271895998782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2859237378724621552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b8a2fe5ad941824082ac0d8b3a5c5cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  piecesForRepair: []
+  mustCollectInOrder: 0
+  goPiecesUIPanel: {fileID: 0}
+  goRepairProgressUIPanel: {fileID: 0}
+  prefabUIPiecePreview: {fileID: 7338965881750527681, guid: 138f54a72bbd73d409d23c2b754b388a,
+    type: 3}
+  pieceCollectSound: Mario Powerup
+  repairSound: Seal
+--- !u!65 &4850311114058803314
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2859237378724621552}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1280549108463089026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2859237378724621552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae5b92b6df66be94e8fd6d3a31e1f301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIMaterials:
+  - {fileID: 2800000, guid: 37920ac3813690349a856bbe19a86e2b, type: 3}
+  - {fileID: 2800000, guid: 37920ac3813690349a856bbe19a86e2b, type: 3}
+  - {fileID: 2800000, guid: 37920ac3813690349a856bbe19a86e2b, type: 3}
+  - {fileID: 2800000, guid: 37920ac3813690349a856bbe19a86e2b, type: 3}
+  - {fileID: 2800000, guid: 37920ac3813690349a856bbe19a86e2b, type: 3}
+  UIElements:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  starStoneHUD: {fileID: 0}
+  maxCharge: 20

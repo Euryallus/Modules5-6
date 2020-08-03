@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &339918980155021751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 339918980155021745}
+  - component: {fileID: 339918980155021744}
+  m_Layer: 0
+  m_Name: _Game Utilities
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &339918980155021745
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339918980155021751}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &339918980155021744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339918980155021751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8891861e640d8d4983fd25e7bc46454, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colourPurplePower: {r: 0.70980394, g: 0, b: 1, a: 1}
+  colourOrangeHeat: {r: 1, g: 0.5797377, b: 0, a: 1}
+  colourBlueIce: {r: 0, g: 0.85711694, b: 1, a: 1}
+  colourPinkHeal: {r: 1, g: 0.5882353, b: 0.89567894, a: 1}
+  materialPower: {fileID: 2100000, guid: 6158400892498b24dabe436cd98132c6, type: 2}
+  materialHeat: {fileID: 2100000, guid: 420f4c9dc5b3ef64dba4fd460dfd5f90, type: 2}
+  materialIce: {fileID: 2100000, guid: cca5fc4faf5f8a44e8963c0f74a52e8d, type: 2}
+  materialHeal: {fileID: 2100000, guid: 91b4cd524742ee74681005e6c1127570, type: 2}
+  materialBreak: {fileID: 2100000, guid: 410b9c4e7d81cb542b0b6ff21f871354, type: 2}
+  prefabBreakParticles: {fileID: 9006540773215796438, guid: 7e28b55ceff8c344a809647b150e39b7,
+    type: 3}
+  prefabDistortionSphere: {fileID: 1748426586010948258, guid: ac4f41bfca3570c499dd16071851bd99,
+    type: 3}
