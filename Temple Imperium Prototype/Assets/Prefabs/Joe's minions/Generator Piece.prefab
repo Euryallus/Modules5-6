@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pieceName: Test Piece 1
-  pickupSound: EnemyDSFX
+  pickupSound: CogCollect
 --- !u!65 &4811919902230433341
 BoxCollider:
   m_ObjectHideFlags: 0
