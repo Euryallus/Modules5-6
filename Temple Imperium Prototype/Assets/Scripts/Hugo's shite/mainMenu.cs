@@ -78,6 +78,7 @@ public class mainMenu : MonoBehaviour
     public void quitGame()
     {
         //Exits application in built application (doesn't function in Editor)
+        //Debug.Log("EXIT WAS PRESSED ALERT");
         Application.Quit();
     }
 
