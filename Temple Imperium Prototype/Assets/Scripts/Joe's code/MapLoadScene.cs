@@ -4,8 +4,8 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 //------------------------------------------------------\\
-//  Loads the MAP scene asnychronously while            \\  
-//  displaying loading text                             \\
+//  Shows game controls, then loads the MAP scene       \\  
+//  asnychronously while displaying loading text        \\
 //------------------------------------------------------\\
 //      Written by Joe for prototype phase              \\
 //------------------------------------------------------\\
@@ -13,17 +13,18 @@ using TMPro;
 public class MapLoadScene : MonoBehaviour
 {
     //Set in inspector:
-    public TextMeshProUGUI textLoading; //The UI text used to display load percentage
+    public TextMeshProUGUI textLoading; //The UI text used to display info/load percentage
 
     // Start is called before the first frame update
     void Start()
     {
-        //Start loading/reset load text
+        //Set starting text so the player knows to look at the controls
         textLoading.text = "Please familiarise yourself with the controls.";
     }
 
     private IEnumerator LoadMapAsync()
     {
+        //Start loading, reset load text
         textLoading.text = "Loading (0%)";
 
         //Wait for a short amount of time so the loading screen
@@ -42,6 +43,7 @@ public class MapLoadScene : MonoBehaviour
         yield return null;
     }
 
+    //Starts loading the MAP scene on button load
     public void ButtonReadyToLoad()
     {
         StartCoroutine(LoadMapAsync());

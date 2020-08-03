@@ -398,28 +398,27 @@ public class playStateControl : MonoBehaviour
     {
         wavePointer += 1;
 
-        switch (wavePointer)
-        {
-            case 5:
-                AchievementsManager.instance.SetAchievementCompleted("CompleteWave5");
-                break;
-            case 10:
-                AchievementsManager.instance.SetAchievementCompleted("CompleteWave10");
-                break;
-            case 20:
-                AchievementsManager.instance.SetAchievementCompleted("CompleteWave20");
-                break;
-            case 50:
-                AchievementsManager.instance.SetAchievementCompleted("CompleteWave50");
-                break;
-            case 100:
-                AchievementsManager.instance.SetAchievementCompleted("CompleteWave100");
-                break;
-
-        }
-
         if (isEndlessMode)
         {
+            switch (wavePointer)
+            {
+                case 5:
+                    AchievementsManager.instance.SetAchievementCompleted("CompleteWave5");
+                    break;
+                case 10:
+                    AchievementsManager.instance.SetAchievementCompleted("CompleteWave10");
+                    break;
+                case 20:
+                    AchievementsManager.instance.SetAchievementCompleted("CompleteWave20");
+                    break;
+                case 50:
+                    AchievementsManager.instance.SetAchievementCompleted("CompleteWave50");
+                    break;
+                case 100:
+                    AchievementsManager.instance.SetAchievementCompleted("CompleteWave100");
+                    break;
+            }
+
             yield return new WaitForSeconds(waitLength / 2);
             current = waveState.beforeWaveStart;
             yield return new WaitForSeconds(waitLength / 2);
