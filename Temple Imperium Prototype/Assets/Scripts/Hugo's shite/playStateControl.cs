@@ -148,8 +148,7 @@ public class playStateControl : MonoBehaviour
             isEndlessMode = false;
         }
 
-
-        
+        Cursor.visible = false;
     }
     public void startGame() //begins game from the top
     {
@@ -291,6 +290,7 @@ public class playStateControl : MonoBehaviour
                 timeRemaining.text = "";
                 player.GetComponent<playerHealth>().stopMovement();
 
+                Cursor.visible = true;
                 failMenu.SetActive(true);
                 failMenu.GetComponent<Animator>().Play("deadFade", 0);
                 waveDisplay.text = "";
@@ -334,6 +334,7 @@ public class playStateControl : MonoBehaviour
                 break;
 
             case waveState.gameWon:
+                Cursor.visible = true;
                 timeRemaining.text = "";
                 player.GetComponent<playerHealth>().stopMovement();
                 if (gameWonFade.alpha < 1)
@@ -348,6 +349,7 @@ public class playStateControl : MonoBehaviour
                 break;
 
             case waveState.gameLost:
+                Cursor.visible = true;
                 timeRemaining.text = "FAILED";
                 waveDisplay.text = "";
                 break;
