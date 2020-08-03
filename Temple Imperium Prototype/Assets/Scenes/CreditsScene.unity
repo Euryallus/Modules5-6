@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '<color=#CFAA51><size=50><b>Temple Imperium</b></size>
+  m_text: '<color=#E7AE32><size=50><b>Temple Imperium</b></size>
 
     Was brought
     to you by these fine people</color>
@@ -282,8 +282,8 @@ MonoBehaviour:
     Hugo
 
 
-    <b>Seal
-    Management</b>
+    <b>Music
+    & Seal Management</b>
 
     Joe
 
@@ -363,10 +363,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 140822036}
-    characterCount: 266
+    characterCount: 274
     spriteCount: 0
-    spaceCount: 53
-    wordCount: 45
+    spaceCount: 55
+    wordCount: 46
     linkCount: 0
     lineCount: 26
     pageCount: 1
