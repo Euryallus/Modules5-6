@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8753b4aeac5a66441804e8124420cdb0, type: 3}
+  m_Name: Prototype Weapon
+  m_EditorClassIdentifier: 
+  m_weaponName: Prototype Weapon
+  m_gameObject: {fileID: 9204433137389923706, guid: 9de648685d640d942b0681e709c04f7d,
+    type: 3}
+  m_visualOffset: {x: 0.48, y: -0.25, z: 0.6}
+  m_minAttackDamage: 15
+  m_maxAttackDamage: 20
+  m_attackInterval: 0
+  m_attackSound: Wilhelm
+  m_attackSoundVolume: 0
+  m_aimDownSightOffset: {x: 0, y: -0.13, z: 0.6}
+  m_beamGameObject: {fileID: 7511509880288359812, guid: 23afc69613bb49241ba00545ce092524,
+    type: 3}
+  m_range: 20
+  m_damageInterval: 0.3
+  m_maxCharge: 10
+  m_chargeSpeed: 1
+  m_chargeDrainSpeed: 1
+  m_fireEffectTime: 5
+  m_fireDamage: 1
+  m_timeBetweenFireDamage: 0.5
+  m_minPowerDamage: 40
+  m_maxPowerDamage: 50
+  m_speedMultiplier: 0.5
+  m_slowdownTime: 5
+  m_healthRestoreAmount: 4
+  m_firingSound: Laser Loop
+  m_firingSoundVolume: 1
+  m_disableSound: Laser Disable
+  m_disableSoundVolume: 1
+  m_powerSound: Laser Shot
+  m_powerSoundVolume: 1
