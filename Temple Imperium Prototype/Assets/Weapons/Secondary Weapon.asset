@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Secondary Weapon
   m_EditorClassIdentifier: 
   m_weaponID: Secondary
-  m_weaponName: Secondary Weapon
+  m_weaponName: FE M1924
   m_gameObject: {fileID: 1828699209427079622, guid: e50f2b67a6dd90d4f8687e71b1cc82ac,
     type: 3}
   m_visualOffset: {x: 0.48, y: -0.17, z: 0.6}
