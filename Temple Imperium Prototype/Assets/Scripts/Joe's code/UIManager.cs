@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
         goCanvas = GameObject.Find("Canvas");
         sliderAttackInterval = goCanvas.transform.Find("Attack Interval Slider").GetComponent<Slider>();
         sliderWeaponCharge = goCanvas.transform.Find("Weapon Charge Slider").GetComponent<Slider>();
-        sliderPrototypeCharge = goCanvas.transform.Find("Prototype Charge Slider").GetComponent<Slider>();
+        sliderPrototypeCharge = goCanvas.transform.Find("Weapon Info").Find("Prototype Charge Slider").GetComponent<Slider>();
         weaponHolderPlayer = GameObject.Find("Player").GetComponent<WeaponHolder>();
     }
 
