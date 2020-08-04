@@ -118,8 +118,13 @@ public class playStateControl : MonoBehaviour
             foreach(GameObject door in doorTemp)
             {
                 door.GetComponent<Door>().SetLocked(false);
-            }
 
+                door.transform.GetChild(0).GetChild(0).gameObject.layer = 10;
+                door.transform.GetChild(0).GetChild(1).gameObject.layer = 10;
+
+                
+            }
+            GameObject.FindGameObjectWithTag("navMesh").GetComponent<NavMeshSurface>().BuildNavMesh();
             GameObject[] notes = GameObject.FindGameObjectsWithTag("PickUp");
             foreach(GameObject note in notes)
             {
